@@ -1,0 +1,63 @@
+body
+{
+	margin: 0px;
+	padding: 0px;
+	background-color: #303030;
+	color: white;
+	font-family: Trebuchet Ms;
+	font-size: 12px;
+}
+
+.header
+{
+	background-color: #707070;
+	width:100%;
+	height: 30px;
+}
+
+.footer
+{
+	width:100%;
+	height: 30px;
+	text-align: center;
+	font-size: 10px;
+}
+
+.menu-container
+{
+	width: 100%;
+	margin: 0px;
+	margin-bottom: 10px;
+}
+
+.menu-container .menu
+{
+	margin-left: 10px;
+	margin-right: 10px;
+	padding: 0px;
+}
+
+.menu-container .menu .menu-item
+{
+	width: 125px;
+	display: inline-block;
+	background-color: #A0A0A0;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	border-radius: 3px;
+}
+
+.menu-container .menu .menu-item.is-selected
+{
+	
+}
+
+.menu-container .menu .menu-item:hover
+{
+	background-color: #B0B0B0;
+	cursor: pointer;
+}
+
