@@ -3,9 +3,6 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="styles/site.css" />
 		<script type="text/javascript" src="scripts/jquery-1.9.0.min.js"></script>
-
-		<style>
-		</style>
 	</head>
 	<body>
 		<div class="header">
@@ -14,24 +11,24 @@
 		<div class="main-container">
 			<div class="menu-container">
 				<ul class="menu">
-					<li class="menu-item">
-						<a>Accueil</a>
+					<li id="accueil_menu_item" class="menu-item">
+						<a href="index.html">Accueil</a>
 					</li>
 					<li class="menu-item">
 						<a>Catégories</a>
 						<div class="sub-menu-container">
 							<ul class="sub-menu">
-								<li class="sub-menu-item">
-									<a>Musique</a>
+								<li id="billets_musique_menu_item" class="sub-menu-item">
+									<a href="billets_musique.html">Musique</a>
 								</li>
-								<li class="sub-menu-item">
-									<a>Humour</a>
+								<li id="billets_humour_menu_item" class="sub-menu-item">
+									<a href="billets_humour.html">Humour</a>
 								</li>
 							</ul>
 						</div>
 					</li>
-					<li class="menu-item">
-						<a>Admin</a>
+					<li id="admin_menu_item" class="menu-item">
+						<a href="admin.html">Admin</a>
 					</li>
 				</ul>
 			</div>
@@ -40,15 +37,24 @@
 					<h2>Prochains spectacles</h2>
 					<div class="upcoming-shows-spinner-container">
 						<ul class="upcoming-shows-spinner-tabs">
-							<li class="upcoming-shows-spinner-item upcoming-shows-spinner-back">&lt;</li>
-							<li class="upcoming-shows-spinner-item">1</li>
-							<li class="upcoming-shows-spinner-item">2</li>
-							<li class="upcoming-shows-spinner-item">3</li>
-							<li class="upcoming-shows-spinner-item">4</li>
-							<li class="upcoming-shows-spinner-item">5</li>
-							<li class="upcoming-shows-spinner-item upcoming-shows-spinner-next">&gt;</li>
+							<li class="upcoming-shows-spinner-button upcoming-shows-spinner-back">&lt;</li>
+							<li class="upcoming-shows-spinner-button">1</li>
+							<li class="upcoming-shows-spinner-button">2</li>
+							<li class="upcoming-shows-spinner-button">3</li>
+							<li class="upcoming-shows-spinner-button">4</li>
+							<li class="upcoming-shows-spinner-button">5</li>
+							<li class="upcoming-shows-spinner-button upcoming-shows-spinner-next">&gt;</li>
 						</ul>
 						<div class="upcoming-shows-spinner-content">
+							<div class="upcoming-shows-spinner-item">
+								<div class="upcoming-shows-spinner-item-image" 
+									 style="background-image: url(styles/images/decrepit-birth-upcoming.jpg); background-size: 100% 100%;">
+								</div>
+								<div class="upcoming-shows-spinner-item-description">
+									Spectacle Decrepit Birth au club soda le 6 juin.
+									Prix : 30$
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="content-sections-separation"></div>
@@ -76,22 +82,22 @@
 		
 	</body>
 	
-		<script type="text/javascript">
-			$(document).ready(
-				function()
-				{
-					$(".menu-item").mouseover(
-						function(event)
-						{
-							$(this).find(".sub-menu-container").show();
-						}
-					).mouseout(
-						function(event)
-						{
-							$(this).find(".sub-menu-container").hide();
-						}
-					);
-				}
-			);
-		</script>
+	<script type="text/javascript">
+		$(document).ready(
+			function()
+			{
+				$(".menu-item").mouseover(
+					function(event)
+					{
+						$(this).find(".sub-menu-container").show();
+					}
+				).mouseout(
+					function(event)
+					{
+						$(this).find(".sub-menu-container").hide();
+					}
+				);
+			}
+		);
+	</script>
 </html>
