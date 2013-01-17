@@ -76,6 +76,16 @@ body
 	
 }
 
+/*Remove default anchor style*/
+.menu-container .menu .menu-item a,
+.menu-container .menu .menu-item a:hover,
+.menu-container .menu .menu-item a:focus,
+.menu-container .menu .menu-item a:active
+{
+	text-decoration: none;
+	color: inherit;
+}
+
 .menu-container .menu .menu-item:hover
 {
 	background-color: #A0A0A0;
@@ -90,6 +100,7 @@ body
 	background-color: #A0A0A0;
 	border: 1px solid #303030;
 	border-radius: 0px 0px 3px 3px;
+	z-index: 1000;
 }
 
 .sub-menu
@@ -125,6 +136,25 @@ body
 	height: 250px;
 }
 
+.upcoming-shows-spinner-container .upcoming-shows-spinner-content .upcoming-shows-spinner-item
+{
+	height: 100%;
+}
+
+.upcoming-shows-spinner-container .upcoming-shows-spinner-content .upcoming-shows-spinner-item .upcoming-shows-spinner-item-image
+{
+	height: 80%;
+}
+
+.upcoming-shows-spinner-container .upcoming-shows-spinner-content .upcoming-shows-spinner-item .upcoming-shows-spinner-item-description
+{
+	max-width: 96%;
+	height: 16%;
+	padding: 2%;
+	font-size: 14px;
+	overflow: hidden;
+}
+
 .upcoming-shows-spinner-container .upcoming-shows-spinner-tabs
 {
 	width: 100%;
@@ -133,7 +163,7 @@ body
 	color: white;
 }
 
-.upcoming-shows-spinner-container .upcoming-shows-spinner-tabs .upcoming-shows-spinner-item
+.upcoming-shows-spinner-container .upcoming-shows-spinner-tabs .upcoming-shows-spinner-button
 {
 	padding: 5px 0px;
 	text-align: center;
@@ -143,7 +173,7 @@ body
 	border-radius: 3px;
 }
 
-.upcoming-shows-spinner-container .upcoming-shows-spinner-tabs .upcoming-shows-spinner-item:hover
+.upcoming-shows-spinner-container .upcoming-shows-spinner-tabs .upcoming-shows-spinner-button:hover
 {
 	background-color: #A0A0A0;
 	cursor: pointer;
