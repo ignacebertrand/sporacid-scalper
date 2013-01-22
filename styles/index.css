@@ -1,0 +1,124 @@
+.upcoming-shows-spinner-container
+{
+	display: inline-block;
+}
+
+.upcoming-shows-spinner-container .upcoming-shows-spinner-content
+{
+	border: 1px solid #303030;
+	height: 250px;
+}
+
+.upcoming-shows-spinner-container .upcoming-shows-spinner-content .upcoming-shows-spinner-item
+{
+	height: 100%;
+}
+
+.upcoming-shows-spinner-container .upcoming-shows-spinner-content .upcoming-shows-spinner-item .upcoming-shows-spinner-item-image
+{
+	height: 80%;
+}
+
+.upcoming-shows-spinner-container .upcoming-shows-spinner-content .upcoming-shows-spinner-item .upcoming-shows-spinner-item-description
+{
+	max-width: 96%;
+	height: 16%;
+	padding: 2%;
+	font-size: 14px;
+	overflow: hidden;
+}
+
+.upcoming-shows-spinner-container .upcoming-shows-spinner-tabs
+{
+	width: 100%;
+	display: block;
+	padding: 0px;
+	color: white;
+}
+
+.upcoming-shows-spinner-container .upcoming-shows-spinner-tabs .upcoming-shows-spinner-button
+{
+	padding: 5px 0px;
+	text-align: center;
+	width: 50px;
+	background-color: #888888;
+	display: inline-block;
+	border-radius: 3px;
+}
+
+.upcoming-shows-spinner-container .upcoming-shows-spinner-tabs .upcoming-shows-spinner-button:hover
+{
+	background-color: #A0A0A0;
+	cursor: pointer;
+}
+
+.upcoming-shows-spinner-container .upcoming-shows-spinner-tabs .upcoming-shows-spinner-back, 
+.upcoming-shows-spinner-container .upcoming-shows-spinner-tabs .upcoming-shows-spinner-next
+{
+	width: 25px;
+	background-color: #666666;
+}
+
+.upcoming-shows-spinner-container .upcoming-shows-spinner-tabs .upcoming-shows-spinner-back:hover, 
+.upcoming-shows-spinner-container .upcoming-shows-spinner-tabs .upcoming-shows-spinner-next:hover
+{
+	background-color: #888888;
+}
+
+.news-list-container
+{
+	width: 90%;
+	margin: auto;
+}
+
+.news-list-container .news-list
+{
+	padding: 0px;
+	list-style-type: none;
+}
+
+.news-signature
+{
+	text-align: right;
+	font-style: italic;
+}
+
+.news-date
+{
+	text-align: right;
+}
+
+.news-list-container .news-list .news-list-item
+{
+	border-bottom: 1px solid #303030;
+}
+
+.content-left-section
+{
+	float: left;
+	width: 40%;
+	position: relative;
+	text-align: center;
+}
+
+.content-left-section h2,
+.content-right-section h2
+{
+	text-align: left;
+}
+
+.content-sections-separation
+{
+	height: 80%;
+	position: absolute;
+	right: 0px;
+	top: 30px;
+	border-left: 1px solid #303030;
+}
+
+.content-right-section
+{
+	height: 480px;
+	width: 55%;
+	margin-left: 45%;
+}
