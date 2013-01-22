@@ -81,6 +81,11 @@ body
 	border-radius: 3px;
 }
 
+.menu-container .menu .menu-item a
+{
+   display: block;
+}
+
 .menu-container .menu .menu-item.is-selected
 {
 	
