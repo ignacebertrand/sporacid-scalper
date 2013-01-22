@@ -15,7 +15,7 @@
 						<a href="index.html">Accueil</a>
 					</li>
 					<li class="menu-item">
-						<a>Catégories</a>
+						<a>Spectacles</a>
 						<div class="sub-menu-container">
 							<ul class="sub-menu">
 								<li id="billets_musique_menu_item" class="sub-menu-item">
@@ -31,6 +31,14 @@
 						<a href="admin.html">Admin</a>
 					</li>
 				</ul>
+				<div class="shopping-cart-controller">
+					<a class="shopping-cart-desc" href="#">
+						<span class="shopping-cart-counter">1</span>
+						item(s) dans le panier 
+						(<span class="shopping-cart-total">49.99$</span>)
+					</a>
+					<div class="shopping-cart-button"></div>
+				</div>
 			</div>
 			<div class="content">
 				<div class="content-left-section">
@@ -64,8 +72,17 @@
 					<div class="news-list-container">
 						<ul class="news-list">
 							<li class="news-list-item">
+								<h3>Donnez nous votre argent</h3>
+								<p>Pour chaque clic sur notre panier d'achat, dieu tue un chaton!</p>
+								<p class="news-signature">Patrick Lavallée</p>
+								<p class="news-date">21 janvier 2013 20:27</p>
+							</li>
+						</ul>
+						<ul class="news-list">
+							<li class="news-list-item">
 								<h3>Bienvenue sur le site</h3>
 								<p>Nous vous souhaitons la bienvenue sur s'tostie de site de marde là. Allez chier!</p>
+								<p class="news-signature">Simon Turcotte-Langevin</p>
 								<p class="news-date">15 janvier 2013 23:57</p>
 							</li>
 						</ul>
@@ -95,6 +112,17 @@
 					function(event)
 					{
 						$(this).find(".sub-menu-container").hide();
+					}
+				);
+				
+				$(".shopping-cart-button").click(
+					function(event)
+					{
+					}
+				).mouseover(
+					function(event)
+					{
+						alert('tention!, click pas...');
 					}
 				);
 			}

@@ -46,16 +46,18 @@ body
 .menu-container
 {
 	width: 100%;
-	margin: 0px;
-	margin-bottom: 10px;
+	margin: 10px 0px;
+	height: 32px;
 	position: relative;
 }
 
 .menu-container .menu
 {
-	margin-left: 10px;
-	margin-right: 10px;
+	margin: 0px;
 	padding: 0px;
+	width: 75%;
+	float: left;
+	display: block;
 }
 
 .menu-container .menu .menu-item
@@ -91,6 +93,70 @@ body
 	background-color: #A0A0A0;
 	cursor: pointer;
 }
+
+/**
+*
+* SHOPPING CART
+*
+**/
+
+.shopping-cart-controller
+{
+	height: 32px;
+	width: 25%;
+	margin-left: 75%;
+	text-align: right;
+}
+
+.shopping-cart-button
+{
+	display: inline-block;
+	background-image: url("images/icone_panier_achat.png");
+	height: 32px;
+	width: 32px;
+	background-size: 90% 90%;
+	background-position: center;
+	background-color: #888888;
+	background-repeat: no-repeat;
+	border-radius: 3px;
+	box-shadow: 3px 3px 3px #666666;
+	margin-right: 3px;
+	cursor: pointer;
+}
+
+.shopping-cart-button:hover
+{
+	background-color: #A0A0A0;
+}
+
+.shopping-cart-desc
+{
+	vertical-align: top;
+	color: white;
+	display: inline-block;
+	font-size: 14px;
+	margin-top: 8px;
+	margin-right: 8px;
+}
+
+.shopping-cart-desc:hover
+{
+	color: #A0A0A0;
+}
+
+.shopping-cart-counter
+{
+}
+
+.shopping-cart-total
+{
+}
+
+/**
+*
+************************************
+*
+**/
 
 .sub-menu-container
 {
@@ -204,6 +270,12 @@ body
 	list-style-type: none;
 }
 
+.news-signature
+{
+	text-align: right;
+	font-style: italic;
+}
+
 .news-date
 {
 	text-align: right;
@@ -239,7 +311,7 @@ body
 
 .content-right-section
 {
-	height: 800px;
+	height: 480px;
 	width: 55%;
 	margin-left: 45%;
 }
