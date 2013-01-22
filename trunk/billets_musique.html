@@ -48,9 +48,11 @@
 					<label for="select_category" class="generic-label">Catégories :</label>
 					<select id="select_category" class="generic-select">
 						<option value="-1">Tout</option>
-						<option value="1">Rock</option>
-						<option value="2">Heavy Metal</option>
-						<option value="3">Classique</option>
+						<option value="1">Blues</option>
+						<option value="2">Classique</option>
+						<option value="3">Heavy Metal</option>
+						<option value="4">Jazz</option>
+						<option value="5">Rock</option>
 					</select>
 					<label for="textbox_search_criteria" class="generic-label">Recherche par mot clé :</label>
 					<input type="text" id="textbox_search_criteria" class="generic-textbox" />
@@ -58,6 +60,27 @@
 				<ul class="event-list">
 					<li class="event-list-item">
 						<div class="event-list-item-image" style="background-image: url(styles/images/decrepit-birth-event.jpg);"></div>
+						<div class="event-list-item-content">
+							<h1 class="event-list-item-content-title">Lancement d'album Decrepit Birth</h1>
+							<h2 class="event-list-item-content-artists">Decrepit Birth + invités</h2>
+							<h3 class="event-list-item-content-location">Club Soda</h3>
+							<p class="event-list-item-content-desc">Le nouvel album de Decrepit Birth, Polarity est maitenant en vente...depuis fucking 3 ans, mais j'men criss du contenu.</p>
+						</div>
+						<div class="event-list-item-controller">
+							<label class="generic-label">Quantité :</label>
+							<select class="generic-select event-list-item-quantity-select">
+								<option value="-1">--</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+							</select>
+							<div class="generic-button">
+								Ajouter au panier
+							</div>
+						<div>
 					</li>
 				</ul>
 			</div>
@@ -66,7 +89,6 @@
 		<div class="footer">
 			© Copyright Sporacid Studio 2013
 		</div>
-		
 	</body>
 	
 	<script type="text/javascript">
