@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>Billets Sporacid</title>
 		<link rel="stylesheet" type="text/css" href="styles/site.css" />
+		<link rel="stylesheet" type="text/css" href="styles/billets_musique.css" />
 		<script type="text/javascript" src="scripts/jquery-1.9.0.min.js"></script>
 	</head>
 	<body>
@@ -15,7 +17,7 @@
 						<a href="index.html">Accueil</a>
 					</li>
 					<li class="menu-item">
-						<a>Catégories</a>
+						<a>Spectacles</a>
 						<div class="sub-menu-container">
 							<ul class="sub-menu">
 								<li id="billets_musique_menu_item" class="sub-menu-item">
@@ -31,14 +33,33 @@
 						<a href="admin.html">Admin</a>
 					</li>
 				</ul>
+				<div class="shopping-cart-controller">
+					<a class="shopping-cart-desc" href="#">
+						<span class="shopping-cart-counter">1</span>
+						item(s) dans le panier 
+						(<span class="shopping-cart-total">49.99$</span>)
+					</a>
+					<div class="shopping-cart-button generic-button"></div>
+				</div>
 			</div>
 			<div class="content">
-				<div class="content-left-section">
-					<div class="content-sections-separation"></div>
+				<h2>Billets de musique</h2>
+				<div class="event-filters-container">
+					<label for="select_category" class="generic-label">Catégories :</label>
+					<select id="select_category" class="generic-select">
+						<option value="-1">Tout</option>
+						<option value="1">Rock</option>
+						<option value="2">Heavy Metal</option>
+						<option value="3">Classique</option>
+					</select>
+					<label for="textbox_search_criteria" class="generic-label">Recherche par mot clé :</label>
+					<input type="text" id="textbox_search_criteria" class="generic-textbox" />
 				</div>
-				<div class="content-right-section">
-					
-				</div>
+				<ul class="event-list">
+					<li class="event-list-item">
+						<div class="event-list-item-image" style="background-image: url(styles/images/decrepit-birth-event.jpg);"></div>
+					</li>
+				</ul>
 			</div>
 		</div>
 		
@@ -52,6 +73,14 @@
 		$(document).ready(
 			function()
 			{
+				$(window).resize(
+					function()
+					{
+						resizeContent();
+					}
+				);
+				resizeContent();
+			
 				$(".menu-item").mouseover(
 					function(event)
 					{
@@ -63,7 +92,28 @@
 						$(this).find(".sub-menu-container").hide();
 					}
 				);
+				
+				$(".shopping-cart-button").click(
+					function(event)
+					{
+					}
+				).mouseover(
+					function(event)
+					{
+						alert('tention!, click pas...');
+					}
+				);
 			}
 		);
+		
+		function resizeContent()
+		{		
+			//Set the content to fit the browser's height
+			var contentHeight = $(window).innerHeight() - $(".header").outerHeight(true) - $(".footer").outerHeight(true) - $(".menu-container").outerHeight(true);
+			//Remove top and bottom padding; I don't want to parse them.
+			contentHeight -= 60;
+			
+			$(".content").height(contentHeight);
+		}
 	</script>
 </html>
