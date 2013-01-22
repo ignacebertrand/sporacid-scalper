@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>Billets Sporacid </title>
 		<link rel="stylesheet" type="text/css" href="styles/site.css" />
 		<script type="text/javascript" src="scripts/jquery-1.9.0.min.js"></script>
 	</head>
@@ -77,9 +78,19 @@
 								<p class="news-signature">Patrick Lavallée</p>
 								<p class="news-date">21 janvier 2013 20:27</p>
 							</li>
-						</ul>
-						<ul class="news-list">
 							<li class="news-list-item">
+								<h3>Bienvenue sur le site</h3>
+								<p>Nous vous souhaitons la bienvenue sur s'tostie de site de marde là. Allez chier!</p>
+								<p class="news-signature">Simon Turcotte-Langevin</p>
+								<p class="news-date">15 janvier 2013 23:57</p>
+							</li>
+														<li class="news-list-item">
+								<h3>Bienvenue sur le site</h3>
+								<p>Nous vous souhaitons la bienvenue sur s'tostie de site de marde là. Allez chier!</p>
+								<p class="news-signature">Simon Turcotte-Langevin</p>
+								<p class="news-date">15 janvier 2013 23:57</p>
+							</li>
+																					<li class="news-list-item">
 								<h3>Bienvenue sur le site</h3>
 								<p>Nous vous souhaitons la bienvenue sur s'tostie de site de marde là. Allez chier!</p>
 								<p class="news-signature">Simon Turcotte-Langevin</p>
@@ -103,6 +114,14 @@
 		$(document).ready(
 			function()
 			{
+				$(window).resize(
+					function()
+					{
+						resizeContent();
+					}
+				);
+				resizeContent();
+			
 				$(".menu-item").mouseover(
 					function(event)
 					{
@@ -127,5 +146,15 @@
 				);
 			}
 		);
+		
+		function resizeContent()
+		{		
+			//Set the content to fit the browser's height
+			var contentHeight = $(window).innerHeight() - $(".header").outerHeight(true) - $(".footer").outerHeight(true) - $(".menu-container").outerHeight(true);
+			//Remove top and bottom padding; I don't want to parse them.
+			contentHeight -= 60;
+			
+			$(".content").height(contentHeight);
+		}
 	</script>
 </html>
