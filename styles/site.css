@@ -1,3 +1,6 @@
+/**
+** General site css
+**/
 body
 {
 	margin: 0px;
@@ -16,14 +19,54 @@ body
 	color: white;
 	font-family: Trebuchet Ms;
 	font-size: 13px;
+	min-width: 1024px;
 }
+
+/**
+** User selection definitions
+**/
+
+body *
+{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+body .content *
+{
+	-webkit-touch-callout: text;
+	-webkit-user-select: text;
+	-khtml-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+}
+
+body .generic-label,
+body .generic-select,
+body .generic-button
+{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/**
+** Master page
+**/
 
 .header
 {
 	background-image: url("images/header.png");
 	background-size: 100% 100%;
-	width: 100%;
-	height: 175px;
+	height: 125px;
 	margin-bottom: 10px;
 }
 
@@ -107,12 +150,6 @@ body
 	cursor: pointer;
 }
 
-/**
-*
-* SHOPPING CART
-*
-**/
-
 .shopping-cart-controller
 {
 	height: 32px;
@@ -191,7 +228,7 @@ body
 }
 
 /**
-** Controles
+** Controls (Select, buttons and their friends)
 **/
 .generic-label
 {
