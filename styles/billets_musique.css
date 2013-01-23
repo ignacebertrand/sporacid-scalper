@@ -14,7 +14,7 @@
 
 .event-list .event-list-item
 {
-	
+	margin-bottom: 30px;
 }
 
 .event-list .event-list-item .event-list-item-image
@@ -71,7 +71,7 @@
 	background-color: #303030;
 	padding: 10px;
 	border-radius: 3px;
-	background-image: url("images/logo.png");
+	background-image: url("images/logo_small.png");
 	background-position: 20px center;
 	background-repeat: no-repeat;
 }

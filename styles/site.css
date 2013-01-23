@@ -70,6 +70,14 @@ body .generic-button
 	margin-bottom: 10px;
 }
 
+.header .header-logo
+{
+	background-image: url("images/logo_big.png");
+	background-position: 3% center;
+	background-repeat: no-repeat;
+	height: 100%;
+}
+
 .main-container
 {
 	width: 96%;
