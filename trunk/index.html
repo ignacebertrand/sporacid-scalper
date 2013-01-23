@@ -34,7 +34,7 @@
 					</li>
 				</ul>
 				<div class="shopping-cart-controller">
-					<a class="shopping-cart-desc" href="#">
+					<a class="shopping-cart-desc" href="panier_achat.html">
 						<span class="shopping-cart-counter">1</span>
 						item(s) dans le panier 
 						(<span class="shopping-cart-total">49.99$</span>)
@@ -126,6 +126,7 @@
 				$(".shopping-cart-button").click(
 					function(event)
 					{
+						window.location = $(".shopping-cart-desc").attr("href");
 					}
 				).mouseover(
 					function(event)

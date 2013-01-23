@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>Billets Sporacid</title>
 		<link rel="stylesheet" type="text/css" href="styles/site.css" />
+		<link rel="stylesheet" type="text/css" href="styles/index.css" />
 		<script type="text/javascript" src="scripts/jquery-1.9.0.min.js"></script>
 	</head>
 	<body>
@@ -12,28 +14,36 @@
 			<div class="menu-container">
 				<ul class="menu">
 					<li id="accueil_menu_item" class="menu-item">
-						<a>Accueil</a>
+						<a href="index.html">Accueil</a>
 					</li>
 					<li class="menu-item">
-						<a>Catégories</a>
+						<a>Spectacles</a>
 						<div class="sub-menu-container">
 							<ul class="sub-menu">
 								<li id="billets_musique_menu_item" class="sub-menu-item">
-									<a>Musique</a>
+									<a href="billets_musique.html">Musique</a>
 								</li>
 								<li id="billets_humour_menu_item" class="sub-menu-item">
-									<a>Humour</a>
+									<a href="billets_humour.html">Humour</a>
 								</li>
 							</ul>
 						</div>
 					</li>
 					<li id="admin_menu_item" class="menu-item">
-						<a>Admin</a>
+						<a href="admin.html">Admin</a>
 					</li>
 				</ul>
+				<div class="shopping-cart-controller">
+					<a class="shopping-cart-desc" href="panier_achat.html">
+						<span class="shopping-cart-counter">1</span>
+						item(s) dans le panier 
+						(<span class="shopping-cart-total">49.99$</span>)
+					</a>
+					<div class="shopping-cart-button generic-button"></div>
+				</div>
 			</div>
 			<div class="content">
-			
+				
 			</div>
 		</div>
 		
@@ -47,6 +57,14 @@
 		$(document).ready(
 			function()
 			{
+				$(window).resize(
+					function()
+					{
+						resizeContent();
+					}
+				);
+				resizeContent();
+			
 				$(".menu-item").mouseover(
 					function(event)
 					{
@@ -58,7 +76,29 @@
 						$(this).find(".sub-menu-container").hide();
 					}
 				);
+				
+				$(".shopping-cart-button").click(
+					function(event)
+					{
+						window.location = $(".shopping-cart-desc").attr("href");
+					}
+				).mouseover(
+					function(event)
+					{
+						/*alert('tention!, click pas...');*/
+					}
+				);
 			}
 		);
+		
+		function resizeContent()
+		{		
+			//Set the content to fit the browser's height
+			var contentHeight = $(window).innerHeight() - $(".header").outerHeight(true) - $(".footer").outerHeight(true) - $(".menu-container").outerHeight(true);
+			//Remove top and bottom padding; I don't want to parse them.
+			contentHeight -= 60;
+			
+			$(".content").height(contentHeight);
+		}
 	</script>
 </html>
