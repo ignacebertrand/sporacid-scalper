@@ -54,22 +54,21 @@
 					<h2>Ajouter un spectacle</h2>
 					<div class="add-event-description">
 						<h3>Détail du spectacle</h3><br/>
-                        <!--une div pour chaque ligne-->
-                        <div>
+                        <div class="add-event-description-item">
 						    <label for="type" class="generic-label">Types :</label>
 						    <input type="radio" name="type" value="aucun"/>Aucun
 						    <input type="radio" name="type" value="humour"/>Humour
 						    <input type="radio" name="type" value="musique"/>Musique <br/>
                         </div>
-                        <div>
+                        <div class="add-event-description-item">
                         <label for="artiste" class="generic-label">Artiste :</label>
 						<input type="text" name="artiste" class="generic-textbox"/><br/>
                         </div>
-                        <div>
+                        <div class="add-event-description-item">
                         <label for="nomSpectacle" class="generic-label">Nom du spectacle :</label>
 						<input type="text" name="nomSpectacle"/><br/>
                         </div>
-                        <div>
+                        <div class="add-event-description-item">
 						<label for="select_category" class="generic-label">Catégories :</label>
 						<select id="select_category" class="generic-select">
 							<option value="-1">Aucune</option>
@@ -80,8 +79,8 @@
 							<option value="5">Rock</option>
 						</select><br/>
                         </div>
-                        <div>
-						<input type="submit" value="Sauvegarder"/>
+                        <div class="add-event-description-item">
+						<input type="submit" value="Sauvegarder" class="generic-button"/>
                         </div>
 					</div>
 					<div class="add-event-representations">
@@ -109,13 +108,13 @@
 						        <input type="text" name="ticket-cost" class="ticket-cost"/>
                             </li>
                         </ul>
-                        <div class="representation-list-item-controller">
-                            <div class="generic-button">
-								Ajouter une représentation
-							</div>
-                        </div>
 					</div>
-				</form>		
+                    <div class="representation-list-item-controller">
+                        <div class="generic-button">
+						    Ajouter une représentation
+					    </div>
+                    </div>
+				</form>
 			</div>
 		</div>
 		
