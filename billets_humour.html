@@ -5,6 +5,7 @@
 		<link rel="stylesheet" type="text/css" href="styles/site.css" />
 		<link rel="stylesheet" type="text/css" href="styles/index.css" />
 		<script type="text/javascript" src="scripts/jquery-1.9.0.min.js"></script>
+		<script type="text/javascript" src="scripts/site-scripts.js"></script>
 	</head>
 	<body>
 		<div class="header">
@@ -58,48 +59,8 @@
 		$(document).ready(
 			function()
 			{
-				$(window).resize(
-					function()
-					{
-						resizeContent();
-					}
-				);
-				resizeContent();
-			
-				$(".menu-item").mouseover(
-					function(event)
-					{
-						$(this).find(".sub-menu-container").show();
-					}
-				).mouseout(
-					function(event)
-					{
-						$(this).find(".sub-menu-container").hide();
-					}
-				);
 				
-				$(".shopping-cart-button").click(
-					function(event)
-					{
-						window.location = $(".shopping-cart-desc").attr("href");
-					}
-				).mouseover(
-					function(event)
-					{
-						/*alert('tention!, click pas...');*/
-					}
-				);
 			}
 		);
-		
-		function resizeContent()
-		{		
-			//Set the content to fit the browser's height
-			var contentHeight = $(window).innerHeight() - $(".header").outerHeight(true) - $(".footer").outerHeight(true) - $(".menu-container").outerHeight(true);
-			//Remove top and bottom padding; I don't want to parse them.
-			contentHeight -= 60;
-			
-			$(".content").height(contentHeight);
-		}
 	</script>
 </html>

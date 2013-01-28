@@ -5,6 +5,7 @@
 		<link rel="stylesheet" type="text/css" href="styles/site.css" />
 		<link rel="stylesheet" type="text/css" href="styles/billets_musique.css" />
 		<script type="text/javascript" src="scripts/jquery-1.9.0.min.js"></script>
+		<script type="text/javascript" src="scripts/site-scripts.js"></script>
 	</head>
 	<body>
 		<div class="header">
@@ -35,7 +36,7 @@
 					</li>
 				</ul>
 				<div class="shopping-cart-controller">
-					<a class="shopping-cart-desc" href="#">
+					<a class="shopping-cart-desc" href="panier_achat.html">
 						<span class="shopping-cart-counter">1</span>
 						item(s) dans le panier 
 						(<span class="shopping-cart-total">49.99$</span>)
@@ -110,38 +111,6 @@
 		$(document).ready(
 			function()
 			{
-				//On window resize, resize the whole document.
-				//Keeps the document "full screen"
-				$(window).resize(
-					function()
-					{
-						resizeContent();
-					}
-				);
-				resizeContent();
-			
-				$(".menu-item").mouseover(
-					function(event)
-					{
-						$(this).find(".sub-menu-container").show();
-					}
-				).mouseout(
-					function(event)
-					{
-						$(this).find(".sub-menu-container").hide();
-					}
-				);
-				
-				$(".shopping-cart-button").click(
-					function(event)
-					{
-					}
-				).mouseover(
-					function(event)
-					{
-					}
-				);
-				
 				//Mock of wait time for server response.
 				$(".event-list-item-disponibility-button").click(
 					function()
@@ -177,14 +146,5 @@
 			}
 		);
 		
-		function resizeContent()
-		{		
-			//Set the content to fit the browser's height
-			var contentHeight = $(window).innerHeight() - $(".header").outerHeight(true) - $(".footer").outerHeight(true) - $(".menu-container").outerHeight(true);
-			//Remove top and bottom padding; I don't want to parse them.
-			contentHeight -= 60;
-			
-			$(".content").height(contentHeight);
-		}
 	</script>
 </html>
