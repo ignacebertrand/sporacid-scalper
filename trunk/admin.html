@@ -6,6 +6,11 @@
 		<link rel="stylesheet" type="text/css" href="styles/site.css" />
 		<link rel="stylesheet" type="text/css" href="styles/admin.css" />
 		<script type="text/javascript" src="scripts/jquery-1.9.0.min.js"></script>
+        <script type="text/javascript" src="scripts/jquery.maskedinput.min.js"></script>
+        <script type="text/javascript" src="scripts/jquery.ui.datepicker-fr.js"></script>
+        <script type="text/javascript" src="scripts/jquery.ui.timepicker.js"></script>
+        <script type="text/javascript" src="scripts/jquery.ui.timepicker-fr.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
 	</head>
 	<body>
 		<div class="header">
@@ -45,54 +50,70 @@
 				</div>
 			</div>
 			<div class="content">
-				<form name="add-events">
+				<form name="add-events" action="" method="get">
 					<h2>Ajouter un spectacle</h2>
 					<div class="add-event-description">
-						<h3>Détail du spectacle</h3></br>
-						Types : 
-						<input type="radio" name="type" value="aucun">Aucun
-						<input type="radio" name="type" value="humour">Humour
-						<input type="radio" name="type" value="musique">Musique </br>
-						Artiste : <input type="text" name="artiste"></br>
-						Nom du spectacle : <input type="text" name="nomSpectacle"></br>
-						<label for="category" class="generic-label">Catégories :</label>
-						<select id="select_category" class="generic-select"></br>
+						<h3>Détail du spectacle</h3><br/>
+                        <!--une div pour chaque ligne-->
+                        <div>
+						    <label for="type" class="generic-label">Types :</label>
+						    <input type="radio" name="type" value="aucun"/>Aucun
+						    <input type="radio" name="type" value="humour"/>Humour
+						    <input type="radio" name="type" value="musique"/>Musique <br/>
+                        </div>
+                        <div>
+                        <label for="artiste" class="generic-label">Artiste :</label>
+						<input type="text" name="artiste" class="generic-textbox"/><br/>
+                        </div>
+                        <div>
+                        <label for="nomSpectacle" class="generic-label">Nom du spectacle :</label>
+						<input type="text" name="nomSpectacle"/><br/>
+                        </div>
+                        <div>
+						<label for="select_category" class="generic-label">Catégories :</label>
+						<select id="select_category" class="generic-select">
 							<option value="-1">Aucune</option>
 							<option value="1">Blues</option>
 							<option value="2">Classique</option>
 							<option value="3">Heavy Metal</option>
 							<option value="4">Jazz</option>
 							<option value="5">Rock</option>
-						</select></br>
-						<input type="submit" value="Sauvegarder">
+						</select><br/>
+                        </div>
+                        <div>
+						<input type="submit" value="Sauvegarder"/>
+                        </div>
 					</div>
 					<div class="add-event-representations">
-						<h3>Représentations</h3></br>
-						Date : <input type="text" name="date1" id="datepicker">
-						Endroit : <select id="select-place" class="generic-select">
-							<option value="-1">Aucun</option>
-							<option value="1">Métropolis</option>
-							<option value="2">Olympia</option>
-							<option value="3">Centre Bell</option>
-							<option value="4">Stade olympique</option>
-							<option value="5">Place des Arts</option>
-						</select>
-						Heure début : <select id="select-start-hour" class="generic-select">
-							<option value="-1">Aucune</option>
-							<option value="1">18:00</option>
-							<option value="2">18:30</option>
-							<option value="3">19:00</option>
-							<option value="4">19:30</option>
-							<option value="5">20:00</option>
-						</select>
-						fin : <select id="select-end-hour" class="generic-select">
-							<option value="-1">Aucune</option>
-							<option value="1">20:00</option>
-							<option value="2">20:30</option>
-							<option value="3">21:00</option>
-							<option value="4">21:30</option>
-							<option value="5">22:00</option>
-						</select>
+						<h3>Représentations</h3><br/>
+                        <ul class="representations-list">
+					        <li class="representations-item">
+                                <label class="generic-label">Date</label>
+                                <label class="generic-label">Salle</label>
+                                <label class="generic-label">Début</label>
+                                <label class="generic-label">Fin</label>
+                                <label class="generic-label">Prix</label>
+					        </li>
+					        <li class="representations-item">
+						        <input type="text" name="date" class="generic-datepicker"/>
+						        <select id="select-place" class="generic-select">
+							        <option value="-1">Aucun</option>
+							        <option value="1">Métropolis</option>
+							        <option value="2">Olympia</option>
+							        <option value="3">Centre Bell</option>
+							        <option value="4">Stade olympique</option>
+							        <option value="5">Place des Arts</option>
+						        </select>
+					            <input type="text" name="start-time" class="generic-timepicker"/>
+						        <input type="text" name="end-time" class="generic-timepicker"/>
+						        <input type="text" name="ticket-cost" class="ticket-cost"/>
+                            </li>
+                        </ul>
+                        <div class="representation-list-item-controller">
+                            <div class="generic-button">
+								Ajouter une représentation
+							</div>
+                        </div>
 					</div>
 				</form>		
 			</div>
@@ -139,6 +160,14 @@
 						/*alert('tention!, click pas...');*/
 					}
 				);
+
+				$(".generic-datepicker").datepicker($.datepicker.regional["fr"])
+                .mask("99/99/9999");
+
+				$(".generic-timepicker").timepicker($.timepicker.regional["fr"])
+                .mask("99:99");
+
+				$(".ticket-cost").mask("999.99");
 			}
 		);
 		
