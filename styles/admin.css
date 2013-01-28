@@ -7,7 +7,23 @@
 {
 	float:right;
 }
-.event-hour
+.generic-datepicker
 {
-	width:50px;
+	width:80px;
+}
+.generic-timepicker
+{
+	width:40px;
+}
+.representation-list-item-controller
+{
+	text-align: right;
+	margin-right: 10px;
+	margin-top: 10px;
+	background-color: #303030;
+	padding: 10px;
+	border-radius: 3px;
+	background-image: url("images/logo_small.png");
+	background-position: 20px center;
+	background-repeat: no-repeat;
 }
