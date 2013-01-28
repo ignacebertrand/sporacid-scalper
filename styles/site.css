@@ -124,10 +124,10 @@ body .generic-button
 	width: 125px;
 	display: inline-block;
 	background-color: #888888;
-	padding-top: 0.3em;
-	padding-bottom: 0.3em;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	text-align: center;
-	font-size: 1.25em;
+	font-size: 16px;
 	font-weight: bold;
 	border-radius: 3px;
 }
@@ -160,7 +160,7 @@ body .generic-button
 
 .shopping-cart-controller
 {
-	height: 1.85em;
+	height: 32px;
 	width: 35%;
 	margin-left: 65%;
 	text-align: right;
@@ -169,8 +169,8 @@ body .generic-button
 .shopping-cart-button
 {
 	background-image: url("images/icone_panier_achat.png");
-	height: 1.85em;
-	width: 1.85em;
+	height: 32px;
+	width: 32px;
 	background-size: 90% 90%;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -206,7 +206,7 @@ body .generic-button
 {
 	display: none;
 	position: absolute;
-	top: 1.90em;
+	top: 32px;
 	background-color: #A0A0A0;
 	border: 1px solid #303030;
 	border-radius: 0px 0px 3px 3px;
