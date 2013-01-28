@@ -6,6 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="styles/site.css" />
 		<link rel="stylesheet" type="text/css" href="styles/admin.css" />
 		<script type="text/javascript" src="scripts/jquery-1.9.0.min.js"></script>
+		<script type="text/javascript" src="scripts/site-scripts.js"></script>
         <script type="text/javascript" src="scripts/jquery.maskedinput.min.js"></script>
         <script type="text/javascript" src="scripts/jquery.ui.datepicker-fr.js"></script>
         <script type="text/javascript" src="scripts/jquery.ui.timepicker.js"></script>
@@ -61,26 +62,26 @@
 						    <input type="radio" name="type" value="musique"/>Musique <br/>
                         </div>
                         <div class="add-event-description-item">
-                        <label for="artiste" class="generic-label">Artiste :</label>
-						<input type="text" name="artiste" class="generic-textbox"/><br/>
+							<label for="artiste" class="generic-label">Artiste :</label>
+							<input type="text" name="artiste" class="generic-textbox" /><br/>
                         </div>
                         <div class="add-event-description-item">
-                        <label for="nomSpectacle" class="generic-label">Nom du spectacle :</label>
-						<input type="text" name="nomSpectacle"/><br/>
+							<label for="nomSpectacle" class="generic-label">Nom du spectacle :</label>
+							<input type="text" name="nomSpectacle" class="generic-textbox"/><br/>
                         </div>
                         <div class="add-event-description-item">
-						<label for="select_category" class="generic-label">Catégories :</label>
-						<select id="select_category" class="generic-select">
-							<option value="-1">Aucune</option>
-							<option value="1">Blues</option>
-							<option value="2">Classique</option>
-							<option value="3">Heavy Metal</option>
-							<option value="4">Jazz</option>
-							<option value="5">Rock</option>
-						</select><br/>
+							<label for="select_category" class="generic-label">Catégories :</label>
+							<select id="select_category" class="generic-select">
+								<option value="-1">Aucune</option>
+								<option value="1">Blues</option>
+								<option value="2">Classique</option>
+								<option value="3">Heavy Metal</option>
+								<option value="4">Jazz</option>
+								<option value="5">Rock</option>
+							</select><br/>
                         </div>
                         <div class="add-event-description-item">
-						<input type="submit" value="Sauvegarder" class="generic-button"/>
+							<input type="submit" value="Sauvegarder" class="generic-button"/>
                         </div>
 					</div>
 					<div class="add-event-representations">
@@ -128,38 +129,6 @@
 		$(document).ready(
 			function()
 			{
-				$(window).resize(
-					function()
-					{
-						resizeContent();
-					}
-				);
-				resizeContent();
-			
-				$(".menu-item").mouseover(
-					function(event)
-					{
-						$(this).find(".sub-menu-container").show();
-					}
-				).mouseout(
-					function(event)
-					{
-						$(this).find(".sub-menu-container").hide();
-					}
-				);
-				
-				$(".shopping-cart-button").click(
-					function(event)
-					{
-						window.location = $(".shopping-cart-desc").attr("href");
-					}
-				).mouseover(
-					function(event)
-					{
-						/*alert('tention!, click pas...');*/
-					}
-				);
-
 				$(".generic-datepicker").datepicker($.datepicker.regional["fr"])
                 .mask("99/99/9999");
 
@@ -169,16 +138,5 @@
 				$(".ticket-cost").mask("999.99");
 			}
 		);
-		
-		function resizeContent()
-		{		
-			//Set the content to fit the browser's height
-			var contentHeight = $(window).innerHeight() - $(".header").outerHeight(true) - $(".footer").outerHeight(true) - $(".menu-container").outerHeight(true);
-			//Remove top and bottom padding; I don't want to parse them.
-			contentHeight -= 60;
-			
-			$(".content").height(contentHeight);
-		}
-
 	</script>
 </html>
