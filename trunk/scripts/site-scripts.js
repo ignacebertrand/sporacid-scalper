@@ -19,10 +19,10 @@ $(document).ready(
 		$(".menu-item:has(.sub-menu-container)").mouseover(
 			function(event)
 			{
-				var top = $(this).outerHeight();
+				/*var top = $(this).outerHeight();*/
 				var submenu = $(this).find(".sub-menu-container")
 				
-				submenu.css("top", top + "px");
+				/*submenu.css("top", top + "px");*/
 				submenu.show();
 			}
 		).mouseout(
