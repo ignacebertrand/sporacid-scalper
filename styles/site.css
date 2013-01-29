@@ -209,6 +209,7 @@ body .generic-button
 	top: 32px;
 	background-color: #A0A0A0;
 	border: 1px solid #303030;
+	border-top-width: 3px;
 	border-radius: 0px 0px 3px 3px;
 	z-index: 1000;
 }
