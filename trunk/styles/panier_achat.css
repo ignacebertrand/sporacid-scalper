@@ -103,7 +103,14 @@
 	margin-left: 10px;
 }
 
-.shopping-cart-item-total
+.shopping-cart-item-list-controller .generic-label
+{
+	font-size: 16px;
+	color: white;
+}
+
+.shopping-cart-item-total,
+.shopping-cart-item-list-total
 {
 	color: white;
 	font-weight: bold;
