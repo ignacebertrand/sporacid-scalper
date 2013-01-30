@@ -24,11 +24,13 @@
 {
 	width:40px;
 }
-.representation-list-item-controller
+.ticket-cost
 {
-    /*position:absolute;
-    left:50px;
-    z-index:-1;*/
+	width:40px;
+}
+.representation-list-item-controller,  
+.add-event-item-controller
+{
 	text-align: right;
 	margin-right: 10px;
 	margin-top: 10px;
@@ -38,5 +40,4 @@
 	background-image: url("images/logo_small.png");
 	background-position: 20px center;
 	background-repeat: no-repeat;
-	float:left;
 }

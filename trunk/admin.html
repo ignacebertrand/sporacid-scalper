@@ -80,41 +80,45 @@
 								<option value="5">Rock</option>
 							</select><br/>
                         </div>
-                        <div class="add-event-description-item">
-							<input type="submit" value="Sauvegarder" class="generic-button"/>
+                        <div class="add-event-item-controller">
+                            <input type="submit" value="Sauvegarder" id="add-event-representation-button" class="generic-button"/>
                         </div>
 					</div>
 					<div class="add-event-representations">
-						<h3>Représentations</h3><br/>
-                        <ul class="representations-list">
-					        <li class="representations-item">
-                                <label class="generic-label">Date</label>
-                                <label class="generic-label">Salle</label>
-                                <label class="generic-label">Début</label>
-                                <label class="generic-label">Fin</label>
-                                <label class="generic-label">Prix</label>
-					        </li>
-					        <li class="representations-item">
-						        <input type="text" name="date" class="generic-datepicker"/>
-						        <select id="select-place" class="generic-select">
-							        <option value="-1">Aucun</option>
-							        <option value="1">Métropolis</option>
-							        <option value="2">Olympia</option>
-							        <option value="3">Centre Bell</option>
-							        <option value="4">Stade olympique</option>
-							        <option value="5">Place des Arts</option>
-						        </select>
-					            <input type="text" name="start-time" class="generic-timepicker"/>
-						        <input type="text" name="end-time" class="generic-timepicker"/>
-						        <input type="text" name="ticket-cost" class="ticket-cost"/>
-                            </li>
-                        </ul>
+                        <table class="add-representations-table">
+                            <tr>
+                                <td><h3>Représentations</h3><br/></td>
+                            </tr>
+                            <tr>
+                                <td><label class="generic-label">Date</label></td>
+                                <td><label class="generic-label">Salle</label></td>
+                                <td><label class="generic-label">Début</label></td>
+                                <td><label class="generic-label">Fin</label></td>
+                                <td><label class="generic-label">Prix</label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="date" class="generic-datepicker generic-textbox"/></td>
+                                <td>
+                                    <select id="select-place" class="generic-select">
+							            <option value="-1">Aucun</option>
+							            <option value="1">Métropolis</option>
+							            <option value="2">Olympia</option>
+							            <option value="3">Centre Bell</option>
+							            <option value="4">Stade olympique</option>
+							            <option value="5">Place des Arts</option>
+						            </select>
+                                </td>
+                                <td><input type="text" name="start-time" class="generic-timepicker generic-textbox"/></td>
+                                <td><input type="text" name="end-time" class="generic-timepicker generic-textbox"/></td>
+                                <td><input type="text" name="ticket-cost" class="ticket-cost generic-textbox"/></td>
+                            </tr>
+                        </table>
+                        <div class="representation-list-item-controller">
+                            <div class="generic-button add-event-representation-button">
+						        Ajouter une représentation
+					        </div>
+                        </div>
 					</div>
-                    <div class="representation-list-item-controller">
-                        <div class="generic-button">
-						    Ajouter une représentation
-					    </div>
-                    </div>
 				</form>
 			</div>
 		</div>
