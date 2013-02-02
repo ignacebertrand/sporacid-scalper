@@ -3,7 +3,7 @@
 	<head>
 		<title>Billets Sporacid</title>
 		<link rel="stylesheet" type="text/css" href="styles/site.css" />
-		<link rel="stylesheet" type="text/css" href="styles/index.css" />
+		<link rel="stylesheet" type="text/css" href="styles/billets_musique.css" />
 		<script type="text/javascript" src="scripts/jquery-1.9.0.min.js"></script>
 		<script type="text/javascript" src="scripts/site-scripts.js"></script>
 	</head>
@@ -47,31 +47,57 @@
 			<div class="content">
 				<h2>Billets d'humour</h2>
 				<div class="event-filters-container">
-					<label for="select_category" class="generic-label">Catégories :</label>
-					<select id="select_category" class="generic-select">
-						<option value="-1">Tout</option>
-						<option value="1">Blues</option>
-						<option value="2">Classique</option>
-						<option value="3">Heavy Metal</option>
-						<option value="4">Jazz</option>
-						<option value="5">Rock</option>
-					</select>
 					<label for="textbox_search_criteria" class="generic-label">Recherche par mot clé :</label>
 					<input type="text" id="textbox_search_criteria" class="generic-textbox" />
 				</div>
 				<ul class="event-list">
 					<li class="event-list-item">
-						<div class="event-list-item-image" style="background-image: url(styles/images/decrepit-birth-event.jpg);"></div>
+						<div class="event-list-item-image" style="background-image: url(styles/images/francois_bellefeuille.jpg);"></div>
 						<div class="event-list-item-content">
-							<h1 class="event-list-item-content-title">Lancement d'album Decrepit Birth</h1>
-							<h2 class="event-list-item-content-artists">Decrepit Birth + invités</h2>
-							<h3 class="event-list-item-content-datelocation">Le 13/13/2013 au Club Soda</h3>
-							<p class="event-list-item-content-desc">Le nouvel album de Decrepit Birth, Polarity est maitenant en vente...depuis fucking 3 ans, mais j'men criss du contenu.</p>
+							<h1 class="event-list-item-content-title">François Bellefeuille part à la conquête du 450</h1>
+							<h2 class="event-list-item-content-artists">François Bellefeuille</h2>
+							<p class="event-list-item-content-desc">Ya pas juste Montréal quand même !</p>
 							<div class="event-list-item-tags-container">
-								<a class="event-list-item-tag" href="#a">Heavy Metal</a>
-								<a class="event-list-item-tag" href="#b">Death Metal</a>
-								<a class="event-list-item-tag" href="#c">Technical Metal</a>
-								<a class="event-list-item-tag" href="#d">Sporacid Blast Records</a>
+								<a class="event-list-item-tag" href="#a">Châteauguay</a>
+								<a class="event-list-item-tag" href="#b">Varennes</a>
+								<a class="event-list-item-tag" href="#c">Le Gardeur</a>
+								<a class="event-list-item-tag" href="#d">St-Eustache</a>
+							</div>
+						</div>
+						<div class="event-list-item-controller">
+							<label class="generic-label">Représentation :</label>
+							<select class="generic-select event-list-item-representation-select">
+								<option value="-1">-----</option>
+								<option value="1">Le 13/13/2013 à 6h66</option>
+							</select>
+							<label class="generic-label">Quantité :</label>
+							<select class="generic-select event-list-item-quantity-select">
+								<option value="-1">--</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+							</select>
+							<div class="generic-button event-list-item-disponibility-button">
+								Disponibilité...
+							</div>
+							<div class="generic-button event-list-item-addtocart-button">
+								Ajouter au panier
+							</div>
+						</div>
+					</li>
+                    <li class="event-list-item">
+						<div class="event-list-item-image" style="background-image: url(styles/images/les_bobos.jpg);"></div>
+						<div class="event-list-item-content">
+							<h1 class="event-list-item-content-title">Les bobos en show</h1>
+							<h2 class="event-list-item-content-artists">Marc Labrèche et Anne Dorval</h2>
+							<p class="event-list-item-content-desc">On achète nos billets de loterie de façon ironique avec un second degré sans aucune intention de gagner! On est fous comme ça!</p>
+							<div class="event-list-item-tags-container">
+								<a class="event-list-item-tag" href="#a">Étienne Maxou</a>
+								<a class="event-list-item-tag" href="#b">Sandrine Maxou</a>
+								<a class="event-list-item-tag" href="#c">Restos branchés</a>
 							</div>
 						</div>
 						<div class="event-list-item-controller">
