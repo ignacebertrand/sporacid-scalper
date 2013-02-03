@@ -10,6 +10,7 @@
 .add-event-representations
 {
 	float:left;
+	margin-left: 30px;
 }
 .representations-list
 {
@@ -32,7 +33,6 @@
 .add-event-item-controller
 {
 	text-align: right;
-	margin-right: 10px;
 	margin-top: 10px;
 	background-color: #303030;
 	padding: 10px;
