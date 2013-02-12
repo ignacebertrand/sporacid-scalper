@@ -6,14 +6,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.ui.ModelMap;
 
 @Controller 
-@RequestMapping("/hello")
-public class HelloController
+@RequestMapping("/billets")
+public class BilletsController 
 {
 	@RequestMapping(method = RequestMethod.GET) 
-	public String printHello(ModelMap model) 
+	public void doGet()
 	{
-		model.addAttribute("message", "Hello Spring MVC Framework!");
 		
-		return "hello"; 
 	}
 }
