@@ -20,7 +20,7 @@ $(document).ready(
 			function(event)
 			{
 				var top = $(this).outerHeight();
-				var submenu = $(this).find(".sub-menu-container")
+				var submenu = $(this).find(".sub-menu-container");
 				
 				submenu.css("top", top + "px");
 				submenu.show();
@@ -33,7 +33,7 @@ $(document).ready(
 		);
 		
 		//The shopping cart button and the shopping cart desc both offer the same
-		//functionnality, but are two representations of it.
+		//functionality, but are two representations of it.
 		//Clicking the button will redirect to the same link as the desc.
 		$(".shopping-cart-button").click(
 			function(event)
