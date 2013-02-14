@@ -1,11 +1,15 @@
 <!DOCTYPE html>
+<%
+	// Get the context url prefix 
+	String contextAttr = (String) request.getAttribute("context");
+%>
 <html>
 	<head>
 		<title>Billets Sporacid</title>
-		<link rel="stylesheet" type="text/css" href="styles/site.css" />
-		<link rel="stylesheet" type="text/css" href="styles/billets_musique.css" />
-		<script type="text/javascript" src="scripts/jquery-1.9.0.min.js"></script>
-		<script type="text/javascript" src="scripts/site-scripts.js"></script>
+		<link rel="stylesheet" type="text/css" href="<%=contextAttr%>/styles/site.css" />
+		<link rel="stylesheet" type="text/css" href="<%=contextAttr%>/styles/billets_musique.css" />
+		<script type="text/javascript" src="<%=contextAttr%>/scripts/jquery-1.9.0.min.js"></script>
+		<script type="text/javascript" src="<%=contextAttr%>/scripts/site-scripts.js"></script>
 	</head>
 	<body>
 		<div class="header">
@@ -13,37 +17,10 @@
 		</div>
 		
 		<div class="main-container">
-			<div class="menu-container">
-				<ul class="menu">
-					<li id="accueil_menu_item" class="menu-item">
-						<a href="index.html">Accueil</a>
-					</li>
-					<li class="menu-item">
-						<a>Spectacles</a>
-						<div class="sub-menu-container">
-							<ul class="sub-menu">
-								<li id="billets_musique_menu_item" class="sub-menu-item">
-									<a href="billets_musique.html">Musique</a>
-								</li>
-								<li id="billets_humour_menu_item" class="sub-menu-item">
-									<a href="billets_humour.html">Humour</a>
-								</li>
-							</ul>
-						</div>
-					</li>
-					<li id="admin_menu_item" class="menu-item">
-						<a href="admin.html">Admin</a>
-					</li>
-				</ul>
-				<div class="shopping-cart-controller">
-					<a class="shopping-cart-desc" href="panier_achat.html">
-						<span class="shopping-cart-counter">1</span>
-						item(s) dans le panier 
-						(<span class="shopping-cart-total">49.99$</span>)
-					</a>
-					<div class="shopping-cart-button generic-button"></div>
-				</div>
-			</div>
+		
+			<%-- Include the menu container in the page --%>
+			<jsp:include page="partial-views/menu.jsp"></jsp:include>
+			
 			<div class="content">
 				<h2>Billets de musique</h2>
 				<div class="event-filters-container">
@@ -61,7 +38,7 @@
 				</div>
 				<ul class="event-list">
                     <li class="event-list-item">
-						<div class="event-list-item-image" style="background-image: url(styles/images/trois_accords.jpg);"></div>
+						<div class="event-list-item-image" style="background-image: url(../styles/images/trois_accords.jpg);"></div>
 						<div class="event-list-item-content">
 							<h1 class="event-list-item-content-title">Tournée J'aime ta grand-mère</h1>
 							<h2 class="event-list-item-content-artists">Les Trois Accords</h2>
@@ -98,7 +75,7 @@
 						</div>
 					</li>
 					<li class="event-list-item">
-						<div class="event-list-item-image" style="background-image: url(styles/images/decrepit-birth-event.jpg);"></div>
+						<div class="event-list-item-image" style="background-image: url(../styles/images/decrepit-birth-event.jpg);"></div>
 						<div class="event-list-item-content">
 							<h1 class="event-list-item-content-title">Lancement d'album Decrepit Birth</h1>
 							<h2 class="event-list-item-content-artists">Decrepit Birth + invités</h2>
