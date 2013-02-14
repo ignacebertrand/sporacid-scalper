@@ -1,0 +1,43 @@
+.add-event-description
+{
+	float:left;
+	width:40%;
+}
+.add-event-description-item
+{
+	margin-bottom: 10px;
+}
+.add-event-representations
+{
+	float:left;
+	margin-left: 30px;
+}
+.representations-list
+{
+	list-style-type: none;
+	margin: 0px;
+}
+.generic-datepicker
+{
+	width:80px;
+}
+.generic-timepicker
+{
+	width:40px;
+}
+.ticket-cost
+{
+	width:40px;
+}
+.representation-list-item-controller,  
+.add-event-item-controller
+{
+	text-align: right;
+	margin-top: 10px;
+	background-color: #303030;
+	padding: 10px;
+	border-radius: 3px;
+	background-image: url("images/logo_small.png");
+	background-position: 20px center;
+	background-repeat: no-repeat;
+}
