@@ -1,12 +1,14 @@
 package sporacidscalper.model;
 
+import java.util.List;
+
 import sporacidscalper.model.beans.AbstractBean;
 
 public class Artiste extends AbstractModelObject implements Beanable
 {
 	private String nom;
 	private String description;
-	private Tags[] tags;
+	private List<Tags> tags;
 	
 	public String getNom()
 	{
@@ -28,14 +30,9 @@ public class Artiste extends AbstractModelObject implements Beanable
 		this.description = description;
 	}
 	
-	public Tags[] getTags()
+	public List<Tags> getTags()
 	{
 		return tags;
-	}
-	
-	public void setTags(Tags[] tags)
-	{
-		this.tags = tags;
 	}
 	
 	@Override

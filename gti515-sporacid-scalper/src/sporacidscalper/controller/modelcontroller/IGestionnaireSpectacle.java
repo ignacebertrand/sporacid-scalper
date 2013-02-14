@@ -20,8 +20,9 @@ public interface IGestionnaireSpectacle
 	 * If some Representation are still linked to Transaction, then the deletion won't happen.
 	 * We cannot delete something that has a relationship to a transaction.
 	 * @param spectacleToDelete A Spectacle bean object that we wish to delete
+	 * @param transactionManager Inversion of control for the transaction manager 
 	 */
-	public void supprimerSpectacle(SpectacleBean spectacleToDelete);
+	public void supprimerSpectacle(SpectacleBean spectacleToDelete, IGestionnaireTransaction transactionManager);
 	/**
 	 * Public method to add a Representation to a Spectacle.
 	 * @param spectacleId The Spectacle id to which we want to add a Representation
@@ -40,8 +41,9 @@ public interface IGestionnaireSpectacle
 	 * We cannot delete something that has a relationship to a transaction.
 	 * @param spectacleId The Spectacle id to which we want to delete a Representation
 	 * @param representationToDelete A Representation bean object that we wish to delete
+	 * @param transactionManager Inversion of control for the transaction manager
 	 */
-	public void supprimerRepresentation(int spectacleId, RepresentationBean representationToDelete);
+	public void supprimerRepresentation(int spectacleId, RepresentationBean representationToDelete, IGestionnaireTransaction transactionManager);
 	/**
 	 * Public method to obtain a Spectacle from the system.
 	 * @param spectacleId The Spectacle unique id

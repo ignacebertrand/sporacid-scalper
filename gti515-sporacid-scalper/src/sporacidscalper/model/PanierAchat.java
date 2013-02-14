@@ -1,13 +1,14 @@
 package sporacidscalper.model;
 
 import java.util.Date;
+import java.util.List;
 
 import sporacidscalper.model.beans.AbstractBean;
 
 public class PanierAchat extends AbstractModelObject implements Beanable
 {
 	private Date dateCreation;
-	private ItemPanierAchat items;
+	private List<ItemPanierAchat> items;
 
 	public void getTotal()
 	{
@@ -29,14 +30,9 @@ public class PanierAchat extends AbstractModelObject implements Beanable
 		this.dateCreation = dateCreation;
 	}
 
-	public ItemPanierAchat getItems()
+	public List<ItemPanierAchat> getItems()
 	{
 		return items;
-	}
-
-	public void setItems(ItemPanierAchat items)
-	{
-		this.items = items;
 	}
 
 	@Override
