@@ -1,16 +1,20 @@
 <!DOCTYPE html>
+<%
+	// Get the context url prefix 
+	String contextAttr = (String) request.getAttribute("context");
+%>
 <html>
 	<head>
 		<title>Billets Sporacid</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
-		<link rel="stylesheet" type="text/css" href="styles/site.css" />
-		<link rel="stylesheet" type="text/css" href="styles/admin.css" />
-		<script type="text/javascript" src="scripts/jquery-1.9.0.min.js"></script>
-		<script type="text/javascript" src="scripts/site-scripts.js"></script>
-        <script type="text/javascript" src="scripts/jquery.maskedinput.min.js"></script>
-        <script type="text/javascript" src="scripts/jquery.ui.datepicker-fr.js"></script>
-        <script type="text/javascript" src="scripts/jquery.ui.timepicker.js"></script>
-        <script type="text/javascript" src="scripts/jquery.ui.timepicker-fr.js"></script>
+		<link rel="stylesheet" type="text/css" href="<%=contextAttr%>/styles/site.css" />
+		<link rel="stylesheet" type="text/css" href="<%=contextAttr%>/styles/admin.css" />
+		<script type="text/javascript" src="<%=contextAttr%>/scripts/jquery-1.9.0.min.js"></script>
+		<script type="text/javascript" src="<%=contextAttr%>/scripts/site-scripts.js"></script>
+        <script type="text/javascript" src="<%=contextAttr%>/scripts/jquery.maskedinput.min.js"></script>
+        <script type="text/javascript" src="<%=contextAttr%>/scripts/jquery.ui.datepicker-fr.js"></script>
+        <script type="text/javascript" src="<%=contextAttr%>/scripts/jquery.ui.timepicker.js"></script>
+        <script type="text/javascript" src="<%=contextAttr%>/scripts/jquery.ui.timepicker-fr.js"></script>
         <script type="text/javascript" src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
 	</head>
 	<body>
@@ -19,37 +23,10 @@
 		</div>
 		
 		<div class="main-container">
-			<div class="menu-container">
-				<ul class="menu">
-					<li id="accueil_menu_item" class="menu-item">
-						<a href="index.html">Accueil</a>
-					</li>
-					<li class="menu-item">
-						<a>Spectacles</a>
-						<div class="sub-menu-container">
-							<ul class="sub-menu">
-								<li id="billets_musique_menu_item" class="sub-menu-item">
-									<a href="billets_musique.html">Musique</a>
-								</li>
-								<li id="billets_humour_menu_item" class="sub-menu-item">
-									<a href="billets_humour.html">Humour</a>
-								</li>
-							</ul>
-						</div>
-					</li>
-					<li id="admin_menu_item" class="menu-item">
-						<a href="admin.html">Admin</a>
-					</li>
-				</ul>
-				<div class="shopping-cart-controller">
-					<a class="shopping-cart-desc" href="panier_achat.html">
-						<span class="shopping-cart-counter">1</span>
-						item(s) dans le panier 
-						(<span class="shopping-cart-total">49.99$</span>)
-					</a>
-					<div class="shopping-cart-button generic-button"></div>
-				</div>
-			</div>
+			
+			<%-- Include the menu container in the page --%>
+			<jsp:include page="partial-views/menu.jsp"></jsp:include>
+			
 			<div class="content">
 				<form name="add-events" action="" method="get">
 					<h2>Ajouter un spectacle</h2>
