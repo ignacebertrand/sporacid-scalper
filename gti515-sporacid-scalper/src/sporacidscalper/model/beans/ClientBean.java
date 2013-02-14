@@ -5,7 +5,6 @@ import sporacidscalper.model.*;
 public class ClientBean extends AbstractBean implements Modelable
 {
 	private String identifiant;
-	private boolean estAuthentifie;
 	private String nom;
 	private String courriel;
 	private AdresseBean adresse;
@@ -19,16 +18,6 @@ public class ClientBean extends AbstractBean implements Modelable
 	public void setIdentifiant(String identifiant)
 	{
 		this.identifiant = identifiant;
-	}
-	
-	public boolean isEstAuthentifie()
-	{
-		return estAuthentifie;
-	}
-	
-	public void setEstAuthentifie(boolean estAuthentifie)
-	{
-		this.estAuthentifie = estAuthentifie;
 	}
 	
 	public String getNom()

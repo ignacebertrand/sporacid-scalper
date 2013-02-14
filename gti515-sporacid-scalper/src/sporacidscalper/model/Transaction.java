@@ -4,12 +4,18 @@ import sporacidscalper.model.beans.AbstractBean;
 
 public class Transaction extends AbstractModelObject implements Beanable
 {
+	private int id;
 	private int noConfirmationPaiement;
 	private int noConfirmationVente;
 	private Client client;
 	private Adresse adresseFacturation;
 	private Adresse adresseLivraison;
 	private Commande commande;
+	
+	public int getId()
+	{
+		return id;
+	}
 	
 	public int getNoConfirmationPaiement()
 	{
