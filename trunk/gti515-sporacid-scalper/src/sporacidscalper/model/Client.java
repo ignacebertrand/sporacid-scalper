@@ -17,9 +17,16 @@ public class Client extends AbstractModelObject implements Beanable
 		throw new UnsupportedOperationException();
 	}
 
-	public PanierAchat obtenirPanierAchat()
+	public PanierAchat getPanierAchat()
 	{
 		return this.panierAchat;
+	}
+	
+	public boolean authentifier(String encryptedPassword)
+	{
+		//TODO : Decrypt the password, test the password and return false if the password does not match
+		estAuthentifie = true;
+		return true;
 	}
 
 	public String getIdentifiant()
@@ -45,11 +52,6 @@ public class Client extends AbstractModelObject implements Beanable
 	public boolean isEstAuthentifie()
 	{
 		return estAuthentifie;
-	}
-
-	public void setEstAuthentifie(boolean estAuthentifie)
-	{
-		this.estAuthentifie = estAuthentifie;
 	}
 
 	public String getNom()

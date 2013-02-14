@@ -4,12 +4,18 @@ import sporacidscalper.model.*;
 
 public class TransactionBean extends AbstractBean implements Modelable
 {
+	private int id;
 	private int noConfirmationPaiement;
 	private int noConfirmationVente;
 	private Client client;
 	private AdresseBean adresseFacturation;
 	private AdresseBean adresseLivraison;
 	private CommandeBean commande;
+	
+	public int getId()
+	{
+		return id;
+	}
 	
 	public int getNoConfirmationPaiement()
 	{

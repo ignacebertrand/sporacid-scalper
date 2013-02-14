@@ -4,11 +4,17 @@ import sporacidscalper.model.AbstractModelObject;
 
 public class SpectacleBean extends AbstractBean implements Modelable
 {
+	private int id;
 	private String nom;
 	private String description;
 	private ArtisteBean[] artistes;
 	private TypeSpectacleBean type;
 	private RepresentationBean[] representations;
+	
+	public int getId()
+	{
+		return id;
+	}
 	
 	public String getNom()
 	{
