@@ -7,7 +7,7 @@ public class TransactionBean extends AbstractBean implements Modelable
 	private int id;
 	private int noConfirmationPaiement;
 	private int noConfirmationVente;
-	private Client client;
+	private ClientBean client;
 	private AdresseBean adresseFacturation;
 	private AdresseBean adresseLivraison;
 	private CommandeBean commande;
@@ -37,12 +37,12 @@ public class TransactionBean extends AbstractBean implements Modelable
 		this.noConfirmationVente = noConfirmationVente;
 	}
 	
-	public Client getClient()
+	public ClientBean getClient()
 	{
 		return client;
 	}
 	
-	public void setClient(Client client)
+	public void setClient(ClientBean client)
 	{
 		this.client = client;
 	}

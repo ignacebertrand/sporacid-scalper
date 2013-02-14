@@ -61,4 +61,14 @@ public class GestionnaireTransaction implements IGestionnaireTransaction
 	{
 		throw new UnsupportedOperationException();
 	}
+	
+	/**
+	 * Public method to obtain all transactions that were made for a representation.
+	 * @param representationId The Representation unique id
+	 * @return A list of all transactions made for the representation
+	 */
+	public TransactionBean[] obtenirTransactionsRepresentation(int representationId)
+	{
+		throw new UnsupportedOperationException();
+	}
 }

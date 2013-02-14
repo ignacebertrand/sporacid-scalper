@@ -59,7 +59,20 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 */
 	public void modifierSpectacle(SpectacleBean spectacleToEdit)
 	{
-		throw new UnsupportedOperationException();
+		//TODO : Need some sort of validation on the spectacle to edit
+		
+		// Iterators are faster than indexed loops for ArrayList
+		int i = 0;
+		for(Spectacle spectacle : listeSpectacles)
+		{
+			if(spectacle.getId() == spectacleToEdit.getId())
+			{
+				listeSpectacles.set(i, (Spectacle) spectacleToEdit.getModelObject());
+				break;
+			}
+			
+			i++;
+		}
 	}
 
 	/**
@@ -67,10 +80,31 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 * If some Representation are still linked to Transaction, then the deletion won't happen.
 	 * We cannot delete something that has a relationship to a transaction.
 	 * @param spectacleToDelete A Spectacle bean object that we wish to delete
+	 * @param transactionManager Inversion of control for the transaction manager 
 	 */
-	public void supprimerSpectacle(SpectacleBean spectacleToDelete)
+	public void supprimerSpectacle(SpectacleBean spectacleToDelete, IGestionnaireTransaction transactionManager)
 	{
-		throw new UnsupportedOperationException();
+		Spectacle spectacle = (Spectacle) spectacleToDelete.getModelObject();
+		
+		// Flag to check if we can delete the spectacle or not.
+		boolean okForDeletion = true;
+		for(Representation representation : spectacle.getRepresentations())
+		{
+			int transactionCount = transactionManager.obtenirTransactionsRepresentation(representation.getId()).length;
+			
+			if(transactionCount > 0)
+			{
+				//There's transaction linked to that Spectacle, we cannot delete it.
+				okForDeletion = false;
+				break;
+			}
+		}
+		
+		if(okForDeletion)
+		{
+			//Proceed with the deletion
+			listeSpectacles.remove(spectacle);
+		}
 	}
 
 	/**
@@ -80,7 +114,20 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 */
 	public void ajouterRepresentation(int spectacleId, RepresentationBean representationToAdd)
 	{
-		throw new UnsupportedOperationException();
+		Spectacle spectacleToEdit = null;
+		
+		for(Spectacle spectacle : listeSpectacles)
+			if(spectacle.getId() == spectacleId)
+				spectacleToEdit = spectacle;
+		
+		if(spectacleToEdit != null)
+		{
+			Representation representation = (Representation) representationToAdd.getModelObject();
+			
+			//TODO : Need some sort of validation on the representation to add
+			
+			spectacleToEdit.getRepresentations().add(representation);
+		}
 	}
 
 	/**
@@ -90,7 +137,28 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 */
 	public void modifierRepresentation(int spectacleId, RepresentationBean representationToEdit)
 	{
-		throw new UnsupportedOperationException();
+		Spectacle spectacleToEdit = null;
+				
+		for(Spectacle spectacle : listeSpectacles)
+			if(spectacle.getId() == spectacleId)
+				spectacleToEdit = spectacle;
+		
+		if(spectacleToEdit != null)
+		{
+			List<Representation> spectacleToEditRepresentations = spectacleToEdit.getRepresentations();
+			
+			// Iterators are faster than indexed loops for ArrayList
+			int i = 0;
+			for(Representation representation : spectacleToEditRepresentations)
+			{
+				if(representation.getId() == representationToEdit.getId())
+				{
+					spectacleToEditRepresentations.set(i, (Representation) representationToEdit.getModelObject());
+				}
+				
+				i++;
+			}
+		}
 	}
 
 	/**
@@ -99,8 +167,9 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 * We cannot delete something that has a relationship to a transaction.
 	 * @param spectacleId The Spectacle id to which we want to delete a Representation
 	 * @param representationToDelete A Representation bean object that we wish to delete
+	 * @param transactionManager Inversion of control for the transaction manager
 	 */
-	public void supprimerRepresentation(int spectacleId, RepresentationBean representationToDelete)
+	public void supprimerRepresentation(int spectacleId, RepresentationBean representationToDelete, IGestionnaireTransaction transactionManager)
 	{
 		throw new UnsupportedOperationException();
 	}
@@ -112,7 +181,18 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 */
 	public SpectacleBean obtenirSpectacle(int spectacleId)
 	{
-		throw new UnsupportedOperationException();
+		SpectacleBean spectacleToGet = null;
+		
+		for(Spectacle spectacle : listeSpectacles)
+		{
+			if(spectacle.getId() == spectacleId)
+			{
+				spectacleToGet = (SpectacleBean) spectacle.getBean();
+				break;
+			}
+		}
+		
+		return spectacleToGet;
 	}
 	
 	/**

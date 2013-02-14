@@ -16,4 +16,10 @@ public interface IGestionnaireTransaction
 	 * @return A list of all transactions made by the client
 	 */
 	public TransactionBean[] obtenirTransactionsClient(String clientIdentifier);
+	/**
+	 * Public method to obtain all transactions that were made for a representation.
+	 * @param representationId The Representation unique id
+	 * @return A list of all transactions made for the representation
+	 */
+	public TransactionBean[] obtenirTransactionsRepresentation(int representationId);
 }

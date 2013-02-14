@@ -6,11 +6,17 @@ import sporacidscalper.model.AbstractModelObject;
 
 public class RepresentationBean extends AbstractBean implements Modelable
 {
+	private int id;
 	private Date dateDebutRepresentation;
 	private Date dateFinRepresentation;
 	private String statut;
 	private TypeBilletRepresentationBean[] typesBillet;
 	private SalleBean salle;
+	
+	public int getId()
+	{
+		return id;
+	}
 	
 	public Date getDateDebutRepresentation()
 	{
@@ -45,11 +51,6 @@ public class RepresentationBean extends AbstractBean implements Modelable
 	public TypeBilletRepresentationBean[] getTypesBillet()
 	{
 		return typesBillet;
-	}
-	
-	public void setTypesBillet(TypeBilletRepresentationBean[] typesBillet)
-	{
-		this.typesBillet = typesBillet;
 	}
 	
 	public SalleBean getSalle()

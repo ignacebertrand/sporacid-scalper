@@ -1,5 +1,7 @@
 package sporacidscalper.model;
 
+import java.util.List;
+
 import sporacidscalper.model.beans.AbstractBean;
 
 public class Spectacle extends AbstractModelObject implements Beanable
@@ -7,9 +9,10 @@ public class Spectacle extends AbstractModelObject implements Beanable
 	private int id;
 	private String nom;
 	private String description;
-	private Artiste[] artistes;
+	private String posterUrl;
+	private List<Artiste> artistes;
 	private TypeSpectacle type;
-	private Representation[] representations;
+	private List<Representation> representations;
 	
 	public int getId()
 	{
@@ -36,14 +39,19 @@ public class Spectacle extends AbstractModelObject implements Beanable
 		this.description = description;
 	}
 	
-	public Artiste[] getArtistes()
+	public String getPosterUrl() 
+	{
+		return posterUrl;
+	}
+
+	public void setPosterUrl(String posterUrl) 
+	{
+		this.posterUrl = posterUrl;
+	}
+
+	public List<Artiste> getArtistes()
 	{
 		return artistes;
-	}
-	
-	public void setArtistes(Artiste[] artistes)
-	{
-		this.artistes = artistes;
 	}
 	
 	public TypeSpectacle getType()
@@ -56,14 +64,9 @@ public class Spectacle extends AbstractModelObject implements Beanable
 		this.type = type;
 	}
 	
-	public Representation[] getRepresentations()
+	public List<Representation> getRepresentations()
 	{
 		return representations;
-	}
-	
-	public void setRepresentations(Representation[] representations)
-	{
-		this.representations = representations;
 	}
 	
 	@Override

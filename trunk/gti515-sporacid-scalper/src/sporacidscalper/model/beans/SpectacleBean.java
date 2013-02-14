@@ -7,6 +7,7 @@ public class SpectacleBean extends AbstractBean implements Modelable
 	private int id;
 	private String nom;
 	private String description;
+	private String posterUrl;
 	private ArtisteBean[] artistes;
 	private TypeSpectacleBean type;
 	private RepresentationBean[] representations;
@@ -36,6 +37,16 @@ public class SpectacleBean extends AbstractBean implements Modelable
 		this.description = description;
 	}
 	
+	public String getPosterUrl() 
+	{
+		return posterUrl;
+	}
+
+	public void setPosterUrl(String posterUrl) 
+	{
+		this.posterUrl = posterUrl;
+	}
+	
 	public ArtisteBean[] getArtistes()
 	{
 		return artistes;
@@ -59,11 +70,6 @@ public class SpectacleBean extends AbstractBean implements Modelable
 	public RepresentationBean[] getRepresentations()
 	{
 		return representations;
-	}
-	
-	public void setRepresentations(RepresentationBean[] representations)
-	{
-		this.representations = representations;
 	}
 
 	@Override
