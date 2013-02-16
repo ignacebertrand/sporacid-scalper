@@ -1,5 +1,7 @@
 package sporacidscalper.model.beans;
 
+import java.util.List;
+
 import sporacidscalper.model.AbstractModelObject;
 
 public class ArtisteBean extends AbstractBean implements Modelable
@@ -11,7 +13,7 @@ public class ArtisteBean extends AbstractBean implements Modelable
 	
 	private String nom;
 	private String description;
-	private TagsBean[] tags;
+	private List<TagsBean> tags;
 	
 	public String getNom()
 	{
@@ -33,15 +35,16 @@ public class ArtisteBean extends AbstractBean implements Modelable
 		this.description = description;
 	}
 	
-	public TagsBean[] getTags()
+	public List<TagsBean> getTags()
 	{
 		return tags;
 	}
 	
-	public void setTags(TagsBean[] tags)
+	public void setTags(List<TagsBean> tags)
 	{
 		this.tags = tags;
 	}
+	
 
 	@Override
 	public AbstractModelObject getModelObject()

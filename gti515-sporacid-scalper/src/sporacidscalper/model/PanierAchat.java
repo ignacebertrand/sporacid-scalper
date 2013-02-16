@@ -1,18 +1,28 @@
 package sporacidscalper.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import sporacidscalper.model.beans.AbstractBean;
+import sporacidscalper.model.beans.ItemPanierAchatBean;
+import sporacidscalper.model.beans.PanierAchatBean;
 
 public class PanierAchat extends AbstractModelObject implements Beanable
 {
 	private Date dateCreation;
 	private List<ItemPanierAchat> items;
 
-	public void getTotal()
+	public double getTotal()
 	{
-		throw new UnsupportedOperationException();
+		double total = 0.0;
+		
+		for(ItemPanierAchat ipa : items)
+		{
+			total += ipa.getBilletRepresentation().getPrix();
+		}
+		
+		return total;
 	}
 
 	public Commande creerCommande()
@@ -34,11 +44,28 @@ public class PanierAchat extends AbstractModelObject implements Beanable
 	{
 		return items;
 	}
+	
+	public List<ItemPanierAchatBean> toTagsBeanList(List<ItemPanierAchat> items)
+	{
+		List<ItemPanierAchatBean> beans = new ArrayList<ItemPanierAchatBean>();
+		
+		for(ItemPanierAchat ipa : items)
+		{
+			beans.add((ItemPanierAchatBean)ipa.getBean());
+		}
+		
+		return beans;
+	}
 
 	@Override
 	public AbstractBean getBean()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		PanierAchatBean bean = new PanierAchatBean();
+		
+		bean.setDateCreation(this.dateCreation);
+		bean.setItems(this.toTagsBeanList(this.items));
+		bean.setTotal(this.getTotal());
+		
+		return bean;
 	}
 }

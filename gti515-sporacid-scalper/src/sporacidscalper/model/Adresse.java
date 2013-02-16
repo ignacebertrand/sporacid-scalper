@@ -1,6 +1,7 @@
 package sporacidscalper.model;
 
 import sporacidscalper.model.beans.AbstractBean;
+import sporacidscalper.model.beans.AdresseBean;
 
 public class Adresse extends AbstractModelObject implements Beanable
 {
@@ -49,10 +50,19 @@ public class Adresse extends AbstractModelObject implements Beanable
 		this.province = province;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public AbstractBean getBean()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		AdresseBean bean = new AdresseBean();
+		
+		bean.setCodePostal(this.codePostal);
+		bean.setNoCivique(this.noCivique);
+		bean.setNomRue(this.nomRue);
+		bean.setProvince(this.province);
+
+		return bean;
 	}
 }

@@ -1,6 +1,10 @@
 package sporacidscalper.model;
 
 import sporacidscalper.model.beans.AbstractBean;
+import sporacidscalper.model.beans.AdresseBean;
+import sporacidscalper.model.beans.ClientBean;
+import sporacidscalper.model.beans.CommandeBean;
+import sporacidscalper.model.beans.TransactionBean;
 
 public class Transaction extends AbstractModelObject implements Beanable
 {
@@ -80,7 +84,15 @@ public class Transaction extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		TransactionBean bean = new TransactionBean();
+		
+		bean.setAdresseFacturation((AdresseBean)this.adresseFacturation.getBean());
+		bean.setAdresseLivraison((AdresseBean)this.adresseLivraison.getBean());
+		bean.setClient((ClientBean)this.client.getBean());
+		bean.setCommande((CommandeBean)this.commande.getBean());
+		bean.setNoConfirmationPaiement(this.noConfirmationPaiement);
+		bean.setNoConfirmationVente(this.noConfirmationVente);
+		
+		return bean;
 	}
 }

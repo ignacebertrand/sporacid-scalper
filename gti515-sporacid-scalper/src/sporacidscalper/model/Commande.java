@@ -1,9 +1,12 @@
 package sporacidscalper.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import sporacidscalper.model.beans.AbstractBean;
+import sporacidscalper.model.beans.CommandeBean;
+import sporacidscalper.model.beans.ItemCommandeBean;
 
 public class Commande extends AbstractModelObject implements Beanable
 {
@@ -45,11 +48,28 @@ public class Commande extends AbstractModelObject implements Beanable
 	{
 		return items;
 	}
+	
+	public List<ItemCommandeBean> toItemCommandeBeanList(List<ItemCommande> items)
+	{
+		List<ItemCommandeBean> beans = new ArrayList<ItemCommandeBean>();
+		
+		for(ItemCommande ic : items)
+		{
+			beans.add((ItemCommandeBean)ic.getBean());
+		}
+		
+		return beans;
+	}
 
 	@Override
 	public AbstractBean getBean()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		CommandeBean bean = new CommandeBean();
+		
+		bean.setDateCreation(this.dateCreation);
+		bean.setItems(this.toItemCommandeBeanList(this.items));
+		bean.setNoCommande(this.noCommande);
+		
+		return bean;
 	}
 }

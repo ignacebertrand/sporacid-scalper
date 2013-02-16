@@ -1,6 +1,7 @@
 package sporacidscalper.model.beans;
 
 import java.util.Date;
+import java.util.List;
 
 import sporacidscalper.model.AbstractModelObject;
 
@@ -13,7 +14,7 @@ public class CommandeBean extends AbstractBean implements Modelable
 	
 	private int noCommande;
 	private Date dateCreation;
-	private ItemCommandeBean[] items;
+	private List<ItemCommandeBean> items;
 	
 	public double getTotal()
 	{
@@ -45,12 +46,12 @@ public class CommandeBean extends AbstractBean implements Modelable
 		this.dateCreation = dateCreation;
 	}
 	
-	public ItemCommandeBean[] getItems()
+	public List<ItemCommandeBean> getItems()
 	{
 		return items;
 	}
 	
-	public void setItems(ItemCommandeBean[] items)
+	public void setItems(List<ItemCommandeBean> items)
 	{
 		this.items = items;
 	}
