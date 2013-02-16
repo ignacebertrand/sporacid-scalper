@@ -4,6 +4,11 @@ import sporacidscalper.model.AbstractModelObject;
 
 public class SalleBean extends AbstractBean implements Modelable
 {
+	/**
+	 * Serializable interface requirement
+	 */
+	private static final long serialVersionUID = -6913709633421518414L;
+	
 	private String nom;
 	private int capacite;
 	private AdresseBean adresse;

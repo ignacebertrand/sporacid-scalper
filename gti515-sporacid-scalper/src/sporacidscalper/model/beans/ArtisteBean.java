@@ -4,6 +4,11 @@ import sporacidscalper.model.AbstractModelObject;
 
 public class ArtisteBean extends AbstractBean implements Modelable
 {
+	/**
+	 * Serializable interface requirement
+	 */
+	private static final long serialVersionUID = -8367220438236798436L;
+	
 	private String nom;
 	private String description;
 	private TagsBean[] tags;

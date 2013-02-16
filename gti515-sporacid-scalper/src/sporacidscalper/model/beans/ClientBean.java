@@ -4,6 +4,11 @@ import sporacidscalper.model.*;
 
 public class ClientBean extends AbstractBean implements Modelable
 {
+	/**
+	 * Serializable interface requirement
+	 */
+	private static final long serialVersionUID = -4839483441907619015L;
+	
 	private String identifiant;
 	private String nom;
 	private String courriel;

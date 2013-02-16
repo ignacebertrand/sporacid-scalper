@@ -4,6 +4,11 @@ import sporacidscalper.model.AbstractModelObject;
 
 public class AdresseBean extends AbstractBean implements Modelable
 {
+	/**
+	 * Serializable interface requirement
+	 */
+	private static final long serialVersionUID = -3246967756814110549L;
+	
 	private int noCivique;
 	private String nomRue;
 	private String codePostal;

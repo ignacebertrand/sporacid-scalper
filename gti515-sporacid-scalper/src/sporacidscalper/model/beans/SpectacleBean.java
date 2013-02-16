@@ -4,6 +4,11 @@ import sporacidscalper.model.AbstractModelObject;
 
 public class SpectacleBean extends AbstractBean implements Modelable
 {
+	/**
+	 * Serializable interface requirement
+	 */
+	private static final long serialVersionUID = -3395964345489788900L;
+	
 	private int id;
 	private String nom;
 	private String description;

@@ -4,6 +4,11 @@ import sporacidscalper.model.AbstractModelObject;
 
 public class TagsBean extends AbstractBean implements Modelable
 {
+	/**
+	 * Serializable interface requirement
+	 */
+	private static final long serialVersionUID = -3881550719338792211L;
+	
 	private String nom;
 	private String url;
 	

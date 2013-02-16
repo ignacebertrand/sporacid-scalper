@@ -6,10 +6,22 @@ import sporacidscalper.model.AbstractModelObject;
 
 public class NouvelleBean extends AbstractBean implements Modelable
 {
+
+	/**
+	 * Serializable interface requirement
+	 */
+	private static final long serialVersionUID = 4973821193002888513L;
+	
+	private int id;
 	private String titre;
 	private String description;
 	private Date date;
 	private String auteur;
+	
+	public int getId()
+	{
+		return id;
+	}
 	
 	public String getTitre()
 	{

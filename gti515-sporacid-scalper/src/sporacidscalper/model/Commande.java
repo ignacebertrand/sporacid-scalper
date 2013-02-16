@@ -13,7 +13,12 @@ public class Commande extends AbstractModelObject implements Beanable
 
 	public double getTotal()
 	{
-		throw new UnsupportedOperationException();
+		double total = 0;
+		
+		for (ItemCommande item : items)
+			total += item.getQuantite() * item.getBilletRepresentation().getPrix();
+		
+		return total;
 	}
 
 	public int getNoCommande()

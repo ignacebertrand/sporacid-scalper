@@ -6,10 +6,24 @@ import sporacidscalper.model.AbstractModelObject;
 
 public class CommandeBean extends AbstractBean implements Modelable
 {
+	/**
+	 * Serializable interface requirement
+	 */
+	private static final long serialVersionUID = -9198676745711308773L;
+	
 	private int noCommande;
 	private Date dateCreation;
-	private double total;
 	private ItemCommandeBean[] items;
+	
+	public double getTotal()
+	{
+		double total = 0;
+		
+		for (ItemCommandeBean item : items)
+			total += item.getQuantite() * item.getBilletRepresentation().getPrix();
+		
+		return total;
+	}
 	
 	public int getNoCommande()
 	{
@@ -29,11 +43,6 @@ public class CommandeBean extends AbstractBean implements Modelable
 	public void setDateCreation(Date dateCreation)
 	{
 		this.dateCreation = dateCreation;
-	}
-	
-	public double getTotal()
-	{
-		return total;
 	}
 	
 	public ItemCommandeBean[] getItems()
