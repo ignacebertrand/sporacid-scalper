@@ -19,6 +19,11 @@ public class TypeSpectacle extends AbstractModelObject implements Beanable
 		this.id = id;
 	}
 	
+	public int getId()
+	{
+		return this.id;
+	}
+	
 	public String getNom()
 	{
 		return nom;
