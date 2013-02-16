@@ -12,7 +12,7 @@
 	<head>
 		<title>Billets Sporacid</title>
 		<link rel="stylesheet" type="text/css" href="<%=contextAttr%>/styles/site.css" />
-		<link rel="stylesheet" type="text/css" href="<%=contextAttr%>/styles/index.css" />
+		<link rel="stylesheet" type="text/css" href="<%=contextAttr%>/styles/accueil.css" />
 		<script type="text/javascript" src="<%=contextAttr%>/scripts/jquery-1.9.0.min.js"></script>
 		<script type="text/javascript" src="<%=contextAttr%>/scripts/site-scripts.js"></script>
 	</head>
@@ -98,20 +98,6 @@
 							
 							<% } %>
 							
-							<!-- 
-							<li class="news-list-item">
-								<h3>Donnez nous votre argent</h3>
-								<p>Pour chaque clic sur notre panier d'achat, dieu tue un chaton!</p>
-								<p class="news-signature">Patrick Lavallée</p>
-								<p class="news-date">21 janvier 2013 20:27</p>
-							</li>
-							<li class="news-list-item">
-								<h3>Bienvenue sur le site</h3>
-								<p>Nous vous souhaitons la bienvenue sur s'tostie de site de marde là. Allez chier!</p>
-								<p class="news-signature">Simon Turcotte-Langevin</p>
-								<p class="news-date">15 janvier 2013 23:57</p>
-							</li>
-				 			-->
 						</ul>
 						
 						<div class="upcoming-shows-spinner-content">
