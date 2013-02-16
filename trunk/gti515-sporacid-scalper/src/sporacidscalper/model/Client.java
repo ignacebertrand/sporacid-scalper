@@ -6,6 +6,7 @@ import sporacidscalper.model.beans.ClientBean;
 
 public class Client extends AbstractModelObject implements Beanable
 {
+	private int id;
 	private String identifiant;
 	private String motDePasse;
 	private boolean estAuthentifie;
@@ -14,6 +15,15 @@ public class Client extends AbstractModelObject implements Beanable
 	private Adresse adresse;
 	private PanierAchat panierAchat;
 
+	public Client()
+	{
+		this(-1);
+	}
+	
+	public Client(int id)
+	{
+		this.id = id;
+	}
 	public void creerPanierAchat()
 	{
 		throw new UnsupportedOperationException();

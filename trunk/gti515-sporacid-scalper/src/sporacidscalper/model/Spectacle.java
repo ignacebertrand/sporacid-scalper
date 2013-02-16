@@ -18,6 +18,16 @@ public class Spectacle extends AbstractModelObject implements Beanable
 	private TypeSpectacle type;
 	private List<Representation> representations;
 	
+	public Spectacle()
+	{
+		this(-1);
+	}
+	
+	public Spectacle(int id)
+	{
+		this.id = id;
+	}
+	
 	public int getId()
 	{
 		return id;

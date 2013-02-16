@@ -5,10 +5,20 @@ import sporacidscalper.model.beans.AdresseBean;
 
 public class Adresse extends AbstractModelObject implements Beanable
 {
+	private int id;
 	private int noCivique;
 	private String nomRue;
 	private String codePostal;
 	private String province;
+	
+	public Adresse()
+	{
+		this(-1);
+	}
+	public Adresse(int id)
+	{
+		this.id = id;
+	}
 	
 	public int getNoCivique()
 	{

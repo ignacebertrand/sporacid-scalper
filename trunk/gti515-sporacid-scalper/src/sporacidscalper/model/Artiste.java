@@ -9,9 +9,20 @@ import sporacidscalper.model.beans.TagsBean;
 
 public class Artiste extends AbstractModelObject implements Beanable
 {
+	private int id;
 	private String nom;
 	private String description;
 	private List<Tags> tags;
+	
+	public Artiste()
+	{
+		this(-1);
+	}
+	
+	public Artiste(int id)
+	{
+		this.id = id;
+	}
 	
 	public String getNom()
 	{
