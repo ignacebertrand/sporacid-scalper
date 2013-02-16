@@ -6,29 +6,26 @@ import java.util.List;
 
 import sporacidscalper.model.Adresse;
 import sporacidscalper.model.Artiste;
+import sporacidscalper.model.Client;
 import sporacidscalper.model.Nouvelle;
-import sporacidscalper.model.PanierAchat;
 import sporacidscalper.model.Spectacle;
 import sporacidscalper.model.Transaction;
 import sporacidscalper.model.TypeSpectacle;
-import sporacidscalper.model.Client;
-import sporacidscalper.model.Commande;
 
 public class StubFactory {
 	
 	private static StubFactory instance;
 	
-	private static List<PanierAchat> listePaniersAchats;
-	private static List<Commande> listeCommandes;
-	private static List<Adresse> listeAdresses;
-	private static List<Client> listeClients;
-	private static List<Artiste> listeArtistes;
-	private static List<Nouvelle> listeNouvelles;
-	private static List<Spectacle> listeSpectacles;
-	private static List<Transaction> listeTransactions;
-	private static List<TypeSpectacle> listeTypesSpectacle;
+	private List<Client> listeClients;
+	private List<Artiste> listeArtistes;
+	private List<Nouvelle> listeNouvelles;
+	private List<Spectacle> listeSpectacles;
+	private List<Transaction> listeTransactions;
+	private List<TypeSpectacle> listeTypesSpectacle;
+	private List<Adresse> listeAdresses;
 
-	private StubFactory() {
+	private StubFactory() 
+	{
 		setStubAdresse();
 		setStubClient();
 		setStubArtistes();
@@ -75,14 +72,14 @@ public class StubFactory {
 		listeNouvelles.add(n2);
 		listeNouvelles.add(n3);
 
-		StubFactory.listeNouvelles = listeNouvelles;
+		this.listeNouvelles = listeNouvelles;
 	}
 
-	public static List<Nouvelle> getStubNouvelles() {
-		return listeNouvelles;
+	public List<Nouvelle> getStubNouvelles() {
+		return this.listeNouvelles;
 	}
 
-	private static void setStubSpectacles() {
+	private void setStubSpectacles() {
 
 		List<Spectacle> listeSpectacles = new ArrayList<Spectacle>();
 
@@ -118,14 +115,14 @@ public class StubFactory {
 		listeSpectacles.add(s2);
 		listeSpectacles.add(s3);
 
-		StubFactory.listeSpectacles = listeSpectacles;
+		this.listeSpectacles = listeSpectacles;
 	}
 
-	public static List<Spectacle> getStubSpectacles() {
+	public List<Spectacle> getStubSpectacles() {
 		return listeSpectacles;
 	}
 
-	private static void setStubArtistes() {
+	private void setStubArtistes() {
 
 		List<Artiste> listeArtistes = new ArrayList<Artiste>();
 
@@ -150,14 +147,14 @@ public class StubFactory {
 		listeArtistes.add(a3);
 		listeArtistes.add(a4);
 
-		StubFactory.listeArtistes = listeArtistes;
+		this.listeArtistes = listeArtistes;
 	}
 
-	public static List<Artiste> getStubArtistes() {
+	public List<Artiste> getStubArtistes() {
 		return listeArtistes;
 	}
 
-	private static void setStubTypesSpectacle() {
+	private void setStubTypesSpectacle() {
 
 		List<TypeSpectacle> listeTypesSpectacle = new ArrayList<TypeSpectacle>();
 
@@ -182,17 +179,16 @@ public class StubFactory {
 		listeTypesSpectacle.add(ts3);
 		listeTypesSpectacle.add(ts4);
 
-		StubFactory.listeTypesSpectacle = listeTypesSpectacle;
+		this.listeTypesSpectacle = listeTypesSpectacle;
 	}
 
-	public static List<TypeSpectacle> getStubTypesSpectacles() 
+	public List<TypeSpectacle> getStubTypesSpectacles() 
 	{
 		return listeTypesSpectacle;
 	}
 
-	private static void setStubTransactions() 
+	private void setStubTransactions() 
 	{
-
 		List<Transaction> listeTransactions = new ArrayList<Transaction>();
 		List<Client> listeClients = getStubClient();
 		List<Adresse> listeAdresses = getStubAdresse();
@@ -234,15 +230,15 @@ public class StubFactory {
 		listeTransactions.add(t3);
 		listeTransactions.add(t4);
 
-		StubFactory.listeTransactions = listeTransactions;
+		this.listeTransactions = listeTransactions;
 	}
 
-	public static List<Transaction> getStubTransactions() 
+	public List<Transaction> getStubTransactions() 
 	{
 		return listeTransactions;
 	}
 
-	private static void setStubClient(){
+	private void setStubClient(){
 		
 		List<Client> listeClients = new ArrayList<Client>();
 		List<Adresse> listeAdresses = getStubAdresse();
@@ -280,10 +276,10 @@ public class StubFactory {
 		listeClients.add(c3);
 		listeClients.add(c4);
 
-		StubFactory.listeClients = listeClients;
+		this.listeClients = listeClients;
 	}
 	
-	public static List<Client> getStubClient() 
+	public List<Client> getStubClient() 
 	{
 		return listeClients;
 	}
@@ -321,33 +317,11 @@ public class StubFactory {
 		listeAdresses.add(adr3);
 		listeAdresses.add(adr4);
 		
-		StubFactory.listeAdresses = listeAdresses;
+		this.listeAdresses = listeAdresses;
 	}
 	
-	public static List<Adresse> getStubAdresse()
+	public List<Adresse> getStubAdresse()
 	{
 		return listeAdresses;
 	}
-	public static void setStubCommande() 
-	{
-		List<Commande> listeCommandes = new ArrayList<Commande>();
-		
-	}
-	
-	public static List<Commande> getStubCommande() 
-	{
-		return listeCommandes;
-	}
-	
-	public static void setStubPanierAchat() 
-	{
-		List<PanierAchat> listePaniersAchats = new ArrayList<PanierAchat>();
-		
-	}
-	public static List<PanierAchat> getStubPanierAchat() 
-	{
-		return listePaniersAchats;
-	}
-
-
 }

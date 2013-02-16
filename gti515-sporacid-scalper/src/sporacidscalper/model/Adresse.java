@@ -20,6 +20,11 @@ public class Adresse extends AbstractModelObject implements Beanable
 		this.id = id;
 	}
 	
+	public int getId()
+	{
+		return this.id;
+	}
+	
 	public int getNoCivique()
 	{
 		return noCivique;

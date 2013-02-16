@@ -24,6 +24,7 @@ public class Client extends AbstractModelObject implements Beanable
 	{
 		this.id = id;
 	}
+	
 	public void creerPanierAchat()
 	{
 		throw new UnsupportedOperationException();
@@ -40,7 +41,12 @@ public class Client extends AbstractModelObject implements Beanable
 		estAuthentifie = true;
 		return true;
 	}
-
+	
+	public int getId()
+	{
+		return this.id;
+	}
+	
 	public String getIdentifiant()
 	{
 		return identifiant;
