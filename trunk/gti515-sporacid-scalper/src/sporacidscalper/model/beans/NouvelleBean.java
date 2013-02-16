@@ -18,6 +18,11 @@ public class NouvelleBean extends AbstractBean implements Modelable
 	private Date date;
 	private String auteur;
 	
+	public NouvelleBean(int id)
+	{
+		this.id = id;
+	}
+	
 	public int getId()
 	{
 		return id;

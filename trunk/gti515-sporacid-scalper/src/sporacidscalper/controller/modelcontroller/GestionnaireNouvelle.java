@@ -45,7 +45,9 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	 */
 	public void ajouterNouvelle(NouvelleBean nouvelleToAdd)
 	{
+		Nouvelle nouvelle = (Nouvelle) nouvelleToAdd.getModelObject();
 		
+		listeNouvelles.add(nouvelle);
 	}
 	
 	/**
@@ -54,6 +56,20 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	 */
 	public void modifierNouvelle(NouvelleBean nouvelleToEdit)
 	{
+		//TODO : Need some sort of validation on nouvelleToEdit
+		
+		// Iterators are faster than indexed loops for ArrayList
+		int i = 0;
+		for(Nouvelle nouvelle : listeNouvelles)
+		{
+			if(nouvelle.getId() == nouvelleToEdit.getId())
+			{
+				listeNouvelles.set(i, (Nouvelle) nouvelleToEdit.getModelObject());
+				break;
+			}
+			
+			i++;
+		}
 		
 	}
 	
@@ -63,6 +79,19 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	 */
 	public void supprimerNouvelle(NouvelleBean nouvelleToDelete)
 	{
+		int i = 0;
+
+		// Iterators are faster than indexed loops for ArrayList
+		for(Nouvelle nouvelle : listeNouvelles)
+		{
+			if(nouvelle.getId() == nouvelleToDelete.getId())
+			{
+				listeNouvelles.remove(i);
+				break;
+			}
+			
+			i++;
+		}
 		
 	}
 	
