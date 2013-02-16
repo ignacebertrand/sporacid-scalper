@@ -12,17 +12,23 @@ public class PanierAchat extends AbstractModelObject implements Beanable
 {
 	private Date dateCreation;
 	private List<ItemPanierAchat> items;
+	private double total;
 
 	public double getTotal()
 	{
-		double total = 0.0;
+		this.total = 0.0;
 		
 		for(ItemPanierAchat ipa : items)
 		{
-			total += ipa.getBilletRepresentation().getPrix();
+			this.total += ipa.getBilletRepresentation().getPrix();
 		}
 		
-		return total;
+		return this.total;
+	}
+	
+	public void setTotal(double total)
+	{
+		this.total = total;
 	}
 
 	public Commande creerCommande()
@@ -45,6 +51,11 @@ public class PanierAchat extends AbstractModelObject implements Beanable
 		return items;
 	}
 	
+	public void setItems(List<ItemPanierAchat> items)
+	{
+		this.items = items;
+	}	
+	
 	public List<ItemPanierAchatBean> toTagsBeanList(List<ItemPanierAchat> items)
 	{
 		List<ItemPanierAchatBean> beans = new ArrayList<ItemPanierAchatBean>();
@@ -56,6 +67,7 @@ public class PanierAchat extends AbstractModelObject implements Beanable
 		
 		return beans;
 	}
+
 
 	@Override
 	public AbstractBean getBean()

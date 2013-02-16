@@ -1,6 +1,8 @@
 package sporacidscalper.model.beans;
 
 import sporacidscalper.model.AbstractModelObject;
+import sporacidscalper.model.Adresse;
+import sporacidscalper.model.Salle;
 
 public class SalleBean extends AbstractBean implements Modelable
 {
@@ -46,7 +48,12 @@ public class SalleBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Salle s = new Salle();
+		
+		s.setAdresse((Adresse)this.adresse.getModelObject());
+		s.setCapacite(this.capacite);
+		s.setNom(this.nom);
+		
+		return s;
 	}
 }

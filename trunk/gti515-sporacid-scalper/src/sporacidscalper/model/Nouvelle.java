@@ -18,6 +18,11 @@ public class Nouvelle extends AbstractModelObject implements Beanable
 		this.id = id;
 	}
 	
+	public Nouvelle()
+	{
+		this(-1);
+	}
+	
 	public int getId()
 	{
 		return id;

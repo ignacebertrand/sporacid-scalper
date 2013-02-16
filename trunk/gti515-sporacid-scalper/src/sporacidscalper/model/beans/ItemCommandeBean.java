@@ -1,6 +1,8 @@
 package sporacidscalper.model.beans;
 
 import sporacidscalper.model.AbstractModelObject;
+import sporacidscalper.model.ItemCommande;
+import sporacidscalper.model.TypeBilletRepresentation;
 
 public class ItemCommandeBean extends AbstractBean implements Modelable
 {
@@ -35,7 +37,11 @@ public class ItemCommandeBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		ItemCommande ic = new ItemCommande();
+		
+		ic.setQuantite(this.quantite);
+		ic.setBilletRepresentation((TypeBilletRepresentation)this.billetRepresentation.getModelObject());
+		
+		return ic;
 	}
 }

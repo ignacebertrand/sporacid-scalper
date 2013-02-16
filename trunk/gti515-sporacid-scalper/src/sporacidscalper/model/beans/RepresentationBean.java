@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import sporacidscalper.model.AbstractModelObject;
+import sporacidscalper.model.Representation;
+import sporacidscalper.model.Salle;
 
 public class RepresentationBean extends AbstractBean implements Modelable
 {
@@ -77,7 +79,13 @@ public class RepresentationBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Representation r = new Representation();
+		
+		r.setDateDebutRepresentation(this.dateDebutRepresentation);
+		r.setDateFinRepresentation(this.dateFinRepresentation);
+		r.setSalle((Salle)this.salle.getModelObject());
+		r.setStatut(this.statut);
+		
+		return r;
 	}
 }

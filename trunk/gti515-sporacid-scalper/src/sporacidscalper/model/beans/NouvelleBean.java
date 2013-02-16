@@ -3,6 +3,7 @@ package sporacidscalper.model.beans;
 import java.util.Date;
 
 import sporacidscalper.model.AbstractModelObject;
+import sporacidscalper.model.Nouvelle;
 
 public class NouvelleBean extends AbstractBean implements Modelable
 {
@@ -71,7 +72,13 @@ public class NouvelleBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Nouvelle n = new Nouvelle();
+		
+		n.setAuteur(this.auteur);
+		n.setDate(this.date);
+		n.setDescription(this.description);
+		n.setTitre(this.titre);
+		
+		return n;
 	}
 }

@@ -1,6 +1,9 @@
 package sporacidscalper.model.beans;
 
-import sporacidscalper.model.*;
+import sporacidscalper.model.AbstractModelObject;
+import sporacidscalper.model.Adresse;
+import sporacidscalper.model.Client;
+import sporacidscalper.model.PanierAchat;
 
 public class ClientBean extends AbstractBean implements Modelable
 {
@@ -68,7 +71,13 @@ public class ClientBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Client client = new Client();
+		
+		client.setAdresse((Adresse)this.adresse.getModelObject());
+		client.setCourriel(this.courriel);
+		client.setIdentifiant(this.identifiant);
+		client.setNom(this.nom);
+		
+		return client;
 	}
 }
