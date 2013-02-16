@@ -6,6 +6,11 @@ import sporacidscalper.model.AbstractModelObject;
 
 public class RepresentationBean extends AbstractBean implements Modelable
 {
+	/**
+	 * Serializable interface requirement
+	 */
+	private static final long serialVersionUID = 1875304992245566973L;
+	
 	private int id;
 	private Date dateDebutRepresentation;
 	private Date dateFinRepresentation;

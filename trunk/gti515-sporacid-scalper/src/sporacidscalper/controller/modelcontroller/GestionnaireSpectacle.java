@@ -201,7 +201,17 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 */
 	public SpectacleBean[] obtenirSpectacles()
 	{
-		throw new UnsupportedOperationException();
+		SpectacleBean[] spectacles = new SpectacleBean[listeSpectacles.size()];
+		
+		int i = 0;
+		// Iterators are faster than indexed loops for ArrayList
+		for(Spectacle spectacle : listeSpectacles)
+		{
+			spectacles[i] = (SpectacleBean) spectacle.getBean();
+			i++;
+		}
+		
+		return spectacles;
 	}
 
 	/**

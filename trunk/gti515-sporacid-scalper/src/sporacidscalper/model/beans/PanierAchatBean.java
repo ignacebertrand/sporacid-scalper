@@ -6,6 +6,11 @@ import sporacidscalper.model.AbstractModelObject;
 
 public class PanierAchatBean extends AbstractBean implements Modelable
 {
+	/**
+	 * Serializable interface requirement
+	 */
+	private static final long serialVersionUID = -5741990719386774842L;
+	
 	private Date dateCreation;
 	private double total;
 	private ItemPanierAchatBean[] items;

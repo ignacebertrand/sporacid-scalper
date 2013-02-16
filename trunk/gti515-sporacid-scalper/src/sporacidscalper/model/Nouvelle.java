@@ -6,10 +6,16 @@ import sporacidscalper.model.beans.AbstractBean;
 
 public class Nouvelle extends AbstractModelObject implements Beanable
 {
+	private int id;
 	private String titre;
 	private String description;
 	private Date date;
 	private String auteur;
+	
+	public int getId()
+	{
+		return id;
+	}
 	
 	public String getTitre()
 	{

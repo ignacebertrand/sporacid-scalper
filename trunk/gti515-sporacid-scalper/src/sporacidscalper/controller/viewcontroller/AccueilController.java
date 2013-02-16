@@ -17,6 +17,8 @@ public class AccueilController
 		String context = request.getContextPath();
 		model.addAttribute("context", context);
 		
+		
+		
 		return "index";
 	}
 }

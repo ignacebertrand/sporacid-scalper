@@ -4,6 +4,11 @@ import sporacidscalper.model.*;
 
 public class TransactionBean extends AbstractBean implements Modelable
 {
+	/**
+	 * Serializable interface requirement
+	 */
+	private static final long serialVersionUID = -1577684604314224161L;
+	
 	private int id;
 	private int noConfirmationPaiement;
 	private int noConfirmationVente;

@@ -4,6 +4,11 @@ import sporacidscalper.model.AbstractModelObject;
 
 public class TypeBilletRepresentationBean extends AbstractBean implements Modelable
 {
+	/**
+	 * Serializable interface requirement
+	 */
+	private static final long serialVersionUID = 7463123842127037572L;
+	
 	private double prix;
 	private int nbBilletEmis;
 	private TypeBilletBean type;
