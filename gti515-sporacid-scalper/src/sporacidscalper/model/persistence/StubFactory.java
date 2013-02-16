@@ -37,25 +37,32 @@ public class StubFactory
 	{
 		List<Nouvelle> listeNouvelles = new ArrayList<Nouvelle>();
 		
-		Nouvelle n1 = new Nouvelle();
+		Nouvelle n1 = new Nouvelle(1);
 		n1.setAuteur("Simon Turcotte-Langevin");
 		n1.setDate(new Date());
 		n1.setTitre("Va chier Pat");
 		n1.setDescription("self explanatory");
 		
-		Nouvelle n2 = new Nouvelle();
+		Nouvelle n2 = new Nouvelle(2);
 		n2.setAuteur("Pat Lavallée");
 		n2.setDate(new Date());
 		n2.setTitre("Je sors du placard");
 		n2.setDescription("self explanatory");
 		
+		Nouvelle n3 = new Nouvelle(3);
+		n3.setAuteur("Patrick Groulx");
+		n3.setDate(new Date());
+		n3.setTitre("Moi j'aime ça les patates");
+		n3.setDescription("pis les bons légumes");
+		
 		listeNouvelles.add(n1);
 		listeNouvelles.add(n2);
+		listeNouvelles.add(n3);
 		
 		StubFactory.listeNouvelles = listeNouvelles;
 	}
 	
-	public List<Nouvelle> getStubNouvelles()
+	public static List<Nouvelle> getStubNouvelles()
 	{
 		return listeNouvelles;
 	}
