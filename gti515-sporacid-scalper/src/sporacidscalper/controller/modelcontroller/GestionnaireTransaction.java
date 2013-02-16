@@ -1,10 +1,10 @@
 package sporacidscalper.controller.modelcontroller;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import sporacidscalper.model.Transaction;
 import sporacidscalper.model.beans.TransactionBean;
+import sporacidscalper.model.persistence.StubFactory;
 
 public class GestionnaireTransaction implements IGestionnaireTransaction
 {
@@ -12,30 +12,13 @@ public class GestionnaireTransaction implements IGestionnaireTransaction
 	 * List of all transactions on which we'll do operations
 	 */
 	private List<Transaction> listeTransactions;
-	
-	/**
-	 * Singleton instance for the class
-	 */
-	private static GestionnaireTransaction instance;
 
 	/**
 	 * Private constructor for the singleton
 	 */
 	private GestionnaireTransaction()
 	{
-		this.listeTransactions = new ArrayList<Transaction>();
-	}
-
-	/**
-	 * Public method to obtain the singleton instance.
-	 * @return The singleton instance
-	 */
-	public static GestionnaireTransaction getInstance()
-	{
-		if(GestionnaireTransaction.instance == null)
-			GestionnaireTransaction.instance = new GestionnaireTransaction();
-		
-		return GestionnaireTransaction.instance;
+		this.listeTransactions = StubFactory.getInstance().getStubTransactions();
 	}
 	
 	/**
@@ -45,11 +28,13 @@ public class GestionnaireTransaction implements IGestionnaireTransaction
 	 */
 	public void ajouterTransaction(TransactionBean transactionToAdd)
 	{
-		Transaction transaction = (Transaction) transactionToAdd.getModelObject();
-		
 		//TODO : Need some sort of validation on the transaction to add and we need to make sure it's ACID.
 		
-		listeTransactions.add(transaction);
+		// Access listeTransactions thread-safely.
+		synchronized(listeTransactions)
+		{
+			listeTransactions.add((Transaction) transactionToAdd.getModelObject());
+		}
 	}
 
 	/**

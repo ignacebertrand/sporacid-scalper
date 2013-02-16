@@ -1,12 +1,12 @@
 package sporacidscalper.controller.modelcontroller;
 
 import java.util.List;
-import java.util.ArrayList;
 
-import sporacidscalper.model.Spectacle;
 import sporacidscalper.model.Representation;
-import sporacidscalper.model.beans.SpectacleBean;
+import sporacidscalper.model.Spectacle;
+import sporacidscalper.model.persistence.StubFactory;
 import sporacidscalper.model.beans.RepresentationBean;
+import sporacidscalper.model.beans.SpectacleBean;
 
 public class GestionnaireSpectacle implements IGestionnaireSpectacle
 {
@@ -14,30 +14,13 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 * List of all Spectacle on which we'll do operations
 	 */
 	private List<Spectacle> listeSpectacles;
-	
-	/**
-	 * Singleton instance for the class
-	 */
-	private static GestionnaireSpectacle instance;
 
 	/**
 	 * Private constructor for the singleton
 	 */
 	private GestionnaireSpectacle()
 	{
-		this.listeSpectacles = new ArrayList<Spectacle>();
-	}
-
-	/**
-	 * Public method to obtain the singleton instance.
-	 * @return The singleton instance
-	 */
-	public static GestionnaireSpectacle getInstance()
-	{
-		if(GestionnaireSpectacle.instance == null)
-			GestionnaireSpectacle.instance = new GestionnaireSpectacle();
-		
-		return GestionnaireSpectacle.instance;
+		this.listeSpectacles = StubFactory.getInstance().getStubSpectacles();
 	}
 
 	/**
@@ -46,11 +29,13 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 */
 	public void ajouterSpectacle(SpectacleBean spectacleToAdd)
 	{
-		Spectacle spectacle = (Spectacle) spectacleToAdd.getModelObject();
-		
 		//TODO : Need some sort of validation on the spectacle to add
 		
-		listeSpectacles.add(spectacle);
+		// Access listeSpectacles thread-safely.
+		synchronized(listeSpectacles)
+		{
+			listeSpectacles.add((Spectacle) spectacleToAdd.getModelObject());
+		}
 	}
 
 	/**
@@ -59,19 +44,23 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 */
 	public void modifierSpectacle(SpectacleBean spectacleToEdit)
 	{
+		int i = 0;
 		//TODO : Need some sort of validation on the spectacle to edit
 		
-		// Iterators are faster than indexed loops for ArrayList
-		int i = 0;
-		for(Spectacle spectacle : listeSpectacles)
+		// Access listeSpectacles thread-safely.
+		synchronized(listeSpectacles)
 		{
-			if(spectacle.getId() == spectacleToEdit.getId())
+			// Iterators are faster than indexed loops for ArrayList
+			for(Spectacle spectacle : listeSpectacles)
 			{
-				listeSpectacles.set(i, (Spectacle) spectacleToEdit.getModelObject());
-				break;
+				if(spectacle.getId() == spectacleToEdit.getId())
+				{
+					listeSpectacles.set(i, (Spectacle) spectacleToEdit.getModelObject());
+					break;
+				}
+				
+				i++;
 			}
-			
-			i++;
 		}
 	}
 
@@ -100,10 +89,14 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 			}
 		}
 		
-		if(okForDeletion)
+		// Access listeSpectacles thread-safely.
+		synchronized(listeSpectacles)
 		{
-			//Proceed with the deletion
-			listeSpectacles.remove(spectacle);
+			if(okForDeletion)
+			{
+				//Proceed with the deletion
+				listeSpectacles.remove(spectacle);
+			}
 		}
 	}
 
@@ -116,17 +109,21 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	{
 		Spectacle spectacleToEdit = null;
 		
-		for(Spectacle spectacle : listeSpectacles)
-			if(spectacle.getId() == spectacleId)
-				spectacleToEdit = spectacle;
-		
-		if(spectacleToEdit != null)
+		// Access listeSpectacles thread-safely.
+		synchronized(listeSpectacles)
 		{
-			Representation representation = (Representation) representationToAdd.getModelObject();
-			
-			//TODO : Need some sort of validation on the representation to add
-			
-			spectacleToEdit.getRepresentations().add(representation);
+			for(Spectacle spectacle : listeSpectacles)
+			{
+				if(spectacle.getId() == spectacleId)
+					spectacleToEdit = spectacle;
+			}
+		
+			if(spectacleToEdit != null)
+			{
+				//TODO : Need some sort of validation on the representation to add
+				
+				spectacleToEdit.getRepresentations().add((Representation) representationToAdd.getModelObject());
+			}
 		}
 	}
 
@@ -138,25 +135,34 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	public void modifierRepresentation(int spectacleId, RepresentationBean representationToEdit)
 	{
 		Spectacle spectacleToEdit = null;
-				
-		for(Spectacle spectacle : listeSpectacles)
-			if(spectacle.getId() == spectacleId)
-				spectacleToEdit = spectacle;
-		
-		if(spectacleToEdit != null)
-		{
-			List<Representation> spectacleToEditRepresentations = spectacleToEdit.getRepresentations();
 			
-			// Iterators are faster than indexed loops for ArrayList
-			int i = 0;
-			for(Representation representation : spectacleToEditRepresentations)
+		// Access listeSpectacles thread-safely.
+		synchronized(listeSpectacles)
+		{
+			for(Spectacle spectacle : listeSpectacles)
 			{
-				if(representation.getId() == representationToEdit.getId())
-				{
-					spectacleToEditRepresentations.set(i, (Representation) representationToEdit.getModelObject());
-				}
+				if(spectacle.getId() == spectacleId)
+					spectacleToEdit = spectacle;
+			}
+			
+			if(spectacleToEdit != null)
+			{
+				List<Representation> spectacleToEditRepresentations = spectacleToEdit.getRepresentations();
 				
-				i++;
+				// Iterators are faster than indexed loops for ArrayList
+				int i = 0;
+				for(Representation representation : spectacleToEditRepresentations)
+				{
+					if(representation.getId() == representationToEdit.getId())
+					{
+						//TODO : Need some sort of validation on the representation to edit
+						
+						spectacleToEditRepresentations.set(i, (Representation) representationToEdit.getModelObject());
+						break;
+					}
+					
+					i++;
+				}
 			}
 		}
 	}
@@ -183,12 +189,16 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	{
 		SpectacleBean spectacleToGet = null;
 		
-		for(Spectacle spectacle : listeSpectacles)
+		// Access listeSpectacles thread-safely.
+		synchronized(listeSpectacles)
 		{
-			if(spectacle.getId() == spectacleId)
+			for(Spectacle spectacle : listeSpectacles)
 			{
-				spectacleToGet = (SpectacleBean) spectacle.getBean();
-				break;
+				if(spectacle.getId() == spectacleId)
+				{
+					spectacleToGet = (SpectacleBean) spectacle.getBean();
+					break;
+				}
 			}
 		}
 		
@@ -200,15 +210,20 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 * @return The list of all Spectacle
 	 */
 	public SpectacleBean[] obtenirSpectacles()
-	{
-		SpectacleBean[] spectacles = new SpectacleBean[listeSpectacles.size()];
-		
+	{	
 		int i = 0;
-		// Iterators are faster than indexed loops for ArrayList
-		for(Spectacle spectacle : listeSpectacles)
+		
+		SpectacleBean[] spectacles = new SpectacleBean[listeSpectacles.size()];
+	
+		// Access listeSpectacles thread-safely.
+		synchronized(listeSpectacles)
 		{
-			spectacles[i] = (SpectacleBean) spectacle.getBean();
-			i++;
+			// Iterators are faster than indexed loops for ArrayList
+			for(Spectacle spectacle : listeSpectacles)
+			{
+				spectacles[i] = (SpectacleBean) spectacle.getBean();
+				i++;
+			}
 		}
 		
 		return spectacles;
