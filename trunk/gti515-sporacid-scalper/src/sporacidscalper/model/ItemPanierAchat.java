@@ -1,6 +1,8 @@
 package sporacidscalper.model;
 
 import sporacidscalper.model.beans.AbstractBean;
+import sporacidscalper.model.beans.ItemPanierAchatBean;
+import sporacidscalper.model.beans.TypeBilletRepresentationBean;
 
 public class ItemPanierAchat extends AbstractModelObject implements Beanable
 {
@@ -31,6 +33,11 @@ public class ItemPanierAchat extends AbstractModelObject implements Beanable
 	public AbstractBean getBean()
 	{
 		// TODO Auto-generated method stub
-		return null;
+		ItemPanierAchatBean bean = new ItemPanierAchatBean();
+		
+		bean.setBilletRepresentation((TypeBilletRepresentationBean)this.billetRepresentation.getBean());
+		bean.setQuantite(this.quantite);
+		
+		return bean;
 	}
 }

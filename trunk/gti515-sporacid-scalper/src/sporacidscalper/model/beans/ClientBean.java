@@ -45,12 +45,12 @@ public class ClientBean extends AbstractBean implements Modelable
 		this.courriel = courriel;
 	}
 	
-	public AdresseBean getAdresse()
+	public AdresseBean getAdresseBean()
 	{
 		return adresse;
 	}
 	
-	public void setAdresse(AdresseBean adresse)
+	public void setAdresseBean(AdresseBean adresse)
 	{
 		this.adresse = adresse;
 	}

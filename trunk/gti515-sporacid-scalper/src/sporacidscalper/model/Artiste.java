@@ -1,8 +1,11 @@
 package sporacidscalper.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import sporacidscalper.model.beans.AbstractBean;
+import sporacidscalper.model.beans.ArtisteBean;
+import sporacidscalper.model.beans.TagsBean;
 
 public class Artiste extends AbstractModelObject implements Beanable
 {
@@ -35,10 +38,27 @@ public class Artiste extends AbstractModelObject implements Beanable
 		return tags;
 	}
 	
+	public List<TagsBean> toTagsBeanList(List<Tags> items)
+	{
+		List<TagsBean> beans = new ArrayList<TagsBean>();
+		
+		for(Tags t : items)
+		{
+			beans.add((TagsBean)t.getBean());
+		}
+		
+		return beans;
+	}
+	
 	@Override
 	public AbstractBean getBean()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		ArtisteBean bean = new ArtisteBean();
+		
+		bean.setDescription(this.description);
+		bean.setNom(this.nom);
+		bean.setTags(this.toTagsBeanList(this.tags));
+
+		return bean;
 	}
 }

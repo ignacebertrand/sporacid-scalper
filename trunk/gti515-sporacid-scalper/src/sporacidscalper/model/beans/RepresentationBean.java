@@ -1,6 +1,7 @@
 package sporacidscalper.model.beans;
 
 import java.util.Date;
+import java.util.List;
 
 import sporacidscalper.model.AbstractModelObject;
 
@@ -15,7 +16,7 @@ public class RepresentationBean extends AbstractBean implements Modelable
 	private Date dateDebutRepresentation;
 	private Date dateFinRepresentation;
 	private String statut;
-	private TypeBilletRepresentationBean[] typesBillet;
+	private List<TypeBilletRepresentationBean> typesBillet;
 	private SalleBean salle;
 	
 	public int getId()
@@ -53,7 +54,7 @@ public class RepresentationBean extends AbstractBean implements Modelable
 		this.statut = statut;
 	}
 	
-	public TypeBilletRepresentationBean[] getTypesBillet()
+	public List<TypeBilletRepresentationBean> getTypesBillet()
 	{
 		return typesBillet;
 	}
@@ -66,6 +67,11 @@ public class RepresentationBean extends AbstractBean implements Modelable
 	public void setSalle(SalleBean salle)
 	{
 		this.salle = salle;
+	}
+	
+	public void setTypesBillet(List<TypeBilletRepresentationBean> typesBillet)
+	{
+		this.typesBillet = typesBillet;
 	}
 
 	@Override

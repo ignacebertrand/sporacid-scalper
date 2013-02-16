@@ -1,9 +1,13 @@
 package sporacidscalper.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import sporacidscalper.model.beans.AbstractBean;
+import sporacidscalper.model.beans.RepresentationBean;
+import sporacidscalper.model.beans.SalleBean;
+import sporacidscalper.model.beans.TypeBilletRepresentationBean;
 
 public class Representation extends AbstractModelObject implements Beanable
 {
@@ -63,11 +67,31 @@ public class Representation extends AbstractModelObject implements Beanable
 	{
 		return typesBillet;
 	}
+	
+	
+	public List<TypeBilletRepresentationBean> toTagsBeanList(List<TypeBilletRepresentation> typesBillet)
+	{
+		List<TypeBilletRepresentationBean> beans = new ArrayList<TypeBilletRepresentationBean>();
+		
+		for(TypeBilletRepresentation tbr : typesBillet)
+		{
+			beans.add((TypeBilletRepresentationBean)tbr.getBean());
+		}
+		
+		return beans;
+	}
 
 	@Override
 	public AbstractBean getBean()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		RepresentationBean bean = new RepresentationBean();
+		
+		bean.setDateDebutRepresentation(this.dateDebutRepresentation);
+		bean.setDateFinRepresentation(this.dateFinRepresentation);
+		bean.setSalle((SalleBean)this.salle.getBean());
+		bean.setStatut(this.statut);
+		bean.setTypesBillet(this.toTagsBeanList(this.typesBillet));
+		
+		return bean;
 	}
 }
