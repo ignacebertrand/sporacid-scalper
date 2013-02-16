@@ -1,10 +1,10 @@
 package sporacidscalper.controller.modelcontroller;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import sporacidscalper.model.Client;
 import sporacidscalper.model.beans.ClientBean;
+import sporacidscalper.model.persistence.StubFactory;
 
 public class GestionnaireClient implements IGestionnaireClient
 {
@@ -14,28 +14,11 @@ public class GestionnaireClient implements IGestionnaireClient
 	private List<Client> listeClients;
 	
 	/**
-	 * Singleton instance for the class
-	 */
-	private static GestionnaireClient instance;
-
-	/**
 	 * Private constructor for the singleton
 	 */
 	private GestionnaireClient()
 	{
-		this.listeClients = new ArrayList<Client>();
-	}
-
-	/**
-	 * Public method to obtain the singleton instance.
-	 * @return The singleton instance
-	 */
-	public static GestionnaireClient getInstance()
-	{
-		if(GestionnaireClient.instance == null)
-			GestionnaireClient.instance = new GestionnaireClient();
-		
-		return GestionnaireClient.instance;
+		this.listeClients = StubFactory.getInstance().getStubClients();
 	}
 
 	/**
@@ -44,11 +27,13 @@ public class GestionnaireClient implements IGestionnaireClient
 	 */
 	public void ajouterClient(ClientBean clientToAdd)
 	{
-		Client client = (Client) clientToAdd.getModelObject();
-		
 		//TODO : Need some sort of validation on the client to add
 		
-		listeClients.add(client);
+		// Access listeClient thread-safely.
+		synchronized(listeClients)
+		{
+			listeClients.add((Client)clientToAdd.getModelObject());
+		}
 	}
 
 	/**
@@ -57,19 +42,24 @@ public class GestionnaireClient implements IGestionnaireClient
 	 */
 	public void modifierClient(ClientBean clientToEdit)
 	{
+		int i = 0;
+		
 		//TODO : Need some sort of validation on the client to edit
 		
-		// Iterators are faster than indexed loops for ArrayList
-		int i = 0;
-		for(Client client : listeClients)
+		// Access listeClient thread-safely.
+		synchronized(listeClients)
 		{
-			if(client.getIdentifiant().equals(clientToEdit.getIdentifiant()))
+			// Iterators are faster than indexed loops for ArrayList
+			for(Client client : listeClients)
 			{
-				listeClients.set(i, (Client) clientToEdit.getModelObject());
-				break;
+				if(client.getIdentifiant().equals(clientToEdit.getIdentifiant()))
+				{
+					listeClients.set(i, (Client) clientToEdit.getModelObject());
+					break;
+				}
+				
+				i++;
 			}
-			
-			i++;
 		}
 	}
 
@@ -82,12 +72,16 @@ public class GestionnaireClient implements IGestionnaireClient
 	{
 		ClientBean clientToGet = null;
 		
-		for(Client client : listeClients)
+		// Access listeClient thread-safely.
+		synchronized(listeClients)
 		{
-			if(client.getIdentifiant().equals(clientIdentifier))
+			for(Client client : listeClients)
 			{
-				clientToGet = (ClientBean) client.getBean();
-				break;
+				if(client.getIdentifiant().equals(clientIdentifier))
+				{
+					clientToGet = (ClientBean) client.getBean();
+					break;
+				}
 			}
 		}
 		

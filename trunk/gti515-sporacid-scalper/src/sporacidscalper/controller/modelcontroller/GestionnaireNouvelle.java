@@ -12,32 +12,14 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	 * List of all news on which we'll do operations
 	 */
 	private List<Nouvelle> listeNouvelles;
-	
-	/**
-	 * Singleton instance for the class
-	 */
-	//private static GestionnaireNouvelle instance;
 
 	/**
 	 * Private constructor for the singleton
 	 */
 	public GestionnaireNouvelle()
 	{
-		//this.listeNouvelles = new ArrayList<Nouvelle>();
 		this.listeNouvelles = StubFactory.getInstance().getStubNouvelles();
 	}
-	
-	/**
-	 * Public method to obtain the singleton instance.
-	 * @return The singleton instance
-	 */
-	/*public static GestionnaireNouvelle getInstance()
-	{
-		if(GestionnaireNouvelle.instance == null)
-			GestionnaireNouvelle.instance = new GestionnaireNouvelle();
-		
-		return GestionnaireNouvelle.instance;
-	}*/
 	
 	/**
 	 * Public method to add a news to the system.
@@ -45,9 +27,13 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	 */
 	public void ajouterNouvelle(NouvelleBean nouvelleToAdd)
 	{
-		Nouvelle nouvelle = (Nouvelle) nouvelleToAdd.getModelObject();
+		//TODO : Need some sort of validation on nouvelleToAdd
 		
-		listeNouvelles.add(nouvelle);
+		// Access listeNouvelles thread-safely.
+		synchronized(listeNouvelles)
+		{
+			listeNouvelles.add((Nouvelle) nouvelleToAdd.getModelObject());
+		}
 	}
 	
 	/**
@@ -56,21 +42,26 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	 */
 	public void modifierNouvelle(NouvelleBean nouvelleToEdit)
 	{
+		int i = 0;
+		
 		//TODO : Need some sort of validation on nouvelleToEdit
 		
-		// Iterators are faster than indexed loops for ArrayList
-		int i = 0;
-		for(Nouvelle nouvelle : listeNouvelles)
+		// Access listeNouvelles thread-safely.
+		synchronized(listeNouvelles)
 		{
-			if(nouvelle.getId() == nouvelleToEdit.getId())
+			// Iterators are faster than indexed loops for ArrayList
+			for(Nouvelle nouvelle : listeNouvelles)
 			{
-				listeNouvelles.set(i, (Nouvelle) nouvelleToEdit.getModelObject());
-				break;
+				if(nouvelle.getId() == nouvelleToEdit.getId())
+				{
+					listeNouvelles.set(i, (Nouvelle) nouvelleToEdit.getModelObject());
+					
+					break;
+				}
+				
+				i++;
 			}
-			
-			i++;
 		}
-		
 	}
 	
 	/**
@@ -81,18 +72,22 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	{
 		int i = 0;
 
-		// Iterators are faster than indexed loops for ArrayList
-		for(Nouvelle nouvelle : listeNouvelles)
+		// Access listeNouvelles thread-safely.
+		synchronized(listeNouvelles)
 		{
-			if(nouvelle.getId() == nouvelleToDelete.getId())
+			// Iterators are faster than indexed loops for ArrayList
+			for(Nouvelle nouvelle : listeNouvelles)
 			{
-				listeNouvelles.remove(i);
-				break;
+				if(nouvelle.getId() == nouvelleToDelete.getId())
+				{
+					listeNouvelles.remove(i);
+					
+					break;
+				}
+				
+				i++;
 			}
-			
-			i++;
 		}
-		
 	}
 	
 	/**
@@ -101,14 +96,19 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	 */
 	public NouvelleBean[] obtenirNouvelles()
 	{
+		int i = 0;
+		
 		NouvelleBean[] nouvelles = new NouvelleBean[listeNouvelles.size()];
 		
-		int i = 0;
-		// Iterators are faster than indexed loops for ArrayList
-		for(Nouvelle nouvelle : listeNouvelles)
+		// Access listeNouvelles thread-safely.
+		synchronized(listeNouvelles)
 		{
-			nouvelles[i] = (NouvelleBean) nouvelle.getBean();
-			i++;
+			// Iterators are faster than indexed loops for ArrayList
+			for(Nouvelle nouvelle : listeNouvelles)
+			{
+				nouvelles[i] = (NouvelleBean) nouvelle.getBean();
+				i++;
+			}
 		}
 		
 		//TODO Sort by date
