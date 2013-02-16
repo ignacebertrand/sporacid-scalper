@@ -7,6 +7,15 @@
 			
   <display-name>gti515-sporacid-scalper</display-name>
   
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/application-context.xml</param-value>
+	</context-param>
+  
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener> 
+  
 	<!--
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

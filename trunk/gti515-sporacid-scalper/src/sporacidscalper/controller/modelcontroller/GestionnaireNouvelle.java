@@ -16,28 +16,28 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	/**
 	 * Singleton instance for the class
 	 */
-	private static GestionnaireNouvelle instance;
+	//private static GestionnaireNouvelle instance;
 
 	/**
 	 * Private constructor for the singleton
 	 */
-	private GestionnaireNouvelle()
+	public GestionnaireNouvelle()
 	{
 		//this.listeNouvelles = new ArrayList<Nouvelle>();
-		this.listeNouvelles = StubFactory.getStubNouvelles();
+		this.listeNouvelles = StubFactory.getInstance().getStubNouvelles();
 	}
 	
 	/**
 	 * Public method to obtain the singleton instance.
 	 * @return The singleton instance
 	 */
-	public static GestionnaireNouvelle getInstance()
+	/*public static GestionnaireNouvelle getInstance()
 	{
 		if(GestionnaireNouvelle.instance == null)
 			GestionnaireNouvelle.instance = new GestionnaireNouvelle();
 		
 		return GestionnaireNouvelle.instance;
-	}
+	}*/
 	
 	/**
 	 * Public method to add a news to the system.
