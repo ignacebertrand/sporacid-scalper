@@ -1,11 +1,10 @@
 package sporacidscalper.controller.modelcontroller;
 
-import java.util.Date;
 import java.util.List;
-import java.util.ArrayList;
 
 import sporacidscalper.model.Nouvelle;
 import sporacidscalper.model.beans.NouvelleBean;
+import sporacidscalper.model.persistence.StubFactory;
 
 public class GestionnaireNouvelle implements IGestionnaireNouvelle
 {
@@ -24,22 +23,8 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	 */
 	private GestionnaireNouvelle()
 	{
-		this.listeNouvelles = new ArrayList<Nouvelle>();
-		
-		Nouvelle n1 = new Nouvelle();
-		n1.setAuteur("Simon Turcotte-Langevin");
-		n1.setDate(new Date());
-		n1.setTitre("Va chier Pat");
-		n1.setDescription("self explanatory");
-		
-		Nouvelle n2 = new Nouvelle();
-		n2.setAuteur("Pat Lavallée");
-		n2.setDate(new Date());
-		n2.setTitre("Je sors du placard");
-		n2.setDescription("self explanatory");
-		
-		this.listeNouvelles.add(n1);
-		this.listeNouvelles.add(n2);
+		//this.listeNouvelles = new ArrayList<Nouvelle>();
+		this.listeNouvelles = StubFactory.getStubNouvelles();
 	}
 	
 	/**
@@ -55,8 +40,8 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	}
 	
 	/**
-	 * 
-	 * @param nouvelleToAdd
+	 * Public method to add a news to the system.
+	 * @param nouvelleToAdd A news bean object that contains informations for the news to add
 	 */
 	public void ajouterNouvelle(NouvelleBean nouvelleToAdd)
 	{
@@ -64,8 +49,8 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	}
 	
 	/**
-	 * 
-	 * @param nouvelleToAdd
+	 * Public method to edit a news in the system.
+	 * @param nouvelleToEdit A news bean that contains modifications to a news
 	 */
 	public void modifierNouvelle(NouvelleBean nouvelleToEdit)
 	{
@@ -73,8 +58,8 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	}
 	
 	/**
-	 * 
-	 * @param nouvelleToAdd
+	 * Public method to delete a news from the system.
+	 * @param nouvelleToDelete A news bean object that we wish to delete
 	 */
 	public void supprimerNouvelle(NouvelleBean nouvelleToDelete)
 	{
@@ -82,8 +67,8 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Public method to obtain all news from the system.
+	 * @return The list of all news
 	 */
 	public NouvelleBean[] obtenirNouvelles()
 	{
@@ -96,6 +81,8 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 			nouvelles[i] = (NouvelleBean) nouvelle.getBean();
 			i++;
 		}
+		
+		//TODO Sort by date
 		
 		return nouvelles;
 	}
