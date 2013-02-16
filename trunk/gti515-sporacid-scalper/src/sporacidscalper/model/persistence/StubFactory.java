@@ -4,24 +4,36 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import sporacidscalper.controller.modelcontroller.GestionnaireNouvelle;
 import sporacidscalper.model.*;
 
 public class StubFactory 
 {
-	private StubFactory instance;
-	private List<Client> listeClients;
-	private List<Nouvelle> listeNouvelles;
-	private List<Spectacle> listeSpectacles;
-	private List<Transaction> listeTransactions;
+	private static StubFactory instance;
+	private static List<Client> listeClients;
+	private static List<Nouvelle> listeNouvelles;
+	private static List<Spectacle> listeSpectacles;
+	private static List<Transaction> listeTransactions;
+	
+	private StubFactory()
+	{
+		setStubNouvelles();
+	}
+	
+	public StubFactory getInstance()
+	{
+		if(StubFactory.instance == null)
+			StubFactory.instance = new StubFactory();
+		
+		return StubFactory.instance;
+	}
 	
 	public List<Client> getStubClients()
 	{
 		return null;
 	}
-	
-	
-	
-	public List<Nouvelle> getStubNouvelles()
+
+	private void setStubNouvelles()
 	{
 		List<Nouvelle> listeNouvelles = new ArrayList<Nouvelle>();
 		
@@ -40,6 +52,11 @@ public class StubFactory
 		listeNouvelles.add(n1);
 		listeNouvelles.add(n2);
 		
+		StubFactory.listeNouvelles = listeNouvelles;
+	}
+	
+	public List<Nouvelle> getStubNouvelles()
+	{
 		return listeNouvelles;
 	}
 	
