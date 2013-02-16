@@ -13,6 +13,7 @@ import sporacidscalper.model.TypeSpectacle;
 import com.sun.security.ntlm.Client;
 
 public class StubFactory {
+	
 	private static StubFactory instance;
 	private List<Client> listeClients;
 	private List<Artiste> listeArtistes;
