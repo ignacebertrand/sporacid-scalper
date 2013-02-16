@@ -58,6 +58,11 @@ public class Spectacle extends AbstractModelObject implements Beanable
 		return artistes;
 	}
 	
+	public void setArtistes(List<Artiste> artistes)
+	{
+		this.artistes = artistes;
+	}
+	
 	public TypeSpectacle getType()
 	{
 		return type;
