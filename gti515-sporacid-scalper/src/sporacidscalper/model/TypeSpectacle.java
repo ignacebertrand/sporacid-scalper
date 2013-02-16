@@ -5,8 +5,19 @@ import sporacidscalper.model.beans.TypeSpectacleBean;
 
 public class TypeSpectacle extends AbstractModelObject implements Beanable
 {
+	private int id;
 	private String nom;
 	private String description;
+	
+	public TypeSpectacle()
+	{
+		this(-1);
+	}
+	
+	public TypeSpectacle(int id)
+	{
+		this.id = id;
+	}
 	
 	public String getNom()
 	{

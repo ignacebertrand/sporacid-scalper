@@ -16,6 +16,16 @@ public class Transaction extends AbstractModelObject implements Beanable
 	private Adresse adresseLivraison;
 	private Commande commande;
 	
+	public Transaction()
+	{
+		this(-1);
+	}
+	
+	public Transaction(int id)
+	{
+		this.id = id;
+	
+	}
 	public int getId()
 	{
 		return id;
