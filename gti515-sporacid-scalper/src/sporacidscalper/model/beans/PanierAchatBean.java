@@ -1,9 +1,12 @@
 package sporacidscalper.model.beans;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import sporacidscalper.model.AbstractModelObject;
+import sporacidscalper.model.ItemPanierAchat;
+import sporacidscalper.model.PanierAchat;
 
 public class PanierAchatBean extends AbstractBean implements Modelable
 {
@@ -28,7 +31,14 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 	
 	public double getTotal()
 	{
-		return total;
+		this.total = 0.0;
+		
+		for(ItemPanierAchatBean ipa : this.items)
+		{
+			this.total += ipa.getQuantite() * ipa.getBilletRepresentation().getPrix();
+		}
+		
+		return this.total;
 	}
 	
 	public void setTotal(double total)
@@ -45,11 +55,28 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 	{
 		this.items = items;
 	}
-
+	
+	private List<ItemPanierAchat> toItemPanierAchatList(List<ItemPanierAchatBean> items)
+	{
+		List<ItemPanierAchat> ipas = new ArrayList<ItemPanierAchat>();
+		
+		for(ItemPanierAchatBean ipa : items)
+		{
+			ipas.add((ItemPanierAchat)ipa.getModelObject());
+		}
+		
+		return ipas;
+	}
+	
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		PanierAchat pa = new PanierAchat();
+		
+		pa.setItems(this.toItemPanierAchatList(this.items));
+		pa.setDateCreation(this.dateCreation);
+		pa.setTotal(this.getTotal());
+		
+		return pa;
 	}
 }

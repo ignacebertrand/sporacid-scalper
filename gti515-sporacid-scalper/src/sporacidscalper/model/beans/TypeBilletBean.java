@@ -1,6 +1,7 @@
 package sporacidscalper.model.beans;
 
 import sporacidscalper.model.AbstractModelObject;
+import sporacidscalper.model.TypeBillet;
 
 public class TypeBilletBean extends AbstractBean implements Modelable
 {
@@ -35,7 +36,11 @@ public class TypeBilletBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		TypeBillet t = new TypeBillet();
+		
+		t.setDescription(this.description);
+		t.setNom(this.nom);
+		
+		return t;
 	}
 }

@@ -1,8 +1,12 @@
 package sporacidscalper.model.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import sporacidscalper.model.AbstractModelObject;
+import sporacidscalper.model.Artiste;
+import sporacidscalper.model.Spectacle;
+import sporacidscalper.model.TypeSpectacle;
 
 public class SpectacleBean extends AbstractBean implements Modelable
 {
@@ -78,11 +82,30 @@ public class SpectacleBean extends AbstractBean implements Modelable
 	{
 		return representations;
 	}
+	
+	private List<Artiste> toArtisteList(List<ArtisteBean> artistesBean)
+	{
+		List<Artiste> artistes = new ArrayList<Artiste>();
+		
+		for(ArtisteBean ab : artistesBean)
+		{
+			artistes.add((Artiste)ab.getModelObject());
+		}
+		
+		return artistes;
+	}
 
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Spectacle s = new Spectacle();
+		
+		s.setDescription(this.description);
+		s.setNom(this.nom);
+		s.setPosterUrl(this.posterUrl);
+		s.setType((TypeSpectacle)type.getModelObject());
+		s.setArtistes(this.toArtisteList(this.artistes));
+		
+		return s;
 	}
 }

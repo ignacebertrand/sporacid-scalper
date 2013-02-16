@@ -1,6 +1,7 @@
 package sporacidscalper.model.beans;
 
 import sporacidscalper.model.AbstractModelObject;
+import sporacidscalper.model.Adresse;
 
 public class AdresseBean extends AbstractBean implements Modelable
 {
@@ -57,8 +58,14 @@ public class AdresseBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Adresse adresse = new Adresse();
+		
+		adresse.setCodePostal(this.codePostal);
+		adresse.setNoCivique(this.noCivique);
+		adresse.setNomRue(this.nomRue);
+		adresse.setProvince(this.province);
+		
+		return adresse;
 	}
 
 }

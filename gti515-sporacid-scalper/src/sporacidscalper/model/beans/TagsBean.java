@@ -1,6 +1,7 @@
 package sporacidscalper.model.beans;
 
 import sporacidscalper.model.AbstractModelObject;
+import sporacidscalper.model.Tags;
 
 public class TagsBean extends AbstractBean implements Modelable
 {
@@ -35,7 +36,11 @@ public class TagsBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Tags t = new Tags();
+		
+		t.setNom(this.nom);
+		t.setUrl(this.url);
+		
+		return t;
 	}
 }

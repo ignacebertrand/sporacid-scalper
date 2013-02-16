@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import sporacidscalper.model.AbstractModelObject;
+import sporacidscalper.model.Commande;
 
 public class CommandeBean extends AbstractBean implements Modelable
 {
@@ -59,8 +60,12 @@ public class CommandeBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Commande c = new Commande();
+		
+		c.setDateCreation(this.dateCreation);
+		c.setNoCommande(this.noCommande);
+		
+		return c;
 	}
 
 }

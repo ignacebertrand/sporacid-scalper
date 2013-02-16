@@ -38,6 +38,11 @@ public class Artiste extends AbstractModelObject implements Beanable
 		return tags;
 	}
 	
+	public void setTags(List<Tags> tags)
+	{
+		this.tags = tags;
+	}
+	
 	public List<TagsBean> toTagsBeanList(List<Tags> items)
 	{
 		List<TagsBean> beans = new ArrayList<TagsBean>();

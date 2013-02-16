@@ -1,6 +1,7 @@
 package sporacidscalper.model.beans;
 
 import sporacidscalper.model.AbstractModelObject;
+import sporacidscalper.model.TypeSpectacle;
 
 public class TypeSpectacleBean extends AbstractBean implements Modelable
 {
@@ -35,7 +36,11 @@ public class TypeSpectacleBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		TypeSpectacle ts = new TypeSpectacle();
+		
+		ts.setDescription(this.description);
+		ts.setNom(this.nom);
+		
+		return ts;
 	}
 }
