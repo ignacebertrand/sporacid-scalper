@@ -14,21 +14,21 @@ import com.sun.security.ntlm.Client;
 
 public class StubFactory {
 	private static StubFactory instance;
-	private static List<Client> listeClients;
-	private static List<Artiste> listeArtistes;
-	private static List<Nouvelle> listeNouvelles;
-	private static List<Spectacle> listeSpectacles;
-	private static List<Transaction> listeTransactions;
-	private static List<TypeSpectacle> listeTypesSpectacle;
+	private List<Client> listeClients;
+	private List<Artiste> listeArtistes;
+	private List<Nouvelle> listeNouvelles;
+	private List<Spectacle> listeSpectacles;
+	private List<Transaction> listeTransactions;
+	private List<TypeSpectacle> listeTypesSpectacle;
 
 	private StubFactory() {
 		setStubNouvelles();
 		setStubArtistes();
-		setStubSpectacles();
 		setStubTypesSpectacle();
+		setStubSpectacles();
 	}
 
-	public StubFactory getInstance() {
+	public static StubFactory getInstance() {
 		if (StubFactory.instance == null)
 			StubFactory.instance = new StubFactory();
 
@@ -65,15 +65,15 @@ public class StubFactory {
 		listeNouvelles.add(n2);
 		listeNouvelles.add(n3);
 		
-		StubFactory.listeNouvelles = listeNouvelles;
+		this.listeNouvelles = listeNouvelles;
 	}
 	
-	public static List<Nouvelle> getStubNouvelles()
+	public List<Nouvelle> getStubNouvelles()
 	{
 		return listeNouvelles;
 	}
 
-	private static void setStubSpectacles() {
+	private void setStubSpectacles() {
 
 		List<Spectacle> listeSpectacles = new ArrayList<Spectacle>();
 
@@ -109,14 +109,14 @@ public class StubFactory {
 		listeSpectacles.add(s2);
 		listeSpectacles.add(s3);
 
-		StubFactory.listeSpectacles = listeSpectacles;
+		this.listeSpectacles = listeSpectacles;
 	}
 
-	public static List<Spectacle> getStubSpectacles() {
+	public List<Spectacle> getStubSpectacles() {
 		return listeSpectacles;
 	}
 
-	private static void setStubArtistes() {
+	private void setStubArtistes() {
 
 		List<Artiste> listeArtistes = new ArrayList<Artiste>();
 
@@ -141,14 +141,14 @@ public class StubFactory {
 		listeArtistes.add(a3);
 		listeArtistes.add(a4);
 
-		StubFactory.listeArtistes = listeArtistes;
+		this.listeArtistes = listeArtistes;
 	}
 
-	public static List<Artiste> getStubArtistes() {
+	public List<Artiste> getStubArtistes() {
 		return listeArtistes;
 	}
 
-	private static void setStubTypesSpectacle() {
+	private void setStubTypesSpectacle() {
 
 		List<TypeSpectacle> listeTypesSpectacle = new ArrayList<TypeSpectacle>();
 
@@ -173,14 +173,14 @@ public class StubFactory {
 		listeTypesSpectacle.add(ts3);
 		listeTypesSpectacle.add(ts4);
 
-		StubFactory.listeTypesSpectacle = listeTypesSpectacle;
+		this.listeTypesSpectacle = listeTypesSpectacle;
 	}
 
-	public static List<TypeSpectacle> getStubTypesSpectacles() {
+	public List<TypeSpectacle> getStubTypesSpectacles() {
 		return listeTypesSpectacle;
 	}
 
-	public static List<Transaction> getStubTransactions() {
+	public List<Transaction> getStubTransactions() {
 		return listeTransactions;
 	}
 }
