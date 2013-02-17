@@ -16,7 +16,7 @@ public class GestionnaireTransaction implements IGestionnaireTransaction
 	/**
 	 * Private constructor for the singleton
 	 */
-	private GestionnaireTransaction()
+	public GestionnaireTransaction()
 	{
 		this.listeTransactions = StubFactory.getInstance().getStubTransactions();
 	}

@@ -11,12 +11,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import sporacidscalper.controller.modelcontroller.IGestionnaireClient;
-
 @Controller 
 public class PanierAchatController implements ApplicationContextAware
 {
-	private IGestionnaireClient gestionnaireClient;
+	//private IGestionnaireClient gestionnaireClient;
 	
 	@RequestMapping("/panier-achat")
 	public String getPanierAchat(ModelMap model, @ModelAttribute Object form, BindingResult result, HttpServletRequest request)
@@ -31,6 +29,6 @@ public class PanierAchatController implements ApplicationContextAware
 	public void setApplicationContext(ApplicationContext context) throws BeansException 
 	{
 		// TODO Auto-generated method stub
-		gestionnaireClient = context.getBean("gestionnaireClient", IGestionnaireClient.class);
+		//gestionnaireClient = context.getBean("gestionnaireClient", IGestionnaireClient.class);
 	}
 }

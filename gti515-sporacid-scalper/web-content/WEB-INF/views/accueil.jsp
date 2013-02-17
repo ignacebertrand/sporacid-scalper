@@ -1,12 +1,14 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ page import="sporacidscalper.model.beans.NouvelleBean"%> 
+<%@page import="sporacidscalper.model.Spectacle"%>
+<%@ page import="sporacidscalper.model.beans.SpectacleBean" %>
+<%@ page import="sporacidscalper.model.beans.NouvelleBean" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html>
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getAttribute("context");
-
-	NouvelleBean[] listeNouvelles = (NouvelleBean[]) request.getAttribute("listeNouvelles"); 
+	NouvelleBean[] listeNouvelles = (NouvelleBean[]) request.getAttribute("listeNouvelles");
+	SpectacleBean[] listeProchainsSpectacles = (SpectacleBean[]) request.getAttribute("listeProchainsSpectacles");
 %>
 <html>
 	<head>
@@ -17,9 +19,9 @@
 		<script type="text/javascript" src="<%=contextAttr%>/scripts/site-scripts.js"></script>
 	</head>
 	<body>
-		<div class="header">
-			<div class="header-logo"></div>
-		</div>
+
+		<%-- Include the header in the page --%>
+		<jsp:include page="partial-views/header.jsp"></jsp:include>
 		
 		<div class="main-container">
 			
@@ -40,44 +42,22 @@
 							<li class="upcoming-shows-spinner-next">&gt;</li>
 						</ul>
 						<div class="upcoming-shows-spinner-content">
-							<!--Item 1-->
-							<div class="upcoming-shows-spinner-item" style=" display: block;">
-								<div class="upcoming-shows-spinner-item-image" 
-									 style="background-image: url(styles/images/decrepit-birth-event.jpg);">
+						
+							<% for(int i = 0; i < 5 && i < listeProchainsSpectacles.length; i++) { %>
+							
+								<% SpectacleBean spectacle = listeProchainsSpectacles[i]; %>
+								
+								<div class="upcoming-shows-spinner-item">
+									<div class="upcoming-shows-spinner-item-image" 
+										 style="background-image: url(<%=spectacle.getPosterUrl()%>);">
+									</div>
+									<div class="upcoming-shows-spinner-item-description">
+										<%=spectacle.getDescription()%>
+									</div>
 								</div>
-								<div class="upcoming-shows-spinner-item-description">
-									Spectacle Decrepit Birth au club soda le 13/13/2013.
-									Prix : 30$
-								</div>
-							</div>
-							<!--Item 2-->
-							<div class="upcoming-shows-spinner-item">
-								<div class="upcoming-shows-spinner-item-image" 
-									 style="background-image: url(styles/images/francois_bellefeuille.jpg);">
-								</div>
-								<div class="upcoming-shows-spinner-item-description">
-									François Bellefeuille part à la conquête du 450.
-									Ya pas juste Montréal quand même !
-								</div>
-							</div>
-							<!--Item 3-->
-							<div class="upcoming-shows-spinner-item">
-								<div class="upcoming-shows-spinner-item-image" 
-									 style="background-image: url(styles/images/trois_accords.jpg);">
-								</div>
-								<div class="upcoming-shows-spinner-item-description">
-									Les Trois Accords la tournée J'aime ta grand-mère
-								</div>
-							</div>
-							<!--Item 4-->
-							<div class="upcoming-shows-spinner-item">
-								<div class="upcoming-shows-spinner-item-image" 
-									 style="background-image: url(styles/images/les_bobos.jpg);">
-								</div>
-								<div class="upcoming-shows-spinner-item-description">
-									Marc Labrèche et Anne Dorval présente "Les bobos en show"
-								</div>
-							</div>
+							
+							<% } %>
+							
 						</div>
 					</div>
 					<div class="content-sections-separation"></div>
@@ -107,9 +87,8 @@
 			</div>
 		</div>
 		
-		<div class="footer">
-			© Copyright Sporacid Studio 2013
-		</div>
+		<%-- Include the footer in the page --%>
+		<jsp:include page="partial-views/footer.jsp"></jsp:include>
 		
 	</body>
 	

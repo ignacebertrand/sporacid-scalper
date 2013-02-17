@@ -4,13 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import sporacidscalper.model.Adresse;
-import sporacidscalper.model.Artiste;
-import sporacidscalper.model.Client;
-import sporacidscalper.model.Nouvelle;
-import sporacidscalper.model.Spectacle;
-import sporacidscalper.model.Transaction;
-import sporacidscalper.model.TypeSpectacle;
+import sporacidscalper.model.*;
 
 public class StubFactory {
 	
@@ -86,7 +80,7 @@ public class StubFactory {
 		Spectacle s1 = new Spectacle(1);
 		s1.setNom("Les trois accords");
 		s1.setDescription("Les trois accords en spectacle");
-		s1.setPosterUrl("/gti515-sporacid-scalper/web-content/styles/images/trois_accords.jpg");
+		s1.setPosterUrl("styles/images/trois_accords.jpg");
 		List<Artiste> listeArtistes1 = new ArrayList<Artiste>();
 		listeArtistes1.add(getStubArtistes().get(0));
 		listeArtistes1.add(getStubArtistes().get(1));
@@ -96,7 +90,7 @@ public class StubFactory {
 		Spectacle s2 = new Spectacle(2);
 		s2.setNom("Les bobos");
 		s2.setDescription("Les bobos en spectacle");
-		s2.setPosterUrl("/gti515-sporacid-scalper/web-content/styles/images/les_bobos.jpg");
+		s2.setPosterUrl("styles/images/les_bobos.jpg");
 		List<Artiste> listeArtistes2 = new ArrayList<Artiste>();
 		listeArtistes2.add(getStubArtistes().get(3));
 		s2.setArtistes(listeArtistes2);
@@ -105,7 +99,7 @@ public class StubFactory {
 		Spectacle s3 = new Spectacle(3);
 		s3.setNom("Decrepit birth event");
 		s3.setDescription("Decrepit birth en spectacle");
-		s3.setPosterUrl("/gti515-sporacid-scalper/web-content/styles/images/decrepit-birth-event.jpg");
+		s3.setPosterUrl("styles/images/decrepit-birth-event.jpg");
 		List<Artiste> listeArtistes3 = new ArrayList<Artiste>();
 		listeArtistes3.add(getStubArtistes().get(2));
 		s3.setArtistes(listeArtistes3);
@@ -129,18 +123,42 @@ public class StubFactory {
 		Artiste a1 = new Artiste(1);
 		a1.setNom("Pat Lavallée");
 		a1.setDescription("métalleux - bassiste");
-
+		List<Tags> tags1 = new ArrayList<Tags>();
+		Tags tag1 = new Tags();
+		tag1.setNom("Bruiteur");
+		tag1.setUrl("www.google.ca");
+		tags1.add(tag1);
+		a1.setTags(tags1);
+		
 		Artiste a2 = new Artiste(2);
 		a2.setNom("Simon Turcotte");
 		a2.setDescription("métalleux - guitariste");
+		List<Tags> tags2= new ArrayList<Tags>();
+		Tags tag2 = new Tags();
+		tag2.setNom("Progressive metal");
+		tag2.setUrl("www.google.ca");
+		tags2.add(tag2);
+		a2.setTags(tags2);
 
 		Artiste a3 = new Artiste(3);
 		a3.setNom("Francois Gagné");
 		a3.setDescription("père de famille");
+		List<Tags> tags3= new ArrayList<Tags>();
+		Tags tag3 = new Tags();
+		tag3.setNom("Fernand Gignac");
+		tag3.setUrl("www.google.ca");
+		tags3.add(tag3);
+		a3.setTags(tags3);
 
 		Artiste a4 = new Artiste(4);
 		a4.setNom("Julien Pelletier");
 		a4.setDescription("humoriste");
+		List<Tags> tags4= new ArrayList<Tags>();
+		Tags tag4 = new Tags();
+		tag4.setNom("Reggaeton");
+		tag4.setUrl("www.google.ca");
+		tags4.add(tag4);
+		a4.setTags(tags4);
 
 		listeArtistes.add(a1);
 		listeArtistes.add(a2);
