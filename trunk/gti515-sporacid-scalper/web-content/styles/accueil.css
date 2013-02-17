@@ -20,6 +20,11 @@
 	position: relative;
 }
 
+.upcoming-shows-spinner-container .upcoming-shows-spinner-content .upcoming-shows-spinner-item:first-child
+{
+	display: block;
+}
+
 .upcoming-shows-spinner-container .upcoming-shows-spinner-content .upcoming-shows-spinner-item .upcoming-shows-spinner-item-image
 {
 	height: 100%;

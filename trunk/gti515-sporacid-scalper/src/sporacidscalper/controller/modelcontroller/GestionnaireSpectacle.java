@@ -18,7 +18,7 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	/**
 	 * Private constructor for the singleton
 	 */
-	private GestionnaireSpectacle()
+	public GestionnaireSpectacle()
 	{
 		this.listeSpectacles = StubFactory.getInstance().getStubSpectacles();
 	}

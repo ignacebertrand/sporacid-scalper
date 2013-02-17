@@ -12,9 +12,9 @@
 		<script type="text/javascript" src="<%=contextAttr%>/scripts/site-scripts.js"></script>
 	</head>
 	<body>
-		<div class="header">
-			<div class="header-logo"></div>
-		</div>
+	
+		<%-- Include the header in the page --%>
+		<jsp:include page="partial-views/header.jsp"></jsp:include>
 		
 		<div class="main-container">
 		
@@ -116,9 +116,9 @@
 			</div>
 		</div>
 		
-		<div class="footer">
-			© Copyright Sporacid Studio 2013
-		</div>
+		<%-- Include the footer in the page --%>
+		<jsp:include page="partial-views/footer.jsp"></jsp:include>
+		
 	</body>
 	
 	<script type="text/javascript">

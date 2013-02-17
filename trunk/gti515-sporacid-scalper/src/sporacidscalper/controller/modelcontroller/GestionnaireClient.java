@@ -16,7 +16,7 @@ public class GestionnaireClient implements IGestionnaireClient
 	/**
 	 * Private constructor for the singleton
 	 */
-	private GestionnaireClient()
+	public GestionnaireClient()
 	{
 		this.listeClients = StubFactory.getInstance().getStubClients();
 	}

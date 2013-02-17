@@ -12,7 +12,7 @@
 	</bean>
 	
 	<!-- Bean definition for the shows data manager -->
- 	<bean id="gestionnaireSpectacles" name="gestionnaireSpectacles" 
+ 	<bean id="gestionnaireSpectacle" name="gestionnaireSpectacle" 
  			class="sporacidscalper.controller.modelcontroller.GestionnaireSpectacle"
 		 	scope="singleton">
 	</bean>

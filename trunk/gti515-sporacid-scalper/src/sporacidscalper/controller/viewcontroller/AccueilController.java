@@ -13,22 +13,33 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ui.ModelMap;
 
 import sporacidscalper.controller.modelcontroller.IGestionnaireNouvelle;
+import sporacidscalper.controller.modelcontroller.IGestionnaireSpectacle;
 
 @Controller 
 public class AccueilController implements ApplicationContextAware
 {
 	/**
-	 * 
+	 * Reference to the IGestionnaireNouvelle implementation
+	 * of the application context bean configuration.
 	 */
 	private IGestionnaireNouvelle gestionnaireNouvelle;
+	
+	/**
+	 * Reference to the IGestionnaireSpectacle implementation
+	 * of the application context bean configuration.
+	 */
+	private IGestionnaireSpectacle gestionnaireSpectacle;
 	
 	@RequestMapping("/accueil")
 	public ModelAndView getAccueil(ModelMap model, @ModelAttribute Object form, BindingResult result, HttpServletRequest request)
 	{
-		String context = request.getContextPath();
-		model.addAttribute("context", context);
+		ModelAndView mav = new ModelAndView("accueil");
 		
-		return new ModelAndView("accueil", "listeNouvelles", gestionnaireNouvelle.obtenirNouvelles());
+		mav.addObject("context", request.getContextPath());
+		mav.addObject("listeNouvelles", gestionnaireNouvelle.obtenirNouvelles());
+		mav.addObject("listeProchainsSpectacles", gestionnaireSpectacle.obtenirSpectacles());
+		
+		return mav;
 	}
 
 	/**
@@ -40,5 +51,6 @@ public class AccueilController implements ApplicationContextAware
 	public void setApplicationContext(ApplicationContext context) throws BeansException 
 	{
 		gestionnaireNouvelle = context.getBean("gestionnaireNouvelle", IGestionnaireNouvelle.class);
+		gestionnaireSpectacle = context.getBean("gestionnaireSpectacle", IGestionnaireSpectacle.class);
 	}
 }
