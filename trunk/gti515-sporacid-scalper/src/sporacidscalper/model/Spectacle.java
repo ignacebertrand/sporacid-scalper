@@ -5,6 +5,7 @@ import java.util.List;
 
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.ArtisteBean;
+import sporacidscalper.model.beans.RepresentationBean;
 import sporacidscalper.model.beans.SpectacleBean;
 import sporacidscalper.model.beans.TypeSpectacleBean;
 
@@ -26,6 +27,41 @@ public class Spectacle extends AbstractModelObject implements Beanable
 	public Spectacle(int id)
 	{
 		this.id = id;
+		this.nom = "";
+		this.description = "";
+		this.posterUrl = "";
+		this.artistes = new ArrayList<Artiste>();
+		this.type = new TypeSpectacle();
+		this.representations = new ArrayList<Representation>();
+	}
+	
+	public void ajouterRepresentation(Representation representationToAdd)
+	{
+		if(representationToAdd != null)
+		{	
+			this.representations.add(representationToAdd);
+		}
+	}
+	
+	public void supprimerRepresentation(Representation representationToDelete)
+	{
+		this.representations.remove(representationToDelete);
+	}
+	
+	public Representation obtenirRepresentation(int representationIdToGet)
+	{
+		Representation representationToGet = null;
+		
+		for(Representation representation : this.representations)
+		{
+			if(representation.getId() == representationIdToGet)
+			{
+				representationToGet = representation;
+				break;
+			}
+		}
+		
+		return representationToGet;
 	}
 	
 	public int getId()
@@ -110,6 +146,9 @@ public class Spectacle extends AbstractModelObject implements Beanable
 		bean.setNom(this.nom);
 		bean.setPosterUrl(this.posterUrl);
 		bean.setType((TypeSpectacleBean)this.type.getBean());
+		
+		for(Representation representation : this.representations)
+			bean.ajouterRepresentation((RepresentationBean) representation.getBean());
 		
 		return bean;
 	}

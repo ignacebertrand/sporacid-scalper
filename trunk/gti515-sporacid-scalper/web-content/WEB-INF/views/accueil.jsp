@@ -1,7 +1,5 @@
-<%@page import="sporacidscalper.model.Spectacle"%>
 <%@ page import="sporacidscalper.model.beans.SpectacleBean" %>
 <%@ page import="sporacidscalper.model.beans.NouvelleBean" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html>
 <%

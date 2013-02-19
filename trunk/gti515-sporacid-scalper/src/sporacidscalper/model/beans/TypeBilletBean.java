@@ -10,8 +10,27 @@ public class TypeBilletBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -6630697032069563682L;
 	
+	private int id;
 	private String nom;
 	private String description;
+	
+	public TypeBilletBean()
+	{
+		this(-1);
+	}
+	
+	public TypeBilletBean(int id)
+	{
+		this.id = id;
+		this.nom = "";
+		this.description = "";
+	}
+	
+	
+	public int getId()
+	{
+		return id;
+	}
 	
 	public String getNom()
 	{
@@ -36,7 +55,7 @@ public class TypeBilletBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		TypeBillet t = new TypeBillet();
+		TypeBillet t = new TypeBillet(this.id);
 		
 		t.setDescription(this.description);
 		t.setNom(this.nom);

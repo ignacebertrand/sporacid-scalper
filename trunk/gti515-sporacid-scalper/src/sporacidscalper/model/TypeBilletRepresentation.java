@@ -9,6 +9,15 @@ public class TypeBilletRepresentation extends AbstractModelObject implements Bea
 	private double prix;
 	private int nbBilletEmis;
 	private TypeBillet type;
+	private int representationId;
+	
+	public TypeBilletRepresentation(int representationId)
+	{
+		this.prix = 0.0;
+		this.nbBilletEmis = 0;
+		this.type = new TypeBillet();
+		this.representationId = representationId;
+	}
 	
 	public double getPrix()
 	{
@@ -40,10 +49,15 @@ public class TypeBilletRepresentation extends AbstractModelObject implements Bea
 		this.type = type;
 	}
 	
+	public int getRepresentationId()
+	{
+		return this.representationId;
+	}
+	
 	@Override
 	public AbstractBean getBean()
 	{
-		TypeBilletRepresentationBean bean = new TypeBilletRepresentationBean();
+		TypeBilletRepresentationBean bean = new TypeBilletRepresentationBean(this.representationId);
 		
 		bean.setNbBilletEmis(this.nbBilletEmis);
 		bean.setPrix(this.prix);

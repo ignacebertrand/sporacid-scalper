@@ -206,6 +206,31 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	}
 	
 	/**
+	 * Public method to obtain a Spectacle from the system.
+	 * @param spectacleId The Spectacle unique id
+	 * @return The Spectacle bean associated with the Spectacle
+	 */
+//	public SpectacleBean obtenirSpectacle(TypeBilletRepresentationBean typeRepresentation)
+//	{
+//		SpectacleBean spectacleToGet = null;
+//		
+//		// Access listeSpectacles thread-safely.
+//		synchronized(listeSpectacles)
+//		{
+//			for(Spectacle spectacle : listeSpectacles)
+//			{
+//				if(spectacle.getId() == spectacleId)
+//				{
+//					spectacleToGet = (SpectacleBean) spectacle.getBean();
+//					break;
+//				}
+//			}
+//		}
+//		
+//		return spectacleToGet;
+//	}
+	
+	/**
 	 * Public method to obtain the list of all Spectacle in the system.
 	 * @return The list of all Spectacle
 	 */

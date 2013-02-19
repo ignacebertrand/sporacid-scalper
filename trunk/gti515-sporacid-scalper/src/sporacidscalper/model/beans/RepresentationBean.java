@@ -1,11 +1,13 @@
 package sporacidscalper.model.beans;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.Representation;
 import sporacidscalper.model.Salle;
+import sporacidscalper.model.TypeBilletRepresentation;
 
 public class RepresentationBean extends AbstractBean implements Modelable
 {
@@ -15,15 +17,66 @@ public class RepresentationBean extends AbstractBean implements Modelable
 	private static final long serialVersionUID = 1875304992245566973L;
 	
 	private int id;
+	private int spectacleId;
 	private Date dateDebutRepresentation;
 	private Date dateFinRepresentation;
 	private String statut;
 	private List<TypeBilletRepresentationBean> typesBillet;
 	private SalleBean salle;
 	
+	public RepresentationBean()
+	{
+		this(-1, -1);
+	}
+	
+	public RepresentationBean(int id, int spectacleId)
+	{
+		this.id = id;
+		this.spectacleId = spectacleId;
+		this.dateDebutRepresentation = new Date();
+		this.dateFinRepresentation = new Date();
+		this.statut = "O";
+		this.salle = new SalleBean();
+		this.typesBillet = new ArrayList<TypeBilletRepresentationBean>();
+	}
+	
+	public void ajouterTypeBilletRepresentation(TypeBilletRepresentationBean typeBilletToAdd)
+	{
+		if(typeBilletToAdd != null)
+		{	
+			this.typesBillet.add(typeBilletToAdd);
+		}
+	}
+	
+	public void supprimerTypeBilletRepresentation(TypeBilletRepresentationBean typeBilletToDelete)
+	{
+		this.typesBillet.remove(typeBilletToDelete);
+	}
+	
+	public TypeBilletRepresentationBean obtenirTypeBilletRepresentation(int typeBilletIdToGet)
+	{
+		TypeBilletRepresentationBean typeBilletToGet = null;
+		
+		for(TypeBilletRepresentationBean typeBillet : this.typesBillet)
+		{
+			if(typeBillet.getType().getId() == typeBilletIdToGet)
+			{
+				typeBilletToGet = typeBillet;
+				break;
+			}
+		}
+		
+		return typeBilletToGet;
+	}
+	
 	public int getId()
 	{
 		return id;
+	}
+	
+	public int getSpectacleId()
+	{
+		return spectacleId;
 	}
 	
 	public Date getDateDebutRepresentation()
@@ -79,7 +132,7 @@ public class RepresentationBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		Representation r = new Representation();
+		Representation r = new Representation(this.id, this.spectacleId);
 		
 		r.setDateDebutRepresentation(this.dateDebutRepresentation);
 		r.setDateFinRepresentation(this.dateFinRepresentation);

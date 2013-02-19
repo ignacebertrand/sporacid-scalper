@@ -6,9 +6,28 @@ import sporacidscalper.model.beans.SalleBean;
 
 public class Salle extends AbstractModelObject implements Beanable
 {
+	private int id;
 	private String nom;
 	private int capacite;
 	private Adresse adresse;
+	
+	public Salle()
+	{
+		this(-1);
+	}
+	
+	public Salle(int id)
+	{
+		this.id = id;
+		this.nom = "";
+		this.capacite = 0;
+		this.adresse = new Adresse();
+	}
+	
+	public int getId()
+	{
+		return id;
+	}
 	
 	public String getNom()
 	{
@@ -43,7 +62,7 @@ public class Salle extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		SalleBean bean = new SalleBean();
+		SalleBean bean = new SalleBean(this.id);
 		
 		bean.setAdresse((AdresseBean)this.adresse.getBean());
 		bean.setCapacite(this.capacite);

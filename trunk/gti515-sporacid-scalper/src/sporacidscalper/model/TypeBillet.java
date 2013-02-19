@@ -5,8 +5,26 @@ import sporacidscalper.model.beans.TypeBilletBean;
 
 public class TypeBillet extends AbstractModelObject implements Beanable
 {
+	private int id;
 	private String nom;
 	private String description;
+	
+	public TypeBillet()
+	{
+		this(-1);
+	}
+	
+	public TypeBillet(int id)
+	{
+		this.id = id;
+		this.nom = "";
+		this.description = "";
+	}
+	
+	public int getId()
+	{
+		return id;
+	}
 	
 	public String getNom()
 	{
@@ -31,7 +49,7 @@ public class TypeBillet extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		TypeBilletBean bean = new TypeBilletBean();
+		TypeBilletBean bean = new TypeBilletBean(this.id);
 		
 		bean.setDescription(this.description);
 		bean.setNom(this.nom);

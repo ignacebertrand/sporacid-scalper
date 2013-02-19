@@ -12,15 +12,66 @@ import sporacidscalper.model.beans.TypeBilletRepresentationBean;
 public class Representation extends AbstractModelObject implements Beanable
 {
 	private int id;
+	private int spectacleId;
 	private Date dateDebutRepresentation;
 	private Date dateFinRepresentation;
 	private String statut;
 	private Salle salle;
 	private List<TypeBilletRepresentation> typesBillet;
 	
+	public Representation()
+	{
+		this(-1, -1);
+	}
+	
+	public Representation(int id, int spectacleId)
+	{
+		this.id = id;
+		this.spectacleId = spectacleId;
+		this.dateDebutRepresentation = new Date();
+		this.dateFinRepresentation = new Date();
+		this.statut = "O";
+		this.salle = new Salle();
+		this.typesBillet = new ArrayList<TypeBilletRepresentation>();
+	}
+	
+	public void ajouterTypeBilletRepresentation(TypeBilletRepresentation typeBilletToAdd)
+	{
+		if(typeBilletToAdd != null)
+		{	
+			this.typesBillet.add(typeBilletToAdd);
+		}
+	}
+	
+	public void supprimerTypeBilletRepresentation(TypeBilletRepresentation typeBilletToDelete)
+	{
+		this.typesBillet.remove(typeBilletToDelete);
+	}
+	
+	public TypeBilletRepresentation obtenirTypeBilletRepresentation(int typeBilletIdToGet)
+	{
+		TypeBilletRepresentation typeBilletToGet = null;
+		
+		for(TypeBilletRepresentation typeBillet : this.typesBillet)
+		{
+			if(typeBillet.getType().getId() == typeBilletIdToGet)
+			{
+				typeBilletToGet = typeBillet;
+				break;
+			}
+		}
+		
+		return typeBilletToGet;
+	}
+	
 	public int getId()
 	{
 		return id;
+	}
+	
+	public int getSpectacleId()
+	{
+		return this.spectacleId;
 	}
 	
 	public Date getDateDebutRepresentation()
@@ -84,7 +135,7 @@ public class Representation extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		RepresentationBean bean = new RepresentationBean();
+		RepresentationBean bean = new RepresentationBean(this.id, this.spectacleId);
 		
 		bean.setDateDebutRepresentation(this.dateDebutRepresentation);
 		bean.setDateFinRepresentation(this.dateFinRepresentation);
