@@ -11,8 +11,26 @@ public class ItemPanierAchatBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = 9038754069973527755L;
 	
+	private int id;
 	private int quantite;
 	private TypeBilletRepresentationBean billetRepresentation;
+	
+	public ItemPanierAchatBean()
+	{
+		this(-1);
+	}
+	
+	public ItemPanierAchatBean(int id)
+	{
+		this.id = id;
+		this.quantite = 0;
+		this.billetRepresentation = new TypeBilletRepresentationBean(-1);
+	}
+	
+	public int getId()
+	{
+		return id;
+	}
 	
 	public int getQuantite()
 	{
@@ -37,7 +55,7 @@ public class ItemPanierAchatBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		ItemPanierAchat ipa = new ItemPanierAchat();
+		ItemPanierAchat ipa = new ItemPanierAchat(this.id);
 		
 		ipa.setBilletRepresentation((TypeBilletRepresentation)this.billetRepresentation.getModelObject());
 		ipa.setQuantite(this.quantite);

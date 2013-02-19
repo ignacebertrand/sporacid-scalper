@@ -1,7 +1,12 @@
 <!DOCTYPE html>
+<%@page import="sporacidscalper.model.beans.ItemPanierAchatBean"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ page import="sporacidscalper.model.beans.PanierAchatBean" %>
+
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getAttribute("context");
+	PanierAchatBean panierAchat = (PanierAchatBean) request.getAttribute("panierAchat");
 %>
 <html>
 	<head>
@@ -22,6 +27,11 @@
 			<jsp:include page="partial-views/menu.jsp"></jsp:include>
 
 			<div class="content">
+				
+				<% for(ItemPanierAchatBean item : panierAchat.getItems()) { %>
+					<%=item.getQuantite() %> * <%=item.getBilletRepresentation().getPrix() %>
+				<% } %>
+			
 				<h2>Votre panier d'achat</h2>
 				<hr />
 				<br />

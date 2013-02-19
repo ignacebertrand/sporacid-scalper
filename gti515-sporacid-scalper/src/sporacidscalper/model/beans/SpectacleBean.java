@@ -5,6 +5,7 @@ import java.util.List;
 
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.Artiste;
+import sporacidscalper.model.Representation;
 import sporacidscalper.model.Spectacle;
 import sporacidscalper.model.TypeSpectacle;
 
@@ -22,6 +23,51 @@ public class SpectacleBean extends AbstractBean implements Modelable
 	private List<ArtisteBean> artistes;
 	private TypeSpectacleBean type;
 	private List<RepresentationBean> representations;
+	
+	public SpectacleBean()
+	{
+		this(-1);
+	}
+	
+	public SpectacleBean(int id)
+	{
+		this.id = id;
+		this.nom = "";
+		this.description = "";
+		this.posterUrl = "";
+		this.artistes = new ArrayList<ArtisteBean>();
+		this.type = new TypeSpectacleBean();
+		this.representations = new ArrayList<RepresentationBean>();
+	}
+	
+	public void ajouterRepresentation(RepresentationBean representationToAdd)
+	{
+		if(representationToAdd != null)
+		{	
+			this.representations.add(representationToAdd);
+		}
+	}
+	
+	public void supprimerRepresentation(RepresentationBean representationToDelete)
+	{
+		this.representations.remove(representationToDelete);
+	}
+	
+	public RepresentationBean obtenirRepresentation(int representationIdToGet)
+	{
+		RepresentationBean representationToGet = null;
+		
+		for(RepresentationBean representation : this.representations)
+		{
+			if(representation.getId() == representationIdToGet)
+			{
+				representationToGet = representation;
+				break;
+			}
+		}
+		
+		return representationToGet;
+	}
 	
 	public int getId()
 	{
@@ -105,6 +151,9 @@ public class SpectacleBean extends AbstractBean implements Modelable
 		s.setPosterUrl(this.posterUrl);
 		s.setType((TypeSpectacle)type.getModelObject());
 		s.setArtistes(this.toArtisteList(this.artistes));
+		
+		for(RepresentationBean representation : this.representations)
+			s.ajouterRepresentation((Representation) representation.getModelObject());
 		
 		return s;
 	}

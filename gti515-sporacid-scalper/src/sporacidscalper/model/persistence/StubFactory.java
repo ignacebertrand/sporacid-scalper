@@ -86,6 +86,14 @@ public class StubFactory {
 		listeArtistes1.add(getStubArtistes().get(1));
 		s1.setArtistes(listeArtistes1);
 		s1.setType(getStubTypesSpectacles().get(2));
+		
+		Representation r = new Representation(1, s1.getId());
+		TypeBilletRepresentation typeBillet = new TypeBilletRepresentation(r.getId());
+		typeBillet.setNbBilletEmis(300);
+		typeBillet.setPrix(30);
+		typeBillet.setType(new TypeBillet(1));
+		r.ajouterTypeBilletRepresentation(typeBillet);
+		s1.ajouterRepresentation(r);
 
 		Spectacle s2 = new Spectacle(2);
 		s2.setNom("Les bobos");

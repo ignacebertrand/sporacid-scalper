@@ -15,9 +15,51 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -5741990719386774842L;
 	
+	private int id;
 	private Date dateCreation;
-	private double total;
 	private List<ItemPanierAchatBean> items;
+	
+	public PanierAchatBean()
+	{
+		this(-1);
+	}
+
+	public PanierAchatBean(int id)
+	{
+		this.id = id;
+		this.dateCreation = new Date();
+		this.items = new ArrayList<ItemPanierAchatBean>();
+	}
+	
+	public void ajouterItem(ItemPanierAchatBean itemToAdd)
+	{
+		if(itemToAdd != null)
+		{	
+			this.items.add(itemToAdd);
+		}
+	}
+	
+	public void supprimerItem(ItemPanierAchatBean itemToDelete)
+	{
+		this.items.remove(itemToDelete);
+	}
+	
+	public double getTotal()
+	{
+		double total = 0.0;
+		
+		for(ItemPanierAchatBean ipa : this.items)
+		{
+			total += ipa.getQuantite() * ipa.getBilletRepresentation().getPrix();
+		}
+		
+		return total;
+	}
+	
+	public int getId()
+	{
+		return this.id;
+	}
 	
 	public Date getDateCreation()
 	{
@@ -29,53 +71,38 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 		this.dateCreation = dateCreation;
 	}
 	
-	public double getTotal()
-	{
-		this.total = 0.0;
-		
-		for(ItemPanierAchatBean ipa : this.items)
-		{
-			this.total += ipa.getQuantite() * ipa.getBilletRepresentation().getPrix();
-		}
-		
-		return this.total;
-	}
-	
-	public void setTotal(double total)
-	{
-		this.total = total;
-	}
-	
 	public List<ItemPanierAchatBean> getItems()
 	{
 		return items;
 	}
 	
-	public void setItems(List<ItemPanierAchatBean> items)
-	{
-		this.items = items;
-	}
-	
-	private List<ItemPanierAchat> toItemPanierAchatList(List<ItemPanierAchatBean> items)
-	{
-		List<ItemPanierAchat> ipas = new ArrayList<ItemPanierAchat>();
-		
-		for(ItemPanierAchatBean ipa : items)
-		{
-			ipas.add((ItemPanierAchat)ipa.getModelObject());
-		}
-		
-		return ipas;
-	}
+//	public void setItems(List<ItemPanierAchatBean> items)
+//	{
+//		this.items = items;
+//	}
+//	
+//	private List<ItemPanierAchat> toItemPanierAchatList(List<ItemPanierAchatBean> items)
+//	{
+//		List<ItemPanierAchat> ipas = new ArrayList<ItemPanierAchat>();
+//		
+//		for(ItemPanierAchatBean ipa : items)
+//		{
+//			ipas.add((ItemPanierAchat)ipa.getModelObject());
+//		}
+//		
+//		return ipas;
+//	}
 	
 	@Override
 	public AbstractModelObject getModelObject()
 	{
 		PanierAchat pa = new PanierAchat();
+
+		//pa.setItems(this.toItemPanierAchatList(this.items));
+		for(ItemPanierAchatBean item : this.items)
+			pa.ajouterItem((ItemPanierAchat) item.getModelObject());
 		
-		pa.setItems(this.toItemPanierAchatList(this.items));
 		pa.setDateCreation(this.dateCreation);
-		pa.setTotal(this.getTotal());
 		
 		return pa;
 	}

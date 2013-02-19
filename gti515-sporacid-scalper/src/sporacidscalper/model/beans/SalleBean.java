@@ -11,9 +11,28 @@ public class SalleBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -6913709633421518414L;
 	
+	private int id;
 	private String nom;
 	private int capacite;
 	private AdresseBean adresse;
+	
+	public SalleBean()
+	{
+		this(-1);
+	}
+	
+	public SalleBean(int id)
+	{
+		this.id = id;
+		this.nom = "";
+		this.capacite = 0;
+		this.adresse = new AdresseBean();
+	}
+	
+	public int getId()
+	{
+		return id;
+	}
 	
 	public String getNom()
 	{
@@ -48,7 +67,7 @@ public class SalleBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		Salle s = new Salle();
+		Salle s = new Salle(this.id);
 		
 		s.setAdresse((Adresse)this.adresse.getModelObject());
 		s.setCapacite(this.capacite);

@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getAttribute("context");
@@ -36,6 +38,14 @@
 					<label for="textbox_search_criteria" class="generic-label">Recherche par mot clé :</label>
 					<input type="text" id="textbox_search_criteria" class="generic-textbox" />
 				</div>
+				
+				<form method="POST" action="<%=contextAttr%>/panier-achat/ajouter-item-panier-achat">
+					<input type="hidden" id="hiddenQuantite" name="quantite" />
+					<input type="hidden" id="hiddenSpectacleId" name="spectacleId" />
+					<input type="hidden" id="hiddenRepresentationId" name="representationId" />
+					<input type="hidden" id="hiddenTypeBilletId" name="typeBilletId" />
+				</form>
+				
 				<ul class="event-list">
                     <li class="event-list-item">
 						<div class="event-list-item-image" style="background-image: url(../styles/images/trois_accords.jpg);"></div>
@@ -125,6 +135,21 @@
 		$(document).ready(
 			function()
 			{
+				$(".event-list-item-addtocart-button").click(
+					function()
+					{
+						$("form #hiddenQuantite").val("4");
+						$("form #hiddenSpectacleId").val("1");
+						$("form #hiddenRepresentationId").val("1");
+						$("form #hiddenTypeBilletId").val("1");
+						
+						$("form").submit();
+						
+						// Prevent redirection
+						return false;
+					}
+				);
+				
 				//Mock of wait time for server response.
 				$(".event-list-item-disponibility-button").click(
 					function()
