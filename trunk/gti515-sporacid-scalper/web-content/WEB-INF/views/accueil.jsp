@@ -92,25 +92,61 @@
 	
 	<script type="text/javascript">
 	
+		// Length in miliseconds between each of the spinner thread's execution
+		var cSpinnerSpinLength = 5000;
+		
+		// Length in milliseconds for the fade in/out of the spin
+		var cSpinnerFadeLength = 350;
+	
 		$(document).ready(
 			function()
 			{
 				var spinner = $(".upcoming-shows-spinner-container");
-			
+				var spinnerButtons = spinner.find(".upcoming-shows-spinner-button");
+				var spinnerItems = spinner.find(".upcoming-shows-spinner-item");
+					
+				for(var i = spinnerItems.length; i < spinnerButtons.length; i++)
+					spinnerButtons.eq(i).addClass("is-disabled");
+					
+				// Thread to turn the container into a spinner
+				var fctThreadSpinner = function()
+				{
+					var selectedButton = spinnerButtons.filter(".is-selected");
+					var index = spinnerButtons.index(selectedButton);
+					var buttonToClick = spinnerButtons.eq(index + 1);
+
+					if(buttonToClick.hasClass("is-disabled"))
+						buttonToClick = spinnerButtons.eq(0);
+					
+					buttonToClick.click();
+				};
+				
+				var threadSpinner = setInterval(fctThreadSpinner, cSpinnerSpinLength);
+				
+				// On button click, reset the thread
+				spinner.find(".upcoming-shows-spinner-button, .upcoming-shows-spinner-back, .upcoming-shows-spinner-next").click(
+					function(event)
+					{
+						clearInterval(threadSpinner);
+						threadSpinner = setInterval(fctThreadSpinner, cSpinnerSpinLength);
+					}
+				);
+				
 				//Individual tab click handling
 				//Shows the chosen spinner item
 				spinner.find(".upcoming-shows-spinner-button").click(
 					function()
 					{
-						var index = spinner.find(".upcoming-shows-spinner-button").index(this);
-						var itemToShow = spinner.find(".upcoming-shows-spinner-item").eq(index);
+						var index = spinnerButtons.index(this);
+						var itemToShow = spinnerItems.eq(index);
 		
 						if(itemToShow.length === 1)
 						{
-							spinner.find(".upcoming-shows-spinner-button").removeClass("is-selected");
+							spinnerButtons.removeClass("is-selected");
 							$(this).addClass("is-selected");
-							spinner.find(".upcoming-shows-spinner-item").hide();
-							itemToShow.show();
+							
+							spinnerItems.not(":eq(" +  index + ")").hide();
+							itemToShow.fadeIn(cSpinnerFadeLength); 
 						}
 					}
 				);
@@ -120,19 +156,19 @@
 				spinner.find(".upcoming-shows-spinner-back").click(
 					function()
 					{
-						var index = spinner.find(".upcoming-shows-spinner-item").index($(".upcoming-shows-spinner-item:visible")) - 1;
+						var index = spinnerItems.index($(".upcoming-shows-spinner-item:visible")) - 1;
 						
 						if(index >= 0)
 						{
-							var itemToShow = spinner.find(".upcoming-shows-spinner-item").eq(index);
+							var itemToShow = spinnerItems.eq(index);
 							
 							if(itemToShow.length === 1)
 							{
-								spinner.find(".upcoming-shows-spinner-button").removeClass("is-selected");
-								$(".upcoming-shows-spinner-button").eq(index).addClass("is-selected");
+								spinnerButtons.removeClass("is-selected");
+								spinnerButtons.eq(index).addClass("is-selected");
 								
-								spinner.find(".upcoming-shows-spinner-item").hide();
-								itemToShow.show();
+								spinnerItems.not(":eq(" +  index + ")").hide();
+								itemToShow.fadeIn(cSpinnerFadeLength); 
 							}
 						}
 					}
@@ -143,19 +179,19 @@
 				spinner.find(".upcoming-shows-spinner-next").click(
 					function()
 					{
-						var index = spinner.find(".upcoming-shows-spinner-item").index($(".upcoming-shows-spinner-item:visible")) + 1;
+						var index = spinnerItems.index($(".upcoming-shows-spinner-item:visible")) + 1;
 						
-						if(index <= spinner.find(".upcoming-shows-spinner-item").length)
+						if(index <= spinnerItems.length)
 						{
-							var itemToShow = spinner.find(".upcoming-shows-spinner-item").eq(index);
+							var itemToShow = spinnerItems.eq(index);
 							
 							if(itemToShow.length === 1)
 							{
-								spinner.find(".upcoming-shows-spinner-button").removeClass("is-selected");
-								$(".upcoming-shows-spinner-button").eq(index).addClass("is-selected");
+								spinnerButtons.removeClass("is-selected");
+								spinnerButtons.eq(index).addClass("is-selected");
 								
-								spinner.find(".upcoming-shows-spinner-item").hide();
-								itemToShow.show();
+								spinnerItems.not(":eq(" +  index + ")").hide();
+								itemToShow.fadeIn(cSpinnerFadeLength); 
 							}
 						}
 					}

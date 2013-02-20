@@ -265,6 +265,7 @@ body .generic-button
 	font-weight: bold;
 	font-size: 16px;
 }
+
 .generic-button:hover
 {
 	background-color: #A0A0A0;
