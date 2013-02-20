@@ -7,12 +7,16 @@ import java.util.List;
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.RepresentationBean;
 import sporacidscalper.model.beans.SalleBean;
+import sporacidscalper.model.beans.SpectacleBean;
 import sporacidscalper.model.beans.TypeBilletRepresentationBean;
 
 public class Representation extends AbstractModelObject implements Beanable
 {
-	private int id;
+	// Upper reference
 	private int spectacleId;
+	private SpectacleBean spectacleReference;
+	
+	private int id;
 	private Date dateDebutRepresentation;
 	private Date dateFinRepresentation;
 	private String statut;
@@ -26,8 +30,11 @@ public class Representation extends AbstractModelObject implements Beanable
 	
 	public Representation(int id, int spectacleId)
 	{
-		this.id = id;
+		// Upper reference
 		this.spectacleId = spectacleId;
+		this.spectacleReference= null; 
+		
+		this.id = id;
 		this.dateDebutRepresentation = new Date();
 		this.dateFinRepresentation = new Date();
 		this.statut = "O";
@@ -63,15 +70,25 @@ public class Representation extends AbstractModelObject implements Beanable
 		
 		return typeBilletToGet;
 	}
+
+	public int getSpectacleId()
+	{
+		return spectacleId;
+	}
+	
+	public SpectacleBean getSpectacleReference()
+	{
+		return this.spectacleReference;
+	}
+	
+	public void setSpectacleReference(SpectacleBean spectacleReference)
+	{
+		this.spectacleReference = spectacleReference;
+	}
 	
 	public int getId()
 	{
 		return id;
-	}
-	
-	public int getSpectacleId()
-	{
-		return this.spectacleId;
 	}
 	
 	public Date getDateDebutRepresentation()

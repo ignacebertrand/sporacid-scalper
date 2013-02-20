@@ -88,11 +88,13 @@ public class StubFactory {
 		s1.setType(getStubTypesSpectacles().get(2));
 		
 		Representation r = new Representation(1, s1.getId());
-		TypeBilletRepresentation typeBillet = new TypeBilletRepresentation(r.getId());
-		typeBillet.setNbBilletEmis(300);
-		typeBillet.setPrix(30);
-		typeBillet.setType(new TypeBillet(1));
-		r.ajouterTypeBilletRepresentation(typeBillet);
+		TypeBilletRepresentation typeBilletRepresentation = new TypeBilletRepresentation(r.getId());
+		TypeBillet typeBillet = new TypeBillet(1);
+		typeBillet.setNom("Admission Générale");
+		typeBilletRepresentation.setNbBilletEmis(300);
+		typeBilletRepresentation.setPrix(30);
+		typeBilletRepresentation.setType(typeBillet);
+		r.ajouterTypeBilletRepresentation(typeBilletRepresentation);
 		s1.ajouterRepresentation(r);
 
 		Spectacle s2 = new Spectacle(2);
