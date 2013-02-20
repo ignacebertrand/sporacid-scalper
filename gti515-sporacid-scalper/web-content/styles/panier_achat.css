@@ -115,3 +115,13 @@
 	color: white;
 	font-weight: bold;
 }
+
+.shopping-cart-delete-item-button
+{
+	background-image: url("images/icone_supprimer.png");
+	width: 22px;
+	background-size: 90% 90%;
+	background-position: center;
+	background-repeat: no-repeat;
+	margin-left: 10px;
+}

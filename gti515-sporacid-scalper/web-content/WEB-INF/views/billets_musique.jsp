@@ -76,9 +76,9 @@
 								<option value="5">5</option>
 								<option value="6">6</option>
 							</select>
-							<div class="generic-button event-list-item-disponibility-button">
-								Disponibilité...
-							</div>
+<!-- 							<div class="generic-button event-list-item-disponibility-button"> -->
+<!-- 								Disponibilité... -->
+<!-- 							</div> -->
 							<div class="generic-button event-list-item-addtocart-button">
 								Ajouter au panier
 							</div>
@@ -114,9 +114,9 @@
 								<option value="5">5</option>
 								<option value="6">6</option>
 							</select>
-							<div class="generic-button event-list-item-disponibility-button">
-								Disponibilité...
-							</div>
+<!-- 							<div class="generic-button event-list-item-disponibility-button"> -->
+<!-- 								Disponibilité... -->
+<!-- 							</div> -->
 							<div class="generic-button event-list-item-addtocart-button">
 								Ajouter au panier
 							</div>
@@ -143,45 +143,48 @@
 						$("form #hiddenRepresentationId").val("1");
 						$("form #hiddenTypeBilletId").val("1");
 						
-						$("form").submit();
-						
-						// Prevent redirection
-						return false;
+						$("form").submit(
+							/*function()
+							{
+								// Prevent redirection
+								return false;
+							}*/
+						);
 					}
 				);
 				
 				//Mock of wait time for server response.
-				$(".event-list-item-disponibility-button").click(
-					function()
-					{
-						var text = "Disponibilité";
-						var onText = "<span class='disponibility-button-onchar'>.</span>";
-						var disponibilityButton = $(this);
+// 				$(".event-list-item-disponibility-button").click(
+// 					function()
+// 					{
+// 						var text = "Disponibilité";
+// 						var onText = "<span class='disponibility-button-onchar'>.</span>";
+// 						var disponibilityButton = $(this);
 						
-						$("body").css("cursor", "wait");
+// 						$("body").css("cursor", "wait");
 						
-						disponibilityButton.html(text + onText + "..");
-						window.setTimeout(
-							function()
-							{
-								disponibilityButton.html(text + "." + onText + ".");
-								window.setTimeout(
-									function()
-									{
-										disponibilityButton.html(text + ".." + onText);
-										window.setTimeout(function()
-										{
-											$("body").css("cursor", "default");
-											disponibilityButton.hide();
-											disponibilityButton.parents(".event-list-item").find(".event-list-item-addtocart-button").css("display", "inline-block");
-										}, 500);
-									}
-								,  500);
-							}
-						,  500);
+// 						disponibilityButton.html(text + onText + "..");
+// 						window.setTimeout(
+// 							function()
+// 							{
+// 								disponibilityButton.html(text + "." + onText + ".");
+// 								window.setTimeout(
+// 									function()
+// 									{
+// 										disponibilityButton.html(text + ".." + onText);
+// 										window.setTimeout(function()
+// 										{
+// 											$("body").css("cursor", "default");
+// 											disponibilityButton.hide();
+// 											disponibilityButton.parents(".event-list-item").find(".event-list-item-addtocart-button").css("display", "inline-block");
+// 										}, 500);
+// 									}
+// 								,  500);
+// 							}
+// 						,  500);
 						
-					}
-				);
+// 					}
+// 				);
 			}
 		);
 		

@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@page import="sporacidscalper.model.beans.SpectacleBean"%>
+<%@page import="sporacidscalper.model.beans.RepresentationBean"%>
+<%@page import="sporacidscalper.model.beans.TypeBilletRepresentationBean"%>
 <%@page import="sporacidscalper.model.beans.ItemPanierAchatBean"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page import="sporacidscalper.model.beans.PanierAchatBean" %>
@@ -27,16 +30,84 @@
 			<jsp:include page="partial-views/menu.jsp"></jsp:include>
 
 			<div class="content">
-				
-				<% for(ItemPanierAchatBean item : panierAchat.getItems()) { %>
-					<%=item.getQuantite() %> * <%=item.getBilletRepresentation().getPrix() %>
-				<% } %>
-			
 				<h2>Votre panier d'achat</h2>
 				<hr />
 				<br />
 				<ul class="shopping-cart-item-list">
-					<li class="shopping-cart-item">
+				
+					<% for(ItemPanierAchatBean item : panierAchat.getItems()) { %>
+					
+						<%
+							TypeBilletRepresentationBean typeBilletRepresentation = item.getBilletRepresentation();
+						
+							RepresentationBean representation = null;
+							SpectacleBean spectacle = null;
+							
+							if(typeBilletRepresentation != null)
+							{
+								representation = typeBilletRepresentation.getRepresentationReference();
+								
+								if(representation != null)
+								{
+									spectacle = representation.getSpectacleReference();
+								}
+							}
+							
+							if(typeBilletRepresentation == null)
+								typeBilletRepresentation = item.getBilletRepresentation();
+							
+							if(representation == null)
+								representation = new RepresentationBean();
+							
+							if(spectacle == null)
+								spectacle = new SpectacleBean();
+						%>
+					
+							<li class="shopping-cart-item">
+								
+								<input class="shopping-cart-item-id" type="hidden" value="<%=item.getId() %>" />
+							
+								<div class="shopping-cart-item-image" style="background-image: url(../<%=spectacle.getPosterUrl()%>);"></div>
+								<div class="shopping-cart-item-content">
+									<div class="shopping-cart-item-desc">
+										<h1 class="shopping-cart-item-title">
+											<%=spectacle.getDescription() %> 
+											&nbsp; --- &nbsp;
+											<%=typeBilletRepresentation.getType().getNom() %>
+											&nbsp; --- &nbsp;  
+											(Prix : <%=typeBilletRepresentation.getPrix() %> $)
+										</h1>
+										<h2 class="shopping-cart-item-artists">Decrepit Birth + invités</h2>
+									</div>
+									<div class="shopping-cart-item-controller">
+										<label class="generic-label">Représentation :</label>
+										<select class="generic-select shopping-cart-item-representation-select">
+											<option value="-1">-----</option>
+											<option value="1" selected="selected">Le 13/13/2013 à 6h66</option>
+										</select>
+										<label class="generic-label">Quantité :</label>
+										<select class="generic-select shopping-cart-item-quantity-select">
+											<option value="-1">--</option>
+											<option value="1" selected="selected">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+										</select>
+										<label class="generic-label ">Total :</label>
+										<span class="shopping-cart-item-total">49.99$</span>
+										
+										<div class="generic-button shopping-cart-delete-item-button">
+											&nbsp;
+										</div>
+									</div>
+								</div>
+							</li>
+							
+						<% } %>
+				
+					<!-- <li class="shopping-cart-item">
 						<div class="shopping-cart-item-image" style="background-image: url(../styles/images/decrepit-birth-event.jpg);"></div>
 						<div class="shopping-cart-item-content">
 							<div class="shopping-cart-item-desc">
@@ -63,12 +134,12 @@
 								<span class="shopping-cart-item-total">49.99$</span>
 							</div>
 						</div>
-					</li>
+					</li> -->
 				</ul>
 				
 				<div class="shopping-cart-item-list-controller">
 					<label class="generic-label">Total :</label>
-					<span class="shopping-cart-item-list-total">49.99$</span>
+					<span class="shopping-cart-item-list-total"><%=panierAchat.getTotal()%>$</span>
 					<div class="generic-button shopping-cart-item-list-checkout-button">
 						Procéder au paiement
 					</div>
@@ -89,6 +160,20 @@
 					function()
 					{
 						window.location = "<%=contextAttr%>/paiement/paiement-securise";
+					}
+				);
+				
+				$(".shopping-cart-delete-item-button").click(
+					function()
+					{
+						var itemId = $(this).parents(".shopping-cart-item").find(".shopping-cart-item-id").val();
+						var fakeForm = $("<form></form>")
+							.attr("action", "<%=contextAttr%>/panier-achat/supprimer-item-panier-achat")
+							.attr("method", "POST");
+						
+						fakeForm.append($("<input></input>").attr("type", "hidden").attr("name", "itemId").val(itemId));
+						
+						fakeForm.submit();
 					}
 				);
 			}
