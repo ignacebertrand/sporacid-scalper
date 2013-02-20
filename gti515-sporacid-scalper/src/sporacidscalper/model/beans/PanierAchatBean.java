@@ -44,6 +44,22 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 		this.items.remove(itemToDelete);
 	}
 	
+	public void supprimerItem(int itemIdToDelete)
+	{
+		ItemPanierAchatBean itemToDelete = null;
+		
+		for(ItemPanierAchatBean item : this.items)
+		{
+			if(item.getId() == itemIdToDelete)
+			{
+				itemToDelete = item;
+				break;
+			}
+		}
+		
+		this.items.remove(itemToDelete);
+	}
+	
 	public double getTotal()
 	{
 		double total = 0.0;

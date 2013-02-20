@@ -6,17 +6,38 @@ import sporacidscalper.model.beans.TypeBilletRepresentationBean;
 
 public class TypeBilletRepresentation extends AbstractModelObject implements Beanable
 {
+	// Upper reference
+	private int representationId;
+	private Representation representationReference; 
+	
 	private double prix;
 	private int nbBilletEmis;
 	private TypeBillet type;
-	private int representationId;
 	
 	public TypeBilletRepresentation(int representationId)
 	{
+		// Upper reference
+		this.representationId = representationId;
+		this.representationReference= null;
+		
 		this.prix = 0.0;
 		this.nbBilletEmis = 0;
 		this.type = new TypeBillet();
-		this.representationId = representationId;
+	}
+	
+	public int getRepresentationId()
+	{
+		return this.representationId;
+	}
+	
+	public Representation getRepresentationReference()
+	{
+		return this.representationReference;
+	}
+	
+	public void setRepresentationReference(Representation representationReference)
+	{
+		this.representationReference = representationReference;
 	}
 	
 	public double getPrix()
@@ -47,11 +68,6 @@ public class TypeBilletRepresentation extends AbstractModelObject implements Bea
 	public void setType(TypeBillet type)
 	{
 		this.type = type;
-	}
-	
-	public int getRepresentationId()
-	{
-		return this.representationId;
 	}
 	
 	@Override

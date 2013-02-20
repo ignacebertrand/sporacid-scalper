@@ -10,18 +10,44 @@ public class TypeBilletRepresentationBean extends AbstractBean implements Modela
 	 * Serializable interface requirement
 	 */
 	private static final long serialVersionUID = 7463123842127037572L;
+
+	// Upper reference
+	private int representationId;
+	private RepresentationBean representationReference; 
 	
 	private double prix;
 	private int nbBilletEmis;
 	private TypeBilletBean type;
-	private int representationId;
+	
+	public TypeBilletRepresentationBean()
+	{
+		this(-1);
+	}
 	
 	public TypeBilletRepresentationBean(int representationId)
 	{
+		// Upper reference
+		this.representationId = representationId;
+		this.representationReference= null;
+		
 		this.prix = 0.0;
 		this.nbBilletEmis = 0;
-		this.type = new TypeBilletBean();
-		this.representationId = representationId;
+		this.type = new TypeBilletBean(); 
+	}
+	
+	public int getRepresentationId()
+	{
+		return this.representationId;
+	}
+	
+	public RepresentationBean getRepresentationReference()
+	{
+		return this.representationReference;
+	}
+	
+	public void setRepresentationReference(RepresentationBean representationReference)
+	{
+		this.representationReference = representationReference;
 	}
 	
 	public double getPrix()
@@ -53,11 +79,7 @@ public class TypeBilletRepresentationBean extends AbstractBean implements Modela
 	{
 		this.type = type;
 	}
-	
-	public int getRepresentationId()
-	{
-		return this.representationId;
-	}
+
 
 	@Override
 	public AbstractModelObject getModelObject()

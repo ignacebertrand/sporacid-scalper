@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.sun.tracing.dtrace.Attributes;
 
 import sporacidscalper.controller.modelcontroller.IGestionnaireSpectacle;
 import sporacidscalper.model.beans.ItemPanierAchatBean;
@@ -55,7 +52,10 @@ public class PanierAchatController implements ApplicationContextAware
 		SpectacleBean spectacle = gestionnaireSpectacle.obtenirSpectacle(form.getSpectacleId());
 		RepresentationBean representation = spectacle.obtenirRepresentation(form.getRepresentationId());
 		TypeBilletRepresentationBean representationType = representation.obtenirTypeBilletRepresentation(form.getTypeBilletId());
-
+		
+		representationType.setRepresentationReference(representation);
+		representation.setSpectacleReference(spectacle);
+		
 		PanierAchatBean panier = obtenirPanierAchat(request.getSession());
 		ItemPanierAchatBean itemToAdd = new ItemPanierAchatBean(panier.getItems().size() + 1);
 		
@@ -64,6 +64,25 @@ public class PanierAchatController implements ApplicationContextAware
 		
 		panier.ajouterItem(itemToAdd);
 
+		return "redirect:" + referer;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/supprimer-item-panier-achat")
+	public String supprimerItemPanierAchat(HttpServletRequest request,
+			@RequestHeader(value = "referer", required = true) final String referer)
+	{
+		//request.get
+		String strItemIdToDelete = request.getParameter("itemId");
+		
+		if(strItemIdToDelete != null)
+		{
+			int itemIdToDelete = Integer.parseInt(strItemIdToDelete);
+			
+			PanierAchatBean panier = obtenirPanierAchat(request.getSession());
+			
+			panier.supprimerItem(itemIdToDelete);
+		}
+		
 		return "redirect:" + referer;
 	}
 	
