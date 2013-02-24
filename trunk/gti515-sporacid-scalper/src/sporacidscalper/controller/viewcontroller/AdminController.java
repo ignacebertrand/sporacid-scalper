@@ -18,16 +18,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sporacidscalper.controller.modelcontroller.IGestionnaireSpectacle;
 import sporacidscalper.model.Artiste;
-import sporacidscalper.model.Category;
 import sporacidscalper.model.Representation;
 import sporacidscalper.model.TypeSpectacle;
 import sporacidscalper.model.beans.ArtisteBean;
-import sporacidscalper.model.beans.CategoryBean;
 import sporacidscalper.model.beans.RepresentationBean;
 import sporacidscalper.model.beans.SpectacleBean;
 import sporacidscalper.model.beans.TypeSpectacleBean;
 import sporacidscalper.model.persistence.StubFactory;
-import sporacidscalper.view.beans.FormulaireAjoutSpectacle;
+//import sporacidscalper.view.beans.FormulaireAjoutSpectacle;
 
 @Controller 
 public class AdminController implements ApplicationContextAware
@@ -50,7 +48,7 @@ public class AdminController implements ApplicationContextAware
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/ajouter-spectacle")
-	public String ajouterSpectacle(@ModelAttribute FormulaireAjoutSpectacle form, 
+	/*public String ajouterSpectacle(@ModelAttribute FormulaireAjoutSpectacle form, 
 			BindingResult result, HttpServletRequest request,
 			@RequestHeader(value = "referer", required = true) final String referer)
 	{
@@ -71,7 +69,7 @@ public class AdminController implements ApplicationContextAware
 			System.out.println(gestionnaireSpectacle.obtenirSpectacles()[i].getNom());
 		}
 		return "redirect:" + referer;
-	}
+	}*/
 	
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException

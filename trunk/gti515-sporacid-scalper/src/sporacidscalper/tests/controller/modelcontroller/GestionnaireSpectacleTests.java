@@ -32,7 +32,7 @@ public class GestionnaireSpectacleTests
 		GestionnaireSpectacle gestionnaireSpectacle = new GestionnaireSpectacle();
 		
 		assertTrue(gestionnaireSpectacle.obtenirSpectacles().length > 0 &&
-				   gestionnaireSpectacle.obtenirCategory().length > 0);
+				   gestionnaireSpectacle.obtenirTypesSpectacle().length > 0);
 	}
 	
 	@Test

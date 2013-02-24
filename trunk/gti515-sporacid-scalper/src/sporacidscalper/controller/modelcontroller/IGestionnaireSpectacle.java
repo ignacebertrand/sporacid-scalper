@@ -1,8 +1,8 @@
 package sporacidscalper.controller.modelcontroller;
 
-import sporacidscalper.model.beans.CategoryBean;
 import sporacidscalper.model.beans.RepresentationBean;
 import sporacidscalper.model.beans.SpectacleBean;
+import sporacidscalper.model.beans.TypeSpectacleBean;
 
 public interface IGestionnaireSpectacle 
 {
@@ -62,5 +62,5 @@ public interface IGestionnaireSpectacle
 	 */
 	public int obtenirNbBilletRestant(int spectacleId, int representationId);
 	
-	public CategoryBean[] obtenirCategory();
+	public TypeSpectacleBean[] obtenirTypesSpectacle();
 }

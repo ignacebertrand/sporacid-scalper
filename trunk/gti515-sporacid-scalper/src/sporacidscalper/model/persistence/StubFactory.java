@@ -5,18 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
-import sporacidscalper.model.Adresse;
-import sporacidscalper.model.Artiste;
-import sporacidscalper.model.Category;
-import sporacidscalper.model.Client;
-import sporacidscalper.model.Nouvelle;
-import sporacidscalper.model.Representation;
-import sporacidscalper.model.Spectacle;
-import sporacidscalper.model.Tags;
-import sporacidscalper.model.Transaction;
-import sporacidscalper.model.TypeBillet;
-import sporacidscalper.model.TypeBilletRepresentation;
-import sporacidscalper.model.TypeSpectacle;
+import sporacidscalper.model.*;
 
 public class StubFactory {
 	
@@ -29,12 +18,10 @@ public class StubFactory {
 	private List<Transaction> listeTransactions;
 	private List<TypeSpectacle> listeTypesSpectacle;
 	private List<Adresse> listeAdresses;
-	private List<Category> listeCategory;
 
 	private StubFactory() 
 	{
 		setStubAdresse();
-		setStubCategory();
 		setStubClient();
 		setStubArtistes();
 		setStubTransactions();
@@ -105,7 +92,6 @@ public class StubFactory {
 		listeArtistes1.add(getStubArtistes().get(1));
 		s1.setArtistes(listeArtistes1);
 		s1.setType(getStubTypesSpectacles().get(2));
-		s1.setCategory(getStubCategory().get(1));
 		
 		Representation r = new Representation(1, s1.getId());
 		TypeBilletRepresentation typeBilletRepresentation = new TypeBilletRepresentation(r.getId());
@@ -125,7 +111,6 @@ public class StubFactory {
 		listeArtistes2.add(getStubArtistes().get(3));
 		s2.setArtistes(listeArtistes2);
 		s2.setType(getStubTypesSpectacles().get(0));
-		s2.setCategory(getStubCategory().get(6));
 
 		Spectacle s3 = new Spectacle(3);
 		s3.setNom("Decrepit birth event");
@@ -135,7 +120,6 @@ public class StubFactory {
 		listeArtistes3.add(getStubArtistes().get(2));
 		s3.setArtistes(listeArtistes3);
 		s3.setType(getStubTypesSpectacles().get(1));
-		s3.setCategory(this.getStubCategory().get(3));
 
 		listeSpectacles.add(s1);
 		listeSpectacles.add(s2);
@@ -376,7 +360,7 @@ public class StubFactory {
 		return listeAdresses;
 	}
 	
-	public void setStubCategory()
+	/*public void setStubCategory()
 	{	
 		List<Category> listeCategory = new ArrayList<Category>();
 		
@@ -394,5 +378,5 @@ public class StubFactory {
 	public List<Category> getStubCategory()
 	{
 		return listeCategory;
-	}
+	}*/
 }
