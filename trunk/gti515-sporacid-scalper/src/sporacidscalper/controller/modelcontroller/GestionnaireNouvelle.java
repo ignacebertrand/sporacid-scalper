@@ -91,6 +91,31 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	}
 	
 	/**
+	 * Public method to obtain a Nouvelle from the system.
+	 * @param nouvelleId The Nouvelle unique id
+	 * @return The Nouvelle bean associated with the Nouvelle
+	 */
+	public NouvelleBean obtenirNouvelle(int nouvelleId)
+	{
+		NouvelleBean nouvelleToGet = null;
+		
+		// Access listeSpectacles thread-safely.
+		synchronized(listeNouvelles)
+		{
+			for(Nouvelle nouvelle : listeNouvelles)
+			{
+				if(nouvelle.getId() == nouvelleId)
+				{
+					nouvelleToGet = (NouvelleBean) nouvelle.getBean();
+					break;
+				}
+			}
+		}
+		
+		return nouvelleToGet;
+	}
+	
+	/**
 	 * Public method to obtain all news from the system.
 	 * @return The list of all news
 	 */

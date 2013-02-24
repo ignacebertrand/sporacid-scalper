@@ -25,7 +25,7 @@ public class StubFactory {
 	private List<Client> listeClients;
 	private List<Artiste> listeArtistes;
 	private List<Nouvelle> listeNouvelles;
-	private List<Spectacle> listeSpectacles;
+	private Vector<Spectacle> listeSpectacles;
 	private List<Transaction> listeTransactions;
 	private List<TypeSpectacle> listeTypesSpectacle;
 	private List<Adresse> listeAdresses;
@@ -94,7 +94,7 @@ public class StubFactory {
 	private void setStubSpectacles() 
 	{
 
-		List<Spectacle> listeSpectacles = new ArrayList<Spectacle>();
+		Vector<Spectacle> listeSpectacles = new Vector<Spectacle>();
 
 		Spectacle s1 = new Spectacle(1);
 		s1.setNom("Les trois accords");
@@ -144,7 +144,7 @@ public class StubFactory {
 		this.listeSpectacles = listeSpectacles;
 	}
 
-	public List<Spectacle> getStubSpectacles() 
+	public Vector<Spectacle> getStubSpectacles() 
 	{
 		return listeSpectacles;
 	}

@@ -1,6 +1,7 @@
 package sporacidscalper.controller.modelcontroller;
 
 import java.util.List;
+import java.util.Vector;
 
 import sporacidscalper.model.Category;
 import sporacidscalper.model.Representation;
@@ -23,7 +24,7 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 */
 	public GestionnaireSpectacle()
 	{
-		this.listeSpectacles = StubFactory.getInstance().getStubSpectacles();
+		this.listeSpectacles = (Vector<Spectacle>)StubFactory.getInstance().getStubSpectacles();
 		this.listeCategories = StubFactory.getInstance().getStubCategory();
 	}
 
@@ -99,6 +100,7 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 			if(okForDeletion)
 			{
 				//Proceed with the deletion
+				//listeSpectacles.get(spectacle.getId())
 				listeSpectacles.remove(spectacle);
 			}
 		}
@@ -271,7 +273,7 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 			// Iterators are faster than indexed loops for ArrayList
 			for(Spectacle spectacle : listeSpectacles)
 			{
-				spectacles[i] = (SpectacleBean) spectacle.getBean();
+				spectacles[i] = (SpectacleBean)spectacle.getBean();
 				i++;
 			}
 		}
