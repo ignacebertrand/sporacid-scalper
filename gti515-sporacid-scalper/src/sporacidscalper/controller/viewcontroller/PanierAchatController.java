@@ -48,6 +48,11 @@ public class PanierAchatController implements ApplicationContextAware
 	 */
 	private NumberFormat currencyFormatter;
 	
+	/**
+	 * Public controller method to obtain the shopping cart page.
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/panier-achat")
 	public ModelAndView getPanierAchat(HttpServletRequest request)
 	{
@@ -61,64 +66,108 @@ public class PanierAchatController implements ApplicationContextAware
 		return mav;
 	}
 	
+	/**
+	 * Public controller method to add an item to the shopping cart.
+	 * @param form
+	 * @param result
+	 * @param request
+	 * @param referer
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/ajouter-item-panier-achat")
 	public String ajouterItemPanierAchat(@ModelAttribute FormulaireItemPanierAchat form, 
 			BindingResult result, HttpServletRequest request,
 			@RequestHeader(value = "referer", required = true) final String referer)
 	{
+		// Get the upper references to correctly instantiate the new item with all its references.
 		SpectacleBean spectacle = gestionnaireSpectacle.obtenirSpectacle(form.getSpectacleId());
 		RepresentationBean representation = spectacle.obtenirRepresentation(form.getRepresentationId());
 		TypeBilletRepresentationBean representationType = representation.obtenirTypeBilletRepresentation(form.getTypeBilletId());
 		
+		// Set the upper references
 		representationType.setRepresentationReference(representation);
 		representation.setSpectacleReference(spectacle);
 		
+		// Get the shopping cart from the session
 		PanierAchatBean panier = obtenirPanierAchat(request.getSession());
-		ItemPanierAchatBean itemToAdd = new ItemPanierAchatBean(panier.getItems().size() + 1);
 		
+		// Create a shopping cart item 
+		ItemPanierAchatBean itemToAdd = new ItemPanierAchatBean(panier.getItems().size() + 1);
 		itemToAdd.setQuantite(form.getQuantite());
 		itemToAdd.setBilletRepresentation(representationType);
 		
+		// Add the item to the shopping cart
 		panier.ajouterItem(itemToAdd);
 
+		// Redirect to the previous page
 		return "redirect:" + referer;
 	}
 	
+	/**
+	 * Public controller method to edit an item to the shopping cart.
+	 * @param form
+	 * @param result
+	 * @param request
+	 * @param referer
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/modifier-item-panier-achat")
 	public String modifierItemPanierAchat(@ModelAttribute FormulaireItemPanierAchat form, 
 			BindingResult result, HttpServletRequest request,
 			@RequestHeader(value = "referer", required = true) final String referer)
 	{
+		// Get the upper references to correctly instantiate the new item with all its references.
 		SpectacleBean spectacle = gestionnaireSpectacle.obtenirSpectacle(form.getSpectacleId());
 		RepresentationBean representation = spectacle.obtenirRepresentation(form.getRepresentationId());
 		TypeBilletRepresentationBean representationType = representation.obtenirTypeBilletRepresentation(form.getTypeBilletId());
 		
+		// Set the upper references
 		representationType.setRepresentationReference(representation);
 		representation.setSpectacleReference(spectacle);
 		
+		// Get the shopping cart from the session
 		PanierAchatBean panier = obtenirPanierAchat(request.getSession());
-		ItemPanierAchatBean itemToEdit = panier.obtenirItem(form.getItemId());
 		
+		// Get the item reference to edit and edit it
+		ItemPanierAchatBean itemToEdit = panier.obtenirItem(form.getItemId());
 		itemToEdit.setQuantite(form.getQuantite());
 		itemToEdit.setBilletRepresentation(representationType);
-		
+
+		// Redirect to the previous page
 		return "redirect:" + referer;
 	}
 	
+	/**
+	 * Public controller method to delete an item to the shopping cart.
+	 * @param form
+	 * @param result
+	 * @param request
+	 * @param referer
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/supprimer-item-panier-achat")
 	public String supprimerItemPanierAchat(@ModelAttribute FormulaireItemPanierAchat form, 
 			BindingResult result, HttpServletRequest request,
 			@RequestHeader(value = "referer", required = true) final String referer)
 	{
+		// Get the item id to delete
 		int itemIdToDelete = form.getItemId();
 		
+		// Get the shopping cart from the session
 		PanierAchatBean panier = obtenirPanierAchat(request.getSession());
 		
+		// Delete the item
 		panier.supprimerItem(itemIdToDelete);
 		
+		// Redirect to the previous page
 		return "redirect:" + referer;
 	}
 	
+	/**
+	 * Private method to obtain the shopping cart from a session.
+	 * @param session An Http Session object for the client's session
+	 * @return The bean for the shopping cart
+	 */
 	private PanierAchatBean obtenirPanierAchat(HttpSession session)
 	{
 		PanierAchatBean panier = (PanierAchatBean) session.getAttribute(cCleSessionPanierAchat);
@@ -131,7 +180,14 @@ public class PanierAchatController implements ApplicationContextAware
 		
 		return panier;
 	}
-
+	
+	/**
+	 * Override for ApplicationContextAware interface
+	 * Set the shows manager for this controller to the one specified in the application context.
+	 * Set the date formatter for this controller to the one specified in the application context.
+	 * Set the currency formatter for this controller to the one specified in the application context.
+	 * @param context The application context object
+	 */	
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException 
 	{
