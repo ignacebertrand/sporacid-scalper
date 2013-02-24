@@ -1,5 +1,7 @@
 package sporacidscalper.controller.viewcontroller;
 
+import java.text.DateFormat;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.BeansException;
@@ -38,6 +40,12 @@ public class AccueilController implements ApplicationContextAware
 	private IGestionnaireSpectacle gestionnaireSpectacle;
 	
 	/**
+	 * Reference to the DateFormat implementation 
+	 * of the application context bean configuration.
+	 */
+	private DateFormat datetimeFormatter;
+	
+	/**
 	 * Public controller method to obtain  the homepage.
 	 * @param request
 	 * @return
@@ -50,6 +58,7 @@ public class AccueilController implements ApplicationContextAware
 		mav.addObject("context", request.getContextPath());
 		mav.addObject("listeNouvelles", gestionnaireNouvelle.obtenirNouvelles());
 		mav.addObject("listeProchainsSpectacles", gestionnaireSpectacle.obtenirSpectacles());
+		mav.addObject("datetimeFormatter", datetimeFormatter);
 		
 		return mav;
 	}
@@ -65,5 +74,6 @@ public class AccueilController implements ApplicationContextAware
 	{
 		gestionnaireNouvelle = context.getBean("gestionnaireNouvelle", IGestionnaireNouvelle.class);
 		gestionnaireSpectacle = context.getBean("gestionnaireSpectacle", IGestionnaireSpectacle.class);
+		datetimeFormatter = context.getBean("datetimeFormatter", DateFormat.class);
 	}
 }
