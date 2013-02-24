@@ -8,21 +8,12 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import sporacidscalper.controller.modelcontroller.IGestionnaireNouvelle;
 import sporacidscalper.controller.modelcontroller.IGestionnaireSpectacle;
-import sporacidscalper.model.beans.ItemPanierAchatBean;
-import sporacidscalper.model.beans.PanierAchatBean;
-import sporacidscalper.model.beans.RepresentationBean;
-import sporacidscalper.model.beans.SpectacleBean;
-import sporacidscalper.model.beans.TypeBilletRepresentationBean;
-import sporacidscalper.view.beans.FormulaireAjoutItemPanierAchat;
 
 @Controller 
 public class AccueilController implements ApplicationContextAware

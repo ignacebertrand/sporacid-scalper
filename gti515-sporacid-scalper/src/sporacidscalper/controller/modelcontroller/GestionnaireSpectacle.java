@@ -3,12 +3,11 @@ package sporacidscalper.controller.modelcontroller;
 import java.util.List;
 import java.util.Vector;
 
-import sporacidscalper.model.Category;
 import sporacidscalper.model.Representation;
 import sporacidscalper.model.Spectacle;
-import sporacidscalper.model.beans.CategoryBean;
 import sporacidscalper.model.beans.RepresentationBean;
 import sporacidscalper.model.beans.SpectacleBean;
+import sporacidscalper.model.beans.TypeSpectacleBean;
 import sporacidscalper.model.persistence.StubFactory;
 
 public class GestionnaireSpectacle implements IGestionnaireSpectacle
@@ -17,7 +16,6 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 * List of all Spectacle on which we'll do operations
 	 */
 	private List<Spectacle> listeSpectacles;
-	private List<Category> listeCategories;
 
 	/**
 	 * Private constructor for the singleton
@@ -25,7 +23,6 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	public GestionnaireSpectacle()
 	{
 		this.listeSpectacles = (Vector<Spectacle>)StubFactory.getInstance().getStubSpectacles();
-		this.listeCategories = StubFactory.getInstance().getStubCategory();
 	}
 
 	/**
@@ -312,23 +309,24 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 		return categories;
 	}*/
 
-	@Override
-	public CategoryBean[] obtenirCategory() {
-		int i = 0;
-		CategoryBean[] categories = new CategoryBean[listeCategories.size()];
-		
-		// Access listeSpectacles thread-safely.
-		synchronized(listeCategories)
-		{
-			// Iterators are faster than indexed loops for ArrayList
-			for(Category category : listeCategories)
-			{
-				categories[i] = (CategoryBean) category.getBean();
-				i++;
-			}
-		}
-		
-		return categories;
+	public TypeSpectacleBean[] obtenirTypesSpectacle() 
+	{
+		return null;
+//		int i = 0;
+//		CategoryBean[] categories = new CategoryBean[listeCategories.size()];
+//		
+//		// Access listeSpectacles thread-safely.
+//		synchronized(listeCategories)
+//		{
+//			// Iterators are faster than indexed loops for ArrayList
+//			for(Category category : listeCategories)
+//			{
+//				categories[i] = (CategoryBean) category.getBean();
+//				i++;
+//			}
+//		}
+//		
+//		return categories;
 	}
 	
 }

@@ -5,7 +5,6 @@ import java.util.List;
 
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.Artiste;
-import sporacidscalper.model.Category;
 import sporacidscalper.model.Representation;
 import sporacidscalper.model.Spectacle;
 import sporacidscalper.model.TypeSpectacle;
@@ -21,9 +20,6 @@ public class SpectacleBean extends AbstractBean implements Modelable
 	private String nom;
 	private String description;
 	private String posterUrl;
-	private CategoryBean category;
-
-
 	private List<ArtisteBean> artistes;
 	private TypeSpectacleBean type;
 	private List<RepresentationBean> representations;
@@ -42,7 +38,6 @@ public class SpectacleBean extends AbstractBean implements Modelable
 		this.artistes = new ArrayList<ArtisteBean>();
 		this.type = new TypeSpectacleBean();
 		this.representations = new ArrayList<RepresentationBean>();
-		this.category = new CategoryBean();
 	}
 	
 	public void ajouterRepresentation(RepresentationBean representationToAdd)
@@ -134,16 +129,6 @@ public class SpectacleBean extends AbstractBean implements Modelable
 		this.type = type;
 	}
 	
-	public CategoryBean getCategory() 
-	{
-		return category;
-	}
-
-	public void setCategory(CategoryBean category) 
-	{
-		this.category = category;
-	}	
-	
 	public List<RepresentationBean> getRepresentations()
 	{
 		return representations;
@@ -171,7 +156,6 @@ public class SpectacleBean extends AbstractBean implements Modelable
 		s.setPosterUrl(this.posterUrl);
 		s.setType((TypeSpectacle) this.type.getModelObject());
 		s.setArtistes(this.toArtisteList(this.artistes));
-		//s.setCategory((Category)this.category.getModelObject());
 		s.setId(this.id);
 		
 		for(RepresentationBean representation : this.representations)
