@@ -42,6 +42,7 @@ public class SpectacleBean extends AbstractBean implements Modelable
 		this.artistes = new ArrayList<ArtisteBean>();
 		this.type = new TypeSpectacleBean();
 		this.representations = new ArrayList<RepresentationBean>();
+		this.category = new CategoryBean();
 	}
 	
 	public void ajouterRepresentation(RepresentationBean representationToAdd)
@@ -71,6 +72,11 @@ public class SpectacleBean extends AbstractBean implements Modelable
 		}
 		
 		return representationToGet;
+	}
+	
+	public void setId(int id) 
+	{
+		this.id = id;
 	}
 	
 	public int getId()
@@ -166,10 +172,13 @@ public class SpectacleBean extends AbstractBean implements Modelable
 		s.setType((TypeSpectacle) this.type.getModelObject());
 		s.setArtistes(this.toArtisteList(this.artistes));
 		//s.setCategory((Category)this.category.getModelObject());
+		s.setId(this.id);
 		
 		for(RepresentationBean representation : this.representations)
 			s.ajouterRepresentation((Representation) representation.getModelObject());
 		
 		return s;
 	}
+
+	
 }

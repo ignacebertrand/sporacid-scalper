@@ -35,6 +35,7 @@ public class Spectacle extends AbstractModelObject implements Beanable
 		this.artistes = new ArrayList<Artiste>();
 		this.type = new TypeSpectacle();
 		this.representations = new ArrayList<Representation>();
+		this.category = new Category();
 	}
 	
 	public void ajouterRepresentation(Representation representationToAdd)
@@ -69,6 +70,11 @@ public class Spectacle extends AbstractModelObject implements Beanable
 	public int getId()
 	{
 		return id;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 	
 	public String getNom()
@@ -159,6 +165,7 @@ public class Spectacle extends AbstractModelObject implements Beanable
 		bean.setPosterUrl(this.posterUrl);
 		bean.setType((TypeSpectacleBean)this.type.getBean());
 		bean.setCategory((CategoryBean)this.category.getBean());
+		bean.setId(this.id);
 		
 		for(Representation representation : this.representations)
 			bean.ajouterRepresentation((RepresentationBean) representation.getBean());
