@@ -1,7 +1,11 @@
+<%@ page import="sporacidscalper.model.beans.CategoryBean" %>
+
 <!DOCTYPE html>
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getAttribute("context");
+
+	CategoryBean[] listeCategories = (CategoryBean[]) request.getAttribute("listeCategories");
 %>
 <html>
 	<head>
@@ -49,12 +53,11 @@
                         <div class="add-event-description-item">
 							<label for="select_category" class="generic-label">Catégories :</label>
 							<select id="select_category" class="generic-select">
-								<option value="-1">Aucune</option>
-								<option value="1">Blues</option>
-								<option value="2">Classique</option>
-								<option value="3">Heavy Metal</option>
-								<option value="4">Jazz</option>
-								<option value="5">Rock</option>
+								<%for(int i = 0; i < listeCategories.length; i++) 
+								{
+									CategoryBean category = listeCategories[i];%>
+								<option value=<%=category.getId()%>><%=category.getDescription()%></option>
+								<%}%>
 							</select><br/>
                         </div>
                         <div class="add-event-item-controller">
