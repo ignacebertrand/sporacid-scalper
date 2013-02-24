@@ -14,9 +14,20 @@ public class ArtisteBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -8367220438236798436L;
 	
+	private int id;
 	private String nom;
 	private String description;
 	private List<TagsBean> tags;
+	
+	public int getId() 
+	{
+		return id;
+	}
+
+	public void setId(int id) 
+	{
+		this.id = id;
+	}
 	
 	public String getNom()
 	{
