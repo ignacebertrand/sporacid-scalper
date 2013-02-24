@@ -90,8 +90,8 @@
 						
 						artistesDesc = artistesDesc.substring(0, artistesDesc.length() - ", ".length());
 						
-						String itemTitle = spectacle.getDescription() + "\t---\t" + 
-								typeBilletRepresentation.getType().getNom() + "\t---\tPrix unitaire : " +
+						String itemTitle = spectacle.getDescription() + "  -  " + 
+								typeBilletRepresentation.getType().getNom() + "  -  Prix unitaire : " +
 								currencyFormatter.format(typeBilletRepresentation.getPrix());
 					%>	
 					
@@ -120,7 +120,7 @@
 										<% } %>
 										
 									</select>
-									<label class="generic-label">Billets :</label>
+									<label class="generic-label">Billet :</label>
 									<select class="generic-select shopping-cart-item-tickettype-select">
 									
 										<%-- Populate a TypeBilletBean array according to the TypeBilletRepresentationBean --%>

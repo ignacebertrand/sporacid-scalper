@@ -36,6 +36,13 @@
 		<constructor-arg value="MM/dd/yyyy"/>
 	</bean>
 	
+	<!-- Bean definition for the datetime formatter throughout the application -->
+	<bean id="datetimeFormatter" name="datetimeFormatter"
+			class="java.text.SimpleDateFormat" 
+			scope="singleton">
+		<constructor-arg value="MM/dd/yyyy hh:mm"/>
+	</bean>
+	
 	<!-- Bean definition for the currency formatter throughout the application -->
 	<bean id="currencyFormatter" name="currencyFormatter" 
 		class="java.text.NumberFormat" factory-method="getCurrencyInstance"
