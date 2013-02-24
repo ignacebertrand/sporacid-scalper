@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping; 
 import org.springframework.ui.ModelMap;
 
-import sporacidscalper.view.beans.FormulaireAjoutItemPanierAchat;
-
 @Controller 
 public class BilletsController 
 {
@@ -18,8 +16,6 @@ public class BilletsController
 	{
 		String context = request.getContextPath();
 		model.addAttribute("context", context);
-		
-		model.addAttribute("command", new FormulaireAjoutItemPanierAchat());
 		
 		return "billets_musique";
 	}

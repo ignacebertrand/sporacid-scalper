@@ -29,4 +29,17 @@
 		 	scope="singleton">
 	</bean>
 	
+	<!-- Bean definition for the date formatter throughout the application -->
+	<bean id="dateFormatter" name="dateFormatter"
+			class="java.text.SimpleDateFormat" 
+			scope="singleton">
+		<constructor-arg value="MM/dd/yyyy"/>
+	</bean>
+	
+	<!-- Bean definition for the currency formatter throughout the application -->
+	<bean id="currencyFormatter" name="currencyFormatter" 
+		class="java.text.NumberFormat" factory-method="getCurrencyInstance"
+		scope="singleton">
+	</bean>
+	
 </beans>

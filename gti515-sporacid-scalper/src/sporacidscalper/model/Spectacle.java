@@ -151,9 +151,9 @@ public class Spectacle extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		SpectacleBean bean = new SpectacleBean();
+		SpectacleBean bean = new SpectacleBean(this.id);
 		
-		bean.setArtistes(toTagsBeanList(artistes));
+		bean.setArtistes(toTagsBeanList(this.artistes));
 		bean.setDescription(this.description);
 		bean.setNom(this.nom);
 		bean.setPosterUrl(this.posterUrl);

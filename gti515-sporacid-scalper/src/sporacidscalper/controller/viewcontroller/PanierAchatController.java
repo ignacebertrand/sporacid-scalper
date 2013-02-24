@@ -1,5 +1,8 @@
 package sporacidscalper.controller.viewcontroller;
 
+import java.text.NumberFormat;
+import java.text.DateFormat;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -20,7 +23,7 @@ import sporacidscalper.model.beans.PanierAchatBean;
 import sporacidscalper.model.beans.RepresentationBean;
 import sporacidscalper.model.beans.SpectacleBean;
 import sporacidscalper.model.beans.TypeBilletRepresentationBean;
-import sporacidscalper.view.beans.FormulaireAjoutItemPanierAchat;
+import sporacidscalper.view.beans.FormulaireItemPanierAchat;
 
 @Controller 
 public class PanierAchatController implements ApplicationContextAware
@@ -33,6 +36,18 @@ public class PanierAchatController implements ApplicationContextAware
 	 */
 	private IGestionnaireSpectacle gestionnaireSpectacle;
 	
+	/**
+	 * Reference to the DateFormat implementation 
+	 * of the application context bean configuration.
+	 */
+	private DateFormat dateFormatter;
+	
+	/**
+	 * Reference to the NumberFormat for currencies implementation 
+	 * of the application context bean configuration.
+	 */
+	private NumberFormat currencyFormatter;
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/panier-achat")
 	public ModelAndView getPanierAchat(HttpServletRequest request)
 	{
@@ -40,12 +55,14 @@ public class PanierAchatController implements ApplicationContextAware
 		
 		mav.addObject("context", request.getContextPath());
 		mav.addObject("panierAchat", obtenirPanierAchat(request.getSession()));
+		mav.addObject("dateFormatter", dateFormatter);
+		mav.addObject("currencyFormatter", currencyFormatter);
 		
 		return mav;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/ajouter-item-panier-achat")
-	public String ajouterItemPanierAchat(@ModelAttribute FormulaireAjoutItemPanierAchat form, 
+	public String ajouterItemPanierAchat(@ModelAttribute FormulaireItemPanierAchat form, 
 			BindingResult result, HttpServletRequest request,
 			@RequestHeader(value = "referer", required = true) final String referer)
 	{
@@ -67,21 +84,37 @@ public class PanierAchatController implements ApplicationContextAware
 		return "redirect:" + referer;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/supprimer-item-panier-achat")
-	public String supprimerItemPanierAchat(HttpServletRequest request,
+	@RequestMapping(method = RequestMethod.POST, value = "/modifier-item-panier-achat")
+	public String modifierItemPanierAchat(@ModelAttribute FormulaireItemPanierAchat form, 
+			BindingResult result, HttpServletRequest request,
 			@RequestHeader(value = "referer", required = true) final String referer)
 	{
-		//request.get
-		String strItemIdToDelete = request.getParameter("itemId");
+		SpectacleBean spectacle = gestionnaireSpectacle.obtenirSpectacle(form.getSpectacleId());
+		RepresentationBean representation = spectacle.obtenirRepresentation(form.getRepresentationId());
+		TypeBilletRepresentationBean representationType = representation.obtenirTypeBilletRepresentation(form.getTypeBilletId());
 		
-		if(strItemIdToDelete != null)
-		{
-			int itemIdToDelete = Integer.parseInt(strItemIdToDelete);
-			
-			PanierAchatBean panier = obtenirPanierAchat(request.getSession());
-			
-			panier.supprimerItem(itemIdToDelete);
-		}
+		representationType.setRepresentationReference(representation);
+		representation.setSpectacleReference(spectacle);
+		
+		PanierAchatBean panier = obtenirPanierAchat(request.getSession());
+		ItemPanierAchatBean itemToEdit = panier.obtenirItem(form.getItemId());
+		
+		itemToEdit.setQuantite(form.getQuantite());
+		itemToEdit.setBilletRepresentation(representationType);
+		
+		return "redirect:" + referer;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/supprimer-item-panier-achat")
+	public String supprimerItemPanierAchat(@ModelAttribute FormulaireItemPanierAchat form, 
+			BindingResult result, HttpServletRequest request,
+			@RequestHeader(value = "referer", required = true) final String referer)
+	{
+		int itemIdToDelete = form.getItemId();
+		
+		PanierAchatBean panier = obtenirPanierAchat(request.getSession());
+		
+		panier.supprimerItem(itemIdToDelete);
 		
 		return "redirect:" + referer;
 	}
@@ -102,8 +135,8 @@ public class PanierAchatController implements ApplicationContextAware
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException 
 	{
-		// TODO Auto-generated method stub
-		//gestionnaireClient = context.getBean("gestionnaireClient", IGestionnaireClient.class);
 		gestionnaireSpectacle = context.getBean("gestionnaireSpectacle", IGestionnaireSpectacle.class);
+		dateFormatter = context.getBean("dateFormatter", DateFormat.class);
+		currencyFormatter = context.getBean("currencyFormatter", NumberFormat.class);
 	}
 }

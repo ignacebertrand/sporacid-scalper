@@ -26,12 +26,33 @@ public class PanierAchat extends AbstractModelObject implements Beanable
 		this.items = new ArrayList<ItemPanierAchat>();
 	}
 	
+	public ItemPanierAchat obtenirItem(int itemId)
+	{
+		ItemPanierAchat itemToGet = null;
+			
+		for(ItemPanierAchat item : this.items)
+		{
+			if(item.getId() == itemId)
+			{
+				itemToGet = item;
+				break;
+			}
+		}
+		
+		return itemToGet;
+	}
+	
 	public void ajouterItem(ItemPanierAchat itemToAdd)
 	{
 		if(itemToAdd != null)
 		{	
 			this.items.add(itemToAdd);
 		}
+	}
+	
+	public void supprimerItem(int itemIdToDelete)
+	{
+		supprimerItem(obtenirItem(itemIdToDelete));
 	}
 	
 	public void supprimerItem(ItemPanierAchat itemToDelete)
@@ -43,10 +64,8 @@ public class PanierAchat extends AbstractModelObject implements Beanable
 	{
 		double total = 0.0;
 		
-		for(ItemPanierAchat ipa : items)
-		{
-			total += ipa.getBilletRepresentation().getPrix();
-		}
+		for(ItemPanierAchat item : items)
+			total += item.getTotal();
 		
 		return total;
 	}

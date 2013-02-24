@@ -19,7 +19,7 @@ public class Commande extends AbstractModelObject implements Beanable
 		double total = 0;
 		
 		for (ItemCommande item : items)
-			total += item.getQuantite() * item.getBilletRepresentation().getPrix();
+			total += item.getTotal();
 		
 		return total;
 	}

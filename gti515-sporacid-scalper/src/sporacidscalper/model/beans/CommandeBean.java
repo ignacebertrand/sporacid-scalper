@@ -22,7 +22,7 @@ public class CommandeBean extends AbstractBean implements Modelable
 		double total = 0;
 		
 		for (ItemCommandeBean item : items)
-			total += item.getQuantite() * item.getBilletRepresentation().getPrix();
+			total += item.getTotal();
 		
 		return total;
 	}
