@@ -2,11 +2,13 @@ package sporacidscalper.controller.modelcontroller;
 
 import java.util.List;
 
+import sporacidscalper.model.Category;
 import sporacidscalper.model.Representation;
 import sporacidscalper.model.Spectacle;
-import sporacidscalper.model.persistence.StubFactory;
+import sporacidscalper.model.beans.CategoryBean;
 import sporacidscalper.model.beans.RepresentationBean;
 import sporacidscalper.model.beans.SpectacleBean;
+import sporacidscalper.model.persistence.StubFactory;
 
 public class GestionnaireSpectacle implements IGestionnaireSpectacle
 {
@@ -14,6 +16,7 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 * List of all Spectacle on which we'll do operations
 	 */
 	private List<Spectacle> listeSpectacles;
+	private List<Category> listeCategories;
 
 	/**
 	 * Private constructor for the singleton
@@ -21,6 +24,7 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	public GestionnaireSpectacle()
 	{
 		this.listeSpectacles = StubFactory.getInstance().getStubSpectacles();
+		this.listeCategories = StubFactory.getInstance().getStubCategory();
 	}
 
 	/**
@@ -175,9 +179,30 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 * @param representationToDelete A Representation bean object that we wish to delete
 	 * @param transactionManager Inversion of control for the transaction manager
 	 */
-	public void supprimerRepresentation(int spectacleId, RepresentationBean representationToDelete, IGestionnaireTransaction transactionManager)
+	public void supprimerRepresentation(RepresentationBean representationToDelete, IGestionnaireTransaction transactionManager)
 	{
-		throw new UnsupportedOperationException();
+		Representation representation = (Representation) representationToDelete.getModelObject();
+		// Flag checking if any transaction is binded to the representation object. Cannot delete object if 
+		// one or more transaction is binded.
+		boolean okForDeletion = transactionManager.obtenirTransactionsRepresentation(representation.getId()).length == 0;
+		// Access listeSpectacles thread-safely.
+		synchronized(listeSpectacles)
+		{
+			if(okForDeletion)
+			{			
+				// Iterators are faster than indexed loops for ArrayList
+				int i = 0;
+				for(Representation r : listeSpectacles.get(representation.getSpectacleId()).getRepresentations())
+				{
+					if(r.getId() == representation.getId())
+					{
+						listeSpectacles.get(r.getSpectacleId()).getRepresentations().remove(i);
+						break;
+					}
+					i++;
+				}
+			}
+		}
 	}
 	
 	/**
@@ -265,4 +290,43 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 		//that I haven't put.
 		throw new UnsupportedOperationException();
 	}
+	
+	/*public CategoryBean[] obtenirCategories()
+	{
+		int i = 0;
+		CategoryBean[] categories = new CategoryBean[listeCategories.size()];
+		
+		// Access listeSpectacles thread-safely.
+		synchronized(listeCategories)
+		{
+			// Iterators are faster than indexed loops for ArrayList
+			for(Category category : listeCategories)
+			{
+				categories[i] = (CategoryBean) category.getBean();
+				i++;
+			}
+		}
+		
+		return categories;
+	}*/
+
+	@Override
+	public CategoryBean[] obtenirCategory() {
+		int i = 0;
+		CategoryBean[] categories = new CategoryBean[listeCategories.size()];
+		
+		// Access listeSpectacles thread-safely.
+		synchronized(listeCategories)
+		{
+			// Iterators are faster than indexed loops for ArrayList
+			for(Category category : listeCategories)
+			{
+				categories[i] = (CategoryBean) category.getBean();
+				i++;
+			}
+		}
+		
+		return categories;
+	}
+	
 }

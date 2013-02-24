@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import sporacidscalper.controller.modelcontroller.IGestionnaireNouvelle;
 import sporacidscalper.controller.modelcontroller.IGestionnaireSpectacle;
 
 @Controller 
@@ -30,7 +29,7 @@ public class AdminController implements ApplicationContextAware
 	{
 		ModelAndView mav = new ModelAndView("admin");
 		mav.addObject("context", request.getContextPath());
-		//model.addAttribute("context" , request.getContextPath());
+		mav.addObject("listeCategories", gestionnaireSpectacle.obtenirCategory());
 		return mav;
 	}
 

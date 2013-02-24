@@ -1,5 +1,6 @@
 package sporacidscalper.controller.modelcontroller;
 
+import sporacidscalper.model.beans.CategoryBean;
 import sporacidscalper.model.beans.RepresentationBean;
 import sporacidscalper.model.beans.SpectacleBean;
 
@@ -43,7 +44,7 @@ public interface IGestionnaireSpectacle
 	 * @param representationToDelete A Representation bean object that we wish to delete
 	 * @param transactionManager Inversion of control for the transaction manager
 	 */
-	public void supprimerRepresentation(int spectacleId, RepresentationBean representationToDelete, IGestionnaireTransaction transactionManager);
+	public void supprimerRepresentation(RepresentationBean representationToDelete, IGestionnaireTransaction transactionManager);
 	/**
 	 * Public method to obtain a Spectacle from the system.
 	 * @param spectacleId The Spectacle unique id
@@ -60,4 +61,6 @@ public interface IGestionnaireSpectacle
 	 * @return The number of ticket remaining
 	 */
 	public int obtenirNbBilletRestant(int spectacleId, int representationId);
+	
+	public CategoryBean[] obtenirCategory();
 }
