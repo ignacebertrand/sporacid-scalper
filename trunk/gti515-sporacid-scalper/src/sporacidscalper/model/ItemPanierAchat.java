@@ -22,6 +22,11 @@ public class ItemPanierAchat extends AbstractModelObject implements Beanable
 		this.billetRepresentation = new TypeBilletRepresentation(-1);
 	}
 	
+	public double getTotal()
+	{
+		return this.quantite * this.billetRepresentation.getPrix();
+	}
+	
 	public int getId()
 	{
 		return id;

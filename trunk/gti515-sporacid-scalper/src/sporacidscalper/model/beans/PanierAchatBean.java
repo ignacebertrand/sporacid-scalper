@@ -31,6 +31,22 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 		this.items = new ArrayList<ItemPanierAchatBean>();
 	}
 	
+	public ItemPanierAchatBean obtenirItem(int itemId)
+	{
+		ItemPanierAchatBean itemToGet = null;
+			
+		for(ItemPanierAchatBean item : this.items)
+		{
+			if(item.getId() == itemId)
+			{
+				itemToGet = item;
+				break;
+			}
+		}
+		
+		return itemToGet;
+	}
+	
 	public void ajouterItem(ItemPanierAchatBean itemToAdd)
 	{
 		if(itemToAdd != null)
@@ -38,25 +54,14 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 			this.items.add(itemToAdd);
 		}
 	}
+
+	public void supprimerItem(int itemIdToDelete)
+	{
+		supprimerItem(obtenirItem(itemIdToDelete));
+	}
 	
 	public void supprimerItem(ItemPanierAchatBean itemToDelete)
 	{
-		this.items.remove(itemToDelete);
-	}
-	
-	public void supprimerItem(int itemIdToDelete)
-	{
-		ItemPanierAchatBean itemToDelete = null;
-		
-		for(ItemPanierAchatBean item : this.items)
-		{
-			if(item.getId() == itemIdToDelete)
-			{
-				itemToDelete = item;
-				break;
-			}
-		}
-		
 		this.items.remove(itemToDelete);
 	}
 	
@@ -64,10 +69,8 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 	{
 		double total = 0.0;
 		
-		for(ItemPanierAchatBean ipa : this.items)
-		{
-			total += ipa.getQuantite() * ipa.getBilletRepresentation().getPrix();
-		}
+		for(ItemPanierAchatBean item : this.items)
+			total += item.getTotal();
 		
 		return total;
 	}

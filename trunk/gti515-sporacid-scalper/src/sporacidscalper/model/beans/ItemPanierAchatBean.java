@@ -27,6 +27,11 @@ public class ItemPanierAchatBean extends AbstractBean implements Modelable
 		this.billetRepresentation = new TypeBilletRepresentationBean(-1);
 	}
 	
+	public double getTotal()
+	{
+		return this.quantite * this.billetRepresentation.getPrix();
+	}
+	
 	public int getId()
 	{
 		return id;
