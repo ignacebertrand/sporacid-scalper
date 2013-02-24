@@ -1,5 +1,6 @@
-<%@ page import="sporacidscalper.model.beans.SpectacleBean" %>
-<%@ page import="sporacidscalper.model.beans.NouvelleBean" %>
+<%@page import="java.text.DateFormat" %>
+<%@page import="sporacidscalper.model.beans.SpectacleBean" %>
+<%@page import="sporacidscalper.model.beans.NouvelleBean" %>
 
 <!DOCTYPE html>
 <%
@@ -7,6 +8,7 @@
 	String contextAttr = (String) request.getAttribute("context");
 	NouvelleBean[] listeNouvelles = (NouvelleBean[]) request.getAttribute("listeNouvelles");
 	SpectacleBean[] listeProchainsSpectacles = (SpectacleBean[]) request.getAttribute("listeProchainsSpectacles");
+	DateFormat datetimeFormatter = (DateFormat) request.getAttribute("datetimeFormatter");
 %>
 <html>
 	<head>
@@ -71,7 +73,7 @@
 									<h3><%=nouvelle.getTitre()%></h3>
 									<p><%=nouvelle.getDescription()%></p>
 									<p class="news-signature"><%=nouvelle.getAuteur()%></p>
-									<p class="news-date"><%=nouvelle.getDate()%></p>
+									<p class="news-date"><%=datetimeFormatter.format(nouvelle.getDate())%></p>
 								</li>
 							
 							<% } %>
