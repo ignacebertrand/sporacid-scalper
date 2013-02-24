@@ -3,8 +3,20 @@ package sporacidscalper.model.persistence;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
-import sporacidscalper.model.*;
+import sporacidscalper.model.Adresse;
+import sporacidscalper.model.Artiste;
+import sporacidscalper.model.Category;
+import sporacidscalper.model.Client;
+import sporacidscalper.model.Nouvelle;
+import sporacidscalper.model.Representation;
+import sporacidscalper.model.Spectacle;
+import sporacidscalper.model.Tags;
+import sporacidscalper.model.Transaction;
+import sporacidscalper.model.TypeBillet;
+import sporacidscalper.model.TypeBilletRepresentation;
+import sporacidscalper.model.TypeSpectacle;
 
 public class StubFactory {
 	
@@ -17,10 +29,12 @@ public class StubFactory {
 	private List<Transaction> listeTransactions;
 	private List<TypeSpectacle> listeTypesSpectacle;
 	private List<Adresse> listeAdresses;
+	private List<Category> listeCategory;
 
 	private StubFactory() 
 	{
 		setStubAdresse();
+		setStubCategory();
 		setStubClient();
 		setStubArtistes();
 		setStubTransactions();
@@ -29,19 +43,22 @@ public class StubFactory {
 		setStubSpectacles();
 	}
 
-	public static StubFactory getInstance() {
+	public static StubFactory getInstance() 
+	{
 		if (StubFactory.instance == null)
 			StubFactory.instance = new StubFactory();
 
 		return StubFactory.instance;
 	}
 
-	public List<Client> getStubClients() {
+	public List<Client> getStubClients() 
+	{
 
 		return listeClients;
 	}
 
-	private void setStubNouvelles() {
+	private void setStubNouvelles() 
+	{
 		List<Nouvelle> listeNouvelles = new ArrayList<Nouvelle>();
 
 		Nouvelle n1 = new Nouvelle(1);
@@ -69,11 +86,13 @@ public class StubFactory {
 		this.listeNouvelles = listeNouvelles;
 	}
 
-	public List<Nouvelle> getStubNouvelles() {
+	public List<Nouvelle> getStubNouvelles() 
+	{
 		return this.listeNouvelles;
 	}
 
-	private void setStubSpectacles() {
+	private void setStubSpectacles() 
+	{
 
 		List<Spectacle> listeSpectacles = new ArrayList<Spectacle>();
 
@@ -86,6 +105,7 @@ public class StubFactory {
 		listeArtistes1.add(getStubArtistes().get(1));
 		s1.setArtistes(listeArtistes1);
 		s1.setType(getStubTypesSpectacles().get(2));
+		s1.setCategory(getStubCategory().get(1));
 		
 		Representation r = new Representation(1, s1.getId());
 		TypeBilletRepresentation typeBilletRepresentation = new TypeBilletRepresentation(r.getId());
@@ -105,6 +125,7 @@ public class StubFactory {
 		listeArtistes2.add(getStubArtistes().get(3));
 		s2.setArtistes(listeArtistes2);
 		s2.setType(getStubTypesSpectacles().get(0));
+		s2.setCategory(getStubCategory().get(6));
 
 		Spectacle s3 = new Spectacle(3);
 		s3.setNom("Decrepit birth event");
@@ -114,6 +135,7 @@ public class StubFactory {
 		listeArtistes3.add(getStubArtistes().get(2));
 		s3.setArtistes(listeArtistes3);
 		s3.setType(getStubTypesSpectacles().get(1));
+		s3.setCategory(this.getStubCategory().get(3));
 
 		listeSpectacles.add(s1);
 		listeSpectacles.add(s2);
@@ -122,7 +144,8 @@ public class StubFactory {
 		this.listeSpectacles = listeSpectacles;
 	}
 
-	public List<Spectacle> getStubSpectacles() {
+	public List<Spectacle> getStubSpectacles() 
+	{
 		return listeSpectacles;
 	}
 
@@ -351,5 +374,25 @@ public class StubFactory {
 	public List<Adresse> getStubAdresse()
 	{
 		return listeAdresses;
+	}
+	
+	public void setStubCategory()
+	{	
+		List<Category> listeCategory = new ArrayList<Category>();
+		
+		listeCategory.add(new Category(-1, "Aucune"));
+		listeCategory.add(new Category(1, "Blues"));
+		listeCategory.add(new Category(2, "Classique"));
+		listeCategory.add(new Category(3, "Heavy Metal"));
+		listeCategory.add(new Category(4, "Jazz"));
+		listeCategory.add(new Category(5, "Rock"));
+		listeCategory.add(new Category(6, "Humour"));
+		
+		this.listeCategory = listeCategory;
+	}
+	
+	public List<Category> getStubCategory()
+	{
+		return listeCategory;
 	}
 }
