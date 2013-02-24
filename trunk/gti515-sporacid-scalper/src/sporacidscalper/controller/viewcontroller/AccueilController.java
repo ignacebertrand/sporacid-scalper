@@ -28,6 +28,11 @@ public class AccueilController implements ApplicationContextAware
 	 */
 	private IGestionnaireSpectacle gestionnaireSpectacle;
 	
+	/**
+	 * Public controller method to obtain  the homepage.
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/accueil")
 	public ModelAndView getAccueil(HttpServletRequest request)
 	{
