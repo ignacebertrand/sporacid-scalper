@@ -134,7 +134,7 @@ public class SpectacleBean extends AbstractBean implements Modelable
 		return representations;
 	}
 	
-	private List<Artiste> toArtisteList(List<ArtisteBean> artistesBean)
+	private List<Artiste> toArtistesList(List<ArtisteBean> artistesBean)
 	{
 		List<Artiste> artistes = new ArrayList<Artiste>();
 		
@@ -146,12 +146,19 @@ public class SpectacleBean extends AbstractBean implements Modelable
 		return artistes;
 	}
 	
-	//TODO méthode qui retourne un String des artistes
+	// Build the artists string with the all artists for the show
 	public String getArtistes()
 	{
-		String stringArtistes = "";
+		StringBuffer stringArtistes = new StringBuffer();
+		String output = "";
 		
-		return stringArtistes;
+		for(ArtisteBean artiste : artistes)
+			stringArtistes.append(", " + artiste.getNom());
+		
+		if(stringArtistes.length() > 2)
+			output = stringArtistes.substring(", ".length());
+		
+		return output;
 	}
 
 	@Override
@@ -163,7 +170,7 @@ public class SpectacleBean extends AbstractBean implements Modelable
 		s.setNom(this.nom);
 		s.setPosterUrl(this.posterUrl);
 		s.setType((TypeSpectacle) this.type.getModelObject());
-		s.setArtistes(this.toArtisteList(this.artistes));
+		s.setArtistes(this.toArtistesList(this.artistes));
 		s.setId(this.id);
 		
 		for(RepresentationBean representation : this.representations)

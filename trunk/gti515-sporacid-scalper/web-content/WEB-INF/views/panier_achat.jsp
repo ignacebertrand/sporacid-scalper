@@ -82,13 +82,7 @@
 						if(spectacle == null)
 							spectacle = new SpectacleBean();
 						
-						// Build the artists string with the all artists for the show
-						String artistesDesc = "";
-						
-						for(ArtisteBean artiste : spectacle.getArtistes())
-							artistesDesc += artiste.getNom() + ", ";
-						
-						artistesDesc = artistesDesc.substring(0, artistesDesc.length() - ", ".length());
+						String artistesDesc = spectacle.getArtistes();
 						
 						String itemTitle = spectacle.getDescription() + "  -  " + 
 								typeBilletRepresentation.getType().getNom() + "  -  Prix unitaire : " +
