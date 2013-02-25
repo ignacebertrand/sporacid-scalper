@@ -109,7 +109,7 @@ public class SpectacleBean extends AbstractBean implements Modelable
 		this.posterUrl = posterUrl;
 	}
 	
-	public List<ArtisteBean> getArtistes()
+	public List<ArtisteBean> getListeArtistes()
 	{
 		return artistes;
 	}
@@ -144,6 +144,14 @@ public class SpectacleBean extends AbstractBean implements Modelable
 		}
 		
 		return artistes;
+	}
+	
+	//TODO méthode qui retourne un String des artistes
+	public String getArtistes()
+	{
+		String stringArtistes = "";
+		
+		return stringArtistes;
 	}
 
 	@Override

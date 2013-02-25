@@ -1,9 +1,20 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page import="sporacidscalper.model.beans.SpectacleBean"%>
+<%@ page import="sporacidscalper.model.beans.RepresentationBean"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.text.DateFormat"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+
 <!DOCTYPE html>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getAttribute("context");
+
+	SpectacleBean[] listeSpectacles = (SpectacleBean[]) request.getAttribute("listeSpectacles");
 %>
 <html>
 	<head>
@@ -47,12 +58,13 @@
 				</form>
 				
 				<ul class="event-list">
-                    <li class="event-list-item">
-						<div class="event-list-item-image" style="background-image: url(../styles/images/trois_accords.jpg);"></div>
+					<%for(SpectacleBean spectacle : listeSpectacles){%>						
+					<li class="event-list-item">
+						<!--<div class="event-list-item-image" style="background-image: url(../"<%=spectacle.getPosterUrl()%>");"></div>-->
 						<div class="event-list-item-content">
-							<h1 class="event-list-item-content-title">Tournée J'aime ta grand-mère</h1>
-							<h2 class="event-list-item-content-artists">Les Trois Accords</h2>
-							<p class="event-list-item-content-desc">Souligne l'importance et le potentiel de nos aînés.</p>
+							<h1 class="event-list-item-content-title"><%=spectacle.getNom()%></h1>
+							<h2 class="event-list-item-content-artists"><%=spectacle.getArtistes()%></h2>
+							<p class="event-list-item-content-desc"><%=spectacle.getDescription()%></p>
 							<div class="event-list-item-tags-container">
 								<a class="event-list-item-tag" href="#a">Club d'âge d'or</a>
 								<a class="event-list-item-tag" href="#b">Association Je protège nos aînés</a>
@@ -64,7 +76,14 @@
 							<label class="generic-label">Représentation :</label>
 							<select class="generic-select event-list-item-representation-select">
 								<option value="-1">-----</option>
-								<option value="1">Le 13/13/2013 à 6h66</option>
+								<%
+								List<RepresentationBean> representations = spectacle.getRepresentations();
+								for(int i=0;i < representations.size();i++){ 
+									DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+									DateFormat timeFormat = new SimpleDateFormat("H:mm");
+								%>
+								<option value="<%=i%>">Le <%=dateFormat.format(representations.get(i).getDateDebutRepresentation())%> à <%=timeFormat.format(representations.get(i).getDateDebutRepresentation())%></option>
+								<%}%>
 							</select>
 							<label class="generic-label">Quantité :</label>
 							<select class="generic-select event-list-item-quantity-select">
@@ -83,45 +102,8 @@
 								Ajouter au panier
 							</div>
 						</div>
-					</li>
-					<li class="event-list-item">
-						<div class="event-list-item-image" style="background-image: url(../styles/images/decrepit-birth-event.jpg);"></div>
-						<div class="event-list-item-content">
-							<h1 class="event-list-item-content-title">Lancement d'album Decrepit Birth</h1>
-							<h2 class="event-list-item-content-artists">Decrepit Birth + invités</h2>
-							<h3 class="event-list-item-content-datelocation">Le 13/13/2013 au Club Soda</h3>
-							<p class="event-list-item-content-desc">Le nouvel album de Decrepit Birth, Polarity est maitenant en vente.</p>
-							<div class="event-list-item-tags-container">
-								<a class="event-list-item-tag" href="#a">Heavy Metal</a>
-								<a class="event-list-item-tag" href="#b">Death Metal</a>
-								<a class="event-list-item-tag" href="#c">Technical Metal</a>
-								<a class="event-list-item-tag" href="#d">Sporacid Blast Records</a>
-							</div>
-						</div>
-						<div class="event-list-item-controller">
-							<label class="generic-label">Représentation :</label>
-							<select class="generic-select event-list-item-representation-select">
-								<option value="-1">-----</option>
-								<option value="1">Le 13/13/2013 à 6h66</option>
-							</select>
-							<label class="generic-label">Quantité :</label>
-							<select class="generic-select event-list-item-quantity-select">
-								<option value="-1">--</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-							</select>
-<!-- 							<div class="generic-button event-list-item-disponibility-button"> -->
-<!-- 								Disponibilité... -->
-<!-- 							</div> -->
-							<div class="generic-button event-list-item-addtocart-button">
-								Ajouter au panier
-							</div>
-						</div>
-					</li>
+					</li>					
+					<%}%>
 				</ul>
 			</div>
 		</div>
