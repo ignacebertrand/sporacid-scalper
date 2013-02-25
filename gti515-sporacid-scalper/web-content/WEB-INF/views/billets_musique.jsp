@@ -102,17 +102,17 @@
 								Ajouter au panier
 							</div>
 						</div>
-					</li>					
+					</li>
 					<%}%>
 				</ul>
 			</div>
 		</div>
-		
+
 		<%-- Include the footer in the page --%>
 		<jsp:include page="partial-views/footer.jsp"></jsp:include>
-		
+
 	</body>
-	
+
 	<script type="text/javascript">
 		$(document).ready(
 			function()

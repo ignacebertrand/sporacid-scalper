@@ -1,7 +1,19 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page import="sporacidscalper.model.beans.SpectacleBean"%>
+<%@ page import="sporacidscalper.model.beans.RepresentationBean"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.text.DateFormat"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+
 <!DOCTYPE html>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getAttribute("context");
+
+	SpectacleBean[] listeSpectacles = (SpectacleBean[]) request.getAttribute("listeSpectacles");
 %>
 <html>
 	<head>
@@ -27,13 +39,22 @@
 					<label for="textbox_search_criteria" class="generic-label">Recherche par mot clé :</label>
 					<input type="text" id="textbox_search_criteria" class="generic-textbox" />
 				</div>
+				
+				<form method="POST" action="<%=contextAttr%>/panier-achat/ajouter-item-panier-achat">
+					<input type="hidden" id="hiddenQuantite" name="quantite" />
+					<input type="hidden" id="hiddenSpectacleId" name="spectacleId" />
+					<input type="hidden" id="hiddenRepresentationId" name="representationId" />
+					<input type="hidden" id="hiddenTypeBilletId" name="typeBilletId" />
+				</form>
+				
 				<ul class="event-list">
+					<%for(SpectacleBean spectacle : listeSpectacles){%>
 					<li class="event-list-item">
-						<div class="event-list-item-image" style="background-image: url(../styles/images/francois_bellefeuille.jpg);"></div>
+						<!--<div class="event-list-item-image" style="background-image: url(../"<%=spectacle.getPosterUrl()%>");"></div>-->
 						<div class="event-list-item-content">
-							<h1 class="event-list-item-content-title">François Bellefeuille part à la conquête du 450</h1>
-							<h2 class="event-list-item-content-artists">François Bellefeuille</h2>
-							<p class="event-list-item-content-desc">Ya pas juste Montréal quand même !</p>
+							<h1 class="event-list-item-content-title"><%=spectacle.getNom()%></h1>
+							<h2 class="event-list-item-content-artists"><%=spectacle.getArtistes()%></h2>
+							<p class="event-list-item-content-desc"><%=spectacle.getDescription()%></p>
 							<div class="event-list-item-tags-container">
 								<a class="event-list-item-tag" href="#a">Châteauguay</a>
 								<a class="event-list-item-tag" href="#b">Varennes</a>
@@ -45,7 +66,14 @@
 							<label class="generic-label">Représentation :</label>
 							<select class="generic-select event-list-item-representation-select">
 								<option value="-1">-----</option>
-								<option value="1">Le 13/13/2013 à 6h66</option>
+								<%
+								List<RepresentationBean> representations = spectacle.getRepresentations();
+								for(int i=0;i < representations.size();i++){ 
+									DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+									DateFormat timeFormat = new SimpleDateFormat("H:mm");
+								%>
+								<option value="<%=i%>">Le <%=dateFormat.format(representations.get(i).getDateDebutRepresentation())%> à <%=timeFormat.format(representations.get(i).getDateDebutRepresentation())%></option>
+								<%}%>
 							</select>
 							<label class="generic-label">Quantité :</label>
 							<select class="generic-select event-list-item-quantity-select">
@@ -57,64 +85,45 @@
 								<option value="5">5</option>
 								<option value="6">6</option>
 							</select>
-							<div class="generic-button event-list-item-disponibility-button">
-								Disponibilité...
-							</div>
+<!-- 							<div class="generic-button event-list-item-disponibility-button"> -->
+<!-- 								Disponibilité... -->
+<!-- 							</div> -->
 							<div class="generic-button event-list-item-addtocart-button">
 								Ajouter au panier
 							</div>
 						</div>
 					</li>
-                    <li class="event-list-item">
-						<div class="event-list-item-image" style="background-image: url(../styles/images/les_bobos.jpg);"></div>
-						<div class="event-list-item-content">
-							<h1 class="event-list-item-content-title">Les bobos en show</h1>
-							<h2 class="event-list-item-content-artists">Marc Labrèche et Anne Dorval</h2>
-							<p class="event-list-item-content-desc">On achète nos billets de loterie de façon ironique avec un second degré sans aucune intention de gagner! On est fous comme ça!</p>
-							<div class="event-list-item-tags-container">
-								<a class="event-list-item-tag" href="#a">Étienne Maxou</a>
-								<a class="event-list-item-tag" href="#b">Sandrine Maxou</a>
-								<a class="event-list-item-tag" href="#c">Restos branchés</a>
-							</div>
-						</div>
-						<div class="event-list-item-controller">
-							<label class="generic-label">Représentation :</label>
-							<select class="generic-select event-list-item-representation-select">
-								<option value="-1">-----</option>
-								<option value="1">Le 13/13/2013 à 6h66</option>
-							</select>
-							<label class="generic-label">Quantité :</label>
-							<select class="generic-select event-list-item-quantity-select">
-								<option value="-1">--</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-							</select>
-							<div class="generic-button event-list-item-disponibility-button">
-								Disponibilité...
-							</div>
-							<div class="generic-button event-list-item-addtocart-button">
-								Ajouter au panier
-							</div>
-						</div>
-					</li>
+					<%}%>
 				</ul>
 			</div>
 		</div>
-		
+
 		<%-- Include the footer in the page --%>
 		<jsp:include page="partial-views/footer.jsp"></jsp:include>
-		
+
 	</body>
-	
+
 	<script type="text/javascript">
 		$(document).ready(
 			function()
 			{
-				
+				$(".event-list-item-addtocart-button").click(
+						function()
+						{
+							$("form #hiddenQuantite").val("4");
+							$("form #hiddenSpectacleId").val("1");
+							$("form #hiddenRepresentationId").val("1");
+							$("form #hiddenTypeBilletId").val("1");
+							
+							$("form").submit(
+								/*function()
+								{
+									// Prevent redirection
+									return false;
+								}*/
+							);
+						}
+					);
 			}
 		);
 	</script>
