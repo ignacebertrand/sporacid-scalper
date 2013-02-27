@@ -2,12 +2,8 @@ package sporacidscalper.view.beans;
 
 import java.util.List;
 
-import sporacidscalper.model.Artiste;
-import sporacidscalper.model.Category;
 import sporacidscalper.model.Representation;
-import sporacidscalper.model.TypeSpectacle;
 import sporacidscalper.model.beans.ArtisteBean;
-import sporacidscalper.model.beans.CategoryBean;
 import sporacidscalper.model.beans.TypeSpectacleBean;
 
 public class FormulaireAjoutSpectacle {
@@ -16,7 +12,6 @@ public class FormulaireAjoutSpectacle {
 	private String nom;
 	private String description;
 	private String posterUrl;
-	private CategoryBean category;
 	private List<ArtisteBean> artistes;
 	private TypeSpectacleBean type;
 	private List<Representation> representations;
@@ -51,14 +46,6 @@ public class FormulaireAjoutSpectacle {
 
 	public void setPosterUrl(String posterUrl) {
 		this.posterUrl = posterUrl;
-	}
-
-	public CategoryBean getCategory() {
-		return category;
-	}
-
-	public void setCategory(CategoryBean category) {
-		this.category = category;
 	}
 
 	public List<ArtisteBean> getArtistes() {
