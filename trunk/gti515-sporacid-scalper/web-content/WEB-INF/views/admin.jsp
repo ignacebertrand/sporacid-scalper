@@ -1,4 +1,3 @@
-<%@ page import="sporacidscalper.model.beans.CategoryBean"%>
 <%@ page import="sporacidscalper.model.Artiste"%>
 <%@ page import="java.util.ArrayList;"%>
 
@@ -6,9 +5,6 @@
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getAttribute("context");
-
-	CategoryBean[] listeCategories = (CategoryBean[]) request
-	.getAttribute("listeCategories");
 	
 	ArrayList<Artiste> listeArtistes = (ArrayList<Artiste>) request
 	.getAttribute("listeArtistes");
@@ -81,20 +77,7 @@
 							spectacle :</label> <input type="text" name="nomSpectacle"
 							class="generic-textbox" /><br />
 					</div>
-					<div class="add-event-description-item">
-						<label for="select_category" class="generic-label">Catégories
-							:</label> <select id="select_category" name="category"
-							class="generic-select">
-							<%
-								for (int i = 0; i < listeCategories.length; i++) {
-														CategoryBean category = listeCategories[i];
-							%>
-							<option value=<%=category.getId()%>><%=category.getDescription()%></option>
-							<%
-								}
-							%>
-						</select><br />
-					</div>
+
 
 					<div class="add-event-description-item">
 						<label for="posterUrl" class="generic-label">URL du poster
@@ -185,7 +168,7 @@
 							var type = $(this).parents(".add-events").find(".type").val();
 							var artistes = $(this).parents(".add-events").find(".artistes").val();
 							var posterUrl = $(this).parents(".add-events").find(".posterUrl").val();
-							var description = $(this).parents(".add-events").find(".description").val();
+							//var description = $(this).parents(".add-events").find(".description").val();
 						
 							var fakeForm = $("<form></form>")
 								.attr("action", "<%=contextAttr%>/administration/ajouter-spectacle")
