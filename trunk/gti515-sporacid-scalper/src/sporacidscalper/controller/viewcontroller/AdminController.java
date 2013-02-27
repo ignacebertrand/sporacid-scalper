@@ -1,7 +1,5 @@
 package sporacidscalper.controller.viewcontroller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.BeansException;
@@ -11,20 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import sporacidscalper.controller.modelcontroller.IGestionnaireSpectacle;
-import sporacidscalper.model.Artiste;
-import sporacidscalper.model.Representation;
-import sporacidscalper.model.TypeSpectacle;
-import sporacidscalper.model.beans.ArtisteBean;
-import sporacidscalper.model.beans.RepresentationBean;
-import sporacidscalper.model.beans.SpectacleBean;
-import sporacidscalper.model.beans.TypeSpectacleBean;
-import sporacidscalper.model.persistence.StubFactory;
 //import sporacidscalper.view.beans.FormulaireAjoutSpectacle;
 
 @Controller 
@@ -43,7 +32,7 @@ public class AdminController implements ApplicationContextAware
 		ModelAndView mav = new ModelAndView("admin");
 		mav.addObject("context", request.getContextPath());
 		//mav.addObject("listeCategories", gestionnaireSpectacle.obtenirCategory());
-		mav.addObject("listeArtistes", StubFactory.getInstance().getStubArtistes());
+		//mav.addObject("listeArtistes", StubFactory.getInstance().getStubArtistes());
 		return mav;
 	}
 	

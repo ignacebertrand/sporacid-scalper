@@ -3,17 +3,16 @@
  */
 package sporacidscalper.tests.controller.modelcontroller;
 
-import java.util.Date;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 import sporacidscalper.controller.modelcontroller.GestionnaireNouvelle;
 import sporacidscalper.model.beans.NouvelleBean;
-import sporacidscalper.model.beans.SpectacleBean;
  
 public class GestionnaireNouvelleTest 
 {

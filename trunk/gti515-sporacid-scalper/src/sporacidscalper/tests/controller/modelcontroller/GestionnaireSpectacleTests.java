@@ -39,8 +39,7 @@ public class GestionnaireSpectacleTests
 	@Test
 	public void testIsDataLoaded() 
 	{		
-		assertTrue(this.gs.obtenirSpectacles().length > 0 &&
-				   this.gs.obtenirCategory().length > 0);
+		assertTrue(this.gs.obtenirSpectacles().length > 0);
 	}
 	
 	@Test
