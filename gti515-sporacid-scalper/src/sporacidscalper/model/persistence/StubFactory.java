@@ -7,7 +7,8 @@ import java.util.Vector;
 
 import sporacidscalper.model.*;
 
-public class StubFactory {
+public class StubFactory 
+{
 	
 	private static StubFactory instance;
 	
