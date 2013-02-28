@@ -164,6 +164,23 @@ public class PanierAchatController implements ApplicationContextAware
 	}
 	
 	/**
+	 * Public controller method to delete the shopping cart from the session
+	 * @param request
+	 * @param referer
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.POST, value = "/supprimer-panier-achat")
+	public String supprimerPanierAchat(HttpServletRequest request,
+			@RequestHeader(value = "referer", required = true) final String referer)
+	{
+		// Delete the shopping cart from the session
+		request.getSession().removeAttribute(cCleSessionPanierAchat);
+		
+		// Redirect to the previous page
+		return "redirect:" + referer;
+	}
+	
+	/**
 	 * Private method to obtain the shopping cart from a session.
 	 * @param session An Http Session object for the client's session
 	 * @return The bean for the shopping cart
