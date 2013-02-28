@@ -41,3 +41,18 @@
 	background-position: 20px center;
 	background-repeat: no-repeat;
 }
+
+.add-representations-table-model-row
+{
+	display:none;
+}
+
+.representation-table-add-item-button
+{
+	background-image: url("images/TABARNAK.png");
+	width: 22px;
+	background-size: 90% 90%;
+	background-position: center;
+	background-repeat: no-repeat;
+	margin-left: 10px;
+}

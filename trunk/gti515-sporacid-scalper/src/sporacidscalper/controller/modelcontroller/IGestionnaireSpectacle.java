@@ -1,8 +1,11 @@
 package sporacidscalper.controller.modelcontroller;
 
+import java.util.List;
+
+import sporacidscalper.model.beans.ArtisteBean;
 import sporacidscalper.model.beans.RepresentationBean;
+import sporacidscalper.model.beans.SalleBean;
 import sporacidscalper.model.beans.SpectacleBean;
-import sporacidscalper.model.beans.TypeSpectacleBean;
 
 public interface IGestionnaireSpectacle 
 {
@@ -62,5 +65,7 @@ public interface IGestionnaireSpectacle
 	 */
 	public int obtenirNbBilletRestant(int spectacleId, int representationId);
 	
-	public TypeSpectacleBean[] obtenirTypesSpectacle();
+	public List<ArtisteBean> obtenirCatalogueArtistes();
+	
+	public List<SalleBean> obtenirCatalogueSalles();
 }

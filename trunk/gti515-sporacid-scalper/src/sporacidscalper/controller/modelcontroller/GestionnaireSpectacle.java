@@ -1,13 +1,17 @@
 package sporacidscalper.controller.modelcontroller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import sporacidscalper.model.Artiste;
 import sporacidscalper.model.Representation;
+import sporacidscalper.model.Salle;
 import sporacidscalper.model.Spectacle;
+import sporacidscalper.model.beans.ArtisteBean;
 import sporacidscalper.model.beans.RepresentationBean;
+import sporacidscalper.model.beans.SalleBean;
 import sporacidscalper.model.beans.SpectacleBean;
-import sporacidscalper.model.beans.TypeSpectacleBean;
 import sporacidscalper.model.persistence.StubFactory;
 
 public class GestionnaireSpectacle implements IGestionnaireSpectacle
@@ -289,44 +293,41 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 		//that I haven't put.
 		throw new UnsupportedOperationException();
 	}
-	
-	/*public CategoryBean[] obtenirCategories()
+
+
+	/**
+	 * Public method that fetches all the artists from all the shows and
+	 * builds a catalog.
+	 * @return List<ArtisteBean> - The catalog containing all the artist
+	 */
+	public List<ArtisteBean> obtenirCatalogueArtistes()
 	{
-		int i = 0;
-		CategoryBean[] categories = new CategoryBean[listeCategories.size()];
+		List<ArtisteBean> catalog = new ArrayList<ArtisteBean>();
 		
-		// Access listeSpectacles thread-safely.
-		synchronized(listeCategories)
+		for(Spectacle s : this.listeSpectacles)
 		{
-			// Iterators are faster than indexed loops for ArrayList
-			for(Category category : listeCategories)
-			{
-				categories[i] = (CategoryBean) category.getBean();
-				i++;
+			for(Artiste a : s.getArtistes())
+			{	
+				if(!catalog.contains(a))
+				{
+					catalog.add((ArtisteBean)a.getBean());
+				}
 			}
 		}
 		
-		return categories;
-	}*/
-
-	public TypeSpectacleBean[] obtenirTypesSpectacle() 
-	{
-		return null;
-//		int i = 0;
-//		CategoryBean[] categories = new CategoryBean[listeCategories.size()];
-//		
-//		// Access listeSpectacles thread-safely.
-//		synchronized(listeCategories)
-//		{
-//			// Iterators are faster than indexed loops for ArrayList
-//			for(Category category : listeCategories)
-//			{
-//				categories[i] = (CategoryBean) category.getBean();
-//				i++;
-//			}
-//		}
-//		
-//		return categories;
+		return catalog;
 	}
 	
+	public List<SalleBean> obtenirCatalogueSalles()
+	{
+		List<SalleBean> catalog = new ArrayList<SalleBean>();
+		
+		List<Salle> salles = (List<Salle>)StubFactory.getInstance().getStubSalle();
+		for(Salle s : salles)
+		{
+			catalog.add((SalleBean)s.getBean());
+		}		
+				
+		return catalog;
+	}
 }
