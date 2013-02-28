@@ -1,13 +1,13 @@
-<%@ page import="sporacidscalper.model.Artiste"%>
+<%@ page import="sporacidscalper.model.beans.ArtisteBean"%>
+<%@ page import="sporacidscalper.model.beans.SalleBean"%>
 <%@ page import="java.util.ArrayList;"%>
 
 <!DOCTYPE html>
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getAttribute("context");
-	
-	ArrayList<Artiste> listeArtistes = (ArrayList<Artiste>) request
-	.getAttribute("listeArtistes");
+	ArrayList<ArtisteBean> listeArtistes = (ArrayList<ArtisteBean>) request.getAttribute("listeArtistes");
+	ArrayList<SalleBean> listeSalles = (ArrayList<SalleBean>) request.getAttribute("listeSalles");
 %>
 <html>
 <head>
@@ -57,12 +57,14 @@
 							type="radio" name="type" value="musique" />Musique <br />
 					</div>
 					<div class="add-event-description-item">
-						<label for="artiste" class="generic-label">Artiste :</label> <select
+						<label for="artiste" class="generic-label">Artiste :</label> 
+						<select
 							id=select_artiste name="artistes" multiple
 							size=<%=listeArtistes.size()%>>
 							<%
-								for (int i = 0; i < listeArtistes.size(); i++) {
-														Artiste artistes = listeArtistes.get(i);
+								for (int i = 0; i < listeArtistes.size(); i++) 
+								{
+									ArtisteBean artistes = listeArtistes.get(i);
 							%>
 							<option value=<%=artistes.getId()%>><%=artistes.getNom()%></option>
 							<%
@@ -116,34 +118,38 @@
 							<td><label class="generic-label">Fin</label></td>
 							<td><label class="generic-label">Prix</label></td>
 						</tr>
-						<tr>
+						<tr class="add-representations-table-model-row">
 							<td><input type="text" name="date"
 								class="generic-datepicker generic-textbox" /></td>
-							<td><select id="select-place" class="generic-select">
-									<option value="-1">Aucun</option>
-									<option value="1">Métropolis</option>
-									<option value="2">Olympia</option>
-									<option value="3">Centre Bell</option>
-									<option value="4">Stade olympique</option>
-									<option value="5">Place des Arts</option>
-							</select></td>
+							<td>
+								<select id="select-place" class="generic-select">
+								<%	for (int i = 0; i < listeSalles.size(); i++) 
+									{
+										SalleBean salle = listeSalles.get(i);
+							    %>
+										<option value=<%=salle.getId()%>><%=salle.getNom()%></option>
+								<%
+									}
+								%>
+								</select>
+							</td>
 							<td><input type="text" name="start-time"
 								class="generic-timepicker generic-textbox" /></td>
 							<td><input type="text" name="end-time"
 								class="generic-timepicker generic-textbox" /></td>
 							<td><input type="text" name="ticket-cost"
 								class="ticket-cost generic-textbox" /></td>
+							<td><div class="generic-button representation-table-add-item-button">&nbsp;</div></td>
 						</tr>
 					</table>
-					<div class="representation-list-item-controller">
-						<div class="generic-button add-event-representation-button">
-							Ajouter une représentation</div>
-					</div>
+					
 				</div>
 			<!--</form>-->
 		</div>
 	</div>
-
+	<div class=confirmDialog title="Confirmation d'ajout">
+		Vous confirmer cette representation ?
+	</div>
 	<%-- Include the footer in the page --%>
 	<jsp:include page="partial-views/footer.jsp"></jsp:include>
 
@@ -151,15 +157,13 @@
 
 <script type="text/javascript">
 	$(document).ready(
-			function() {
-				$(".generic-datepicker")
-						.datepicker($.datepicker.regional["fr"]).mask(
-								"99/99/9999");
-
-				$(".generic-timepicker")
-						.timepicker($.timepicker.regional["fr"]).mask("99:99");
-
-				$(".ticket-cost").mask("999.99");
+			function() 
+			{		
+				$(".dialog").dialog(
+				{
+					autoOpen: false,
+					modal: true
+				});
 				
 				$(".add-event-representation-button").click(
 						function()
@@ -181,7 +185,50 @@
 											fakeForm.append($("<input></input>").attr("type","hidden").attr("name","description").val(description));
 											
 											fakeForm.submit();
-										});
-					});
+						});
+				
+				addRepresentationRow();	
+			});
+	
+	function addRepresentationRow()
+	{
+		var table = $(".add-representations-table");
+		var modelRow = table.find(".add-representations-table-model-row");
+		
+		if(modelRow.length === 1)
+		{
+			var cloneRow = modelRow.clone();
+			cloneRow.removeClass("add-representations-table-model-row");
+			cloneRow.addClass("add-representations-new-table-row");
+			table.append(cloneRow);
+			
+			// Initialisation of the jQuery UI datepicker, timepicker
+			initialiseRepresentationRow(cloneRow);
+		}
+	}
+	
+	/*
+		Initialisation of the jQuery UI datepicker, timepicker
+	*/
+	function initialiseRepresentationRow(row)
+	{
+		var wrappedRow = $(row);
+		
+		if(wrappedRow.hasClass("add-representations-new-table-row"))
+		{			
+			wrappedRow.find(".generic-datepicker").datepicker($.datepicker.regional["fr"]).mask("99/99/9999");
+			wrappedRow.find(".generic-timepicker").timepicker($.timepicker.regional["fr"]).mask("99:99");
+			wrappedRow.find(".ticket-cost").mask("999.99");
+			
+			wrappedRow.find(".representation-table-add-item-button").click(
+				function()
+				{
+					wrappedRow.removeClass("add-representations-new-table-row");
+					wrappedRow.addClass("add-representations-added-table-row");
+					wrappedRow.find(".representation-table-add-item-button").hide();
+					addRepresentationRow();
+				});
+		}
+	}
 </script>
 </html>

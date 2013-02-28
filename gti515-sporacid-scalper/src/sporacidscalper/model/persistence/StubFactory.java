@@ -19,10 +19,12 @@ public class StubFactory
 	private List<Transaction> listeTransactions;
 	private List<TypeSpectacle> listeTypesSpectacle;
 	private List<Adresse> listeAdresses;
+	private List<Salle> listeSalles;
 
 	private StubFactory() 
 	{
 		setStubAdresse();
+		setStubSalles();
 		setStubClient();
 		setStubArtistes();
 		setStubTransactions();
@@ -42,7 +44,7 @@ public class StubFactory
 	public List<Client> getStubClients() 
 	{
 
-		return listeClients;
+		return this.listeClients;
 	}
 
 	private void setStubNouvelles() 
@@ -81,7 +83,6 @@ public class StubFactory
 
 	private void setStubSpectacles() 
 	{
-
 		Vector<Spectacle> listeSpectacles = new Vector<Spectacle>();
 
 		Spectacle s1 = new Spectacle(1);
@@ -102,6 +103,7 @@ public class StubFactory
 		typeBilletRepresentation.setPrix(30);
 		typeBilletRepresentation.setType(typeBillet);
 		r.ajouterTypeBilletRepresentation(typeBilletRepresentation);
+		r.setSalle(this.listeSalles.get(2));
 		s1.ajouterRepresentation(r);
 
 		Spectacle s2 = new Spectacle(2);
@@ -131,7 +133,7 @@ public class StubFactory
 
 	public Vector<Spectacle> getStubSpectacles() 
 	{
-		return listeSpectacles;
+		return this.listeSpectacles;
 	}
 
 	private void setStubArtistes() {
@@ -186,11 +188,13 @@ public class StubFactory
 		this.listeArtistes = listeArtistes;
 	}
 
-	public List<Artiste> getStubArtistes() {
-		return listeArtistes;
+	public List<Artiste> getStubArtistes() 
+	{
+		return this.listeArtistes;
 	}
 
-	private void setStubTypesSpectacle() {
+	private void setStubTypesSpectacle() 
+	{
 
 		List<TypeSpectacle> listeTypesSpectacle = new ArrayList<TypeSpectacle>();
 
@@ -220,7 +224,7 @@ public class StubFactory
 
 	public List<TypeSpectacle> getStubTypesSpectacles() 
 	{
-		return listeTypesSpectacle;
+		return this.listeTypesSpectacle;
 	}
 
 	private void setStubTransactions() 
@@ -271,7 +275,7 @@ public class StubFactory
 
 	public List<Transaction> getStubTransactions() 
 	{
-		return listeTransactions;
+		return this.listeTransactions;
 	}
 
 	private void setStubClient(){
@@ -317,10 +321,10 @@ public class StubFactory
 	
 	public List<Client> getStubClient() 
 	{
-		return listeClients;
+		return this.listeClients;
 	}
 	
-	public void setStubAdresse()
+	private void setStubAdresse()
 	{
 		List<Adresse> listeAdresses = new ArrayList<Adresse>();
 		
@@ -330,23 +334,23 @@ public class StubFactory
 		adr1.setNomRue("Bruchési");
 		adr1.setProvince("Qc");
 		
-		Adresse adr2 = new Adresse(1);
-		adr2.setCodePostal("H2B 2S3");
-		adr2.setNoCivique(10140);
-		adr2.setNomRue("Bruchési");
+		Adresse adr2 = new Adresse(2);
+		adr2.setCodePostal("G1Q 1Q9");
+		adr2.setNoCivique(2020);
+		adr2.setNomRue("Du finfin");
 		adr2.setProvince("Qc");
 		
-		Adresse adr3 = new Adresse(1);
-		adr3.setCodePostal("H2B 2S3");
-		adr3.setNoCivique(10140);
-		adr3.setNomRue("Bruchési");
+		Adresse adr3 = new Adresse(3);
+		adr3.setCodePostal("H0H0H0");
+		adr3.setNoCivique(10);
+		adr3.setNomRue("Popa noel");
 		adr3.setProvince("Qc");
 		
-		Adresse adr4 = new Adresse(1);
-		adr4.setCodePostal("H2B 2S3");
-		adr4.setNoCivique(10140);
-		adr4.setNomRue("Bruchési");
-		adr4.setProvince("Qc");
+		Adresse adr4 = new Adresse(4);
+		adr4.setCodePostal("Q2W3E4");
+		adr4.setNoCivique(1234);
+		adr4.setNomRue("Bamboula");
+		adr4.setProvince("On");
 		
 		listeAdresses.add(adr1);
 		listeAdresses.add(adr2);
@@ -358,26 +362,45 @@ public class StubFactory
 	
 	public List<Adresse> getStubAdresse()
 	{
-		return listeAdresses;
+		return this.listeAdresses;
 	}
 	
-	/*public void setStubCategory()
-	{	
-		List<Category> listeCategory = new ArrayList<Category>();
-		
-		listeCategory.add(new Category(-1, "Aucune"));
-		listeCategory.add(new Category(1, "Blues"));
-		listeCategory.add(new Category(2, "Classique"));
-		listeCategory.add(new Category(3, "Heavy Metal"));
-		listeCategory.add(new Category(4, "Jazz"));
-		listeCategory.add(new Category(5, "Rock"));
-		listeCategory.add(new Category(6, "Humour"));
-		
-		this.listeCategory = listeCategory;
-	}
-	
-	public List<Category> getStubCategory()
+	private void setStubSalles()
 	{
-		return listeCategory;
-	}*/
+		List<Salle> salles = new ArrayList<Salle>();
+		Salle salle = new Salle();
+		salle.setNom("Aucun");
+		salles.add(salle);
+		
+		salle = new Salle(1);
+		salle.setAdresse(this.listeAdresses.get(0));
+		salle.setCapacite(50);
+		salle.setNom("Centre Bell");
+		salles.add(salle);
+		
+		salle = new Salle(2);
+		salle.setAdresse(this.listeAdresses.get(1));
+		salle.setCapacite(15);
+		salle.setNom("Métropolis");
+		salles.add(salle);
+		
+		salle = new Salle(3);
+		salle.setAdresse(this.listeAdresses.get(2));
+		salle.setCapacite(20);
+		salle.setNom("Olympia");
+		salles.add(salle);
+		
+		salle = new Salle(4);
+		salle.setAdresse(this.listeAdresses.get(3));
+		salle.setCapacite(20);
+		salle.setNom("Stade olympique");
+		salles.add(salle);
+		
+		this.listeSalles = salles;
+	}
+	
+	public List<Salle> getStubSalle()
+	{
+		return this.listeSalles;
+	}
 }

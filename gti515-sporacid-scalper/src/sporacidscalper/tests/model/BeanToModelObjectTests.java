@@ -5,14 +5,19 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Test;
 
-public class BeanToModelObjectTests {
+public class BeanToModelObjectTests 
+{
 
 	@After
-	public void tearDown() throws Exception {
+	public void tearDown() throws Exception 
+	{
+		
 	}
 
 	@Test
-	public void test() {
+	public void toModelObject()
+	{
+		
 		fail("Not yet implemented");
 	}
 
