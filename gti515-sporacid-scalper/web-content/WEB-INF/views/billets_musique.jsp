@@ -1,11 +1,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page import="java.text.DateFormat" %>
 <%@ page import="sporacidscalper.model.beans.SpectacleBean"%>
 <%@ page import="sporacidscalper.model.beans.RepresentationBean"%>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="java.util.Date"%>
 <%@ page import="java.util.List"%>
-<%@ page import="java.text.DateFormat"%>
-<%@ page import="java.text.SimpleDateFormat"%>
 
 <!DOCTYPE html>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
@@ -13,8 +11,9 @@
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getAttribute("context");
-
 	SpectacleBean[] listeSpectacles = (SpectacleBean[]) request.getAttribute("listeSpectacles");
+	DateFormat dateFormatter = (DateFormat) request.getAttribute("dateFormatter");
+	DateFormat timeFormatter = (DateFormat) request.getAttribute("timeFormatter");
 %>
 <html>
 	<head>
@@ -60,7 +59,7 @@
 				<ul class="event-list">
 					<%for(SpectacleBean spectacle : listeSpectacles){%>						
 					<li class="event-list-item">
-						<!--<div class="event-list-item-image" style="background-image: url(../"<%=spectacle.getPosterUrl()%>");"></div>-->
+						<div class="event-list-item-image" style="background-image: url(../<%=spectacle.getPosterUrl()%>);"></div>
 						<div class="event-list-item-content">
 							<h1 class="event-list-item-content-title"><%=spectacle.getNom()%></h1>
 							<h2 class="event-list-item-content-artists"><%=spectacle.getArtistes()%></h2>
@@ -79,10 +78,10 @@
 								<%
 								List<RepresentationBean> representations = spectacle.getRepresentations();
 								for(int i=0;i < representations.size();i++){ 
-									DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-									DateFormat timeFormat = new SimpleDateFormat("H:mm");
+									//DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+									//DateFormat timeFormat = new SimpleDateFormat("H:mm");
 								%>
-								<option value="<%=i%>">Le <%=dateFormat.format(representations.get(i).getDateDebutRepresentation())%> à <%=timeFormat.format(representations.get(i).getDateDebutRepresentation())%></option>
+								<option value="<%=i%>">Le <%=dateFormatter.format(representations.get(i).getDateDebutRepresentation())%> <%=timeFormatter.format(representations.get(i).getDateDebutRepresentation())%> à <%=timeFormatter.format(representations.get(i).getDateDebutRepresentation())%></option>
 								<%}%>
 							</select>
 							<label class="generic-label">Quantité :</label>

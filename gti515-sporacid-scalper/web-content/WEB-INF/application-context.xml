@@ -33,14 +33,21 @@
 	<bean id="dateFormatter" name="dateFormatter"
 			class="java.text.SimpleDateFormat" 
 			scope="singleton">
-		<constructor-arg value="MM/dd/yyyy"/>
+		<constructor-arg value="dd/MM/yyyy"/>
+	</bean>
+	
+	<!-- Bean definition for the time formatter throughout the application -->
+	<bean id="timeFormatter" name="timeFormatter"
+			class="java.text.SimpleDateFormat" 
+			scope="singleton">
+		<constructor-arg value="hh:mm"/>
 	</bean>
 	
 	<!-- Bean definition for the datetime formatter throughout the application -->
 	<bean id="datetimeFormatter" name="datetimeFormatter"
 			class="java.text.SimpleDateFormat" 
 			scope="singleton">
-		<constructor-arg value="MM/dd/yyyy hh:mm"/>
+		<constructor-arg value="dd/MM/yyyy hh:mm"/>
 	</bean>
 	
 	<!-- Bean definition for the currency formatter throughout the application -->

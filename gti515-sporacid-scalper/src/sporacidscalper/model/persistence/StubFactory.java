@@ -156,7 +156,7 @@ public class StubFactory
 		a1.setDescription("métalleux - bassiste");
 		List<Tags> tags1 = new ArrayList<Tags>();
 		Tags tag1 = new Tags();
-		tag1.setNom("Bruiteur");
+		tag1.setNom("Musique de poil 1");
 		tag1.setUrl("www.google.ca");
 		tags1.add(tag1);
 		a1.setTags(tags1);
@@ -166,7 +166,7 @@ public class StubFactory
 		a2.setDescription("métalleux - guitariste");
 		List<Tags> tags2= new ArrayList<Tags>();
 		Tags tag2 = new Tags();
-		tag2.setNom("Progressive metal");
+		tag2.setNom("Musique de poil 2");
 		tag2.setUrl("www.google.ca");
 		tags2.add(tag2);
 		a2.setTags(tags2);
