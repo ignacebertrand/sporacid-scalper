@@ -14,6 +14,23 @@ public class TypeSpectacleBean extends AbstractBean implements Modelable
 	private String nom;
 	private String description;
 	
+	public TypeSpectacleBean()
+	{
+		this(-1);
+	}
+	
+	public TypeSpectacleBean(int id)
+	{
+		this.id = id;
+		this.nom = null;
+		this.description = null;
+	}
+	
+	public int getId()
+	{
+		return this.id;
+	}
+	
 	public String getNom()
 	{
 		return nom;
@@ -37,10 +54,15 @@ public class TypeSpectacleBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		TypeSpectacle ts = new TypeSpectacle();
+		TypeSpectacle ts = null;
 		
-		ts.setDescription(this.description);
-		ts.setNom(this.nom);
+		if(this != null)
+		{
+			ts = new TypeSpectacle(this.id);
+			
+			ts.setDescription(this.description);
+			ts.setNom(this.nom);
+		}
 		
 		return ts;
 	}

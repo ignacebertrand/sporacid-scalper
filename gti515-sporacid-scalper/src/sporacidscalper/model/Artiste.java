@@ -22,8 +22,8 @@ public class Artiste extends AbstractModelObject implements Beanable
 	public Artiste(int id)
 	{
 		this.id = id;
-		this.nom = "";
-		this.description = "";
+		this.nom = null;
+		this.description = null;
 		this.tags = new ArrayList<Tags>();
 	}
 
@@ -77,11 +77,15 @@ public class Artiste extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		ArtisteBean bean = new ArtisteBean();
+		ArtisteBean bean = null;
 		
-		bean.setDescription(this.description);
-		bean.setNom(this.nom);
-		bean.setTags(this.toTagsBeanList(this.tags));
+		if(this != null)
+		{
+			bean = new ArtisteBean(this.id);
+			bean.setDescription(this.description);
+			bean.setNom(this.nom);
+			bean.setTags(this.toTagsBeanList(this.tags));
+		}
 
 		return bean;
 	}

@@ -241,37 +241,32 @@ public class StubFactory
 	private void setStubTransactions() 
 	{
 		List<Transaction> listeTransactions = new ArrayList<Transaction>();
-		List<Client> listeClients = getStubClient();
 		List<Adresse> listeAdresses = getStubAdresse();
 		
-		Transaction t1 = new Transaction(1);
+		Transaction t1 = new Transaction(1, 1);
 		t1.setNoConfirmationPaiement(1);
 		t1.setNoConfirmationVente(1);
-		t1.setClient(listeClients.get(0));
 		t1.setAdresseFacturation(listeAdresses.get(0));
 		t1.setAdresseLivraison(listeAdresses.get(0));
 		t1.setCommande(null);
 
-		Transaction t2 = new Transaction(1);
+		Transaction t2 = new Transaction(1, 2);
 		t2.setNoConfirmationPaiement(1);
 		t2.setNoConfirmationVente(1);
-		t2.setClient(listeClients.get(1));
 		t2.setAdresseFacturation(listeAdresses.get(1));
 		t2.setAdresseLivraison(listeAdresses.get(1));
 		t2.setCommande(null);
 		
-		Transaction t3 = new Transaction(1);
+		Transaction t3 = new Transaction(1, 3);
 		t3.setNoConfirmationPaiement(1);
 		t3.setNoConfirmationVente(1);
-		t3.setClient(listeClients.get(2));
 		t3.setAdresseFacturation(listeAdresses.get(2));
 		t3.setAdresseLivraison(listeAdresses.get(2));
 		t3.setCommande(null);
 		
-		Transaction t4 = new Transaction(1);
+		Transaction t4 = new Transaction(1, 4);
 		t4.setNoConfirmationPaiement(1);
 		t4.setNoConfirmationVente(1);
-		t4.setClient(listeClients.get(3));
 		t4.setAdresseFacturation(listeAdresses.get(3));
 		t4.setAdresseLivraison(listeAdresses.get(3));
 		t4.setCommande(null);

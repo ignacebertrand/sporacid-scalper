@@ -8,27 +8,44 @@ import sporacidscalper.model.beans.TransactionBean;
 
 public class Transaction extends AbstractModelObject implements Beanable
 {
+	// Upper reference
+	private Client clientReference;
+	private int clientId;
+	
 	private int id;
 	private int noConfirmationPaiement;
 	private int noConfirmationVente;
-	private Client client;
 	private Adresse adresseFacturation;
 	private Adresse adresseLivraison;
 	private Commande commande;
 	
 	public Transaction()
 	{
-		this(-1);
+		this(-1, -1);
 	}
 	
-	public Transaction(int id)
+	public Transaction(int id, int clientId)
 	{
+		// Upper reference
+		this.clientId = clientId;
+		this.clientReference = null;
+		
 		this.id = id;
-	
+		this.noConfirmationPaiement = -1;
+		this.noConfirmationVente = -1;
+		this.adresseFacturation = null;
+		this.adresseLivraison = null;
+		this.commande = null;
 	}
+	
 	public int getId()
 	{
 		return id;
+	}
+	
+	public int getClientId()
+	{
+		return this.clientId;
 	}
 	
 	public int getNoConfirmationPaiement()
@@ -51,14 +68,14 @@ public class Transaction extends AbstractModelObject implements Beanable
 		this.noConfirmationVente = noConfirmationVente;
 	}
 	
-	public Client getClient()
+	public Client getClientReference()
 	{
-		return client;
+		return clientReference;
 	}
 	
-	public void setClient(Client client)
+	public void setClientReference(Client clientReference)
 	{
-		this.client = client;
+		this.clientReference = clientReference;
 	}
 	
 	public Adresse getAdresseFacturation()
@@ -94,14 +111,19 @@ public class Transaction extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		TransactionBean bean = new TransactionBean();
+		TransactionBean bean = null;
 		
-		bean.setAdresseFacturation((AdresseBean)this.adresseFacturation.getBean());
-		bean.setAdresseLivraison((AdresseBean)this.adresseLivraison.getBean());
-		bean.setClient((ClientBean)this.client.getBean());
-		bean.setCommande((CommandeBean)this.commande.getBean());
-		bean.setNoConfirmationPaiement(this.noConfirmationPaiement);
-		bean.setNoConfirmationVente(this.noConfirmationVente);
+		if(this != null)
+		{
+			bean = new TransactionBean(this.id, this.clientId);
+			
+			bean.setAdresseFacturation((AdresseBean) this.adresseFacturation.getBean());
+			bean.setAdresseLivraison((AdresseBean) this.adresseLivraison.getBean());
+			bean.setClientReference((ClientBean) this.clientReference.getBean());
+			bean.setCommande((CommandeBean)this.commande.getBean());
+			bean.setNoConfirmationPaiement(this.noConfirmationPaiement);
+			bean.setNoConfirmationVente(this.noConfirmationVente);
+		}
 		
 		return bean;
 	}

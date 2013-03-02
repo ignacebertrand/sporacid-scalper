@@ -17,6 +17,8 @@ public class TypeSpectacle extends AbstractModelObject implements Beanable
 	public TypeSpectacle(int id)
 	{
 		this.id = id;
+		this.nom = null;
+		this.description = null;
 	}
 	
 	public int getId()
@@ -47,10 +49,15 @@ public class TypeSpectacle extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		TypeSpectacleBean bean = new TypeSpectacleBean();
+		TypeSpectacleBean bean = null;
 		
-		bean.setDescription(this.description);
-		bean.setNom(this.nom);
+		if(this != null)
+		{
+			bean = new TypeSpectacleBean(this.id);
+			
+			bean.setDescription(this.description);
+			bean.setNom(this.nom);
+		}
 		
 		return bean;
 	}

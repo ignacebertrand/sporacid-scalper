@@ -23,8 +23,8 @@ public class ItemPanierAchatBean extends AbstractBean implements Modelable
 	public ItemPanierAchatBean(int id)
 	{
 		this.id = id;
-		this.quantite = 0;
-		this.billetRepresentation = new TypeBilletRepresentationBean(-1);
+		this.quantite = -1;
+		this.billetRepresentation = null;
 	}
 	
 	public double getTotal()
@@ -60,10 +60,15 @@ public class ItemPanierAchatBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		ItemPanierAchat ipa = new ItemPanierAchat(this.id);
+		ItemPanierAchat ipa = null;
 		
-		ipa.setBilletRepresentation((TypeBilletRepresentation)this.billetRepresentation.getModelObject());
-		ipa.setQuantite(this.quantite);
+		if(this != null)
+		{
+			ipa = new ItemPanierAchat(this.id);
+			
+			ipa.setBilletRepresentation((TypeBilletRepresentation)this.billetRepresentation.getModelObject());
+			ipa.setQuantite(this.quantite);
+		}
 		
 		return ipa;
 	}

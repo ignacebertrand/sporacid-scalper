@@ -22,10 +22,9 @@ public class TypeBilletBean extends AbstractBean implements Modelable
 	public TypeBilletBean(int id)
 	{
 		this.id = id;
-		this.nom = "";
-		this.description = "";
+		this.nom = null;
+		this.description = null;
 	}
-	
 	
 	public int getId()
 	{
@@ -55,10 +54,15 @@ public class TypeBilletBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		TypeBillet t = new TypeBillet(this.id);
+		TypeBillet t =  null;
 		
-		t.setDescription(this.description);
-		t.setNom(this.nom);
+		if(this != null)
+		{
+			t = new TypeBillet(this.id);
+			
+			t.setDescription(this.description);
+			t.setNom(this.nom);
+		}
 		
 		return t;
 	}

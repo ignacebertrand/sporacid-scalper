@@ -22,7 +22,7 @@ public class Commande extends AbstractModelObject implements Beanable
 	public Commande(int id)
 	{
 		this.id = id;
-		this.dateCreation = new Date();
+		this.dateCreation = null;
 		this.items = new ArrayList<ItemCommande>();
 	}
 	
@@ -110,12 +110,17 @@ public class Commande extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		CommandeBean bean = new CommandeBean(this.id);
+		CommandeBean bean = null;
 		
-		bean.setDateCreation(this.dateCreation);
-		
-		for(ItemCommande item : this.items)
-			bean.ajouterItem((ItemCommandeBean) item.getBean());
+		if(this != null)
+		{
+			bean = new CommandeBean(this.id);
+			
+			bean.setDateCreation(this.dateCreation);
+			
+			for(ItemCommande item : this.items)
+				bean.ajouterItem((ItemCommandeBean) item.getBean());
+		}
 		
 		return bean;
 	}

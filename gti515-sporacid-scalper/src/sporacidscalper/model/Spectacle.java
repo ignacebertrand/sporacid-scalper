@@ -27,11 +27,11 @@ public class Spectacle extends AbstractModelObject implements Beanable
 	public Spectacle(int id)
 	{
 		this.id = id;
-		this.nom = "";
-		this.description = "";
-		this.posterUrl = "";
+		this.nom = null;
+		this.description = null;
+		this.posterUrl = null;
 		this.artistes = new ArrayList<Artiste>();
-		this.type = new TypeSpectacle();
+		this.type = null;
 		this.representations = new ArrayList<Representation>();
 	}
 	
@@ -144,17 +144,22 @@ public class Spectacle extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		SpectacleBean bean = new SpectacleBean(this.id);
+		SpectacleBean bean = null;
 		
-		bean.setArtistes(toTagsBeanList(this.artistes));
-		bean.setDescription(this.description);
-		bean.setNom(this.nom);
-		bean.setPosterUrl(this.posterUrl);
-		bean.setType((TypeSpectacleBean)this.type.getBean());
-		bean.setId(this.id);
-		
-		for(Representation representation : this.representations)
-			bean.ajouterRepresentation((RepresentationBean) representation.getBean());
+		if(this != null)
+		{
+			bean = new SpectacleBean(this.id);
+			
+			bean.setArtistes(toTagsBeanList(this.artistes));
+			bean.setDescription(this.description);
+			bean.setNom(this.nom);
+			bean.setPosterUrl(this.posterUrl);
+			bean.setType((TypeSpectacleBean)this.type.getBean());
+			bean.setId(this.id);
+			
+			for(Representation representation : this.representations)
+				bean.ajouterRepresentation((RepresentationBean) representation.getBean());
+		}
 		
 		return bean;
 	}

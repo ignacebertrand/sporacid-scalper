@@ -30,9 +30,9 @@ public class TypeBilletRepresentationBean extends AbstractBean implements Modela
 		this.representationId = representationId;
 		this.representationReference= null;
 		
-		this.prix = 0.0;
-		this.nbBilletEmis = 0;
-		this.type = new TypeBilletBean(); 
+		this.prix = -1;
+		this.nbBilletEmis = -1;
+		this.type = null; 
 	}
 	
 	public int getRepresentationId()
@@ -84,11 +84,16 @@ public class TypeBilletRepresentationBean extends AbstractBean implements Modela
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		TypeBilletRepresentation tbr = new TypeBilletRepresentation(this.representationId);
+		TypeBilletRepresentation tbr = null;
 		
-		tbr.setNbBilletEmis(this.nbBilletEmis);
-		tbr.setPrix(this.prix);
-		tbr.setType((TypeBillet)this.type.getModelObject());
+		if(this != null)
+		{
+			tbr = new TypeBilletRepresentation(this.representationId);
+			
+			tbr.setNbBilletEmis(this.nbBilletEmis);
+			tbr.setPrix(this.prix);
+			tbr.setType((TypeBillet)this.type.getModelObject());
+		}
 		
 		return tbr;
 	}

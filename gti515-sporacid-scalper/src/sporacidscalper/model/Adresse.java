@@ -15,9 +15,14 @@ public class Adresse extends AbstractModelObject implements Beanable
 	{
 		this(-1);
 	}
+	
 	public Adresse(int id)
 	{
 		this.id = id;
+		this.noCivique = -1;
+		this.nomRue = null;
+		this.codePostal = null;
+		this.province = null;
 	}
 	
 	public int getId()
@@ -71,12 +76,17 @@ public class Adresse extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		AdresseBean bean = new AdresseBean();
+		AdresseBean bean = null;
 		
-		bean.setCodePostal(this.codePostal);
-		bean.setNoCivique(this.noCivique);
-		bean.setNomRue(this.nomRue);
-		bean.setProvince(this.province);
+		if(this != null)
+		{
+			bean = new AdresseBean(this.id);
+			
+			bean.setCodePostal(this.codePostal);
+			bean.setNoCivique(this.noCivique);
+			bean.setNomRue(this.nomRue);
+			bean.setProvince(this.province);
+		}
 
 		return bean;
 	}

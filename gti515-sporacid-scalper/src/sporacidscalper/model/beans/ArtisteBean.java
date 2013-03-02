@@ -19,14 +19,22 @@ public class ArtisteBean extends AbstractBean implements Modelable
 	private String description;
 	private List<TagsBean> tags;
 	
+	public ArtisteBean()
+	{
+		this(-1);
+	}
+	
+	public ArtisteBean(int id)
+	{
+		this.id = id;
+		this.nom = null;
+		this.description = null;
+		this.tags = new ArrayList<TagsBean>();
+	}
+	
 	public int getId() 
 	{
 		return id;
-	}
-
-	public void setId(int id) 
-	{
-		this.id = id;
 	}
 	
 	public String getNom()
@@ -74,11 +82,16 @@ public class ArtisteBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		Artiste artiste = new Artiste();
+		Artiste artiste = null;
 		
-		artiste.setDescription(this.description);
-		artiste.setNom(this.nom);
-		artiste.setTags(toTagsList(this.tags));
+		if(this != null)
+		{
+			artiste = new Artiste(this.id);
+			
+			artiste.setDescription(this.description);
+			artiste.setNom(this.nom);
+			artiste.setTags(toTagsList(this.tags));
+		}
 		
 		return artiste;
 	}

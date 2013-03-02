@@ -21,10 +21,10 @@ public class Nouvelle extends AbstractModelObject implements Beanable
 	public Nouvelle(int id)
 	{
 		this.id = id;
-		this.titre = "";
-		this.description = "";
-		this.auteur = "";
-		this.date = new Date();
+		this.titre = null;
+		this.description = null;
+		this.auteur = null;
+		this.date = null;
 	}
 	
 	public int getId()
@@ -75,12 +75,17 @@ public class Nouvelle extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		NouvelleBean bean = new NouvelleBean(id);
+		NouvelleBean bean = null;
 		
-		bean.setAuteur(auteur);
-		bean.setDate(date);
-		bean.setDescription(description);
-		bean.setTitre(titre);
+		if(this != null)
+		{
+			bean = new NouvelleBean(this.id);
+			
+			bean.setAuteur(this.auteur);
+			bean.setDate(this.date);
+			bean.setDescription(this.description);
+			bean.setTitre(this.titre);
+		}
 
 		return bean;
 	}
