@@ -26,7 +26,7 @@ public class StubFactory
 	private List<Client> listeClients;
 	private List<Artiste> listeArtistes;
 	private List<Nouvelle> listeNouvelles;
-	private Vector<Spectacle> listeSpectacles;
+	private List<Spectacle> listeSpectacles;
 	private List<Transaction> listeTransactions;
 	private List<TypeSpectacle> listeTypesSpectacle;
 	private List<Adresse> listeAdresses;
@@ -94,7 +94,7 @@ public class StubFactory
 
 	private void setStubSpectacles() 
 	{
-		Vector<Spectacle> listeSpectacles = new Vector<Spectacle>();
+		List<Spectacle> listeSpectacles = new ArrayList<Spectacle>();
 
 		Spectacle s1 = new Spectacle(1);
 		s1.setNom("Les trois accords");
@@ -142,7 +142,7 @@ public class StubFactory
 		this.listeSpectacles = listeSpectacles;
 	}
 
-	public Vector<Spectacle> getStubSpectacles() 
+	public List<Spectacle> getStubSpectacles() 
 	{
 		return this.listeSpectacles;
 	}
@@ -374,38 +374,35 @@ public class StubFactory
 	private void setStubSalles()
 	{
 		List<Salle> salles = new ArrayList<Salle>();
-		Salle salle = new Salle();
-		salle.setNom("Aucun");
-		salles.add(salle);
+
+		Salle salle1 = new Salle(1);
+		salle1.setAdresse(this.listeAdresses.get(0));
+		salle1.setCapacite(50);
+		salle1.setNom("Centre Bell");
+		salles.add(salle1);
 		
-		salle = new Salle(1);
-		salle.setAdresse(this.listeAdresses.get(0));
-		salle.setCapacite(50);
-		salle.setNom("Centre Bell");
-		salles.add(salle);
+		Salle salle2 = new Salle(2);
+		salle2.setAdresse(this.listeAdresses.get(1));
+		salle2.setCapacite(15);
+		salle2.setNom("Métropolis");
+		salles.add(salle2);
 		
-		salle = new Salle(2);
-		salle.setAdresse(this.listeAdresses.get(1));
-		salle.setCapacite(15);
-		salle.setNom("Métropolis");
-		salles.add(salle);
+		Salle salle3 = new Salle(3);
+		salle3.setAdresse(this.listeAdresses.get(2));
+		salle3.setCapacite(20);
+		salle3.setNom("Olympia");
+		salles.add(salle3);
 		
-		salle = new Salle(3);
-		salle.setAdresse(this.listeAdresses.get(2));
-		salle.setCapacite(20);
-		salle.setNom("Olympia");
-		salles.add(salle);
-		
-		salle = new Salle(4);
-		salle.setAdresse(this.listeAdresses.get(3));
-		salle.setCapacite(20);
-		salle.setNom("Stade olympique");
-		salles.add(salle);
+		Salle salle4 = new Salle(4);
+		salle4.setAdresse(this.listeAdresses.get(3));
+		salle4.setCapacite(20);
+		salle4.setNom("Stade olympique");
+		salles.add(salle4);
 		
 		this.listeSalles = salles;
 	}
 	
-	public List<Salle> getStubSalle()
+	public List<Salle> getStubSalles()
 	{
 		return this.listeSalles;
 	}

@@ -2,7 +2,6 @@ package sporacidscalper.controller.modelcontroller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import sporacidscalper.model.Artiste;
 import sporacidscalper.model.Representation;
@@ -22,13 +21,31 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 * List of all Spectacle on which we'll do operations
 	 */
 	private List<Spectacle> listeSpectacles;
-
+	
+	/**
+	 * List of all Types of Artistes we'll use
+	 */
+	private List<Artiste> listeArtistes;
+	
+	/**
+	 * List of all Types of Spectacles we'll use
+	 */
+	private List<TypeSpectacle> listeTypesSpectacle;
+	
+	/**
+	 * List of all Types of Salles we'll use
+	 */
+	private List<Salle> listeSalles;
+	
 	/**
 	 * Private constructor for the singleton
 	 */
 	public GestionnaireSpectacle()
 	{
-		this.listeSpectacles = (Vector<Spectacle>)StubFactory.getInstance().getStubSpectacles();
+		this.listeSpectacles = (List<Spectacle>)StubFactory.getInstance().getStubSpectacles();
+		this.listeArtistes = (List<Artiste>)StubFactory.getInstance().getStubArtistes();
+		this.listeTypesSpectacle = (List<TypeSpectacle>)StubFactory.getInstance().getStubTypesSpectacles();
+		this.listeSalles = (List<Salle>)StubFactory.getInstance().getStubSalles();
 	}
 
 	/**
@@ -37,6 +54,8 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 */
 	public void ajouterSpectacle(SpectacleBean spectacleToAdd)
 	{
+		//TODO : Need some sort of validation on the spectacle to add
+
 		// Access listeSpectacles thread-safely.
 		synchronized(listeSpectacles)
 		{
@@ -246,35 +265,35 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 * @param spectacleId The Spectacle unique id
 	 * @return The Spectacle bean associated with the Spectacle
 	 */
-//	public SpectacleBean obtenirSpectacle(TypeBilletRepresentationBean typeRepresentation)
-//	{
-//		SpectacleBean spectacleToGet = null;
-//		
-//		// Access listeSpectacles thread-safely.
-//		synchronized(listeSpectacles)
-//		{
-//			for(Spectacle spectacle : listeSpectacles)
-//			{
-//				if(spectacle.getId() == spectacleId)
-//				{
-//					spectacleToGet = (SpectacleBean) spectacle.getBean();
-//					break;
-//				}
-//			}
-//		}
-//		
-//		return spectacleToGet;
-//	}
+	public SpectacleBean obtenirSpectacle(SpectacleBean spectacleId)
+	{
+		SpectacleBean spectacleToGet = null;
+		
+		// Access listeSpectacles thread-safely.
+		synchronized(listeSpectacles)
+		{
+			for(Spectacle spectacle : listeSpectacles)
+			{
+				if(spectacle.getId() == spectacleId.getId())
+				{
+					spectacleToGet = (SpectacleBean) spectacle.getBean();
+					break;
+				}
+			}
+		}
+		
+		return spectacleToGet;
+	}
 	
 	/**
 	 * Public method to obtain the list of all Spectacle in the system.
 	 * @return The list of all Spectacle
 	 */
-	public SpectacleBean[] obtenirSpectacles()
+	public ArrayList<SpectacleBean> obtenirSpectacles()
 	{	
 		int i = 0;
 		
-		SpectacleBean[] spectacles = new SpectacleBean[listeSpectacles.size()];
+		ArrayList<SpectacleBean> spectacles = new ArrayList<SpectacleBean>();
 	
 		// Access listeSpectacles thread-safely.
 		synchronized(listeSpectacles)
@@ -282,7 +301,7 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 			// Iterators are faster than indexed loops for ArrayList
 			for(Spectacle spectacle : listeSpectacles)
 			{
-				spectacles[i] = (SpectacleBean)spectacle.getBean();
+				spectacles.add((SpectacleBean)spectacle.getBean());
 				i++;
 			}
 		}
@@ -326,17 +345,55 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 		return catalog;
 	}
 	
-	public List<SalleBean> obtenirCatalogueSalles()
+	public List<ArtisteBean> obtenirArtistes()
+	{
+		int i = 0;
+		List<ArtisteBean> artistes = new ArrayList<ArtisteBean>();
+		
+		// Access listeSpectacles thread-safely.
+		synchronized(listeArtistes)
+		{
+			// Iterators are faster than indexed loops for ArrayList
+			for(Artiste artiste : listeArtistes)
+			{
+				artistes.add((ArtisteBean) artiste.getBean());
+				i++;
+			}
+		}
+		
+		return artistes;
+	}
+	
+	public List<TypeSpectacleBean> obtenirTypesSpectacle() 
+	{
+		List<TypeSpectacleBean> catalog = new ArrayList<TypeSpectacleBean>();
+		
+		List<TypeSpectacle> type = (List<TypeSpectacle>)StubFactory.getInstance().getStubTypesSpectacles();
+		for(TypeSpectacle s : type)
+		{
+			catalog.add((TypeSpectacleBean)s.getBean());
+		}		
+				
+		return catalog;
+	}
+
+	public List<SalleBean> obtenirSalles() 
 	{
 		List<SalleBean> catalog = new ArrayList<SalleBean>();
 		
-		List<Salle> salles = (List<Salle>)StubFactory.getInstance().getStubSalle();
+		List<Salle> salles = (List<Salle>)StubFactory.getInstance().getStubSalles();
 		for(Salle s : salles)
 		{
 			catalog.add((SalleBean)s.getBean());
 		}		
 				
 		return catalog;
+	}
+
+	@Override
+	public List<SalleBean> obtenirCatalogueSalles() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	public List<TypeSpectacleBean> obtenirCatalogueTypeSpectacle()

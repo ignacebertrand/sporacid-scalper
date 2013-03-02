@@ -27,7 +27,7 @@ public class GestionnaireSpectacleTests
 	public void testSetup()
 	{
 		this.gs = new GestionnaireSpectacle();
-		this.initialCount = this.gs.obtenirSpectacles().length;
+		this.initialCount = this.gs.obtenirSpectacles().size();
 	}
 
 	@After
@@ -39,7 +39,7 @@ public class GestionnaireSpectacleTests
 	@Test
 	public void testIsDataLoaded() 
 	{		
-		assertTrue(this.gs.obtenirSpectacles().length > 0);
+		assertTrue(this.gs.obtenirSpectacles().size() > 0);
 	}
 	
 	@Test
@@ -53,7 +53,7 @@ public class GestionnaireSpectacleTests
 		SpectacleBean clone = this.gs.obtenirSpectacle(s.getId());
 		
 		assertNotNull(clone);
-		assertTrue(this.gs.obtenirSpectacles().length > initialCount &&
+		assertTrue(this.gs.obtenirSpectacles().size() > initialCount &&
 			   clone.getId() == s.getId() &&
 			   clone.getNom().equals(s.getNom()) &&
 			   clone.getDescription().equals(s.getDescription()));
@@ -87,10 +87,10 @@ public class GestionnaireSpectacleTests
 		SpectacleBean s = new SpectacleBean(12);
 		
 		this.gs.ajouterSpectacle(s);
-		assertTrue(this.gs.obtenirSpectacles().length == initialCount + 1);
+		assertTrue(this.gs.obtenirSpectacles().size() == initialCount + 1);
 		
 		this.gs.supprimerSpectacle(s, transactionManager);
-		assertTrue(this.gs.obtenirSpectacles().length == initialCount);
+		assertTrue(this.gs.obtenirSpectacles().size() == initialCount);
 		
 		SpectacleBean clone = this.gs.obtenirSpectacle(12);
 		assertNull(clone);
@@ -100,7 +100,7 @@ public class GestionnaireSpectacleTests
 	public void testAjouterRepresentation()
 	{
 		Date now = new Date();
-		int parentId = this.gs.obtenirSpectacles()[0].getId();
+		int parentId = this.gs.obtenirSpectacles().get(0).getId();
 		RepresentationBean r = new RepresentationBean(42, parentId);
 		
 		r.setDateDebutRepresentation(now);
