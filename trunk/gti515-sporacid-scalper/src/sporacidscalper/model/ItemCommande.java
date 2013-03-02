@@ -18,7 +18,7 @@ public class ItemCommande extends AbstractModelObject implements Beanable
 	public ItemCommande(int id)
 	{
 		this.id = id;
-		this.quantite = 0;
+		this.quantite = -1;
 		this.billetRepresentation = new TypeBilletRepresentation(-1);
 	}
 	
@@ -55,11 +55,15 @@ public class ItemCommande extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		// TODO Auto-generated method stub
-		ItemCommandeBean bean = new ItemCommandeBean(this.id);
+		ItemCommandeBean bean = null;
 		
-		bean.setBilletRepresentation((TypeBilletRepresentationBean)this.billetRepresentation.getBean());
-		bean.setQuantite(this.quantite);
+		if(this != null)
+		{
+			bean = new ItemCommandeBean(this.id);
+			
+			bean.setBilletRepresentation((TypeBilletRepresentationBean) this.billetRepresentation.getBean());
+			bean.setQuantite(this.quantite);
+		}
 		
 		return bean;
 	}

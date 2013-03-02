@@ -23,8 +23,8 @@ public class ItemCommandeBean extends AbstractBean implements Modelable
 	public ItemCommandeBean(int id)
 	{
 		this.id = id;
-		this.quantite = 0;
-		this.billetRepresentation = new TypeBilletRepresentationBean(-1);
+		this.quantite = -1;
+		this.billetRepresentation = null;
 	}
 	
 	public double getTotal()
@@ -60,10 +60,15 @@ public class ItemCommandeBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		ItemCommande ic = new ItemCommande(this.id);
+		ItemCommande ic = null;
 		
-		ic.setQuantite(this.quantite);
-		ic.setBilletRepresentation((TypeBilletRepresentation)this.billetRepresentation.getModelObject());
+		if(this != null)
+		{
+			ic = new ItemCommande(this.id);
+			
+			ic.setQuantite(this.quantite);
+			ic.setBilletRepresentation((TypeBilletRepresentation)this.billetRepresentation.getModelObject());
+		}
 		
 		return ic;
 	}

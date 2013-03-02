@@ -38,10 +38,10 @@ public class RepresentationBean extends AbstractBean implements Modelable
 		this.spectacleReference= null; 
 		
 		this.id = id;
-		this.dateDebutRepresentation = new Date();
-		this.dateFinRepresentation = new Date();
+		this.dateDebutRepresentation = null;
+		this.dateFinRepresentation = null;
 		this.statut = "O";
-		this.salle = new SalleBean();
+		this.salle = null;
 		this.typesBillet = new ArrayList<TypeBilletRepresentationBean>();
 	}
 	
@@ -147,12 +147,17 @@ public class RepresentationBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		Representation r = new Representation(this.id, this.spectacleId);
+		Representation r = null;
 		
-		r.setDateDebutRepresentation(this.dateDebutRepresentation);
-		r.setDateFinRepresentation(this.dateFinRepresentation);
-		r.setSalle((Salle)this.salle.getModelObject());
-		r.setStatut(this.statut);
+		if(this != null)
+		{
+			r = new Representation(this.id, this.spectacleId);
+			
+			r.setDateDebutRepresentation(this.dateDebutRepresentation);
+			r.setDateFinRepresentation(this.dateFinRepresentation);
+			r.setSalle((Salle)this.salle.getModelObject());
+			r.setStatut(this.statut);
+		}
 		
 		return r;
 	}

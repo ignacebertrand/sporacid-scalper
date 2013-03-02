@@ -22,7 +22,7 @@ public class PanierAchat extends AbstractModelObject implements Beanable
 	public PanierAchat(int id)
 	{
 		this.id = id;
-		this.dateCreation = new Date();
+		this.dateCreation = null;
 		this.items = new ArrayList<ItemPanierAchat>();
 	}
 	
@@ -94,35 +94,21 @@ public class PanierAchat extends AbstractModelObject implements Beanable
 	{
 		return items;
 	}
-//	
-//	public void setItems(List<ItemPanierAchat> items)
-//	{
-//		this.items = items;
-//	}	
-//	
-//	public List<ItemPanierAchatBean> toTagsBeanList(List<ItemPanierAchat> items)
-//	{
-//		List<ItemPanierAchatBean> beans = new ArrayList<ItemPanierAchatBean>();
-//		
-//		for(ItemPanierAchat ipa : items)
-//		{
-//			beans.add((ItemPanierAchatBean)ipa.getBean());
-//		}
-//		
-//		return beans;
-//	}
-
 
 	@Override
 	public AbstractBean getBean()
 	{
-		PanierAchatBean bean = new PanierAchatBean();
+		PanierAchatBean bean = null;
 		
-		bean.setDateCreation(this.dateCreation);
-
-		//bean.setItems(this.toTagsBeanList(this.items));
-		for(ItemPanierAchat item : this.items)
-			bean.ajouterItem((ItemPanierAchatBean) item.getBean());
+		if(this != null)
+		{
+			bean = new PanierAchatBean(this.id);
+			
+			bean.setDateCreation(this.dateCreation);
+	
+			for(ItemPanierAchat item : this.items)
+				bean.ajouterItem((ItemPanierAchatBean) item.getBean());
+		}
 		
 		return bean;
 	}

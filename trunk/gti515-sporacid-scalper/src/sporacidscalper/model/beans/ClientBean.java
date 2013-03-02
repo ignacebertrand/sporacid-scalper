@@ -3,7 +3,7 @@ package sporacidscalper.model.beans;
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.Adresse;
 import sporacidscalper.model.Client;
-import sporacidscalper.model.PanierAchat;
+import sporacidscalper.model.ItemPanierAchat;
 
 public class ClientBean extends AbstractBean implements Modelable
 {
@@ -12,11 +12,32 @@ public class ClientBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -4839483441907619015L;
 	
+	private int id;
 	private String identifiant;
 	private String nom;
 	private String courriel;
 	private AdresseBean adresse;
-	private PanierAchat panierAchat;
+	private PanierAchatBean panierAchat;
+	
+	public ClientBean()
+	{
+		this(-1);
+	}
+	
+	public ClientBean(int id)
+	{
+		this.id = id;
+		this.identifiant = null;
+		this.nom = null;
+		this.courriel = null;
+		this.adresse = null;
+		this.panierAchat = null;
+	}
+	
+	public int getId()
+	{
+		return this.id;
+	}
 	
 	public String getIdentifiant()
 	{
@@ -58,12 +79,12 @@ public class ClientBean extends AbstractBean implements Modelable
 		this.adresse = adresse;
 	}
 	
-	public PanierAchat getPanierAchat()
+	public PanierAchatBean getPanierAchat()
 	{
 		return panierAchat;
 	}
 	
-	public void setPanierAchat(PanierAchat panierAchat)
+	public void setPanierAchat(PanierAchatBean panierAchat)
 	{
 		this.panierAchat = panierAchat;
 	}
@@ -71,12 +92,20 @@ public class ClientBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		Client client = new Client();
+		Client client = null;
 		
-		client.setAdresse((Adresse)this.adresse.getModelObject());
-		client.setCourriel(this.courriel);
-		client.setIdentifiant(this.identifiant);
-		client.setNom(this.nom);
+		if(this != null)
+		{
+			client = new Client(this.id);
+			
+			client.setAdresse((Adresse)this.adresse.getModelObject());
+			client.setCourriel(this.courriel);
+			client.setIdentifiant(this.identifiant);
+			client.setNom(this.nom);
+			
+			for(ItemPanierAchatBean item : this.panierAchat.getItems())
+				client.getPanierAchat().ajouterItem((ItemPanierAchat) item.getModelObject());
+		}
 		
 		return client;
 	}

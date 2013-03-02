@@ -27,7 +27,7 @@ public class CommandeBean extends AbstractBean implements Modelable
 	public CommandeBean(int id)
 	{
 		this.id = id;
-		this.dateCreation = new Date();
+		this.dateCreation = null;
 		this.items = new ArrayList<ItemCommandeBean>();
 	}
 	
@@ -98,12 +98,17 @@ public class CommandeBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		Commande c = new Commande(this.id);
+		Commande c = null;
 		
-		c.setDateCreation(this.dateCreation);
-		
-		for(ItemCommandeBean item : this.items)
-			c.ajouterItem((ItemCommande) item.getModelObject());
+		if(this != null)
+		{
+			c = new Commande(this.id);
+			
+			c.setDateCreation(this.dateCreation);
+			
+			for(ItemCommandeBean item : this.items)
+				c.ajouterItem((ItemCommande) item.getModelObject());
+		}
 		
 		return c;
 	}

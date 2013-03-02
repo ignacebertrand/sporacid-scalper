@@ -10,8 +10,26 @@ public class TagsBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -3881550719338792211L;
 	
+	private int id;
 	private String nom;
 	private String url;
+	
+	public TagsBean()
+	{
+		this(-1);
+	}
+	
+	public TagsBean(int id)
+	{
+		this.id = id;
+		this.nom = null;
+		this.url = null;
+	}
+	
+	public int getId()
+	{
+		return this.id;
+	}
 	
 	public String getNom()
 	{
@@ -36,10 +54,15 @@ public class TagsBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		Tags t = new Tags();
+		Tags t = null;
 		
-		t.setNom(this.nom);
-		t.setUrl(this.url);
+		if(this != null)
+		{
+			t = new Tags(this.id);
+			
+			t.setNom(this.nom);
+			t.setUrl(this.url);
+		}
 		
 		return t;
 	}

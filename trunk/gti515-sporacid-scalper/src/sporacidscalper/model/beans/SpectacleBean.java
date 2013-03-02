@@ -32,11 +32,11 @@ public class SpectacleBean extends AbstractBean implements Modelable
 	public SpectacleBean(int id)
 	{
 		this.id = id;
-		this.nom = "";
-		this.description = "";
-		this.posterUrl = "";
+		this.nom = null;
+		this.description = null;
+		this.posterUrl = null;
 		this.artistes = new ArrayList<ArtisteBean>();
-		this.type = new TypeSpectacleBean();
+		this.type = null;
 		this.representations = new ArrayList<RepresentationBean>();
 	}
 	
@@ -145,36 +145,26 @@ public class SpectacleBean extends AbstractBean implements Modelable
 		
 		return artistes;
 	}
-	
-	// Build the artists string with the all artists for the show
-	public String getArtistes()
-	{
-		StringBuffer stringArtistes = new StringBuffer();
-		String output = "";
-		
-		for(ArtisteBean artiste : artistes)
-			stringArtistes.append(", " + artiste.getNom());
-		
-		if(stringArtistes.length() > 2)
-			output = stringArtistes.substring(", ".length());
-		
-		return output;
-	}
 
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		Spectacle s = new Spectacle();
+		Spectacle s = null;
 		
-		s.setDescription(this.description);
-		s.setNom(this.nom);
-		s.setPosterUrl(this.posterUrl);
-		s.setType((TypeSpectacle) this.type.getModelObject());
-		s.setArtistes(this.toArtistesList(this.artistes));
-		s.setId(this.id);
-		
-		for(RepresentationBean representation : this.representations)
-			s.ajouterRepresentation((Representation) representation.getModelObject());
+		if(this != null)
+		{
+			s = new Spectacle(this.id);
+			
+			s.setDescription(this.description);
+			s.setNom(this.nom);
+			s.setPosterUrl(this.posterUrl);
+			s.setType((TypeSpectacle) this.type.getModelObject());
+			s.setArtistes(this.toArtistesList(this.artistes));
+			s.setId(this.id);
+			
+			for(RepresentationBean representation : this.representations)
+				s.ajouterRepresentation((Representation) representation.getModelObject());
+		}
 		
 		return s;
 	}

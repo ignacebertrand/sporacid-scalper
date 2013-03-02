@@ -7,7 +7,6 @@ import sporacidscalper.model.Nouvelle;
 
 public class NouvelleBean extends AbstractBean implements Modelable
 {
-
 	/**
 	 * Serializable interface requirement
 	 */
@@ -19,9 +18,18 @@ public class NouvelleBean extends AbstractBean implements Modelable
 	private Date date;
 	private String auteur;
 	
+	public NouvelleBean()
+	{
+		this(-1);
+	}
+	
 	public NouvelleBean(int id)
 	{
 		this.id = id;
+		this.titre = null;
+		this.description = null;
+		this.auteur = null;
+		this.date = null;
 	}
 	
 	public int getId()
@@ -72,12 +80,17 @@ public class NouvelleBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		Nouvelle n = new Nouvelle();
+		Nouvelle n = null;
 		
-		n.setAuteur(this.auteur);
-		n.setDate(this.date);
-		n.setDescription(this.description);
-		n.setTitre(this.titre);
+		if(this != null)
+		{
+			n = new Nouvelle(this.id);
+			
+			n.setAuteur(this.auteur);
+			n.setDate(this.date);
+			n.setDescription(this.description);
+			n.setTitre(this.titre);
+		}
 		
 		return n;
 	}

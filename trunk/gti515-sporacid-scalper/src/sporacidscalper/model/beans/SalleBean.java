@@ -24,8 +24,8 @@ public class SalleBean extends AbstractBean implements Modelable
 	public SalleBean(int id)
 	{
 		this.id = id;
-		this.nom = "";
-		this.capacite = 0;
+		this.nom = null;
+		this.capacite = -1;
 		this.adresse = new AdresseBean();
 	}
 	
@@ -67,11 +67,16 @@ public class SalleBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		Salle s = new Salle(this.id);
+		Salle s = null;
 		
-		s.setAdresse((Adresse)this.adresse.getModelObject());
-		s.setCapacite(this.capacite);
-		s.setNom(this.nom);
+		if(this != null)
+		{
+			s = new Salle(this.id);
+			
+			s.setAdresse((Adresse)this.adresse.getModelObject());
+			s.setCapacite(this.capacite);
+			s.setNom(this.nom);
+		}
 		
 		return s;
 	}

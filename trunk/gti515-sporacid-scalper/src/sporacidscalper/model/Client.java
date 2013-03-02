@@ -3,6 +3,7 @@ package sporacidscalper.model;
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.AdresseBean;
 import sporacidscalper.model.beans.ClientBean;
+import sporacidscalper.model.beans.ItemPanierAchatBean;
 
 public class Client extends AbstractModelObject implements Beanable
 {
@@ -23,13 +24,13 @@ public class Client extends AbstractModelObject implements Beanable
 	public Client(int id)
 	{
 		this.id = id;
-		this.identifiant = "";
-		this.motDePasse = "";
+		this.identifiant = null;
+		this.motDePasse = null;
 		this.estAuthentifie = false;
-		this.nom = "";
-		this.courriel = "";
-		this.adresse = new Adresse();
-		this.panierAchat = new PanierAchat();
+		this.nom = null;
+		this.courriel = null;
+		this.adresse = null;
+		this.panierAchat = null;
 	}
 	
 	public boolean authentifier(String encryptedPassword)
@@ -107,16 +108,21 @@ public class Client extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		ClientBean bean = new ClientBean();
+		ClientBean bean = null;
 		
-		bean.setAdresseBean((AdresseBean)this.adresse.getBean());
-		bean.setCourriel(this.courriel);
-		bean.setIdentifiant(this.identifiant);
-		bean.setNom(this.nom);
-		bean.setPanierAchat(this.panierAchat);
-
+		if(this != null)
+		{
+			bean = new ClientBean(this.id);
+			
+			bean.setAdresseBean((AdresseBean)this.adresse.getBean());
+			bean.setCourriel(this.courriel);
+			bean.setIdentifiant(this.identifiant);
+			bean.setNom(this.nom);
+			
+			for(ItemPanierAchat item : this.panierAchat.getItems())
+				bean.getPanierAchat().ajouterItem((ItemPanierAchatBean) item.getBean());
+		}
+		
 		return bean;
 	}
-	
-	
 }

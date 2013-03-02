@@ -19,9 +19,9 @@ public class Salle extends AbstractModelObject implements Beanable
 	public Salle(int id)
 	{
 		this.id = id;
-		this.nom = "";
-		this.capacite = 0;
-		this.adresse = new Adresse();
+		this.nom = null;
+		this.capacite = -1;
+		this.adresse = null;
 	}
 	
 	public int getId()
@@ -62,11 +62,16 @@ public class Salle extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		SalleBean bean = new SalleBean(this.id);
+		SalleBean bean = null;
 		
-		bean.setAdresse((AdresseBean)this.adresse.getBean());
-		bean.setCapacite(this.capacite);
-		bean.setNom(this.nom);
+		if(this != null)
+		{
+			bean = new SalleBean(this.id);
+			
+			bean.setAdresse((AdresseBean)this.adresse.getBean());
+			bean.setCapacite(this.capacite);
+			bean.setNom(this.nom);
+		}
 		
 		return bean;
 	}

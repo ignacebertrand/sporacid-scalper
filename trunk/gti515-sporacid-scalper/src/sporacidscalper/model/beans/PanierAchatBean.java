@@ -27,7 +27,7 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 	public PanierAchatBean(int id)
 	{
 		this.id = id;
-		this.dateCreation = new Date();
+		this.dateCreation = null;
 		this.items = new ArrayList<ItemPanierAchatBean>();
 	}
 	
@@ -98,13 +98,17 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		PanierAchat pa = new PanierAchat();
-
-		//pa.setItems(this.toItemPanierAchatList(this.items));
-		for(ItemPanierAchatBean item : this.items)
-			pa.ajouterItem((ItemPanierAchat) item.getModelObject());
+		PanierAchat pa = null;
 		
-		pa.setDateCreation(this.dateCreation);
+		if(this != null)
+		{
+			pa = new PanierAchat(this.id);
+	
+			for(ItemPanierAchatBean item : this.items)
+				pa.ajouterItem((ItemPanierAchat) item.getModelObject());
+			
+			pa.setDateCreation(this.dateCreation);
+		}
 		
 		return pa;
 	}

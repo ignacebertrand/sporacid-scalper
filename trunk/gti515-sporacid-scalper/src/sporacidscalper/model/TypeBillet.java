@@ -17,8 +17,8 @@ public class TypeBillet extends AbstractModelObject implements Beanable
 	public TypeBillet(int id)
 	{
 		this.id = id;
-		this.nom = "";
-		this.description = "";
+		this.nom = null;
+		this.description = null;
 	}
 	
 	public int getId()
@@ -49,10 +49,15 @@ public class TypeBillet extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		TypeBilletBean bean = new TypeBilletBean(this.id);
+		TypeBilletBean bean = null;
 		
-		bean.setDescription(this.description);
-		bean.setNom(this.nom);
+		if(this != null)
+		{
+			bean = new TypeBilletBean(this.id);
+			
+			bean.setDescription(this.description);
+			bean.setNom(this.nom);
+		}
 		
 		return bean;
 	}

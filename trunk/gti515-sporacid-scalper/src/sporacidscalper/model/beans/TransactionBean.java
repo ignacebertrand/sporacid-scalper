@@ -13,13 +13,35 @@ public class TransactionBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -1577684604314224161L;
 	
+	// Upper reference
+	private ClientBean clientReference;
+	private int clientId;
+	
 	private int id;
 	private int noConfirmationPaiement;
 	private int noConfirmationVente;
-	private ClientBean client;
 	private AdresseBean adresseFacturation;
 	private AdresseBean adresseLivraison;
 	private CommandeBean commande;
+	
+	public TransactionBean()
+	{
+		this(-1, -1);
+	}
+	
+	public TransactionBean(int id, int clientId)
+	{
+		// Upper reference
+		this.clientId = clientId;
+		this.clientReference = null;
+		
+		this.id = id;
+		this.noConfirmationPaiement = -1;
+		this.noConfirmationVente = -1;
+		this.adresseFacturation = null;
+		this.adresseLivraison = null;
+		this.commande = null;
+	}
 	
 	public int getId()
 	{
@@ -46,14 +68,19 @@ public class TransactionBean extends AbstractBean implements Modelable
 		this.noConfirmationVente = noConfirmationVente;
 	}
 	
-	public ClientBean getClient()
+	public int getClientId()
 	{
-		return client;
+		return this.clientId;
 	}
 	
-	public void setClient(ClientBean client)
+	public ClientBean getClientReference()
 	{
-		this.client = client;
+		return clientReference;
+	}
+	
+	public void setClientReference(ClientBean clientReference)
+	{
+		this.clientReference = clientReference;
 	}
 	
 	public AdresseBean getAdresseFacturation()
@@ -89,14 +116,19 @@ public class TransactionBean extends AbstractBean implements Modelable
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		Transaction t = new Transaction();
+		Transaction t = null;
 		
-		t.setAdresseFacturation((Adresse)this.adresseFacturation.getModelObject());
-		t.setAdresseLivraison((Adresse)this.adresseLivraison.getModelObject());
-		t.setClient((Client)this.client.getModelObject());
-		t.setCommande((Commande)this.commande.getModelObject());
-		t.setNoConfirmationPaiement(this.noConfirmationPaiement);
-		t.setNoConfirmationVente(this.noConfirmationVente);
+		if(this != null)
+		{
+			t = new Transaction(this.id, this.clientId);
+			
+			t.setAdresseFacturation((Adresse)this.adresseFacturation.getModelObject());
+			t.setAdresseLivraison((Adresse)this.adresseLivraison.getModelObject());
+			t.setClientReference((Client)this.clientReference.getModelObject());
+			t.setCommande((Commande)this.commande.getModelObject());
+			t.setNoConfirmationPaiement(this.noConfirmationPaiement);
+			t.setNoConfirmationVente(this.noConfirmationVente);
+		}
 		
 		return t;
 	}

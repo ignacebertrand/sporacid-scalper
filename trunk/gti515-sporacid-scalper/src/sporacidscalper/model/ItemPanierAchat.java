@@ -18,7 +18,7 @@ public class ItemPanierAchat extends AbstractModelObject implements Beanable
 	public ItemPanierAchat(int id)
 	{
 		this.id = id;
-		this.quantite = 0;
+		this.quantite = -1;
 		this.billetRepresentation = new TypeBilletRepresentation(-1);
 	}
 	
@@ -55,11 +55,15 @@ public class ItemPanierAchat extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		// TODO Auto-generated method stub
-		ItemPanierAchatBean bean = new ItemPanierAchatBean(this.id);
+		ItemPanierAchatBean bean = null;
 		
-		bean.setBilletRepresentation((TypeBilletRepresentationBean) this.billetRepresentation.getBean());
-		bean.setQuantite(this.quantite);
+		if(this != null)
+		{
+			bean = new ItemPanierAchatBean(this.id);
+			
+			bean.setBilletRepresentation((TypeBilletRepresentationBean) this.billetRepresentation.getBean());
+			bean.setQuantite(this.quantite);
+		}
 		
 		return bean;
 	}
