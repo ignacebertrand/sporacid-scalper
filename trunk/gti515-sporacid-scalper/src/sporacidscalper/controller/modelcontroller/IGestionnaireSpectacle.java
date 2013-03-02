@@ -6,6 +6,7 @@ import sporacidscalper.model.beans.ArtisteBean;
 import sporacidscalper.model.beans.RepresentationBean;
 import sporacidscalper.model.beans.SalleBean;
 import sporacidscalper.model.beans.SpectacleBean;
+import sporacidscalper.model.beans.TypeSpectacleBean;
 
 public interface IGestionnaireSpectacle 
 {
@@ -68,4 +69,6 @@ public interface IGestionnaireSpectacle
 	public List<ArtisteBean> obtenirCatalogueArtistes();
 	
 	public List<SalleBean> obtenirCatalogueSalles();
+	
+	public List<TypeSpectacleBean> obtenirCatalogueTypeSpectacle();
 }

@@ -10,6 +10,7 @@ public class TypeSpectacleBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -4373537804034790057L;
 	
+	private int id;
 	private String nom;
 	private String description;
 	
@@ -42,5 +43,13 @@ public class TypeSpectacleBean extends AbstractBean implements Modelable
 		ts.setNom(this.nom);
 		
 		return ts;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

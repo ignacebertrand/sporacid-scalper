@@ -1,5 +1,6 @@
 <%@ page import="sporacidscalper.model.beans.ArtisteBean"%>
 <%@ page import="sporacidscalper.model.beans.SalleBean"%>
+<%@ page import="sporacidscalper.model.beans.TypeSpectacleBean"%>
 <%@ page import="java.util.ArrayList;"%>
 
 <!DOCTYPE html>
@@ -8,6 +9,7 @@
 	String contextAttr = (String) request.getAttribute("context");
 	ArrayList<ArtisteBean> listeArtistes = (ArrayList<ArtisteBean>) request.getAttribute("listeArtistes");
 	ArrayList<SalleBean> listeSalles = (ArrayList<SalleBean>) request.getAttribute("listeSalles");
+	ArrayList<TypeSpectacleBean> listeTypeSpectacles = (ArrayList<TypeSpectacleBean>) request.getAttribute("listeTypeSpectacles");
 %>
 <html>
 <head>
@@ -44,111 +46,113 @@
 		<jsp:include page="partial-views/menu.jsp"></jsp:include>
 
 		<div class="content">
-			<!--  <form name="add-events" action="/ajouter-spectacle"
-				method="post"> -->
+			<form method="POST" action="<%=contextAttr%>/admin/ajouter-spectacle">
 				<h2>Ajouter un spectacle</h2>
 				<div class="add-event-description">
 					<h3>Détail du spectacle</h3>
 					<br />
-					<div class="add-event-description-item">
-						<label for="type" class="generic-label">Types :</label> <input
-							type="radio" name="type" value="aucun" />Aucun <input
-							type="radio" name="type" value="humour" />Humour <input
-							type="radio" name="type" value="musique" />Musique <br />
-					</div>
-					<div class="add-event-description-item">
-						<label for="artiste" class="generic-label">Artiste :</label> 
-						<select
-							id=select_artiste name="artistes" multiple
-							size=<%=listeArtistes.size()%>>
-							<%
-								for (int i = 0; i < listeArtistes.size(); i++) 
+						<div class="add-event-description-item">
+ 							<label for="type" class="generic-label">Types :</label>								
+								<select id="select-TypeSpectacle" class="generic-select">
+								<%
+								for (int i = 0; i < listeTypeSpectacles.size(); i++) 
 								{
-									ArtisteBean artistes = listeArtistes.get(i);
-							%>
-							<option value=<%=artistes.getId()%>><%=artistes.getNom()%></option>
-							<%
-								}
-							%>
-						</select>
-
-
-					</div>
-					<div class="add-event-description-item">
-						<label for="nomSpectacle" class="generic-label">Nom du
-							spectacle :</label> <input type="text" name="nomSpectacle"
-							class="generic-textbox" /><br />
-					</div>
-
-
-					<div class="add-event-description-item">
-						<label for="posterUrl" class="generic-label">URL du poster
-							:</label> <input type="text" name="posterUrl" class="generic-textbox" /><br />
-					</div>
-
-					<div class="add-event-description-item">
-						<label for="description" class="generic-label">Description du Spectacle
-							:</label> <br />
-					</div>
-					<div class="add-event-description-item">
-						<textarea name="description" class="generic-textarea">
-							</textarea> <br />
-					</div>
-
-					<div class="add-event-item-controller">
-							<div class="generic-button add-event-representation-button">
-								Sauvegarder
-							</div>
-						<!-- <input type="submit" value="Sauvegarder"
-							id="add-event-representation-button" class="generic-button" /> -->
-					</div>
-					
-
-
-				</div>
-				<div class="add-event-representations">
-					<table class="add-representations-table">
-						<tr>
-							<td><h3>Représentations</h3> <br /></td>
-						</tr>
-						<tr>
-							<td><label class="generic-label">Date</label></td>
-							<td><label class="generic-label">Salle</label></td>
-							<td><label class="generic-label">Début</label></td>
-							<td><label class="generic-label">Fin</label></td>
-							<td><label class="generic-label">Prix</label></td>
-						</tr>
-						<tr class="add-representations-table-model-row">
-							<td><input type="text" name="date"
-								class="generic-datepicker generic-textbox" /></td>
-							<td>
-								<select id="select-place" class="generic-select">
-								<%	for (int i = 0; i < listeSalles.size(); i++) 
-									{
-										SalleBean salle = listeSalles.get(i);
-							    %>
-										<option value=<%=salle.getId()%>><%=salle.getNom()%></option>
+									TypeSpectacleBean type = listeTypeSpectacles.get(i);
+								%>
+										<option value=<%=type.getId()%>><%=type.getNom()%></option>
 								<%
 									}
 								%>
 								</select>
-							</td>
-							<td><input type="text" name="start-time"
-								class="generic-timepicker generic-textbox" /></td>
-							<td><input type="text" name="end-time"
-								class="generic-timepicker generic-textbox" /></td>
-							<td><input type="text" name="ticket-cost"
-								class="ticket-cost generic-textbox" /></td>
-							<td><div class="generic-button representation-table-add-item-button">&nbsp;</div></td>
-						</tr>
-					</table>
-					
+							<br />
+						</div>
+						<div class="add-event-description-item">
+							<label for="artiste" class="generic-label">Artiste :</label> 
+							<select
+								id=select_artiste name="artistes" multiple
+								size=<%=listeArtistes.size()%>>
+								<%
+									for (int i = 0; i < listeArtistes.size(); i++) 
+									{
+										ArtisteBean artistes = listeArtistes.get(i);
+								%>
+								<option value=<%=artistes.getId()%>><%=artistes.getNom()%></option>
+								<%
+									}
+								%>
+							</select>
+	
+	
+						</div>
+						<div class="add-event-description-item">
+							<label for="nomSpectacle" class="generic-label">Nom du spectacle :</label> 
+							<input type="text" name="nomSpectacle" class="generic-textbox" />
+							<br />
+						</div>
+	
+	
+						<div class="add-event-description-item">
+							<label for="posterUrl" class="generic-label">URL du poster:</label> 
+							<input type="text" name="posterUrl" class="generic-textbox" />
+							<br />
+						</div>
+	
+						<div class="add-event-description-item">
+							<label for="description" class="generic-label">Description du Spectacle:</label> 
+							<br />
+						</div>
+						<div class="add-event-description-item">
+							<textarea name="description" class="generic-textarea"></textarea>
+						</div>
+	
+						<div class="add-event-item-controller">
+								<div class="generic-button add-event-representation-button">
+									Sauvegarder
+								</div>
+							<!-- <input type="submit" value="Sauvegarder"
+								id="add-event-representation-button" class="generic-button" /> -->
+						</div>
+					</div>
+					<div class="add-event-representations">
+						<table class="add-representations-table">
+							<tr>
+								<td><h3>Représentations</h3> <br /></td>
+							</tr>
+							<tr>
+								<td><label class="generic-label">Date</label></td>
+								<td><label class="generic-label">Salle</label></td>
+								<td><label class="generic-label">Début</label></td>
+								<td><label class="generic-label">Fin</label></td>
+								<td><label class="generic-label">Prix</label></td>
+							</tr>
+							<tr class="add-representations-table-model-row">
+								<td><input type="text" name="date"
+									class="generic-datepicker generic-textbox" /></td>
+								<td>
+									<select id="select-place" class="generic-select">
+									<%	for (int i = 0; i < listeSalles.size(); i++) 
+										{
+											SalleBean salle = listeSalles.get(i);
+								    %>
+											<option value=<%=salle.getId()%>><%=salle.getNom()%></option>
+									<%
+										}
+									%>
+									</select>
+								</td>
+								<td><input type="text" name="start-time"
+									class="generic-timepicker generic-textbox" /></td>
+								<td><input type="text" name="end-time"
+									class="generic-timepicker generic-textbox" /></td>
+								<td><input type="text" name="ticket-cost"
+									class="ticket-cost generic-textbox" /></td>
+								<td><div class="generic-button representation-table-add-item-button">&nbsp;</div></td>
+							</tr>
+						</table>
+					</div>
 				</div>
-			<!--</form>-->
+			</form>
 		</div>
-	</div>
-	<div class=confirmDialog title="Confirmation d'ajout">
-		Vous confirmer cette representation ?
 	</div>
 	<%-- Include the footer in the page --%>
 	<jsp:include page="partial-views/footer.jsp"></jsp:include>
@@ -159,11 +163,7 @@
 	$(document).ready(
 			function() 
 			{		
-				$(".dialog").dialog(
-				{
-					autoOpen: false,
-					modal: true
-				});
+
 				
 				$(".add-event-representation-button").click(
 						function()
