@@ -1,13 +1,14 @@
 <%@page import="java.text.DateFormat" %>
 <%@page import="sporacidscalper.model.beans.SpectacleBean" %>
 <%@page import="sporacidscalper.model.beans.NouvelleBean" %>
+<%@ page import="java.util.ArrayList;"%>
 
 <!DOCTYPE html>
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getAttribute("context");
 	NouvelleBean[] listeNouvelles = (NouvelleBean[]) request.getAttribute("listeNouvelles");
-	SpectacleBean[] listeProchainsSpectacles = (SpectacleBean[]) request.getAttribute("listeProchainsSpectacles");
+	ArrayList<SpectacleBean> listeProchainsSpectacles = (ArrayList<SpectacleBean>) request.getAttribute("listeProchainsSpectacles");
 	DateFormat datetimeFormatter = (DateFormat) request.getAttribute("datetimeFormatter");
 %>
 <html>
@@ -43,9 +44,9 @@
 						</ul>
 						<div class="upcoming-shows-spinner-content">
 						
-							<% for(int i = 0; i < 5 && i < listeProchainsSpectacles.length; i++) { %>
+							<% for(int i = 0; i < 5 && i < listeProchainsSpectacles.size(); i++) { %>
 							
-								<% SpectacleBean spectacle = listeProchainsSpectacles[i]; %>
+								<% SpectacleBean spectacle = listeProchainsSpectacles.get(i); %>
 								
 								<div class="upcoming-shows-spinner-item">
 									<div class="upcoming-shows-spinner-item-image" 

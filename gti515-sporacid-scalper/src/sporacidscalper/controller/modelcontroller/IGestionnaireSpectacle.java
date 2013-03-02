@@ -59,16 +59,28 @@ public interface IGestionnaireSpectacle
 	 * Public method to obtain the list of all Spectacle in the system.
 	 * @return The list of all Spectacle
 	 */
-	public SpectacleBean[] obtenirSpectacles();
+	public List<SpectacleBean> obtenirSpectacles();
+	/**
+	 * Public method to obtain the list of all Artiste in the system.
+	 * @return The list of all Spectacle
+	 */
+	public List<ArtisteBean> obtenirArtistes();
 	/**
 	 * Public method to get the number of ticket remaining for a Spectacle Representation.
 	 * @return The number of ticket remaining
 	 */
 	public int obtenirNbBilletRestant(int spectacleId, int representationId);
+	/**
+	 * Public method to obtain the list of all types of Spectacle in the system.
+	 * @return The list of all types of Spectacle
+	 */
+	public List<TypeSpectacleBean> obtenirTypesSpectacle();
 	
 	public List<ArtisteBean> obtenirCatalogueArtistes();
 	
 	public List<SalleBean> obtenirCatalogueSalles();
+	
+	public List<SalleBean> obtenirSalles();
 	
 	public List<TypeSpectacleBean> obtenirCatalogueTypeSpectacle();
 }

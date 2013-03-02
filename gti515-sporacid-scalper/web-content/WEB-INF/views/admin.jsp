@@ -1,15 +1,18 @@
 <%@ page import="sporacidscalper.model.beans.ArtisteBean"%>
+<%@ page import="sporacidscalper.model.beans.TypeSpectacleBean"%>
 <%@ page import="sporacidscalper.model.beans.SalleBean"%>
 <%@ page import="sporacidscalper.model.beans.TypeSpectacleBean"%>
 <%@ page import="java.util.ArrayList;"%>
-
+	
 <!DOCTYPE html>
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getAttribute("context");
+
 	ArrayList<ArtisteBean> listeArtistes = (ArrayList<ArtisteBean>) request.getAttribute("listeArtistes");
 	ArrayList<SalleBean> listeSalles = (ArrayList<SalleBean>) request.getAttribute("listeSalles");
-	ArrayList<TypeSpectacleBean> listeTypeSpectacles = (ArrayList<TypeSpectacleBean>) request.getAttribute("listeTypeSpectacles");
+	ArrayList<TypeSpectacleBean> listeTypesSpectacle = (ArrayList<TypeSpectacleBean>) request.getAttribute("listeTypesSpectacle");
+
 %>
 <html>
 <head>
@@ -55,9 +58,9 @@
  							<label for="type" class="generic-label">Types :</label>								
 								<select id="select-TypeSpectacle" class="generic-select">
 								<%
-								for (int i = 0; i < listeTypeSpectacles.size(); i++) 
+								for (int i = 0; i < listeTypesSpectacle.size(); i++) 
 								{
-									TypeSpectacleBean type = listeTypeSpectacles.get(i);
+									TypeSpectacleBean type = listeTypesSpectacle.get(i);
 								%>
 										<option value=<%=type.getId()%>><%=type.getNom()%></option>
 								<%
@@ -165,25 +168,55 @@
 			{		
 
 				
-				$(".add-event-representation-button").click(
+				$(".add-event-spectacle-button").click(
 						function()
 						{
 							var name = $(this).parents(".add-events").find(".name").val();
 							var type = $(this).parents(".add-events").find(".type").val();
 							var artistes = $(this).parents(".add-events").find(".artistes").val();
 							var posterUrl = $(this).parents(".add-events").find(".posterUrl").val();
-							//var description = $(this).parents(".add-events").find(".description").val();
+							var description = $(this).parents(".add-events").find(".description").val();
 						
 							var fakeForm = $("<form></form>")
 								.attr("action", "<%=contextAttr%>/administration/ajouter-spectacle")
-										.attr("method", "POST");
+													.attr("method", "POST");
 
-											fakeForm.append($("<input></input>").attr("type","hidden").attr("name","name").val(name));
-											fakeForm.append($("<input></input>").attr("type","hidden").attr("name","type").val(type));
-											fakeForm.append($("<input></input>").attr("type","hidden").attr("name","artistes").val(artistes));
-											fakeForm.append($("<input></input>").attr("type","hidden").attr("name","posterUrl").val(posterUrl));
-											fakeForm.append($("<input></input>").attr("type","hidden").attr("name","description").val(description));
-											
+											fakeForm
+													.append($("<input></input>")
+															.attr("type",
+																	"hidden")
+															.attr("name",
+																	"name")
+															.val(name));
+											fakeForm
+													.append($("<input></input>")
+															.attr("type",
+																	"hidden")
+															.attr("name",
+																	"type")
+															.val(type));
+											fakeForm
+													.append($("<input></input>")
+															.attr("type",
+																	"hidden")
+															.attr("name",
+																	"artistes")
+															.val(artistes));
+											fakeForm
+													.append($("<input></input>")
+															.attr("type",
+																	"hidden")
+															.attr("name",
+																	"posterUrl")
+															.val(posterUrl));
+											fakeForm
+													.append($("<input></input>")
+															.attr("type",
+																	"hidden")
+															.attr("name",
+																	"description")
+															.val(description));
+
 											fakeForm.submit();
 						});
 				
