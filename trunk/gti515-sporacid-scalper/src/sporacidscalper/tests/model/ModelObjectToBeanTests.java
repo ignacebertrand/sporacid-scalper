@@ -73,11 +73,10 @@ public class ModelObjectToBeanTests
 	@Test
 	public void testToBean() 
 	{
-		//TODO: Arrange getBean defects.
 		assertNotNull((AdresseBean)this.adr.getBean());
-		//assertNotNull((ArtisteBean)this.art.getBean());
-		//assertNotNull((ClientBean)this.cln.getBean());
-		//assertNotNull((CommandeBean)this.cmd.getBean());
+		assertNotNull((ArtisteBean)this.art.getBean());
+		assertNotNull((ClientBean)this.cln.getBean());
+		assertNotNull((CommandeBean)this.cmd.getBean());
 		assertNotNull((ItemCommandeBean)this.itc.getBean());
 		assertNotNull((ItemPanierAchatBean)this.ipa.getBean());
 		assertNotNull((NouvelleBean)this.nvl.getBean());
@@ -86,7 +85,7 @@ public class ModelObjectToBeanTests
 		assertNotNull((SalleBean)this.salle.getBean());
 		assertNotNull((SpectacleBean)this.spc.getBean());
 		assertNotNull((TagsBean)this.tags.getBean());
-		//assertNotNull((TransactionBean)this.trans.getBean());
+		assertNotNull((TransactionBean)this.trans.getBean());
 		assertNotNull((TypeBilletBean)this.tb.getBean());
 		assertNotNull((TypeBilletRepresentationBean)this.tbr.getBean());
 		assertNotNull((TypeSpectacleBean)this.ts.getBean());

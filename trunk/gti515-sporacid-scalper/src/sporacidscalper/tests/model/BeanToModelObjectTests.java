@@ -73,10 +73,9 @@ public class BeanToModelObjectTests
 	@Test
 	public void testToModelObject()
 	{
-		//TODO: Arrange getModelObject defects.
 		assertNotNull((Adresse)this.adrBean.getModelObject());
-		//assertNotNull((Artiste)this.artBean.getModelObject());
-		//assertNotNull((Client)this.clnBean.getModelObject());
+		assertNotNull((Artiste)this.artBean.getModelObject());
+		assertNotNull((Client)this.clnBean.getModelObject());
 		assertNotNull((Commande)this.cmdBean.getModelObject());
 		assertNotNull((ItemCommande)this.itcBean.getModelObject());
 		assertNotNull((ItemPanierAchat)this.ipaBean.getModelObject());
@@ -86,7 +85,7 @@ public class BeanToModelObjectTests
 		assertNotNull((Salle)this.salleBean.getModelObject());
 		assertNotNull((Spectacle)this.spcBean.getModelObject());
 		assertNotNull((Tags)this.tagsBean.getModelObject());
-		//assertNotNull((Transaction)this.transBean.getModelObject());
+		assertNotNull((Transaction)this.transBean.getModelObject());
 		assertNotNull((TypeBillet)this.tbBean.getModelObject());
 		assertNotNull((TypeBilletRepresentation)this.tbrBean.getModelObject());
 		assertNotNull((TypeSpectacle)this.tsBean.getModelObject());		
