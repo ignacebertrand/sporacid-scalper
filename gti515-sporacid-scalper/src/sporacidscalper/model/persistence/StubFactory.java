@@ -5,7 +5,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
-import sporacidscalper.model.*;
+import sporacidscalper.model.Adresse;
+import sporacidscalper.model.Artiste;
+import sporacidscalper.model.Client;
+import sporacidscalper.model.Nouvelle;
+import sporacidscalper.model.Representation;
+import sporacidscalper.model.Salle;
+import sporacidscalper.model.Spectacle;
+import sporacidscalper.model.Tags;
+import sporacidscalper.model.Transaction;
+import sporacidscalper.model.TypeBillet;
+import sporacidscalper.model.TypeBilletRepresentation;
+import sporacidscalper.model.TypeSpectacle;
 
 public class StubFactory 
 {

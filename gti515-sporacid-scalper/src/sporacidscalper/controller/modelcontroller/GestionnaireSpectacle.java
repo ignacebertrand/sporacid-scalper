@@ -8,10 +8,12 @@ import sporacidscalper.model.Artiste;
 import sporacidscalper.model.Representation;
 import sporacidscalper.model.Salle;
 import sporacidscalper.model.Spectacle;
+import sporacidscalper.model.TypeSpectacle;
 import sporacidscalper.model.beans.ArtisteBean;
 import sporacidscalper.model.beans.RepresentationBean;
 import sporacidscalper.model.beans.SalleBean;
 import sporacidscalper.model.beans.SpectacleBean;
+import sporacidscalper.model.beans.TypeSpectacleBean;
 import sporacidscalper.model.persistence.StubFactory;
 
 public class GestionnaireSpectacle implements IGestionnaireSpectacle
@@ -35,12 +37,18 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 */
 	public void ajouterSpectacle(SpectacleBean spectacleToAdd)
 	{
-		//TODO : Need some sort of validation on the spectacle to add
-		
 		// Access listeSpectacles thread-safely.
 		synchronized(listeSpectacles)
 		{
-			listeSpectacles.add((Spectacle) spectacleToAdd.getModelObject());
+			// Verifying that no other spectacle has the same Id
+			for(Spectacle s : this.listeSpectacles)
+			{
+				if(s.getId() != spectacleToAdd.getId())
+				{
+					this.listeSpectacles.add((Spectacle) spectacleToAdd.getModelObject());
+					break;
+				}
+			}
 		}
 	}
 
@@ -328,6 +336,19 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 			catalog.add((SalleBean)s.getBean());
 		}		
 				
+		return catalog;
+	}
+	
+	public List<TypeSpectacleBean> obtenirCatalogueTypeSpectacle()
+	{
+		List<TypeSpectacleBean> catalog = new ArrayList<TypeSpectacleBean>();
+		
+		List<TypeSpectacle> types = (List<TypeSpectacle>)StubFactory.getInstance().getStubTypesSpectacles();
+		for(TypeSpectacle t : types)
+		{
+			catalog.add((TypeSpectacleBean)t.getBean());
+		}
+		
 		return catalog;
 	}
 }
