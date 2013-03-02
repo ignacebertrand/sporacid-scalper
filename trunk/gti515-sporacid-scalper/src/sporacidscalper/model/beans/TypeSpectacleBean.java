@@ -66,12 +66,4 @@ public class TypeSpectacleBean extends AbstractBean implements Modelable
 		
 		return ts;
 	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 }
