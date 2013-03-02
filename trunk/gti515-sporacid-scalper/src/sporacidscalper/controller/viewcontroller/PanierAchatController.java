@@ -26,6 +26,9 @@ import sporacidscalper.view.presentation.IPresentationPanierAchat;
 @Controller 
 public class PanierAchatController implements ApplicationContextAware
 {
+	/**
+	 * Constant for the session key to access the shopping cart.
+	 */
 	private static final String cCleSessionPanierAchat = "PanierAchat";
 	
 	/**
