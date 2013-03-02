@@ -22,6 +22,9 @@ public class Artiste extends AbstractModelObject implements Beanable
 	public Artiste(int id)
 	{
 		this.id = id;
+		this.nom = "";
+		this.description = "";
+		this.tags = new ArrayList<Tags>();
 	}
 
 	public int getId()

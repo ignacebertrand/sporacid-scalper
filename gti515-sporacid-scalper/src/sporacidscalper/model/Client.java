@@ -23,16 +23,13 @@ public class Client extends AbstractModelObject implements Beanable
 	public Client(int id)
 	{
 		this.id = id;
-	}
-	
-	public void creerPanierAchat()
-	{
-		throw new UnsupportedOperationException();
-	}
-
-	public PanierAchat getPanierAchat()
-	{
-		return this.panierAchat;
+		this.identifiant = "";
+		this.motDePasse = "";
+		this.estAuthentifie = false;
+		this.nom = "";
+		this.courriel = "";
+		this.adresse = new Adresse();
+		this.panierAchat = new PanierAchat();
 	}
 	
 	public boolean authentifier(String encryptedPassword)
@@ -40,6 +37,11 @@ public class Client extends AbstractModelObject implements Beanable
 		//TODO : Decrypt the password, test the password and return false if the password does not match
 		estAuthentifie = true;
 		return true;
+	}
+
+	public PanierAchat getPanierAchat()
+	{
+		return this.panierAchat;
 	}
 	
 	public int getId()

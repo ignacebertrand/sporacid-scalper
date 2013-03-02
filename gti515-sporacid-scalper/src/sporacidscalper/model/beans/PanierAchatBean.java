@@ -95,23 +95,6 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 		return items;
 	}
 	
-//	public void setItems(List<ItemPanierAchatBean> items)
-//	{
-//		this.items = items;
-//	}
-//	
-//	private List<ItemPanierAchat> toItemPanierAchatList(List<ItemPanierAchatBean> items)
-//	{
-//		List<ItemPanierAchat> ipas = new ArrayList<ItemPanierAchat>();
-//		
-//		for(ItemPanierAchatBean ipa : items)
-//		{
-//			ipas.add((ItemPanierAchat)ipa.getModelObject());
-//		}
-//		
-//		return ipas;
-//	}
-	
 	@Override
 	public AbstractModelObject getModelObject()
 	{
