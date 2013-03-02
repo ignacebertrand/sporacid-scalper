@@ -1,8 +1,5 @@
 package sporacidscalper.controller.viewcontroller;
 
-import java.text.NumberFormat;
-import java.text.DateFormat;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -24,6 +21,7 @@ import sporacidscalper.model.beans.RepresentationBean;
 import sporacidscalper.model.beans.SpectacleBean;
 import sporacidscalper.model.beans.TypeBilletRepresentationBean;
 import sporacidscalper.view.beans.FormulaireItemPanierAchat;
+import sporacidscalper.view.presentation.IPresentationPanierAchat;
 
 @Controller 
 public class PanierAchatController implements ApplicationContextAware
@@ -37,16 +35,10 @@ public class PanierAchatController implements ApplicationContextAware
 	private IGestionnaireSpectacle gestionnaireSpectacle;
 	
 	/**
-	 * Reference to the DateFormat implementation 
+	 * Reference to the IPresentationPanierAchat implementation
 	 * of the application context bean configuration.
 	 */
-	private DateFormat dateFormatter;
-	
-	/**
-	 * Reference to the NumberFormat for currencies implementation 
-	 * of the application context bean configuration.
-	 */
-	private NumberFormat currencyFormatter;
+	private IPresentationPanierAchat presentationPanierAchat;
 	
 	/**
 	 * Public controller method to obtain the shopping cart page.
@@ -60,8 +52,7 @@ public class PanierAchatController implements ApplicationContextAware
 		
 		mav.addObject("context", request.getContextPath());
 		mav.addObject("panierAchat", obtenirPanierAchat(request.getSession()));
-		mav.addObject("dateFormatter", dateFormatter);
-		mav.addObject("currencyFormatter", currencyFormatter);
+		mav.addObject("presentationPanierAchat", presentationPanierAchat);
 		
 		return mav;
 	}
@@ -201,15 +192,13 @@ public class PanierAchatController implements ApplicationContextAware
 	/**
 	 * Override for ApplicationContextAware interface
 	 * Set the shows manager for this controller to the one specified in the application context.
-	 * Set the date formatter for this controller to the one specified in the application context.
-	 * Set the currency formatter for this controller to the one specified in the application context.
+	 * Set the presentation formatter for this controller to the one specified in the application context.
 	 * @param context The application context object
 	 */	
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException 
 	{
 		gestionnaireSpectacle = context.getBean("gestionnaireSpectacle", IGestionnaireSpectacle.class);
-		dateFormatter = context.getBean("dateFormatter", DateFormat.class);
-		currencyFormatter = context.getBean("currencyFormatter", NumberFormat.class);
+		presentationPanierAchat = context.getBean("presentationPanierAchat", IPresentationPanierAchat.class);
 	}
 }
