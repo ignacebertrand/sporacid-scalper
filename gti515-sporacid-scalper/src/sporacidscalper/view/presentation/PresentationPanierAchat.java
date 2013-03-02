@@ -25,8 +25,8 @@ public class PresentationPanierAchat implements IPresentationPanierAchat
 
 	/**
 	 * Presentation logic for a shopping cart object.
-	 * @param panierAchat A shopping cart object to present.
-	 * @return A html formatted string for the shopping cart presentation.
+	 * @param panierAchat A shopping cart object to present
+	 * @return A html formatted string for the shopping cart presentation
 	 */
 	public String presenterPanierAchat(PanierAchatBean panierAchat)
 	{
@@ -54,9 +54,9 @@ public class PresentationPanierAchat implements IPresentationPanierAchat
 	}
 	
 	/**
-	 * 
-	 * @param itemPanierAchat
-	 * @return
+	 * Presentation logic for a shopping cart item object.
+	 * @param itemPanierAchat A shopping cart item object to present
+	 * @return A html formatted string for the shopping cart item presentation
 	 */
 	private String presenterItemPanierAchat(ItemPanierAchatBean itemPanierAchat)
 	{
@@ -169,18 +169,34 @@ public class PresentationPanierAchat implements IPresentationPanierAchat
 		return htmlBuffer.toString();
 	}
 
+	/**
+	 * Get the date formatter instance
+	 * @return The DateFormat instance
+	 */
 	public DateFormat getDateFormatter() {
 		return dateFormatter;
 	}
 
+	/**
+	 * Set the date formatter instance
+	 * @param dateFormatter The DateFormat instance to set
+	 */
 	public void setDateFormatter(DateFormat dateFormatter) {
 		this.dateFormatter = dateFormatter;
 	}
 
+	/**
+	 * Get the currency formatter instance
+	 * @return The NumberFormat instance
+	 */
 	public NumberFormat getCurrencyFormatter() {
 		return currencyFormatter;
 	}
 
+	/**
+	 * Set the currency formatter instance
+	 * @param currencyFormatter The NumberFormat instance to set
+	 */
 	public void setCurrencyFormatter(NumberFormat currencyFormatter) {
 		this.currencyFormatter = currencyFormatter;
 	}
