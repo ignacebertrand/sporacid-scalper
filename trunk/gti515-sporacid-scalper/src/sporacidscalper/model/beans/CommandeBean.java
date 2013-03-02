@@ -1,10 +1,12 @@
 package sporacidscalper.model.beans;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.Commande;
+import sporacidscalper.model.ItemCommande;
 
 public class CommandeBean extends AbstractBean implements Modelable
 {
@@ -13,9 +15,55 @@ public class CommandeBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -9198676745711308773L;
 	
-	private int noCommande;
+	private int id;
 	private Date dateCreation;
 	private List<ItemCommandeBean> items;
+	
+	public CommandeBean()
+	{
+		this(-1);
+	}
+	
+	public CommandeBean(int id)
+	{
+		this.id = id;
+		this.dateCreation = new Date();
+		this.items = new ArrayList<ItemCommandeBean>();
+	}
+	
+	public ItemCommandeBean obtenirItem(int itemId)
+	{
+		ItemCommandeBean itemToGet = null;
+			
+		for(ItemCommandeBean item : this.items)
+		{
+			if(item.getId() == itemId)
+			{
+				itemToGet = item;
+				break;
+			}
+		}
+		
+		return itemToGet;
+	}
+	
+	public void ajouterItem(ItemCommandeBean itemToAdd)
+	{
+		if(itemToAdd != null)
+		{	
+			this.items.add(itemToAdd);
+		}
+	}
+
+	public void supprimerItem(int itemIdToDelete)
+	{
+		supprimerItem(obtenirItem(itemIdToDelete));
+	}
+	
+	public void supprimerItem(ItemCommandeBean itemToDelete)
+	{
+		this.items.remove(itemToDelete);
+	}
 	
 	public double getTotal()
 	{
@@ -27,14 +75,9 @@ public class CommandeBean extends AbstractBean implements Modelable
 		return total;
 	}
 	
-	public int getNoCommande()
+	public int getId()
 	{
-		return noCommande;
-	}
-	
-	public void setNoCommande(int noCommande)
-	{
-		this.noCommande = noCommande;
+		return id;
 	}
 	
 	public Date getDateCreation()
@@ -52,18 +95,15 @@ public class CommandeBean extends AbstractBean implements Modelable
 		return items;
 	}
 	
-	public void setItems(List<ItemCommandeBean> items)
-	{
-		this.items = items;
-	}
-	
 	@Override
 	public AbstractModelObject getModelObject()
 	{
-		Commande c = new Commande();
+		Commande c = new Commande(this.id);
 		
 		c.setDateCreation(this.dateCreation);
-		c.setNoCommande(this.noCommande);
+		
+		for(ItemCommandeBean item : this.items)
+			c.ajouterItem((ItemCommande) item.getModelObject());
 		
 		return c;
 	}

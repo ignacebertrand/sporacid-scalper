@@ -10,10 +10,56 @@ import sporacidscalper.model.beans.ItemCommandeBean;
 
 public class Commande extends AbstractModelObject implements Beanable
 {
-	private int noCommande;
+	private int id;
 	private Date dateCreation;
 	private List<ItemCommande> items;
+	
+	public Commande()
+	{
+		this(-1);
+	}
+	
+	public Commande(int id)
+	{
+		this.id = id;
+		this.dateCreation = new Date();
+		this.items = new ArrayList<ItemCommande>();
+	}
+	
+	public ItemCommande obtenirItem(int itemId)
+	{
+		ItemCommande itemToGet = null;
+			
+		for(ItemCommande item : this.items)
+		{
+			if(item.getId() == itemId)
+			{
+				itemToGet = item;
+				break;
+			}
+		}
+		
+		return itemToGet;
+	}
+	
+	public void ajouterItem(ItemCommande itemToAdd)
+	{
+		if(itemToAdd != null)
+		{	
+			this.items.add(itemToAdd);
+		}
+	}
 
+	public void supprimerItem(int itemIdToDelete)
+	{
+		supprimerItem(obtenirItem(itemIdToDelete));
+	}
+	
+	public void supprimerItem(ItemCommande itemToDelete)
+	{
+		this.items.remove(itemToDelete);
+	}
+	
 	public double getTotal()
 	{
 		double total = 0;
@@ -24,14 +70,9 @@ public class Commande extends AbstractModelObject implements Beanable
 		return total;
 	}
 
-	public int getNoCommande()
+	public int getId()
 	{
-		return noCommande;
-	}
-
-	public void setNoCommande(int noCommande)
-	{
-		this.noCommande = noCommande;
+		return id;
 	}
 
 	public Date getDateCreation()
@@ -44,6 +85,11 @@ public class Commande extends AbstractModelObject implements Beanable
 		this.dateCreation = dateCreation;
 	}
 
+	public void setItems(List<ItemCommande> items)
+	{
+		this.items = items;
+	}
+	
 	public List<ItemCommande> getItems()
 	{
 		return items;
@@ -64,11 +110,12 @@ public class Commande extends AbstractModelObject implements Beanable
 	@Override
 	public AbstractBean getBean()
 	{
-		CommandeBean bean = new CommandeBean();
+		CommandeBean bean = new CommandeBean(this.id);
 		
 		bean.setDateCreation(this.dateCreation);
-		bean.setItems(this.toItemCommandeBeanList(this.items));
-		bean.setNoCommande(this.noCommande);
+		
+		for(ItemCommande item : this.items)
+			bean.ajouterItem((ItemCommandeBean) item.getBean());
 		
 		return bean;
 	}

@@ -12,15 +12,19 @@ public class Nouvelle extends AbstractModelObject implements Beanable
 	private String description;
 	private Date date;
 	private String auteur;
+
+	public Nouvelle()
+	{
+		this(-1);
+	}
 	
 	public Nouvelle(int id)
 	{
 		this.id = id;
-	}
-	
-	public Nouvelle()
-	{
-		this(-1);
+		this.titre = "";
+		this.description = "";
+		this.auteur = "";
+		this.date = new Date();
 	}
 	
 	public int getId()
