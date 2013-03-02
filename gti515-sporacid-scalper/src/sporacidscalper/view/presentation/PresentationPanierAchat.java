@@ -173,7 +173,8 @@ public class PresentationPanierAchat implements IPresentationPanierAchat
 	 * Get the date formatter instance
 	 * @return The DateFormat instance
 	 */
-	public DateFormat getDateFormatter() {
+	public DateFormat getDateFormatter() 
+	{
 		return dateFormatter;
 	}
 
@@ -181,7 +182,8 @@ public class PresentationPanierAchat implements IPresentationPanierAchat
 	 * Set the date formatter instance
 	 * @param dateFormatter The DateFormat instance to set
 	 */
-	public void setDateFormatter(DateFormat dateFormatter) {
+	public void setDateFormatter(DateFormat dateFormatter) 
+	{
 		this.dateFormatter = dateFormatter;
 	}
 
@@ -189,7 +191,8 @@ public class PresentationPanierAchat implements IPresentationPanierAchat
 	 * Get the currency formatter instance
 	 * @return The NumberFormat instance
 	 */
-	public NumberFormat getCurrencyFormatter() {
+	public NumberFormat getCurrencyFormatter() 
+	{
 		return currencyFormatter;
 	}
 
@@ -197,7 +200,8 @@ public class PresentationPanierAchat implements IPresentationPanierAchat
 	 * Set the currency formatter instance
 	 * @param currencyFormatter The NumberFormat instance to set
 	 */
-	public void setCurrencyFormatter(NumberFormat currencyFormatter) {
+	public void setCurrencyFormatter(NumberFormat currencyFormatter) 
+	{
 		this.currencyFormatter = currencyFormatter;
 	}
 }
