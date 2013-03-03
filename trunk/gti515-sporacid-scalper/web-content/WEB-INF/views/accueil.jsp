@@ -1,15 +1,19 @@
-<%@page import="java.text.DateFormat" %>
+<%@page import="sporacidscalper.view.presentation.IPresentationAccueil"%>
+<%@page import="java.util.List" %>
 <%@page import="sporacidscalper.model.beans.SpectacleBean" %>
 <%@page import="sporacidscalper.model.beans.NouvelleBean" %>
-<%@ page import="java.util.ArrayList;"%>
 
 <!DOCTYPE html>
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getAttribute("context");
-	NouvelleBean[] listeNouvelles = (NouvelleBean[]) request.getAttribute("listeNouvelles");
-	ArrayList<SpectacleBean> listeProchainsSpectacles = (ArrayList<SpectacleBean>) request.getAttribute("listeProchainsSpectacles");
-	DateFormat datetimeFormatter = (DateFormat) request.getAttribute("datetimeFormatter");
+
+	@SuppressWarnings("unchecked")
+	List<NouvelleBean> listeNouvelles = (List<NouvelleBean>)request.getAttribute("listeNouvelles");
+	
+	@SuppressWarnings("unchecked")
+	List<SpectacleBean> listeProchainsSpectacles = (List<SpectacleBean>) request.getAttribute("listeProchainsSpectacles");
+	IPresentationAccueil presentation = (IPresentationAccueil) request.getAttribute("presentationAccueil");
 %>
 <html>
 	<head>
@@ -18,6 +22,7 @@
 		<link rel="stylesheet" type="text/css" href="<%=contextAttr%>/styles/accueil.css" />
 		<script type="text/javascript" src="<%=contextAttr%>/scripts/jquery-1.9.0.min.js"></script>
 		<script type="text/javascript" src="<%=contextAttr%>/scripts/site-scripts.js"></script>
+		<script type="text/javascript" src="<%=contextAttr%>/scripts/spinner-script.js"></script>
 	</head>
 	<body>
 
@@ -30,61 +35,21 @@
 			<jsp:include page="partial-views/menu.jsp"></jsp:include>
 			
 			<div class="content">
+			
 				<div class="content-left-section">
-					<h2>Prochains spectacles</h2>
-					<div class="upcoming-shows-spinner-container">
-						<ul class="upcoming-shows-spinner-tabs">
-							<li class="upcoming-shows-spinner-back">&lt;</li>
-							<li class="upcoming-shows-spinner-button is-selected">1</li>
-							<li class="upcoming-shows-spinner-button">2</li>
-							<li class="upcoming-shows-spinner-button">3</li>
-							<li class="upcoming-shows-spinner-button">4</li>
-							<li class="upcoming-shows-spinner-button">5</li>
-							<li class="upcoming-shows-spinner-next">&gt;</li>
-						</ul>
-						<div class="upcoming-shows-spinner-content">
-						
-							<% for(int i = 0; i < 5 && i < listeProchainsSpectacles.size(); i++) { %>
-							
-								<% SpectacleBean spectacle = listeProchainsSpectacles.get(i); %>
-								
-								<div class="upcoming-shows-spinner-item">
-									<div class="upcoming-shows-spinner-item-image" 
-										 style="background-image: url(<%=spectacle.getPosterUrl()%>);">
-									</div>
-									<div class="upcoming-shows-spinner-item-description">
-										<%=spectacle.getDescription()%>
-									</div>
-								</div>
-							
-							<% } %>
-							
-						</div>
-					</div>
+					
+					<%=presentation.presenterProchainSpectacles(listeProchainsSpectacles) %>
+					
 					<div class="content-sections-separation"></div>
+					
 				</div>
+				
 				<div class="content-right-section">
-					<h2>Nouvelles</h2>
-					<div class="news-list-container">
-						<ul class="news-list">
-							
-							<% for(NouvelleBean nouvelle : listeNouvelles) { %>
-							
-								<li class="news-list-item">
-									<h3><%=nouvelle.getTitre()%></h3>
-									<p><%=nouvelle.getDescription()%></p>
-									<p class="news-signature"><%=nouvelle.getAuteur()%></p>
-									<p class="news-date"><%=datetimeFormatter.format(nouvelle.getDate())%></p>
-								</li>
-							
-							<% } %>
-							
-						</ul>
-						
-						<div class="upcoming-shows-spinner-content">
-						</div>
-					</div>
+				
+					<%=presentation.presenterNouvelles(listeNouvelles) %>
+					
 				</div>
+				
 			</div>
 		</div>
 		
@@ -92,114 +57,4 @@
 		<jsp:include page="partial-views/footer.jsp"></jsp:include>
 		
 	</body>
-	
-	<script type="text/javascript">
-	
-		// Length in miliseconds between each of the spinner thread's execution
-		var cSpinnerSpinLength = 5000;
-		
-		// Length in milliseconds for the fade in/out of the spin
-		var cSpinnerFadeLength = 350;
-	
-		$(document).ready(
-			function()
-			{
-				var spinner = $(".upcoming-shows-spinner-container");
-				var spinnerButtons = spinner.find(".upcoming-shows-spinner-button");
-				var spinnerItems = spinner.find(".upcoming-shows-spinner-item");
-					
-				for(var i = spinnerItems.length; i < spinnerButtons.length; i++)
-					spinnerButtons.eq(i).addClass("is-disabled");
-					
-				// Thread to turn the container into a spinner
-				var fctThreadSpinner = function()
-				{
-					var selectedButton = spinnerButtons.filter(".is-selected");
-					var index = spinnerButtons.index(selectedButton);
-					var buttonToClick = spinnerButtons.eq(index + 1);
-
-					if(buttonToClick.hasClass("is-disabled"))
-						buttonToClick = spinnerButtons.eq(0);
-					
-					buttonToClick.click();
-				};
-				
-				var threadSpinner = setInterval(fctThreadSpinner, cSpinnerSpinLength);
-				
-				// On button click, reset the thread
-				spinner.find(".upcoming-shows-spinner-button, .upcoming-shows-spinner-back, .upcoming-shows-spinner-next").click(
-					function(event)
-					{
-						clearInterval(threadSpinner);
-						threadSpinner = setInterval(fctThreadSpinner, cSpinnerSpinLength);
-					}
-				);
-				
-				//Individual tab click handling
-				//Shows the chosen spinner item
-				spinner.find(".upcoming-shows-spinner-button").click(
-					function()
-					{
-						var index = spinnerButtons.index(this);
-						var itemToShow = spinnerItems.eq(index);
-		
-						if(itemToShow.length === 1)
-						{
-							spinnerButtons.removeClass("is-selected");
-							$(this).addClass("is-selected");
-							
-							spinnerItems.not(":eq(" +  index + ")").hide();
-							itemToShow.fadeIn(cSpinnerFadeLength); 
-						}
-					}
-				);
-				
-				//Next tab click handling
-				//Shows the next spinner item
-				spinner.find(".upcoming-shows-spinner-back").click(
-					function()
-					{
-						var index = spinnerItems.index($(".upcoming-shows-spinner-item:visible")) - 1;
-						
-						if(index >= 0)
-						{
-							var itemToShow = spinnerItems.eq(index);
-							
-							if(itemToShow.length === 1)
-							{
-								spinnerButtons.removeClass("is-selected");
-								spinnerButtons.eq(index).addClass("is-selected");
-								
-								spinnerItems.not(":eq(" +  index + ")").hide();
-								itemToShow.fadeIn(cSpinnerFadeLength); 
-							}
-						}
-					}
-				);
-				
-				//Previous tab click handling
-				//Shows the previous spinner item
-				spinner.find(".upcoming-shows-spinner-next").click(
-					function()
-					{
-						var index = spinnerItems.index($(".upcoming-shows-spinner-item:visible")) + 1;
-						
-						if(index <= spinnerItems.length)
-						{
-							var itemToShow = spinnerItems.eq(index);
-							
-							if(itemToShow.length === 1)
-							{
-								spinnerButtons.removeClass("is-selected");
-								spinnerButtons.eq(index).addClass("is-selected");
-								
-								spinnerItems.not(":eq(" +  index + ")").hide();
-								itemToShow.fadeIn(cSpinnerFadeLength); 
-							}
-						}
-					}
-				);
-			}
-		);
-	</script>
 </html>

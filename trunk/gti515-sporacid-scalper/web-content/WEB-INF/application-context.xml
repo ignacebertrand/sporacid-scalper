@@ -55,6 +55,13 @@
  			class="sporacidscalper.controller.modelcontroller.GestionnaireTransaction"
 		 	scope="singleton">
 	</bean>
+	
+	<!-- Bean definition for the home presentation manager -->
+	<bean id="presentationAccueil" name="presentationAccueil" 
+ 			class="sporacidscalper.view.presentation.PresentationAccueil"
+		 	scope="singleton">
+	 	<property name="datetimeFormatter" ref="datetimeFormatter" />
+	</bean>
 
 	<!-- Bean definition for the shopping cart presentation manager -->
 	<bean id="presentationPanierAchat" name="presentationPanierAchat" 
