@@ -1,5 +1,7 @@
 package sporacidscalper.controller.modelcontroller;
 
+import java.util.List;
+
 import sporacidscalper.model.beans.NouvelleBean;
 
 public interface IGestionnaireNouvelle 
@@ -31,5 +33,5 @@ public interface IGestionnaireNouvelle
 	 * Public method to obtain all news from the system.
 	 * @return The list of all news
 	 */
-	public NouvelleBean[] obtenirNouvelles();
+	public List<NouvelleBean> obtenirNouvelles();
 }
