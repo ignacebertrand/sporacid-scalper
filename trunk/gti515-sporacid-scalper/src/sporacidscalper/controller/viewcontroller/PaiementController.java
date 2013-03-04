@@ -5,13 +5,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Controller; 
-import org.springframework.web.bind.annotation.RequestMapping; 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-//import sporacidscalper.controller.modelcontroller.IGestionnaireClient;
+import sporacidscalper.controller.modelcontroller.IGestionnaireClient;
 import sporacidscalper.controller.modelcontroller.IGestionnaireTransaction;
 import sporacidscalper.model.beans.ClientBean;
+import sporacidscalper.view.presentation.IPresentationPaiement;
+//import sporacidscalper.controller.modelcontroller.IGestionnaireClient;
 
 @Controller 
 public class PaiementController implements ApplicationContextAware
@@ -20,13 +22,19 @@ public class PaiementController implements ApplicationContextAware
 	 * Reference to the IGestionnaireClient implementation
 	 * of the application context bean configuration.
 	 */
-	//private IGestionnaireClient gestionnaireClient;
+	private IGestionnaireClient gestionnaireClient;
 	
 	/**
 	 * Reference to the IGestionnaireTransaction implementation
 	 * of the application context bean configuration.
 	 */
 	private IGestionnaireTransaction gestionnaireTransaction;
+	
+	/**
+	 * Reference to the IGestionnaireTransaction implementation
+	 * of the application context bean configuration.
+	 */
+	private IPresentationPaiement presentationPaiement;
 	
 	/**
 	 * 
@@ -42,6 +50,7 @@ public class PaiementController implements ApplicationContextAware
 		
 		mav.addObject("context", request.getContextPath());
 		mav.addObject("client", new ClientBean());
+		mav.addObject("presentationPaiement", presentationPaiement);
 		
 		// TODO aller chercher le client courant, mais il n'y a pas encore d'authentification, 
 		//alors on supposera que c'Est un nouveau client
@@ -58,7 +67,8 @@ public class PaiementController implements ApplicationContextAware
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException 
 	{
-		//gestionnaireClient = context.getBean("gestionnaireClient", IGestionnaireClient.class);
+		gestionnaireClient = context.getBean("gestionnaireClient", IGestionnaireClient.class);
 		gestionnaireTransaction = context.getBean("gestionnaireTransaction", IGestionnaireTransaction.class);
+		presentationPaiement = context.getBean("presentationPaiement", IPresentationPaiement.class);
 	}
 }
