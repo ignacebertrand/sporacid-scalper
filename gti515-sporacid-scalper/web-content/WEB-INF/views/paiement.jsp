@@ -25,7 +25,7 @@
 
 			<div class="content">
 		
-				<form action="">
+				<form id="formPaiementSecurise" method="POST" action="<%=contextAttr%>/paiement/confirmer-paiement-securise">
 				
 					<%=presentation.presenterFormulairePaiement() %>
 					
