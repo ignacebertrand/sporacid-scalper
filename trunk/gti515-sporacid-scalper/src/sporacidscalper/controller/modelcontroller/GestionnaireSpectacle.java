@@ -326,7 +326,7 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	{
 		List<SalleBean> catalog = new ArrayList<SalleBean>();
 		
-		List<Salle> salles = (List<Salle>)StubFactory.getInstance().getStubSalle();
+		List<Salle> salles = (List<Salle>)StubFactory.getInstance().getStubSalles();
 		for(Salle s : salles)
 		{
 			catalog.add((SalleBean)s.getBean());
