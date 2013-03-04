@@ -34,10 +34,10 @@ public class AdminController implements ApplicationContextAware
 	{
 		ModelAndView mav = new ModelAndView("admin");
 		mav.addObject("context", request.getContextPath());
-		mav.addObject("listeArtistes", gestionnaireSpectacle.obtenirArtistes());
-		mav.addObject("listeSalles", gestionnaireSpectacle.obtenirSalles());
+		mav.addObject("listeArtistes", gestionnaireSpectacle.obtenirCatalogueArtistes());
+		mav.addObject("listeSalles", gestionnaireSpectacle.obtenirCatalogueSalles());
 		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirSpectacles());
-		mav.addObject("listeTypesSpectacle", gestionnaireSpectacle.obtenirTypesSpectacle());
+		mav.addObject("listeTypesSpectacle", gestionnaireSpectacle.obtenirCatalogueTypeSpectacle());
 		return mav;
 	}
 	
