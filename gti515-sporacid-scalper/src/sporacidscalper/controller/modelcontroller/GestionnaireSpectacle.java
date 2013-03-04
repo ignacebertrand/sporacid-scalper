@@ -2,7 +2,6 @@ package sporacidscalper.controller.modelcontroller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import sporacidscalper.controller.modelcontroller.IGestionnaireTransaction;
 import sporacidscalper.model.Artiste;
@@ -29,7 +28,7 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 */
 	public GestionnaireSpectacle()
 	{
-		this.listeSpectacles = (Vector<Spectacle>)StubFactory.getInstance().getStubSpectacles();
+		this.listeSpectacles = (List<Spectacle>)StubFactory.getInstance().getStubSpectacles();
 	}
 
 	/**
@@ -272,7 +271,6 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 		//that I haven't put.
 		throw new UnsupportedOperationException();
 	}
-
 
 	/**
 	 * Public method that fetches all the artists from all the shows and
