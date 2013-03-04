@@ -5,6 +5,7 @@ import java.util.List;
 
 import sporacidscalper.model.beans.NouvelleBean;
 import sporacidscalper.model.beans.SpectacleBean;
+import sporacidscalper.view.presentation.util.HtmlUtilities;
 
 public class PresentationAccueil implements IPresentationAccueil
 {
@@ -40,7 +41,7 @@ public class PresentationAccueil implements IPresentationAccueil
 			htmlBuffer.append("</div>");
 		}
 		
-		return htmlBuffer.toString();
+		return HtmlUtilities.formatHtml(htmlBuffer.toString());
 	}
 	
 	/**
@@ -109,7 +110,7 @@ public class PresentationAccueil implements IPresentationAccueil
 			htmlBuffer.append("</div>");
 		}
 	
-		return htmlBuffer.toString();
+		return HtmlUtilities.formatHtml(htmlBuffer.toString());
 	}
 	
 	/**

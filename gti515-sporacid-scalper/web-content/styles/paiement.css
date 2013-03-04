@@ -14,10 +14,17 @@
 	background-image: url("images/logo_small.png");
 	background-position: 20px center;
 	background-repeat: no-repeat;
-	width: 50%;
+	width: 450px;
 }
 
 .payment-controller .generic-button
 {
 	padding: 3px 10px;
+}
+
+.content form .generic-label
+{
+	display: inline-block;
+	width: 120px;
+	text-align: right;
 }

@@ -10,6 +10,7 @@ import sporacidscalper.model.beans.RepresentationBean;
 import sporacidscalper.model.beans.SpectacleBean;
 import sporacidscalper.model.beans.TypeBilletBean;
 import sporacidscalper.model.beans.TypeBilletRepresentationBean;
+import sporacidscalper.view.presentation.util.HtmlUtilities;
 
 public class PresentationPanierAchat implements IPresentationPanierAchat
 {
@@ -50,7 +51,7 @@ public class PresentationPanierAchat implements IPresentationPanierAchat
 		htmlBuffer.append("</div>");
 		htmlBuffer.append("</div>");
 		
-		return htmlBuffer.toString();
+		return HtmlUtilities.formatHtml(htmlBuffer.toString());
 	}
 	
 	/**
