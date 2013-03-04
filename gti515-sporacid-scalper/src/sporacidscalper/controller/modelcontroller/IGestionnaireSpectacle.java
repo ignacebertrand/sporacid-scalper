@@ -71,7 +71,7 @@ public interface IGestionnaireSpectacle
 	 */
 	public List<ArtisteBean> obtenirCatalogueArtistes();
 	/**
-	 *  Public method to obtain the list of all Salle in the system.
+	 * Public method to obtain the list of all Salle in the system.
 	 * @return The list of all Salle
 	 */
 	public List<SalleBean> obtenirCatalogueSalles();
