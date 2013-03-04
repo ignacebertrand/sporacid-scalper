@@ -1,21 +1,18 @@
 package sporacidscalper.view.presentation;
 
-import sporacidscalper.model.beans.ClientBean;
 import sporacidscalper.view.presentation.util.HtmlUtilities;
 
 public class PresentationPaiement implements IPresentationPaiement
 {
 	/**
-	 * 
-	 * @return
+	 * Presentation logic for a payment form.
+	 * @return A html formatted string for the payment form presentation
 	 */
-	public String presenterFormulairePaiement(ClientBean client)
+	public String presenterFormulairePaiement()
 	{
 		StringBuffer htmlBuffer = new StringBuffer();
 		
 		htmlBuffer.append("<h2>Paiement sécurisé</h2>");
-		
-		htmlBuffer.append("<input type=\"hidden\" name=\"client.id\" />");
 		
 		htmlBuffer.append(presenterFormulaireInfoLivraison());
 		htmlBuffer.append(presenterFormulaireInfoPaiement());
@@ -28,8 +25,8 @@ public class PresentationPaiement implements IPresentationPaiement
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Presentation logic for a delivery address information form.
+	 * @return A html formatted string for the delivery address information form presentation
 	 */
 	private String presenterFormulaireInfoLivraison()
 	{
@@ -39,7 +36,7 @@ public class PresentationPaiement implements IPresentationPaiement
 		
 		htmlBuffer.append("<div class=\"payment-description-item\">");
 		htmlBuffer.append("<label for=\"name\" class=\"generic-label\">Nom :</label>");
-		htmlBuffer.append("input type=\"text\" name=\"name\" class=\"generic-textbox\" />");
+		htmlBuffer.append("<input type=\"text\" name=\"name\" class=\"generic-textbox\" />");
 		htmlBuffer.append("</div>");
 		
 		htmlBuffer.append("<div class=\"payment-description-item\">");
@@ -76,8 +73,8 @@ public class PresentationPaiement implements IPresentationPaiement
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Presentation logic for a payment information form.
+	 * @return A html formatted string for the payment information form presentation
 	 */
 	private String presenterFormulaireInfoPaiement()
 	{
