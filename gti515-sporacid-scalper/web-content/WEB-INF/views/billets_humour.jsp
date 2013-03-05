@@ -1,8 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ page import="java.text.DateFormat" %>
+<%@page import="sporacidscalper.view.presentation.IPresentationBillets"%>
 <%@ page import="sporacidscalper.model.beans.SpectacleBean"%>
-<%@ page import="sporacidscalper.model.beans.RepresentationBean"%>
-<%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 
 <!DOCTYPE html>
@@ -10,9 +8,8 @@
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getAttribute("context");
-	SpectacleBean[] listeSpectacles = (SpectacleBean[]) request.getAttribute("listeSpectacles");
-	DateFormat dateFormatter = (DateFormat) request.getAttribute("dateFormatter");
-	DateFormat timeFormatter = (DateFormat) request.getAttribute("timeFormatter");
+	List<SpectacleBean> listeSpectacles = (List<SpectacleBean>) request.getAttribute("listeSpectacles");
+	IPresentationBillets presentation = (IPresentationBillets) request.getAttribute("presentationBillets");
 %>
 <html>
 	<head>
@@ -47,12 +44,14 @@
 				</form>
 				
 				<ul class="event-list">
-					<%for(SpectacleBean spectacle : listeSpectacles){%>
+					<%for(SpectacleBean spectacle : listeSpectacles){
+					//spectacle.getArtistes()
+					%>
 					<li class="event-list-item">
 						<div class="event-list-item-image" style="background-image: url(../<%=spectacle.getPosterUrl()%>);"></div>
 						<div class="event-list-item-content">
 							<h1 class="event-list-item-content-title"><%=spectacle.getNom()%></h1>
-							<h2 class="event-list-item-content-artists"><%=spectacle.getArtistes()%></h2>
+							<%=presentation.getAppendedArtists(spectacle.getArtistes())%>
 							<p class="event-list-item-content-desc"><%=spectacle.getDescription()%></p>
 							<div class="event-list-item-tags-container">
 								<a class="event-list-item-tag" href="#a">Châteauguay</a>
@@ -65,14 +64,7 @@
 							<label class="generic-label">Représentation :</label>
 							<select class="generic-select event-list-item-representation-select">
 								<option value="-1">-----</option>
-								<%
-								List<RepresentationBean> representations = spectacle.getRepresentations();
-								for(int i=0;i < representations.size();i++){ 
-									//DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-									//DateFormat timeFormat = new SimpleDateFormat("H:mm");
-								%>
-								<option value="<%=i%>">Le <%=dateFormatter.format(representations.get(i).getDateDebutRepresentation())%> <%=timeFormatter.format(representations.get(i).getDateDebutRepresentation())%> à <%=timeFormatter.format(representations.get(i).getDateDebutRepresentation())%></option>
-								<%}%>
+								<%=presentation.getRepresentationsListIem(spectacle.getRepresentations())%>
 							</select>
 							<label class="generic-label">Quantité :</label>
 							<select class="generic-select event-list-item-quantity-select">

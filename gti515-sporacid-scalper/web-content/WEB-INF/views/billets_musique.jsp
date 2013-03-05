@@ -1,9 +1,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ page import="java.text.DateFormat" %>
-<%@ page import="sporacidscalper.model.beans.SpectacleBean"%>
-<%@ page import="sporacidscalper.model.beans.RepresentationBean"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="java.util.List"%>
+<%@page import="sporacidscalper.view.presentation.IPresentationBillets"%>
+<%@page import="sporacidscalper.model.beans.SpectacleBean"%>
+<%@page import="sporacidscalper.model.beans.TypeSpectacleBean"%>
+<%@page import="java.util.List"%>
 
 <!DOCTYPE html>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
@@ -11,9 +10,9 @@
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getAttribute("context");
-	SpectacleBean[] listeSpectacles = (SpectacleBean[]) request.getAttribute("listeSpectacles");
-	DateFormat dateFormatter = (DateFormat) request.getAttribute("dateFormatter");
-	DateFormat timeFormatter = (DateFormat) request.getAttribute("timeFormatter");
+	List<SpectacleBean> listeSpectacles = (List<SpectacleBean>) request.getAttribute("listeSpectacles");
+	List<TypeSpectacleBean> listeTypes = (List<TypeSpectacleBean>) request.getAttribute("listeTypes");
+	IPresentationBillets presentation = (IPresentationBillets) request.getAttribute("presentationBillets");
 %>
 <html>
 	<head>
@@ -38,12 +37,8 @@
 				<div class="event-filters-container">
 					<label for="select_category" class="generic-label">Catégories :</label>
 					<select id="select_category" class="generic-select">
-						<option value="-1">Tout</option>
-						<option value="1">Blues</option>
-						<option value="2">Classique</option>
-						<option value="3">Heavy Metal</option>
-						<option value="4">Jazz</option>
-						<option value="5">Rock</option>
+						<option value="-1">Toutes</option>
+						<%=presentation.getTypesListItem(listeTypes)%>
 					</select>
 					<label for="textbox_search_criteria" class="generic-label">Recherche par mot clé :</label>
 					<input type="text" id="textbox_search_criteria" class="generic-textbox" />
@@ -55,14 +50,14 @@
 					<input type="hidden" id="hiddenRepresentationId" name="representationId" />
 					<input type="hidden" id="hiddenTypeBilletId" name="typeBilletId" />
 				</form>
-				
+		
 				<ul class="event-list">
 					<%for(SpectacleBean spectacle : listeSpectacles){%>						
 					<li class="event-list-item">
 						<div class="event-list-item-image" style="background-image: url(../<%=spectacle.getPosterUrl()%>);"></div>
 						<div class="event-list-item-content">
 							<h1 class="event-list-item-content-title"><%=spectacle.getNom()%></h1>
-							<h2 class="event-list-item-content-artists"><%=spectacle.getArtistes()%></h2>
+							<%=presentation.getAppendedArtists(spectacle.getArtistes())%>
 							<p class="event-list-item-content-desc"><%=spectacle.getDescription()%></p>
 							<div class="event-list-item-tags-container">
 								<a class="event-list-item-tag" href="#a">Club d'âge d'or</a>
@@ -75,14 +70,7 @@
 							<label class="generic-label">Représentation :</label>
 							<select class="generic-select event-list-item-representation-select">
 								<option value="-1">-----</option>
-								<%
-								List<RepresentationBean> representations = spectacle.getRepresentations();
-								for(int i=0;i < representations.size();i++){ 
-									//DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-									//DateFormat timeFormat = new SimpleDateFormat("H:mm");
-								%>
-								<option value="<%=i%>">Le <%=dateFormatter.format(representations.get(i).getDateDebutRepresentation())%> <%=timeFormatter.format(representations.get(i).getDateDebutRepresentation())%> à <%=timeFormatter.format(representations.get(i).getDateDebutRepresentation())%></option>
-								<%}%>
+								<%=presentation.getRepresentationsListIem(spectacle.getRepresentations())%>
 							</select>
 							<label class="generic-label">Quantité :</label>
 							<select class="generic-select event-list-item-quantity-select">
