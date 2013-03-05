@@ -77,4 +77,12 @@
 		 	scope="singleton">
 	</bean>
 	
+	<!-- Bean definition for the ticket presentation manager -->
+	<bean id="presentationBillets" name="presentationBillets" 
+ 			class="sporacidscalper.view.presentation.PresentationBillets"
+		 	scope="singleton">
+	 	<property name="dateFormatter" ref="dateFormatter" />
+	 	<property name="timeFormatter" ref="timeFormatter" />
+	</bean>
+	
 </beans>

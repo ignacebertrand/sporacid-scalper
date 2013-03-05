@@ -1,7 +1,5 @@
 package sporacidscalper.controller.viewcontroller;
 
-import java.text.DateFormat;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.BeansException;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import sporacidscalper.controller.modelcontroller.IGestionnaireSpectacle;
+import sporacidscalper.view.presentation.IPresentationBillets;
 
 @Controller 
 public class BilletsController implements ApplicationContextAware
@@ -21,13 +20,12 @@ public class BilletsController implements ApplicationContextAware
 	 * of the application context bean configuration.
 	 */
 	private IGestionnaireSpectacle gestionnaireSpectacle;
-	
+
 	/**
-	 * Reference to the DateFormat implementation 
+	 * Reference to the IPresentationAccueil implementation
 	 * of the application context bean configuration.
 	 */
-	private DateFormat dateFormatter;
-	private DateFormat timeFormatter;
+	private IPresentationBillets presentationBillets;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/billets-musique")
 	public ModelAndView getBilletsMusique(HttpServletRequest request)
@@ -36,8 +34,8 @@ public class BilletsController implements ApplicationContextAware
 		
 		mav.addObject("context", request.getContextPath());
 		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirSpectacles());
-		mav.addObject("dateFormatter", dateFormatter);
-		mav.addObject("timeFormatter", timeFormatter);
+		mav.addObject("listeTypes", gestionnaireSpectacle.obtenirCatalogueTypeSpectacle());
+		mav.addObject("presentationBillets", presentationBillets);
 		
 		return mav;
 	}
@@ -49,8 +47,6 @@ public class BilletsController implements ApplicationContextAware
 		
 		mav.addObject("context", request.getContextPath());
 		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirSpectacles());
-		mav.addObject("dateFormatter", dateFormatter);
-		mav.addObject("timeFormatter", timeFormatter);
 		
 		return mav;
 	}
@@ -65,7 +61,6 @@ public class BilletsController implements ApplicationContextAware
 	public void setApplicationContext(ApplicationContext context) throws BeansException 
 	{
 		gestionnaireSpectacle = context.getBean("gestionnaireSpectacle", IGestionnaireSpectacle.class);
-		dateFormatter = context.getBean("dateFormatter", DateFormat.class);
-		timeFormatter = context.getBean("timeFormatter", DateFormat.class);
+		presentationBillets = context.getBean("presentationBillets", IPresentationBillets.class);
 	}
 }

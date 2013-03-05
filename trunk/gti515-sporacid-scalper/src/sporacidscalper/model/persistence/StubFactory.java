@@ -115,6 +115,8 @@ public class StubFactory
 		typeBilletRepresentation.setType(typeBillet);
 		r.ajouterTypeBilletRepresentation(typeBilletRepresentation);
 		r.setSalle(this.listeSalles.get(2));
+		r.setDateDebutRepresentation(new Date());
+		r.setDateFinRepresentation(new Date());
 		s1.ajouterRepresentation(r);
 
 		Spectacle s2 = new Spectacle(2);
