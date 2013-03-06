@@ -95,7 +95,7 @@ public class PresentationPanierAchat implements IPresentationPanierAchat
 			for(ArtisteBean artiste : spectacle.getArtistes())
 				artistesDesc.append(artiste.getNom() + ", ");
 			
-			artistesDesc.replace(artistesDesc.length() - ", ".length() - 1, artistesDesc.length() - 1, "");
+			artistesDesc.replace(artistesDesc.length() - ", ".length(), artistesDesc.length() - 1, "");
 			
 			String itemTitle = spectacle.getDescription() + "  -  " + 
 					typeBilletRepresentation.getType().getNom() + "  -  Prix unitaire : " +
