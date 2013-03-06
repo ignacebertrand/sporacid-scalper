@@ -15,6 +15,10 @@
 	// to set the formatter in every controllers which is very unpractical
 	NumberFormat currencyFormatter = WebApplicationContextUtils.getWebApplicationContext(application).getBean("currencyFormatter", NumberFormat.class);
 %>
+	
+<%-- Include the messages container in the page --%>
+<jsp:include page="messages.jsp"></jsp:include>
+			
 <div class="menu-container">
 	<ul class="menu">
 		<li id="accueil_menu_item" class="menu-item">
@@ -46,7 +50,7 @@
 				Aucun item dans le panier 
 			<% } %>
 			
-			(Total: <span class="shopping-cart-total"><%=(shoppingCartTotal != null ? currencyFormatter.format(shoppingCartTotal) : "") %>)</span>
+			(Total: <span class="shopping-cart-total"><%=(shoppingCartTotal != null ? currencyFormatter.format(shoppingCartTotal) : currencyFormatter.format(0.0)) %>)</span>
 		</a>
 		<div class="shopping-cart-button generic-button"></div>
 	</div>

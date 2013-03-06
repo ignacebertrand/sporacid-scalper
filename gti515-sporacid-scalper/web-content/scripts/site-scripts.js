@@ -4,6 +4,9 @@
 $(document).ready(
 	function()
 	{
+		//Shows the server message with a timeout (Hide it after a certain number of milliseconds)
+		setServerMessageTimer();
+		
 		//On window resize, resize the whole document.
 		//Keeps the document "full screen"
 		$(window).resize(
@@ -41,6 +44,14 @@ $(document).ready(
 				window.location = $(".shopping-cart-desc").attr("href");
 			}
 		);
+		
+
+		// Business rule 10
+		// Free reservations in the shopping cart if there's 10 min of inactivity
+		setTimeout(libererReservations, 10 * 60 * 1000);
+		
+		// Free reservations in the shopping cart if the client quits
+		window.onbeforeunload = libererReservations;
 	}
 );
 
@@ -55,4 +66,60 @@ function resizeContent()
 	contentHeight -= 60;
 	
 	$(".content").height(contentHeight);
+}
+
+/*
+ * Free reservation in the shopping cart
+ */
+function libererReservations()
+{
+	// Submit an empty form to access the POST method
+	$("<form></form>").attr("action", "/gti515-sporacid-scalper/panier-achat/supprimer-panier-achat").attr("method", "POST").submit();
+}
+
+/*
+ * 
+ */
+function setServerMessageTimer()
+{
+   //Used to clear the timeout
+   var timeoutIdentifier = -1;
+
+   //Set the timeout in a function because we'll call it a couple of times.
+   var timeout = function (pTimeoutTime, pFadeOutTime)
+   {
+      timeoutIdentifier = setTimeout(
+         function ()
+         {
+            $(".application-messages").fadeOut(pFadeOutTime, "linear",
+               function ()
+               {
+                  $(this).remove();
+               }
+            );
+         }
+      , pTimeoutTime);
+   };
+
+   //Basically we want the message to dissappear unless we hover on it.
+   //When hovered in the message will last forever,
+   //When hovered out, the timeout is reset.
+   $(".application-messages").mouseover(
+      function ()
+      {
+         $(this).stop();
+         $(this).css("opacity", "1");
+
+         clearTimeout(timeoutIdentifier);
+
+         $(this).one("mouseout",
+            function ()
+            {
+               timeout(350, 350);
+            }
+         );
+      }
+   );
+
+   timeout(1000, 500);
 }

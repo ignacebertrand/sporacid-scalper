@@ -10,8 +10,13 @@
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getContextPath();
+
+	@SuppressWarnings("unchecked")
 	List<SpectacleBean> listeSpectacles = (List<SpectacleBean>) request.getAttribute("listeSpectacles");
+	
+	@SuppressWarnings("unchecked")
 	List<TypeSpectacleBean> listeTypes = (List<TypeSpectacleBean>) request.getAttribute("listeTypes");
+	
 	IPresentationBillets presentation = (IPresentationBillets) request.getAttribute("presentationBillets");
 %>
 <html>
@@ -111,6 +116,9 @@
 						$("form #hiddenSpectacleId").val("1");
 						$("form #hiddenRepresentationId").val("1");
 						$("form #hiddenTypeBilletId").val("1");
+						
+						window.location = window.location + "#2"
+						
 						
 						$("form").submit(
 							/*function()
