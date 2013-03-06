@@ -51,6 +51,7 @@
 					//spectacle.getArtistes()
 					%>
 					<li class="event-list-item">
+						<input type="hidden" class="hiddenSpectacleId" value="<%=spectacle.getSpectacleId()%>"/>
 						<div class="event-list-item-image" style="background-image: url(../<%=spectacle.getPosterUrl()%>);"></div>
 						<div class="event-list-item-content">
 							<h1 class="event-list-item-content-title"><%=spectacle.getNom()%></h1>
@@ -102,22 +103,28 @@
 			function()
 			{
 				$(".event-list-item-addtocart-button").click(
-						function()
-						{
-							$("form #hiddenQuantite").val("4");
-							$("form #hiddenSpectacleId").val("1");
-							$("form #hiddenRepresentationId").val("1");
-							$("form #hiddenTypeBilletId").val("1");
-							
-							$("form").submit(
-								/*function()
-								{
-									// Prevent redirection
-									return false;
-								}*/
-							);
-						}
-					);
+					function()
+					{
+						var item = $(this).parents(".event-list-item");
+						var qte = item.find(".event-list-item-quantity-select option:selected").val();
+						var spectacleId = item.find(".hiddenSpectacleId").val();
+						var represId = item.find(".event-list-item-representation-select option:selected").val();
+						var typeBilletId = 1 /*item.find(". option:selected").val()*/;
+						
+						$("form #hiddenQuantite").val(qte);
+						$("form #hiddenSpectacleId").val(spectacleId);
+						$("form #hiddenRepresentationId").val(represId);
+						$("form #hiddenTypeBilletId").val(typeBilletId);
+						
+						$("form").submit(
+							/*function()
+							{
+								// Prevent redirection
+								return false;
+							}*/
+						);
+					}
+				);
 			}
 		);
 	</script>
