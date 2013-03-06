@@ -42,13 +42,14 @@ public class PresentationBillets implements IPresentationBillets
 		return htmlBuffer.toString();
 	}
 	
-	public String getRepresentationsListIem(List<RepresentationBean> representations)
+	public String getRepresentationsListItem(List<RepresentationBean> representations)
 	{
 		StringBuffer htmlBuffer = new StringBuffer();
 		
 		for(int i=0;i < representations.size();i++)
 		{
 			RepresentationBean representation = representations.get(i);
+			
 			if(representation.getDateDebutRepresentation() != null &&
 			   representation.getDateFinRepresentation() != null)
 			{
@@ -71,12 +72,14 @@ public class PresentationBillets implements IPresentationBillets
 	{
 		StringBuffer htmlBuffer = new StringBuffer();
 		
-		for(int i=0;i < types.size();i++){
+		for(int i = 0;i < types.size(); i++)
+		{
+			TypeSpectacleBean type = types.get(i);
 			
 			htmlBuffer.append("<option value=");
-			htmlBuffer.append(i);
+			htmlBuffer.append(type.getId());
 			htmlBuffer.append(">");
-			htmlBuffer.append(types.get(i).getNom());
+			htmlBuffer.append(type.getNom());
 			htmlBuffer.append("</option>");
 		}
 		

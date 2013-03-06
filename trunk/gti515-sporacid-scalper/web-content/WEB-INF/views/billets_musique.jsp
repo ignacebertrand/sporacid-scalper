@@ -78,7 +78,7 @@
 							<label class="generic-label">Représentation :</label>
 							<select class="generic-select event-list-item-representation-select">
 								<option value="-1">-----</option>
-								<%=presentation.getRepresentationsListIem(spectacle.getRepresentations())%>
+								<%=presentation.getRepresentationsListItem(spectacle.getRepresentations())%>
 							</select>
 							<label class="generic-label">Quantité :</label>
 							<select class="generic-select event-list-item-quantity-select">
@@ -122,16 +122,17 @@
 						var represId = item.find(".event-list-item-representation-select option:selected").val();
 						var typeBilletId = 1 /*item.find(". option:selected").val()*/;
 						
-						alert(qte + " " + spectacleId + " " + represId + " " + typeBilletId);
-						
-						var form = $("form");
-						
-						form.find("#hiddenQuantite").val(qte);
-						form.find("#hiddenSpectacleId").val(spectacleId);
-						form.find("#hiddenRepresentationId").val(represId);
-						form.find("#hiddenTypeBilletId").val(typeBilletId);
-						
-						form.submit();
+						if(qte > 0 && spectacleId > 0 && represId > 0 && typeBilletId > 0)
+						{
+							var form = $("form");
+							
+							form.find("#hiddenQuantite").val(qte);
+							form.find("#hiddenSpectacleId").val(spectacleId);
+							form.find("#hiddenRepresentationId").val(represId);
+							form.find("#hiddenTypeBilletId").val(typeBilletId);
+							
+							form.submit();
+						}
 					}
 				);
 				
