@@ -58,14 +58,14 @@
 	margin-top: 10px;
 	padding: 6px 10px;
 	border-radius: 3px;
-	background: #303030; /* Old browsers */
-	background: -moz-linear-gradient(left,  #ffffff 1%, #888888 14%, #303030 40%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(1%,#ffffff), color-stop(14%,#888888), color-stop(40%,#303030)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left,  #ffffff 1%,#888888 14%,#303030 40%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  #ffffff 1%,#888888 14%,#303030 40%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  #ffffff 1%,#888888 14%,#303030 40%); /* IE10+ */
-	background: linear-gradient(to right,  #ffffff 1%,#888888 14%,#303030 40%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#303030',GradientType=1 ); /* IE6-9 */
+	background: #303030;
+	/*background: -moz-linear-gradient(left,  #ffffff 1%, #888888 14%, #303030 40%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(1%,#ffffff), color-stop(14%,#888888), color-stop(40%,#303030)); 
+	background: -webkit-linear-gradient(left,  #ffffff 1%,#888888 14%,#303030 40%);
+	background: -o-linear-gradient(left,  #ffffff 1%,#888888 14%,#303030 40%);
+	background: -ms-linear-gradient(left,  #ffffff 1%,#888888 14%,#303030 40%); 
+	background: linear-gradient(to right,  #ffffff 1%,#888888 14%,#303030 40%); 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#303030',GradientType=1 );*/
 }
 
 .shopping-cart-item-controller .generic-label

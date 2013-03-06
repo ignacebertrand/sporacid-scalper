@@ -95,16 +95,14 @@
 
 					</div>
 					<div class="add-event-representations">
+						<h3>Représentations</h3> 
 						<table class="add-representations-table">
 							<tr>
-								<td><h3>Représentations</h3> <br /></td>
-							</tr>
-							<tr>
-								<td><label class="generic-label">Date</label></td>
-								<td><label class="generic-label">Salle</label></td>
-								<td><label class="generic-label">Début</label></td>
-								<td><label class="generic-label">Fin</label></td>
-								<td><label class="generic-label">Prix</label></td>
+								<th><label class="generic-label">Date</label></th>
+								<th><label class="generic-label">Salle</label></th>
+								<th><label class="generic-label">Début</label></th>
+								<th><label class="generic-label">Fin</label></th>
+								<th><label class="generic-label">Prix</label></th>
 							</tr>
 							<tr class="add-representations-table-model-row">
 								<td><input type="text" name="date" class="generic-datepicker" /></td>
