@@ -2,16 +2,21 @@
 <%@ page import="sporacidscalper.model.beans.TypeSpectacleBean"%>
 <%@ page import="sporacidscalper.model.beans.SalleBean"%>
 <%@ page import="sporacidscalper.model.beans.TypeSpectacleBean"%>
-<%@ page import="java.util.ArrayList;"%>
+<%@ page import="java.util.List;"%>
 	
 <!DOCTYPE html>
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getContextPath();
 
-	ArrayList<ArtisteBean> listeArtistes = (ArrayList<ArtisteBean>) request.getAttribute("listeArtistes");
-	ArrayList<SalleBean> listeSalles = (ArrayList<SalleBean>) request.getAttribute("listeSalles");
-	ArrayList<TypeSpectacleBean> listeTypesSpectacle = (ArrayList<TypeSpectacleBean>) request.getAttribute("listeTypesSpectacle");
+	@SuppressWarnings("unchecked")
+	List<ArtisteBean> listeArtistes = (List<ArtisteBean>) request.getAttribute("listeArtistes");
+	
+	@SuppressWarnings("unchecked")
+	List<SalleBean> listeSalles = (List<SalleBean>) request.getAttribute("listeSalles");
+	
+	@SuppressWarnings("unchecked")
+	List<TypeSpectacleBean> listeTypesSpectacle = (List<TypeSpectacleBean>) request.getAttribute("listeTypesSpectacle");
 
 %>
 <html>

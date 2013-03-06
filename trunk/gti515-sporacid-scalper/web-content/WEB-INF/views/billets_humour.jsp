@@ -8,7 +8,10 @@
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getContextPath();
+
+	@SuppressWarnings("unchecked")
 	List<SpectacleBean> listeSpectacles = (List<SpectacleBean>) request.getAttribute("listeSpectacles");
+	
 	IPresentationBillets presentation = (IPresentationBillets) request.getAttribute("presentationBillets");
 %>
 <html>
