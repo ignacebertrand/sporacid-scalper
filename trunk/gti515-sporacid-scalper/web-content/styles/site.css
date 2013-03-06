@@ -278,11 +278,22 @@ body .generic-button
 	text-align: center;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	/*top: 0px;
-	position: absolute;*/
+	position: relative;
 	border-radius: 10px 10px 0px 0px;
 	text-decoration: underline;
 	margin-bottom: 20px;
+}
+
+.application-messages-header .generic-button
+{
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	background-image: url("images/icone_supprimer.png");
+	width: 22px;
+	background-size: 90% 90%;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 /**

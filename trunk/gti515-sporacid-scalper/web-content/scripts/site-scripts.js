@@ -93,6 +93,17 @@ function setServerMessageTimer()
 	   //Show the container
 	   messagesContainer.show();
 	   
+	   //Bind an event on button close
+	   messagesContainer.find(".application-messages-close-button").one("click",
+	   	  function ()
+	   	  {
+		   	  //Hide the messages container
+		      messagesContainer.hide();
+	 		  // Clear messages from the container 
+		      messagesContainer.find(".application-message").remove();
+	   	  }
+	   );
+	   
 	   //Used to clear the timeout
 	   var timeoutIdentifier = -1;
 	   

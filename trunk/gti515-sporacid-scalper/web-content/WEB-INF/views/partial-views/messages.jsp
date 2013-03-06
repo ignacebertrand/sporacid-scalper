@@ -1,11 +1,14 @@
 <%
-	String[] messages = new String[] { "message1", "message2", "message3" };
+	String[] messages = new String[0];// { "message1", "message2", "message3" };
 %>
 
 <div class="application-messages">
 	
 	<div class="application-messages-header">
 		Veuillez prendre note des messages suivants
+		<div class="generic-button application-messages-close-button">
+			&nbsp;
+		</div>
 	</div>
 	
 	<table><tr><td>
