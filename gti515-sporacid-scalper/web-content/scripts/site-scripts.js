@@ -84,56 +84,64 @@ function libererReservations()
  */
 function setServerMessageTimer()
 {
-   //Used to clear the timeout
-   var timeoutIdentifier = -1;
-   
    //Cache the message container
    var messagesContainer = $(".application-messages");
    
-   //Show the container
-   messagesContainer.show();
-   
-   //Set the timeout in a function because we'll call it a couple of times.
-   var timeout = function (pTimeoutTime, pFadeOutTime)
+   //If there's messages to show
+   if(messagesContainer.find(".application-message").length > 0)
    {
-      timeoutIdentifier = setTimeout(
-         function ()
-         {
-        	 messagesContainer.fadeOut(pFadeOutTime, "linear",
-               function ()
-               {
-        		  // Clear messages from the container 
-        		  $(this).find(".application-message").remove();
-               }
-            );
-         }
-      , pTimeoutTime);
-   };
-
-   //Basically we want the message to disappear unless we hover on it.
-   //When hovered in the message will last forever,
-   //When hovered out, the timeout is reset.
-   messagesContainer.mouseover(
-      function ()
-      {
-    	 //Cache the message container
-    	 var wrappedThis = $(this);
-    	 
-    	 wrappedThis.stop();
-    	 wrappedThis.css("opacity", "1");
-
-         clearTimeout(timeoutIdentifier);
-
-         wrappedThis.one("mouseout",
-            function ()
-            {
-               timeout(350, 350);
-            }
-         );
-      }
-   );
-
-   timeout(1000, 500);
+	   //Show the container
+	   messagesContainer.show();
+	   
+	   //Used to clear the timeout
+	   var timeoutIdentifier = -1;
+	   
+	   //Set the timeout in a function because we'll call it a couple of times.
+	   var timeout = function (pTimeoutTime, pFadeOutTime)
+	   {
+	      timeoutIdentifier = setTimeout(
+	         function ()
+	         {
+	        	 messagesContainer.fadeOut(pFadeOutTime, "linear",
+	               function ()
+	               {
+	        		  // Clear messages from the container 
+	        		  $(this).find(".application-message").remove();
+	               }
+	            );
+	         }
+	      , pTimeoutTime);
+	   };
+	
+	   //Basically we want the message to disappear unless we hover on it.
+	   //When hovered on, the message will last forever,
+	   //When hovered out, the timeout is reset.
+	   messagesContainer.mouseover(
+	      function ()
+	      {
+	    	 //Cache the message container
+	    	 var wrappedThis = $(this);
+	    	 
+	    	 wrappedThis.stop();
+	    	 wrappedThis.css("opacity", "1");
+	
+	         clearTimeout(timeoutIdentifier);
+	
+	         wrappedThis.one("mouseout",
+	            function ()
+	            {
+	               timeout(350, 350);
+	            }
+	         );
+	      }
+	   );
+	
+	   timeout(1000, 500);
+   }
+   else
+   {
+	   messagesContainer.hide();
+   }
 }
 
 /**
