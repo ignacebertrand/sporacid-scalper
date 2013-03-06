@@ -45,7 +45,7 @@ public class AccueilController implements ApplicationContextAware
 	{
 		ModelAndView mav = new ModelAndView("accueil");
 		
-		mav.addObject("context", request.getContextPath());
+		//mav.addObject("context", request.getContextPath());
 		mav.addObject("listeNouvelles", gestionnaireNouvelle.obtenirNouvelles());
 		mav.addObject("listeProchainsSpectacles", gestionnaireSpectacle.obtenirSpectacles());
 		mav.addObject("presentationAccueil", presentationAccueil);

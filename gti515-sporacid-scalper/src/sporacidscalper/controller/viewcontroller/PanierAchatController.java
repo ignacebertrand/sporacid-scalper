@@ -53,7 +53,7 @@ public class PanierAchatController implements ApplicationContextAware
 	{
 		ModelAndView mav = new ModelAndView("panier_achat");
 		
-		mav.addObject("context", request.getContextPath());
+		//mav.addObject("context", request.getContextPath());
 		mav.addObject("panierAchat", obtenirPanierAchat(request.getSession()));
 		mav.addObject("presentationPanierAchat", presentationPanierAchat);
 		

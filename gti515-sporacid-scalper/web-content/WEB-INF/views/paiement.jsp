@@ -2,7 +2,7 @@
 <%@page import="sporacidscalper.view.presentation.IPresentationPaiement"%>
 <%
 	// Get the context url prefix 
-	String contextAttr = (String) request.getAttribute("context");
+	String contextAttr = (String) request.getContextPath();
 	IPresentationPaiement presentation = (IPresentationPaiement) request.getAttribute("presentationPaiement");
 %>
 <html>

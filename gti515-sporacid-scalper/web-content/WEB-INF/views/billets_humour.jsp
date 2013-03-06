@@ -7,7 +7,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%
 	// Get the context url prefix 
-	String contextAttr = (String) request.getAttribute("context");
+	String contextAttr = (String) request.getContextPath();
 	List<SpectacleBean> listeSpectacles = (List<SpectacleBean>) request.getAttribute("listeSpectacles");
 	IPresentationBillets presentation = (IPresentationBillets) request.getAttribute("presentationBillets");
 %>

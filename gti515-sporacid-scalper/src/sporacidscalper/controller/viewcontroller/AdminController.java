@@ -33,7 +33,7 @@ public class AdminController implements ApplicationContextAware
 	public ModelAndView getAdmin(ModelMap model, @ModelAttribute Object form, BindingResult result, HttpServletRequest request)
 	{
 		ModelAndView mav = new ModelAndView("admin");
-		mav.addObject("context", request.getContextPath());
+		//mav.addObject("context", request.getContextPath());
 		mav.addObject("listeArtistes", gestionnaireSpectacle.obtenirCatalogueArtistes());
 		mav.addObject("listeSalles", gestionnaireSpectacle.obtenirCatalogueSalles());
 		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirSpectacles());
