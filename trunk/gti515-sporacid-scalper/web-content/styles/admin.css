@@ -1,45 +1,70 @@
 .add-event-description
 {
-	float:left;
+	display: inline-block;
 	width:40%;
 }
+
 .add-event-description-item
 {
 	margin-bottom: 10px;
 }
+
 .add-event-representations
 {
-	float:left;
+	display: inline-block;
 	margin-left: 30px;
+	vertical-align: top;
 }
+
 .representations-list
 {
 	list-style-type: none;
 	margin: 0px;
 }
+
+.add-event-description .generic-label
+{
+	display: inline-block;
+	width: 120px;
+	text-align: right;
+}
+
+.add-event-description .generic-listbox.select-artiste
+{
+	vertical-align: top;
+}
+
 .generic-datepicker
 {
 	width:80px;
 }
+
 .generic-timepicker
 {
 	width:40px;
 }
-.ticket-cost
+
+.generic-textbox.ticket-cost
 {
 	width:40px;
 }
+
 .representation-list-item-controller,  
 .add-event-item-controller
 {
 	text-align: right;
 	margin-top: 10px;
 	background-color: #303030;
-	padding: 10px;
+	padding: 6px;
 	border-radius: 3px;
 	background-image: url("images/logo_small.png");
 	background-position: 20px center;
 	background-repeat: no-repeat;
+}
+
+.add-event-representation-button
+{
+	padding: 3px 10px;
 }
 
 .add-representations-table-model-row
