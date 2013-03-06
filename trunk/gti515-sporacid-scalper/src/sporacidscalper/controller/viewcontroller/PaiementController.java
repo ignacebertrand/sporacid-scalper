@@ -48,7 +48,7 @@ public class PaiementController implements ApplicationContextAware
 	{
 		ModelAndView mav = new ModelAndView("paiement");
 		
-		mav.addObject("context", request.getContextPath());
+		//mav.addObject("context", request.getContextPath());
 		mav.addObject("client", new ClientBean());
 		mav.addObject("presentationPaiement", presentationPaiement);
 		

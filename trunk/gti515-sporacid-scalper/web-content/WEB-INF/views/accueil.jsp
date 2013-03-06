@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <%
 	// Get the context url prefix 
-	String contextAttr = (String) request.getAttribute("context");
+	String contextAttr = (String) request.getContextPath();
 
 	@SuppressWarnings("unchecked")
 	List<NouvelleBean> listeNouvelles = (List<NouvelleBean>)request.getAttribute("listeNouvelles");

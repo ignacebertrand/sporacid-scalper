@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <%
 	// Get the context url prefix 
-	String contextAttr = (String) request.getAttribute("context");
+	String contextAttr = (String) request.getContextPath();
 
 	ArrayList<ArtisteBean> listeArtistes = (ArrayList<ArtisteBean>) request.getAttribute("listeArtistes");
 	ArrayList<SalleBean> listeSalles = (ArrayList<SalleBean>) request.getAttribute("listeSalles");

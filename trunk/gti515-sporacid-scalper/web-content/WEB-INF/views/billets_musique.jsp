@@ -9,7 +9,7 @@
 
 <%
 	// Get the context url prefix 
-	String contextAttr = (String) request.getAttribute("context");
+	String contextAttr = (String) request.getContextPath();
 	List<SpectacleBean> listeSpectacles = (List<SpectacleBean>) request.getAttribute("listeSpectacles");
 	List<TypeSpectacleBean> listeTypes = (List<TypeSpectacleBean>) request.getAttribute("listeTypes");
 	IPresentationBillets presentation = (IPresentationBillets) request.getAttribute("presentationBillets");

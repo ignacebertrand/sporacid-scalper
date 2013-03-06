@@ -91,6 +91,7 @@
 .event-list-item-representation-select
 {
 	margin-right: 20px;
+	min-width: 200px;
 }
 
 .event-list-item-controller .generic-button
@@ -98,15 +99,6 @@
 	padding: 3px 10px;
 	margin-left: 10px;
 }
-
-/*.event-list-item-addtocart-button
-{
-	display: none;
-}
-
-.event-list-item-disponibility-button
-{
-}*/
 
 .disponibility-button-onchar
 {

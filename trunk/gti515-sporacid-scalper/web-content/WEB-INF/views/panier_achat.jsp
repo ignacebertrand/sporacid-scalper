@@ -10,9 +10,8 @@
 
 <%
 	// Get the context url prefix 
-	String contextAttr = (String) request.getAttribute("context");
+	String contextAttr = (String) request.getContextPath();
 	PanierAchatBean panierAchat = (PanierAchatBean) request.getAttribute("panierAchat");
-	DateFormat dateFormatter = (DateFormat) request.getAttribute("dateFormatter");
 	IPresentationPanierAchat presentation = (IPresentationPanierAchat) request.getAttribute("presentationPanierAchat");
 %>
 <html>

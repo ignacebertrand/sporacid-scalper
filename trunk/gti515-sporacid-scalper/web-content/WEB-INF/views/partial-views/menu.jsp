@@ -1,6 +1,6 @@
 <%
 	// Get the context url prefix 
-	String contextAttr = (String) request.getAttribute("context");
+	String contextAttr = (String) request.getContextPath();
 %>
 <div class="menu-container">
 	<ul class="menu">
