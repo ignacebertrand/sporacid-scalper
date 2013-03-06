@@ -161,8 +161,8 @@ function setServerMessageTimer()
  */
 function showMessages(messages)
 {
-	//If messages are defined and has at least 1 message
-	if(messages && messages.length > 0)
+	//If messages are defined and is an array
+	if(messages && messages instanceof Array)
 	{
 		//Get the container of message in which we'll append messages
 		var messagesContainer = $(".application-messages").find("table tr td");

@@ -33,7 +33,7 @@ public class PresentationPanierAchat implements IPresentationPanierAchat
 	{
 		StringBuffer htmlBuffer = new StringBuffer();
 		
-		if(panierAchat != null)
+		if(panierAchat != null && panierAchat.getItems().size() > 0)
 		{
 			htmlBuffer.append("<ul class=\"shopping-cart-item-list\">");
 			
@@ -41,6 +41,14 @@ public class PresentationPanierAchat implements IPresentationPanierAchat
 				htmlBuffer.append(presenterItemPanierAchat(itemPanierAchat));
 			
 			htmlBuffer.append("</ul>");
+		}
+		else
+		{
+			htmlBuffer.append("<div class=\"empty-shopping-cart-notification\">");
+			htmlBuffer.append("<table><tr><td>");
+			htmlBuffer.append("Votre panier d'achat est vide.");
+			htmlBuffer.append("</table></tr></td>");
+			htmlBuffer.append("</div>");
 		}
 
 		htmlBuffer.append("<div class=\"shopping-cart-item-list-controller\">");

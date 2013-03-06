@@ -64,7 +64,13 @@
 				$(".shopping-cart-item-list-checkout-button").click(
 					function()
 					{
-						window.location = "<%=contextAttr%>/paiement/paiement-securise";
+						if($(".shopping-cart-item").length > 0)
+							window.location = "<%=contextAttr%>/paiement/paiement-securise";
+						else
+						{
+							var messages = ["Votre panier d'achat est vide.", "Impossible de procéder au paiement."];
+							showMessages(messages);
+						}
 					}
 				);
 				
