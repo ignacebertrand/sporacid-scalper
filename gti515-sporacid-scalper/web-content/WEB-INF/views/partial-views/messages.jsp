@@ -1,5 +1,7 @@
+<%@page import="sporacidscalper.controller.viewcontroller.util.ApplicationMessages"%>
+<%@page import="java.util.List"%>
 <%
-	String[] messages = new String[0];// { "message1", "message2", "message3" };
+	List<String> messages = ApplicationMessages.obtenirMessages(request);
 %>
 
 <div class="application-messages">

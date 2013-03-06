@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sporacidscalper.controller.modelcontroller.IGestionnaireNouvelle;
 import sporacidscalper.controller.modelcontroller.IGestionnaireSpectacle;
+import sporacidscalper.controller.viewcontroller.util.ApplicationMessages;
 import sporacidscalper.view.presentation.IPresentationAccueil;
 
 @Controller 
@@ -49,6 +50,8 @@ public class AccueilController implements ApplicationContextAware
 		mav.addObject("listeNouvelles", gestionnaireNouvelle.obtenirNouvelles());
 		mav.addObject("listeProchainsSpectacles", gestionnaireSpectacle.obtenirSpectacles());
 		mav.addObject("presentationAccueil", presentationAccueil);
+		
+		ApplicationMessages.ajouterMessage("Bienvenue!", request);
 		
 		return mav;
 	}
