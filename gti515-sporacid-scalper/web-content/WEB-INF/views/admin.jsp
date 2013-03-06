@@ -55,36 +55,24 @@
 					<h3>Détail du spectacle</h3>
 					<br />
 						<div class="add-event-description-item">
- 							<label for="type" class="generic-label">Types :</label>								
-								<select id="select-TypeSpectacle" class="generic-select">
-								<%
-								for (int i = 0; i < listeTypesSpectacle.size(); i++) 
-								{
-									TypeSpectacleBean type = listeTypesSpectacle.get(i);
+ 							<label for="type" class="generic-label">Type :</label>								
+							<select id="select-TypeSpectacle" class="generic-select">
+								<% for (int i = 0; i < listeTypesSpectacle.size(); i++) {
+										TypeSpectacleBean type = listeTypesSpectacle.get(i);
 								%>
-										<option value=<%=type.getId()%>><%=type.getNom()%></option>
-								<%
-									}
-								%>
-								</select>
-							<br />
+									<option value=<%=type.getId()%>><%=type.getNom()%></option>
+								<% } %>
+							</select>
 						</div>
 						<div class="add-event-description-item">
-							<label for="artiste" class="generic-label">Artiste :</label> 
-							<select
-								id=select_artiste name="artistes" multiple
-								size=<%=listeArtistes.size()%>>
-								<%
-									for (int i = 0; i < listeArtistes.size(); i++) 
-									{
+							<label for="artiste" class="generic-label">Artistes :</label> 
+							<select id=select_artiste class="generic-listbox select-artiste" name="artistes" size="5" multiple="multiple">
+								<% for (int i = 0; i < listeArtistes.size(); i++)  {
 										ArtisteBean artistes = listeArtistes.get(i);
 								%>
-								<option value=<%=artistes.getId()%>><%=artistes.getNom()%></option>
-								<%
-									}
-								%>
+									<option value=<%=artistes.getId()%>><%=artistes.getNom()%></option>
+								<% } %>
 							</select>
-	
 	
 						</div>
 						<div class="add-event-description-item">
@@ -102,19 +90,9 @@
 	
 						<div class="add-event-description-item">
 							<label for="description" class="generic-label">Description du Spectacle:</label> 
-							<br />
-						</div>
-						<div class="add-event-description-item">
 							<textarea name="description" class="generic-textarea"></textarea>
 						</div>
-	
-						<div class="add-event-item-controller">
-								<div class="generic-button add-event-representation-button">
-									Sauvegarder
-								</div>
-							<!-- <input type="submit" value="Sauvegarder"
-								id="add-event-representation-button" class="generic-button" /> -->
-						</div>
+
 					</div>
 					<div class="add-event-representations">
 						<table class="add-representations-table">
@@ -129,8 +107,7 @@
 								<td><label class="generic-label">Prix</label></td>
 							</tr>
 							<tr class="add-representations-table-model-row">
-								<td><input type="text" name="date"
-									class="generic-datepicker generic-textbox" /></td>
+								<td><input type="text" name="date" class="generic-datepicker" /></td>
 								<td>
 									<select id="select-place" class="generic-select">
 									<%	for (int i = 0; i < listeSalles.size(); i++) 
@@ -143,15 +120,21 @@
 									%>
 									</select>
 								</td>
-								<td><input type="text" name="start-time"
-									class="generic-timepicker generic-textbox" /></td>
-								<td><input type="text" name="end-time"
-									class="generic-timepicker generic-textbox" /></td>
-								<td><input type="text" name="ticket-cost"
-									class="ticket-cost generic-textbox" /></td>
+								<td><input type="text" name="start-time" class="generic-timepicker" /></td>
+								<td><input type="text" name="end-time" class="generic-timepicker" /></td>
+								<td><input type="text" name="ticket-cost" class="generic-textbox ticket-cost" /></td>
 								<td><div class="generic-button representation-table-add-item-button">&nbsp;</div></td>
 							</tr>
 						</table>
+					</div>
+					
+						
+					<div class="add-event-item-controller">
+							<div class="generic-button add-event-representation-button">
+								Sauvegarder
+							</div>
+						<!-- <input type="submit" value="Sauvegarder"
+							id="add-event-representation-button" class="generic-button" /> -->
 					</div>
 				</div>
 			</form>

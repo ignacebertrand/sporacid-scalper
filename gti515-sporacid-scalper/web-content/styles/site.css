@@ -244,14 +244,49 @@ body .generic-button
 	margin: 0px 5px;
 }
 
+.generic-textbox, .generic-select, .generic-listbox,
+.generic-datepicker, .generic-timepicker, .generic-textarea
+{
+	border: 1px solid #888;
+	padding: 2px 4px;
+	
+	-webkit-box-sizing: content-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: content-box;    /* Firefox, other Gecko */
+	box-sizing: content-box;         /* Opera/IE 8+ */
+}
+
 .generic-textbox
 {
-	padding: 2px 4px;
+	width: 160px;
 }
 
 .generic-select
 {
+	width: 164px;
 	padding: 2px;
+}
+
+.generic-listbox
+{
+	width: 160px;
+}
+
+.generic-datepicker
+{
+	width: 80px;
+}
+
+.generic-timepicker
+{
+	width: 40px;
+}
+
+.generic-textarea
+{
+	padding: 4px;
+	resize: vertical;
+	vertical-align: top;
+	width: 160px;
 }
 
 .generic-button

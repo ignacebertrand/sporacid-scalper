@@ -12,7 +12,7 @@
 	Double shoppingCartTotal = (Double) request.getSession().getAttribute(PanierAchatController.cCleSessionTotalPanierAchat);
 	
 	// Get a currency formatter from the application context, because we don't have a front controller; we'd need
-	// to set the formatter in every controllers 
+	// to set the formatter in every controllers which is very unpractical
 	NumberFormat currencyFormatter = WebApplicationContextUtils.getWebApplicationContext(application).getBean("currencyFormatter", NumberFormat.class);
 %>
 <div class="menu-container">
