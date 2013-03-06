@@ -32,6 +32,16 @@ public class PanierAchatController implements ApplicationContextAware
 	private static final String cCleSessionPanierAchat = "PanierAchat";
 	
 	/**
+	 * Constant for the session key to access the shopping cart item count.
+	 */
+	public static final String cCleSessionCompteurItemPanierAchat = "CompteurPanierAchat";
+	
+	/**
+	 * Constant for the session key to access the shopping cart total.
+	 */
+	public static final String cCleSessionTotalPanierAchat = "TotalPanierAchat";
+	
+	/**
 	 * Reference to the IGestionnaireSpectacle implementation
 	 * of the application context bean configuration.
 	 */
@@ -73,6 +83,8 @@ public class PanierAchatController implements ApplicationContextAware
 			BindingResult result, HttpServletRequest request,
 			@RequestHeader(value = "referer", required = true) final String referer)
 	{
+		HttpSession session = request.getSession();
+		
 		// Get the upper references to correctly instantiate the new item with all its references.
 		SpectacleBean spectacle = gestionnaireSpectacle.obtenirSpectacle(form.getSpectacleId());
 		RepresentationBean representation = spectacle.obtenirRepresentation(form.getRepresentationId());
@@ -83,7 +95,7 @@ public class PanierAchatController implements ApplicationContextAware
 		representation.setSpectacleReference(spectacle);
 		
 		// Get the shopping cart from the session
-		PanierAchatBean panier = obtenirPanierAchat(request.getSession());
+		PanierAchatBean panier = obtenirPanierAchat(session);
 		
 		// Create a shopping cart item 
 		ItemPanierAchatBean itemToAdd = new ItemPanierAchatBean(panier.getItems().size() + 1);
@@ -92,6 +104,9 @@ public class PanierAchatController implements ApplicationContextAware
 		
 		// Add the item to the shopping cart
 		panier.ajouterItem(itemToAdd);
+		
+		// Update shopping cart associated values
+		updateValeursPanierAchat(session);
 
 		// Redirect to the previous page
 		return "redirect:" + referer;
@@ -110,6 +125,8 @@ public class PanierAchatController implements ApplicationContextAware
 			BindingResult result, HttpServletRequest request,
 			@RequestHeader(value = "referer", required = true) final String referer)
 	{
+		HttpSession session = request.getSession();
+		
 		// Get the upper references to correctly instantiate the new item with all its references.
 		SpectacleBean spectacle = gestionnaireSpectacle.obtenirSpectacle(form.getSpectacleId());
 		RepresentationBean representation = spectacle.obtenirRepresentation(form.getRepresentationId());
@@ -126,6 +143,9 @@ public class PanierAchatController implements ApplicationContextAware
 		ItemPanierAchatBean itemToEdit = panier.obtenirItem(form.getItemId());
 		itemToEdit.setQuantite(form.getQuantite());
 		itemToEdit.setBilletRepresentation(representationType);
+		
+		// Update shopping cart associated values
+		updateValeursPanierAchat(session);
 
 		// Redirect to the previous page
 		return "redirect:" + referer;
@@ -144,14 +164,19 @@ public class PanierAchatController implements ApplicationContextAware
 			BindingResult result, HttpServletRequest request,
 			@RequestHeader(value = "referer", required = true) final String referer)
 	{
+		HttpSession session = request.getSession();
+		
 		// Get the item id to delete
 		int itemIdToDelete = form.getItemId();
 		
 		// Get the shopping cart from the session
-		PanierAchatBean panier = obtenirPanierAchat(request.getSession());
+		PanierAchatBean panier = obtenirPanierAchat(session);
 		
 		// Delete the item
 		panier.supprimerItem(itemIdToDelete);
+		
+		// Update shopping cart associated values
+		updateValeursPanierAchat(session);
 		
 		// Redirect to the previous page
 		return "redirect:" + referer;
@@ -167,8 +192,14 @@ public class PanierAchatController implements ApplicationContextAware
 	public String supprimerPanierAchat(HttpServletRequest request,
 			@RequestHeader(value = "referer", required = true) final String referer)
 	{
+		HttpSession session = request.getSession();
+		
 		// Delete the shopping cart from the session
-		request.getSession().removeAttribute(cCleSessionPanierAchat);
+		session.removeAttribute(cCleSessionPanierAchat);
+		
+		// Delete shopping cart's associated values from the session
+		session.removeAttribute(cCleSessionCompteurItemPanierAchat);
+		session.removeAttribute(cCleSessionTotalPanierAchat);
 		
 		// Redirect to the previous page
 		return "redirect:" + referer;
@@ -186,10 +217,30 @@ public class PanierAchatController implements ApplicationContextAware
 		if(panier == null)
 		{
 			panier = new PanierAchatBean();
+			
+			// Save the shopping cart in the session
 			session.setAttribute(cCleSessionPanierAchat, panier);
+			
+			// Update shopping cart associated values
+			updateValeursPanierAchat(session);
 		}
 		
 		return panier;
+	}
+	
+	/**
+	 * Private method to update the shopping cart associated values for view use
+	 * @param session An Http Session object for the client's session
+	 */
+	private void updateValeursPanierAchat(HttpSession session)
+	{
+		PanierAchatBean panier = obtenirPanierAchat(session); 
+		
+		// Update the shopping cart item count
+		session.setAttribute(PanierAchatController.cCleSessionCompteurItemPanierAchat, panier.getItems().size());
+		
+		// Update the shopping cart total
+		session.setAttribute(PanierAchatController.cCleSessionTotalPanierAchat, panier.getTotal());
 	}
 	
 	/**

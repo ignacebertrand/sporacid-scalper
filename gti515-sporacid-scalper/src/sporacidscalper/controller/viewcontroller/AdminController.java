@@ -38,6 +38,7 @@ public class AdminController implements ApplicationContextAware
 		mav.addObject("listeSalles", gestionnaireSpectacle.obtenirCatalogueSalles());
 		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirSpectacles());
 		mav.addObject("listeTypesSpectacle", gestionnaireSpectacle.obtenirCatalogueTypeSpectacle());
+		
 		return mav;
 	}
 	
