@@ -1,4 +1,4 @@
-/*
+/**
 * Document ready event handler for the site's generic calls.
 */
 $(document).ready(
@@ -55,7 +55,7 @@ $(document).ready(
 	}
 );
 
-/*
+/**
 * Resize the content area of the page according to header, footer and menu current height.
 */
 function resizeContent()
@@ -68,7 +68,7 @@ function resizeContent()
 	$(".content").height(contentHeight);
 }
 
-/*
+/**
  * Free reservation in the shopping cart
  */
 function libererReservations()
@@ -77,42 +77,54 @@ function libererReservations()
 	$("<form></form>").attr("action", "/gti515-sporacid-scalper/panier-achat/supprimer-panier-achat").attr("method", "POST").submit();
 }
 
-/*
- * 
+/**
+ * Sets a timer for the application message fade out effect
+ * Shows the messages container for a short time then fades out,
+ * unless the user hover the messages container.
  */
 function setServerMessageTimer()
 {
    //Used to clear the timeout
    var timeoutIdentifier = -1;
-
+   
+   //Cache the message container
+   var messagesContainer = $(".application-messages");
+   
+   //Show the container
+   messagesContainer.show();
+   
    //Set the timeout in a function because we'll call it a couple of times.
    var timeout = function (pTimeoutTime, pFadeOutTime)
    {
       timeoutIdentifier = setTimeout(
          function ()
          {
-            $(".application-messages").fadeOut(pFadeOutTime, "linear",
+        	 messagesContainer.fadeOut(pFadeOutTime, "linear",
                function ()
                {
-                  $(this).remove();
+        		  // Clear messages from the container 
+        		  $(this).find(".application-message").remove();
                }
             );
          }
       , pTimeoutTime);
    };
 
-   //Basically we want the message to dissappear unless we hover on it.
+   //Basically we want the message to disappear unless we hover on it.
    //When hovered in the message will last forever,
    //When hovered out, the timeout is reset.
-   $(".application-messages").mouseover(
+   messagesContainer.mouseover(
       function ()
       {
-         $(this).stop();
-         $(this).css("opacity", "1");
+    	 //Cache the message container
+    	 var wrappedThis = $(this);
+    	 
+    	 wrappedThis.stop();
+    	 wrappedThis.css("opacity", "1");
 
          clearTimeout(timeoutIdentifier);
 
-         $(this).one("mouseout",
+         wrappedThis.one("mouseout",
             function ()
             {
                timeout(350, 350);
@@ -122,4 +134,29 @@ function setServerMessageTimer()
    );
 
    timeout(1000, 500);
+}
+
+/**
+ * Add a list of messages to the messages container and show the container.
+ * @param messages An array of messages
+ */
+function showMessages(messages)
+{
+	//If messages are defined and has at least 1 message
+	if(messages && messages.length > 0)
+	{
+		//Get the container of message in which we'll append messages
+		var messagesContainer = $(".application-messages").find("table tr td");
+		
+		for(var iMsg = 0; iMsg < messages.length; iMsg++)
+		{
+			//Add a message to the messages container
+			var messageContainer = $("<div></div>").addClass("application-message");
+			messageContainer.text(messages[iMsg]);
+			messagesContainer.append(messageContainer);
+		}
+		
+		//Shows the messages with a timeout (Hide it after a certain number of milliseconds)
+		setServerMessageTimer();
+	}
 }
