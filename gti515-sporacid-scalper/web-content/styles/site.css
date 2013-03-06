@@ -248,34 +248,41 @@ body .generic-button
 	color: White;
 	border-radius: 10px;
 	font-size: 18px;
-	text-align: center;
+	text-align: left;
 	font-weight: bold;
 	z-index: 10000;
 	overflow: auto;
+	box-shadow: 15px 15px 8px #AAA;
 	/*border: 2px solid #888888;*/
 }
 
 .application-messages table
 {
 	width: 100%;
-	height: 100%;
 	padding: 0px;
 	margin: 0px;
 	border-spacing: 0px;
 	position: relative;
 }
 
+.application-message
+{
+	margin-left: 25px;
+}
+
 .application-messages-header
 {
 	background-color: #303030;
-	width: 99.45%;
+	width: 100%;
+	display: inline-block;
 	text-align: center;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	top: 0px;
-	position: absolute;
+	/*top: 0px;
+	position: absolute;*/
 	border-radius: 10px 10px 0px 0px;
 	text-decoration: underline;
+	margin-bottom: 20px;
 }
 
 /**
