@@ -133,6 +133,11 @@
 							
 							form.submit();
 						}
+						else
+						{
+							var messages = ["Impossible d'ajouter l'item au panier d'achat."];
+							showMessages(messages);
+						}
 					}
 				);
 				
