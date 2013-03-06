@@ -46,19 +46,20 @@ public class PresentationBillets implements IPresentationBillets
 	{
 		StringBuffer htmlBuffer = new StringBuffer();
 		
-		for(int i=0;i < representations.size();i++){
-			
-			if(representations.get(i).getDateDebutRepresentation() != null &&
-			   representations.get(i).getDateFinRepresentation() != null)
+		for(int i=0;i < representations.size();i++)
+		{
+			RepresentationBean representation = representations.get(i);
+			if(representation.getDateDebutRepresentation() != null &&
+			   representation.getDateFinRepresentation() != null)
 			{
 				htmlBuffer.append("<option value=");
-				htmlBuffer.append(i);
+				htmlBuffer.append(representation.getId());
 				htmlBuffer.append(">Le ");
-				htmlBuffer.append(dateFormatter.format(representations.get(i).getDateDebutRepresentation()));
+				htmlBuffer.append(dateFormatter.format(representation.getDateDebutRepresentation()));
 				htmlBuffer.append(" ");
-				htmlBuffer.append(timeFormatter.format(representations.get(i).getDateDebutRepresentation()));
+				htmlBuffer.append(timeFormatter.format(representation.getDateDebutRepresentation()));
 				htmlBuffer.append(" à ");
-				htmlBuffer.append(timeFormatter.format(representations.get(i).getDateFinRepresentation()));
+				htmlBuffer.append(timeFormatter.format(representation.getDateFinRepresentation()));
 				htmlBuffer.append("</option>");
 			}
 		}
