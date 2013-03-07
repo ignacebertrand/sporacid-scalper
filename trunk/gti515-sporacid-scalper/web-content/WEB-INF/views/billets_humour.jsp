@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@page import="sporacidscalper.view.presentation.IPresentationBillets"%>
 <%@ page import="sporacidscalper.model.beans.SpectacleBean"%>
+<%@page import="sporacidscalper.model.beans.TypeSpectacleBean"%>
 <%@ page import="java.util.List"%>
 
 <!DOCTYPE html>
@@ -11,6 +12,9 @@
 
 	@SuppressWarnings("unchecked")
 	List<SpectacleBean> listeSpectacles = (List<SpectacleBean>) request.getAttribute("listeSpectacles");
+	
+	@SuppressWarnings("unchecked")
+	List<TypeSpectacleBean> listeTypes = (List<TypeSpectacleBean>) request.getAttribute("listeTypes");
 	
 	IPresentationBillets presentation = (IPresentationBillets) request.getAttribute("presentationBillets");
 %>
@@ -51,24 +55,24 @@
 					//spectacle.getArtistes()
 					%>
 					<li class="event-list-item">
-						<input type="hidden" class="hiddenSpectacleId" value="<%=spectacle.getSpectacleId()%>"/>
+						<input type="hidden" class="hiddenSpectacleId" value="<%=spectacle.getId()%>"/>
 						<div class="event-list-item-image" style="background-image: url(../<%=spectacle.getPosterUrl()%>);"></div>
 						<div class="event-list-item-content">
 							<h1 class="event-list-item-content-title"><%=spectacle.getNom()%></h1>
 							<%=presentation.getAppendedArtists(spectacle.getArtistes())%>
 							<p class="event-list-item-content-desc"><%=spectacle.getDescription()%></p>
 							<div class="event-list-item-tags-container">
-								<a class="event-list-item-tag" href="#a">Châteauguay</a>
-								<a class="event-list-item-tag" href="#b">Varennes</a>
-								<a class="event-list-item-tag" href="#c">Le Gardeur</a>
-								<a class="event-list-item-tag" href="#d">St-Eustache</a>
+								<%=presentation.getTagsAnchors(spectacle.getArtistes())%>
 							</div>
 						</div>
 						<div class="event-list-item-controller">
 							<label class="generic-label">Représentation :</label>
-							<select class="generic-select event-list-item-representation-select">
+							<select class="generic-select event-list-item-representation-select" onchange="JavaScript:representationChange(this)">
 								<option value="-1">-----</option>
-								<%=presentation.getRepresentationsListIem(spectacle.getRepresentations())%>
+								<%=presentation.getRepresentationsListItem(spectacle.getRepresentations())%>
+							</select>
+							<label class="generic-label">Type :</label>
+							<select class="generic-select event-list-item-type-select">								
 							</select>
 							<label class="generic-label">Quantité :</label>
 							<select class="generic-select event-list-item-quantity-select">
@@ -106,26 +110,56 @@
 					function()
 					{
 						var item = $(this).parents(".event-list-item");
+						
 						var qte = item.find(".event-list-item-quantity-select option:selected").val();
 						var spectacleId = item.find(".hiddenSpectacleId").val();
 						var represId = item.find(".event-list-item-representation-select option:selected").val();
-						var typeBilletId = 1 /*item.find(". option:selected").val()*/;
+						var typeBilletId = item.find(".event-list-item-type-select option:selected").val();
 						
-						$("form #hiddenQuantite").val(qte);
-						$("form #hiddenSpectacleId").val(spectacleId);
-						$("form #hiddenRepresentationId").val(represId);
-						$("form #hiddenTypeBilletId").val(typeBilletId);
-						
-						$("form").submit(
-							/*function()
-							{
-								// Prevent redirection
-								return false;
-							}*/
-						);
+						if(qte > 0 && spectacleId > 0 && represId > 0 && typeBilletId > 0)
+						{
+							var form = $("form");
+							
+							form.find("#hiddenQuantite").val(qte);
+							form.find("#hiddenSpectacleId").val(spectacleId);
+							form.find("#hiddenRepresentationId").val(represId);
+							form.find("#hiddenTypeBilletId").val(typeBilletId);
+							
+							form.submit();
+						}
+						else
+						{
+							var messages = ["Impossible d'ajouter l'item au panier d'achat."];
+							showMessages(messages);
+						}
 					}
 				);
 			}
 		);
+		
+		function representationChange()
+		{
+			var xmlHttpReq = false;
+			
+            // Creation du conteneur XML pour Mozilla/Safari
+            if (window.XMLHttpRequest) {                    
+                xmlHttpReq = new XMLHttpRequest();
+            }
+            // Creation du conteneur XML pour IE
+            else if (window.ActiveXObject) {
+                xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            var url = strURL + "?listeImages=" + selection.listeImages.options[selection.listeImages.selectedIndex].value;
+            
+            xmlHttpReq.open('GET', url, true);
+            xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xmlHttpReq.onreadystatechange = function() {
+                if (xmlHttpReq.readyState == 4) {
+                    updatepage(xmlHttpReq.responseText);
+                }
+            };
+            xmlHttpReq.send(url);
+		
+		}
 	</script>
 </html>

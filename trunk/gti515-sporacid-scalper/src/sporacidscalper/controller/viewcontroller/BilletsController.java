@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import sporacidscalper.controller.modelcontroller.IGestionnaireSpectacle;
+import sporacidscalper.model.beans.SpectacleBean;
+import sporacidscalper.model.beans.RepresentationBean;
+import sporacidscalper.model.beans.TypeBilletRepresentationBean;
 import sporacidscalper.view.presentation.IPresentationBillets;
 
 @Controller 
@@ -49,6 +52,31 @@ public class BilletsController implements ApplicationContextAware
 		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirSpectacles());
 		
 		return mav;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/ticket_type")
+	public String getTicketType(HttpServletRequest request)
+	{
+		StringBuffer htmlBuffer = new StringBuffer();
+		
+		int spectacleId 	 = Integer.parseInt(request.getParameter("spectacleId"));
+		int representationId = Integer.parseInt(request.getParameter("representationId"));
+		
+		SpectacleBean spectacle = gestionnaireSpectacle.obtenirSpectacle(spectacleId);
+		
+		RepresentationBean representation = spectacle.obtenirRepresentation(representationId);
+		/*
+		for(TypeBilletRepresentationBean typeBillet : representation.getTypesBillet())
+		{
+			htmlBuffer.append("<option value=");
+			htmlBuffer.append(typeBillet.getId());
+			htmlBuffer.append(">");
+			htmlBuffer.append(typeBillet.getNom());
+			htmlBuffer.append("</option>");
+			
+		}*/
+		
+		return htmlBuffer.toString();
 	}
 
 	/**
