@@ -5,7 +5,9 @@ import java.util.List;
 
 import sporacidscalper.model.beans.ArtisteBean;
 import sporacidscalper.model.beans.RepresentationBean;
+import sporacidscalper.model.beans.TypeBilletRepresentationBean;
 import sporacidscalper.model.beans.TypeSpectacleBean;
+import sporacidscalper.model.beans.TagsBean;
 
 public class PresentationBillets implements IPresentationBillets
 {
@@ -28,10 +30,10 @@ public class PresentationBillets implements IPresentationBillets
 	
 		htmlBuffer.append("<h2 class=\"event-list-item-content-artists\">");
 		
-		for(int i=0;i < artistes.size();i++){
+		for(ArtisteBean artiste:artistes){
 
 			artistesBuffer.append(ARTISTS_SEPARATOR);
-			artistesBuffer.append(artistes.get(i).getNom());
+			artistesBuffer.append(artiste.getNom());
 		}
 		
 		if(artistesBuffer.length() > ARTISTS_SEPARATOR.length())
@@ -46,10 +48,8 @@ public class PresentationBillets implements IPresentationBillets
 	{
 		StringBuffer htmlBuffer = new StringBuffer();
 		
-		for(int i=0;i < representations.size();i++)
-		{
-			RepresentationBean representation = representations.get(i);
-			
+		for(RepresentationBean representation : representations)
+		{			
 			if(representation.getDateDebutRepresentation() != null &&
 			   representation.getDateFinRepresentation() != null)
 			{
@@ -72,15 +72,32 @@ public class PresentationBillets implements IPresentationBillets
 	{
 		StringBuffer htmlBuffer = new StringBuffer();
 		
-		for(int i = 0;i < types.size(); i++)
-		{
-			TypeSpectacleBean type = types.get(i);
-			
+		for(TypeSpectacleBean type : types)
+		{			
 			htmlBuffer.append("<option value=");
 			htmlBuffer.append(type.getId());
 			htmlBuffer.append(">");
 			htmlBuffer.append(type.getNom());
 			htmlBuffer.append("</option>");
+		}
+		
+		return htmlBuffer.toString();		
+	}
+	
+	public String getTagsAnchors(List<ArtisteBean> artistes)
+	{
+		StringBuffer htmlBuffer = new StringBuffer();
+		
+		for(ArtisteBean artiste : artistes)
+		{
+			for(TagsBean tag : artiste.getTags())
+			{			
+				htmlBuffer.append("<a class=\"event-list-item-tag\" href=");
+				htmlBuffer.append(tag.getUrl());
+				htmlBuffer.append(">");
+				htmlBuffer.append(tag.getNom());
+				htmlBuffer.append("</a>");
+			}
 		}
 		
 		return htmlBuffer.toString();		

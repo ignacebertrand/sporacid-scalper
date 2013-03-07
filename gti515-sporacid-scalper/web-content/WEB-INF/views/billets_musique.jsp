@@ -61,22 +61,18 @@
 					<li class="event-list-item">
 					
 						<input type="hidden" class="hiddenSpectacleId" value="<%=spectacle.getId()%>"/>
-					
 						<div class="event-list-item-image" style="background-image: url(../<%=spectacle.getPosterUrl()%>);"></div>
 						<div class="event-list-item-content">
 							<h1 class="event-list-item-content-title"><%=spectacle.getNom()%></h1>
 							<%=presentation.getAppendedArtists(spectacle.getArtistes())%>
 							<p class="event-list-item-content-desc"><%=spectacle.getDescription()%></p>
 							<div class="event-list-item-tags-container">
-								<a class="event-list-item-tag" href="#a">Club d'âge d'or</a>
-								<a class="event-list-item-tag" href="#b">Association Je protège nos aînés</a>
-								<a class="event-list-item-tag" href="#c">Les couches Depends</a>
-								<a class="event-list-item-tag" href="#d">Parrainer un aîné</a>
+								<%=presentation.getTagsAnchors(spectacle.getArtistes())%>
 							</div>
 						</div>
 						<div class="event-list-item-controller">
 							<label class="generic-label">Représentation :</label>
-							<select class="generic-select event-list-item-representation-select">
+							<select class="generic-select event-list-item-representation-select" onchange="JavaScript:representationChange(this)">
 								<option value="-1">-----</option>
 								<%=presentation.getRepresentationsListItem(spectacle.getRepresentations())%>
 							</select>
@@ -120,7 +116,7 @@
 						var qte = item.find(".event-list-item-quantity-select option:selected").val();
 						var spectacleId = item.find(".hiddenSpectacleId").val();
 						var represId = item.find(".event-list-item-representation-select option:selected").val();
-						var typeBilletId = 1 /*item.find(". option:selected").val()*/;
+						var typeBilletId = item.find(".event-list-item-type-select option:selected").val();
 						
 						if(qte > 0 && spectacleId > 0 && represId > 0 && typeBilletId > 0)
 						{
@@ -140,6 +136,39 @@
 						}
 					}
 				);
+				
+				$(".event-list-item-representation-select").change(
+						function()
+						{
+							var item = $(this).parents(".event-list-item");
+							
+							var spectacleId = item.find(".hiddenSpectacleId").val();
+							var represId = item.find(".event-list-item-representation-select option:selected").val();
+							
+							alert("1 spect id: "+ spectacleId + " represId: " + represId);
+							
+							var xmlHttpReq = false;
+							
+				            // Creation du conteneur XML pour Mozilla/Safari
+				            if (window.XMLHttpRequest) {                    
+				                xmlHttpReq = new XMLHttpRequest();
+				            }
+				            // Creation du conteneur XML pour IE
+				            else if (window.ActiveXObject) {
+				                xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+				            }
+				            var url = "/ticket_type?spectacleId=" + spectacleId + "&representationId=" + represId;
+				            
+				            xmlHttpReq.open('GET', url, true);
+				            xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				            xmlHttpReq.onreadystatechange = function() {
+				                if (xmlHttpReq.readyState == 4) {
+				                    updatepage(xmlHttpReq.responseText);
+				                }
+				            };
+				            xmlHttpReq.send(url);
+						}
+					);
 				
 				//Mock of wait time for server response.
 // 				$(".event-list-item-disponibility-button").click(
@@ -175,6 +204,38 @@
 // 				);
 			}
 		);
+		
+		/* TODO demander Simon si aurait ete possible
+		function representationChange(representationList)
+		{
+			var item = representationList.parents(".event-list-item");
+			var spectacleId = item.find(".hiddenSpectacleId").val();
+			var represId = item.find(".event-list-item-representation-select option:selected").val();
+			
+			alert("2 spect id: "+ spectacleId + " represId: " + represId);
+			
+			var xmlHttpReq = false;
+			
+            // Creation du conteneur XML pour Mozilla/Safari
+            if (window.XMLHttpRequest) {                    
+                xmlHttpReq = new XMLHttpRequest();
+            }
+            // Creation du conteneur XML pour IE
+            else if (window.ActiveXObject) {
+                xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            var url = "/ticket_type?spectacleId=" + spectacleId + "&representationId=" + represId;
+            
+            xmlHttpReq.open('GET', url, true);
+            xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xmlHttpReq.onreadystatechange = function() {
+                if (xmlHttpReq.readyState == 4) {
+                    updatepage(xmlHttpReq.responseText);
+                }
+            };
+            xmlHttpReq.send(url);
+		
+		}*/
 		
 	</script>
 </html>
