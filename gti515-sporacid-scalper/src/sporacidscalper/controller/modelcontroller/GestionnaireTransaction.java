@@ -1,7 +1,9 @@
 package sporacidscalper.controller.modelcontroller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import sporacidscalper.model.ItemCommande;
 import sporacidscalper.model.Transaction;
 import sporacidscalper.model.beans.TransactionBean;
 import sporacidscalper.model.persistence.StubFactory;
@@ -42,7 +44,7 @@ public class GestionnaireTransaction implements IGestionnaireTransaction
 	 * @param clientIdentifier The client unique identifier
 	 * @return A list of all transactions made by the client
 	 */
-	public TransactionBean[] obtenirTransactionsClient(String clientIdentifier)
+	public List<TransactionBean> obtenirTransactionsClient(String clientIdentifier)
 	{
 		throw new UnsupportedOperationException();
 	}
@@ -52,8 +54,20 @@ public class GestionnaireTransaction implements IGestionnaireTransaction
 	 * @param representationId The Representation unique id
 	 * @return A list of all transactions made for the representation
 	 */
-	public TransactionBean[] obtenirTransactionsRepresentation(int representationId)
+	public int obtenirTransactionsRepresentationCount(int representationId)
 	{
-		throw new UnsupportedOperationException();
+		List<TransactionBean> repTransactions = new ArrayList<TransactionBean>();
+		for(Transaction trans : this.listeTransactions)
+		{
+			for(ItemCommande ic : trans.getCommande().getItems())
+			{
+				if(representationId == ic.getBilletRepresentation().getRepresentationId())
+				{
+					repTransactions.add((TransactionBean)trans.getBean());
+					break;
+				}
+			}
+		}
+		return repTransactions.size();
 	}
 }

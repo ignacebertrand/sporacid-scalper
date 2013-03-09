@@ -3,7 +3,6 @@ package sporacidscalper.controller.modelcontroller;
 import java.util.ArrayList;
 import java.util.List;
 
-import sporacidscalper.controller.modelcontroller.IGestionnaireTransaction;
 import sporacidscalper.model.Artiste;
 import sporacidscalper.model.Representation;
 import sporacidscalper.model.Salle;
@@ -93,7 +92,7 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 		boolean okForDeletion = true;
 		for(Representation representation : spectacle.getRepresentations())
 		{
-			int transactionCount = transactionManager.obtenirTransactionsRepresentation(representation.getId()).length;
+			int transactionCount = transactionManager.obtenirTransactionsRepresentationCount(representation.getId());
 			
 			if(transactionCount > 0)
 			{
@@ -195,7 +194,7 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 		Representation representation = (Representation) representationToDelete.getModelObject();
 		// Flag checking if any transaction is binded to the representation object. Cannot delete object if 
 		// one or more transaction is binded.
-		boolean okForDeletion = transactionManager.obtenirTransactionsRepresentation(representation.getId()).length == 0;
+		boolean okForDeletion = transactionManager.obtenirTransactionsRepresentationCount(representation.getId()) == 0;
 		// Access listeSpectacles thread-safely.
 		synchronized(listeSpectacles)
 		{
@@ -264,14 +263,12 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	 * Public method to get the number of ticket remaining for a Spectacle Representation.
 	 * @return The number of ticket remaining
 	 */
-	public int obtenirNbBilletRestant(int spectacleId, int representationId)
+	public int obtenirNbBilletRestant(int spectacleId, int representationId, int typeBilletId, IGestionnaireTransaction transactionManager)
 	{
-		//TODO : this method is kinda hard to do; we need to check the number of transactions 
-		// done for the current spectacle and representation, plus we have an additional parameter (the ticket type)
-		//that I haven't put.
-		throw new UnsupportedOperationException();
+		int salleCapacity = this.obtenirSpectacle(spectacleId).getRepresentation(representationId).obtenirTypeBilletRepresentation(typeBilletId).getNbBilletEmis();
+		int transactionsCnt = transactionManager.obtenirTransactionsRepresentationCount(representationId);
+		return salleCapacity - transactionsCnt;	
 	}
-
 	/**
 	 * Public method that fetches all the artists from all the shows and
 	 * builds a catalog.
