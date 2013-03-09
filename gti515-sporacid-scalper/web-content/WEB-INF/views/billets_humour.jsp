@@ -67,12 +67,12 @@
 						</div>
 						<div class="event-list-item-controller">
 							<label class="generic-label">Représentation :</label>
-							<select class="generic-select event-list-item-representation-select" onchange="JavaScript:representationChange(this)">
+							<select class="generic-select event-list-item-representation-select">
 								<option value="-1">-----</option>
 								<%=presentation.getRepresentationsListItem(spectacle.getRepresentations())%>
 							</select>
 							<label class="generic-label">Type :</label>
-							<select class="generic-select event-list-item-type-select">								
+							<select class="generic-select event-list-item-ticket-type-select">
 							</select>
 							<label class="generic-label">Quantité :</label>
 							<select class="generic-select event-list-item-quantity-select">
@@ -107,59 +107,54 @@
 			function()
 			{
 				$(".event-list-item-addtocart-button").click(
+						function()
+						{
+							var item = $(this).parents(".event-list-item");
+							
+							var qte = item.find(".event-list-item-quantity-select option:selected").val();
+							var spectacleId = item.find(".hiddenSpectacleId").val();
+							var represId = item.find(".event-list-item-representation-select option:selected").val();
+							var typeBilletId = item.find(".event-list-item-type-select option:selected").val();
+							
+							if(qte > 0 && spectacleId > 0 && represId > 0 && typeBilletId > 0)
+							{
+								var form = $("form");
+								
+								form.find("#hiddenQuantite").val(qte);
+								form.find("#hiddenSpectacleId").val(spectacleId);
+								form.find("#hiddenRepresentationId").val(represId);
+								form.find("#hiddenTypeBilletId").val(typeBilletId);
+								
+								form.submit();
+							}
+							else
+							{
+								var messages = ["Impossible d'ajouter l'item au panier d'achat."];
+								showMessages(messages);
+							}
+						}
+					);
+				
+				$(".event-list-item-representation-select").change(
 					function()
 					{
 						var item = $(this).parents(".event-list-item");
-						
-						var qte = item.find(".event-list-item-quantity-select option:selected").val();
 						var spectacleId = item.find(".hiddenSpectacleId").val();
 						var represId = item.find(".event-list-item-representation-select option:selected").val();
-						var typeBilletId = item.find(".event-list-item-type-select option:selected").val();
 						
-						if(qte > 0 && spectacleId > 0 && represId > 0 && typeBilletId > 0)
-						{
-							var form = $("form");
-							
-							form.find("#hiddenQuantite").val(qte);
-							form.find("#hiddenSpectacleId").val(spectacleId);
-							form.find("#hiddenRepresentationId").val(represId);
-							form.find("#hiddenTypeBilletId").val(typeBilletId);
-							
-							form.submit();
-						}
-						else
-						{
-							var messages = ["Impossible d'ajouter l'item au panier d'achat."];
-							showMessages(messages);
-						}
+						$.get("<%=contextAttr%>/billets/obtenir-types-billet-representation",
+				        	{ spectacleId: spectacleId, representationId: represId },
+					        function (response)
+					        {				        		
+				                var container = item.find(".event-list-item-ticket-type-select");
+				                container.empty();
+				                
+				                container.append(response);
+					        }
+						);
 					}
 				);
 			}
 		);
-		
-		function representationChange()
-		{
-			var xmlHttpReq = false;
-			
-            // Creation du conteneur XML pour Mozilla/Safari
-            if (window.XMLHttpRequest) {                    
-                xmlHttpReq = new XMLHttpRequest();
-            }
-            // Creation du conteneur XML pour IE
-            else if (window.ActiveXObject) {
-                xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            var url = strURL + "?listeImages=" + selection.listeImages.options[selection.listeImages.selectedIndex].value;
-            
-            xmlHttpReq.open('GET', url, true);
-            xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xmlHttpReq.onreadystatechange = function() {
-                if (xmlHttpReq.readyState == 4) {
-                    updatepage(xmlHttpReq.responseText);
-                }
-            };
-            xmlHttpReq.send(url);
-		
-		}
 	</script>
 </html>

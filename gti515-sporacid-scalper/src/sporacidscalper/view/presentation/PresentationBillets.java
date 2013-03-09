@@ -5,9 +5,10 @@ import java.util.List;
 
 import sporacidscalper.model.beans.ArtisteBean;
 import sporacidscalper.model.beans.RepresentationBean;
+import sporacidscalper.model.beans.TypeBilletBean;
 import sporacidscalper.model.beans.TypeBilletRepresentationBean;
-import sporacidscalper.model.beans.TypeSpectacleBean;
 import sporacidscalper.model.beans.TagsBean;
+import sporacidscalper.model.beans.TypeSpectacleBean;
 
 public class PresentationBillets implements IPresentationBillets
 {
@@ -72,13 +73,36 @@ public class PresentationBillets implements IPresentationBillets
 	{
 		StringBuffer htmlBuffer = new StringBuffer();
 		
-		for(TypeSpectacleBean type : types)
-		{			
+		for(int i = 0;i < types.size(); i++)
+		{
+			TypeSpectacleBean type = types.get(i);
+			
 			htmlBuffer.append("<option value=");
 			htmlBuffer.append(type.getId());
 			htmlBuffer.append(">");
 			htmlBuffer.append(type.getNom());
 			htmlBuffer.append("</option>");
+		}
+		
+		return htmlBuffer.toString();		
+	}
+	
+	public String getTypesBilletsRpresentationListItem(List<TypeBilletRepresentationBean> typesBilletRepresentation)
+	{
+		StringBuffer htmlBuffer = new StringBuffer();
+		
+		for(TypeBilletRepresentationBean typeBilletRepresentation : typesBilletRepresentation)
+		{
+			TypeBilletBean typeBillet = typeBilletRepresentation.getType();
+			
+			if(typeBillet != null)
+			{
+				htmlBuffer.append("<option value=\"");
+				htmlBuffer.append(typeBillet.getId());
+				htmlBuffer.append("\">");
+				htmlBuffer.append(typeBillet.getNom());
+				htmlBuffer.append("</option>");
+			}
 		}
 		
 		return htmlBuffer.toString();		
