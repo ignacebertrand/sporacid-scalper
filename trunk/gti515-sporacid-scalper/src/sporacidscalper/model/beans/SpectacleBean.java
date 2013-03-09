@@ -134,6 +134,21 @@ public class SpectacleBean extends AbstractBean implements Modelable
 		return representations;
 	}
 	
+	public RepresentationBean getRepresentation(int representationId)
+	{
+		RepresentationBean repBean = new RepresentationBean();
+		for(RepresentationBean r : this.representations)
+		{
+			if(r.getId() == representationId)
+			{
+				repBean = r;
+				break;		
+			}
+		}
+		
+		return repBean;
+	}
+	
 	private List<Artiste> toArtistesList(List<ArtisteBean> artistesBean)
 	{
 		List<Artiste> artistes = new ArrayList<Artiste>();

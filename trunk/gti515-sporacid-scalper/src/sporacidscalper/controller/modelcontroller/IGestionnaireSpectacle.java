@@ -64,7 +64,7 @@ public interface IGestionnaireSpectacle
 	 * Public method to get the number of ticket remaining for a Spectacle Representation.
 	 * @return The number of ticket remaining
 	 */
-	public int obtenirNbBilletRestant(int spectacleId, int representationId);
+	public int obtenirNbBilletRestant(int spectacleId, int representationId, int typeBilletId, IGestionnaireTransaction transactionManager);
 	/**
 	 * Public method to obtain the list of all Artiste in the system.
 	 * @return The list of all Spectacle
