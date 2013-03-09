@@ -1,6 +1,10 @@
 package sporacidscalper.controller.viewcontroller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -12,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import sporacidscalper.controller.modelcontroller.IGestionnaireSpectacle;
 import sporacidscalper.model.beans.SpectacleBean;
 import sporacidscalper.model.beans.RepresentationBean;
-import sporacidscalper.model.beans.TypeBilletRepresentationBean;
 import sporacidscalper.view.presentation.IPresentationBillets;
 
 @Controller 
@@ -50,33 +53,41 @@ public class BilletsController implements ApplicationContextAware
 		
 		mav.addObject("context", request.getContextPath());
 		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirSpectacles());
+		mav.addObject("listeTypes", gestionnaireSpectacle.obtenirCatalogueTypeSpectacle());
+		mav.addObject("presentationBillets", presentationBillets);
 		
 		return mav;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/ticket_type")
-	public String getTicketType(HttpServletRequest request)
+	@RequestMapping(method = RequestMethod.GET, value = "/obtenir-types-billet-representation")
+	public void getTicketType(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		StringBuffer htmlBuffer = new StringBuffer();
+		response.setContentType("text/html");
 		
-		int spectacleId 	 = Integer.parseInt(request.getParameter("spectacleId"));
-		int representationId = Integer.parseInt(request.getParameter("representationId"));
+		PrintWriter out = response.getWriter();
 		
-		SpectacleBean spectacle = gestionnaireSpectacle.obtenirSpectacle(spectacleId);
+		String options = "<option value=\"-1\">----</option>";
 		
-		RepresentationBean representation = spectacle.obtenirRepresentation(representationId);
-		/*
-		for(TypeBilletRepresentationBean typeBillet : representation.getTypesBillet())
+		if(request.getParameter("spectacleId") != null && request.getParameter("representationId") != null &&
+		   request.getParameter("spectacleId") != "-1" && request.getParameter("representationId") != "-1")
 		{
-			htmlBuffer.append("<option value=");
-			htmlBuffer.append(typeBillet.getId());
-			htmlBuffer.append(">");
-			htmlBuffer.append(typeBillet.getNom());
-			htmlBuffer.append("</option>");
+			int spectacleId 	 = Integer.parseInt(request.getParameter("spectacleId"));
+			int representationId = Integer.parseInt(request.getParameter("representationId"));
 			
-		}*/
+			System.out.println("controller:  spectid: " + spectacleId + " represid: " + representationId);
+			
+			SpectacleBean spectacle = gestionnaireSpectacle.obtenirSpectacle(spectacleId);
+			
+			RepresentationBean representation = spectacle.obtenirRepresentation(representationId);
+			
+			if(representation != null)
+				options = presentationBillets.getTypesBilletsRpresentationListItem(representation.getTypesBillet());
+		}
 		
-		return htmlBuffer.toString();
+		System.out.println("controller:  response: " + options);
+		
+		out.print(options);
+		
 	}
 
 	/**

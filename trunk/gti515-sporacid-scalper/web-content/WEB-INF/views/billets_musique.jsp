@@ -72,9 +72,12 @@
 						</div>
 						<div class="event-list-item-controller">
 							<label class="generic-label">Représentation :</label>
-							<select class="generic-select event-list-item-representation-select" onchange="JavaScript:representationChange(this)">
+							<select class="generic-select event-list-item-representation-select">
 								<option value="-1">-----</option>
 								<%=presentation.getRepresentationsListItem(spectacle.getRepresentations())%>
+							</select>
+							<label class="generic-label">Type :</label>
+							<select class="generic-select event-list-item-ticket-type-select">
 							</select>
 							<label class="generic-label">Quantité :</label>
 							<select class="generic-select event-list-item-quantity-select">
@@ -138,37 +141,24 @@
 				);
 				
 				$(".event-list-item-representation-select").change(
-						function()
-						{
-							var item = $(this).parents(".event-list-item");
-							
-							var spectacleId = item.find(".hiddenSpectacleId").val();
-							var represId = item.find(".event-list-item-representation-select option:selected").val();
-							
-							alert("1 spect id: "+ spectacleId + " represId: " + represId);
-							
-							var xmlHttpReq = false;
-							
-				            // Creation du conteneur XML pour Mozilla/Safari
-				            if (window.XMLHttpRequest) {                    
-				                xmlHttpReq = new XMLHttpRequest();
-				            }
-				            // Creation du conteneur XML pour IE
-				            else if (window.ActiveXObject) {
-				                xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
-				            }
-				            var url = "/ticket_type?spectacleId=" + spectacleId + "&representationId=" + represId;
-				            
-				            xmlHttpReq.open('GET', url, true);
-				            xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-				            xmlHttpReq.onreadystatechange = function() {
-				                if (xmlHttpReq.readyState == 4) {
-				                    updatepage(xmlHttpReq.responseText);
-				                }
-				            };
-				            xmlHttpReq.send(url);
-						}
-					);
+					function()
+					{
+						var item = $(this).parents(".event-list-item");
+						var spectacleId = item.find(".hiddenSpectacleId").val();
+						var represId = item.find(".event-list-item-representation-select option:selected").val();
+												
+						$.get("<%=contextAttr%>/billets/obtenir-types-billet-representation",
+				        	{ spectacleId: spectacleId, representationId: represId },
+					        function (response)
+					        {				        		
+				                var container = item.find(".event-list-item-ticket-type-select");
+				                container.empty();
+				                
+				                container.append(response);
+					        }
+						);
+					}
+				);
 				
 				//Mock of wait time for server response.
 // 				$(".event-list-item-disponibility-button").click(
@@ -204,38 +194,5 @@
 // 				);
 			}
 		);
-		
-		/* TODO demander Simon si aurait ete possible
-		function representationChange(representationList)
-		{
-			var item = representationList.parents(".event-list-item");
-			var spectacleId = item.find(".hiddenSpectacleId").val();
-			var represId = item.find(".event-list-item-representation-select option:selected").val();
-			
-			alert("2 spect id: "+ spectacleId + " represId: " + represId);
-			
-			var xmlHttpReq = false;
-			
-            // Creation du conteneur XML pour Mozilla/Safari
-            if (window.XMLHttpRequest) {                    
-                xmlHttpReq = new XMLHttpRequest();
-            }
-            // Creation du conteneur XML pour IE
-            else if (window.ActiveXObject) {
-                xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            var url = "/ticket_type?spectacleId=" + spectacleId + "&representationId=" + represId;
-            
-            xmlHttpReq.open('GET', url, true);
-            xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xmlHttpReq.onreadystatechange = function() {
-                if (xmlHttpReq.readyState == 4) {
-                    updatepage(xmlHttpReq.responseText);
-                }
-            };
-            xmlHttpReq.send(url);
-		
-		}*/
-		
 	</script>
 </html>
