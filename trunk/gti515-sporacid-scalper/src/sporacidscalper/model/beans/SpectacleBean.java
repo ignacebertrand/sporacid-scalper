@@ -17,11 +17,11 @@ public class SpectacleBean extends AbstractBean implements Modelable
 	private static final long serialVersionUID = -3395964345489788900L;
 	
 	private int id;
-	private String nom;
+	private String nomSpectacle;
 	private String description;
 	private String posterUrl;
 	private List<ArtisteBean> artistes;
-	private TypeSpectacleBean type;
+	private TypeSpectacleBean typeSpectacle;
 	private List<RepresentationBean> representations;
 	
 	public SpectacleBean()
@@ -32,11 +32,11 @@ public class SpectacleBean extends AbstractBean implements Modelable
 	public SpectacleBean(int id)
 	{
 		this.id = id;
-		this.nom = null;
+		this.nomSpectacle = null;
 		this.description = null;
 		this.posterUrl = null;
 		this.artistes = new ArrayList<ArtisteBean>();
-		this.type = null;
+		this.typeSpectacle = null;
 		this.representations = new ArrayList<RepresentationBean>();
 	}
 	
@@ -81,12 +81,12 @@ public class SpectacleBean extends AbstractBean implements Modelable
 	
 	public String getNom()
 	{
-		return nom;
+		return nomSpectacle;
 	}
 	
 	public void setNom(String nom)
 	{
-		this.nom = nom;
+		this.nomSpectacle = nom;
 	}
 	
 	public String getDescription()
@@ -121,12 +121,12 @@ public class SpectacleBean extends AbstractBean implements Modelable
 	
 	public TypeSpectacleBean getType()
 	{
-		return type;
+		return typeSpectacle;
 	}
 	
 	public void setType(TypeSpectacleBean type)
 	{
-		this.type = type;
+		this.typeSpectacle = type;
 	}
 	
 	public List<RepresentationBean> getRepresentations()
@@ -171,9 +171,9 @@ public class SpectacleBean extends AbstractBean implements Modelable
 			s = new Spectacle(this.id);
 			
 			s.setDescription(this.description);
-			s.setNom(this.nom);
+			s.setNom(this.nomSpectacle);
 			s.setPosterUrl(this.posterUrl);
-			s.setType((TypeSpectacle) this.type.getModelObject());
+			s.setType((TypeSpectacle) this.typeSpectacle.getModelObject());
 			s.setArtistes(this.toArtistesList(this.artistes));
 			s.setId(this.id);
 			

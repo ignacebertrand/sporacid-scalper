@@ -46,9 +46,119 @@
 					<input type="hidden" id="hiddenTypeBilletId" name="typeBilletId" />
 				</form>
 				
-				<!-- Delegate presentation to the presentation logic class -->
-				<%=presentation.presenterPanierAchat(panierAchat) %>
-			
+				<ul class="shopping-cart-item-list">
+					<% for(ItemPanierAchatBean item : panierAchat.getItems()) { %>
+					<%
+						// Get the upper references if they exist.
+						// (We expect the controller to set those references for the view)
+						TypeBilletRepresentationBean typeBilletRepresentation = item.getBilletRepresentation();
+						RepresentationBean representation = null;
+						SpectacleBean spectacle = null;
+						
+						if(typeBilletRepresentation != null)
+						{
+							representation = typeBilletRepresentation.getRepresentationReference();
+							
+							if(representation != null)
+							{
+								spectacle = representation.getSpectacleReference();
+							}
+						}
+						
+						// Instantiate default object because we don't want the presentation
+						// to fail (Null reference).
+						if(typeBilletRepresentation == null)
+							typeBilletRepresentation = item.getBilletRepresentation();
+						
+						if(representation == null)
+							representation = new RepresentationBean();
+						
+						if(spectacle == null)
+							spectacle = new SpectacleBean();
+						
+						String artistesDesc = spectacle.getArtistes();
+						
+						String itemTitle = spectacle.getDescription() + "  -  " + 
+								typeBilletRepresentation.getType().getNom() + "  -  Prix unitaire : " +
+								currencyFormatter.format(typeBilletRepresentation.getPrix());
+					%>	
+					
+						<li class="shopping-cart-item">
+						
+							<input class="shopping-cart-item-id" type="hidden" value="<%=item.getId()%>" />
+							<input class="shopping-cart-item-spectacle-id" type="hidden" value="<%=spectacle.getId()%>" />
+							
+							<div class="shopping-cart-item-image" style="background-image: url(../<%=spectacle.getPosterUrl()%>);"></div>
+							<div class="shopping-cart-item-content">
+								<div class="shopping-cart-item-desc">
+									<h1 class="shopping-cart-item-title"><%=itemTitle%></h1>
+									<h2 class="shopping-cart-item-artists"><%=artistesDesc%></h2>
+								</div>
+								<%-- Controller to give an opportunity for the client to modify his shopping cart --%>
+								<div class="shopping-cart-item-controller">
+									<label class="generic-label">Représentation :</label>
+									<select class="generic-select shopping-cart-item-representation-select">
+									
+										<%-- Iterate through all available representations for the show --%>
+										<% for(RepresentationBean availableRepr : spectacle.getRepresentations()) { %>
+											<% boolean isSelected = availableRepr.equals(representation); %>
+											<option value="<%=availableRepr.getId()%>" <%=(isSelected ? "selected=\"selected\"" : "" )%>>
+												Représentation du <%=dateFormatter.format(availableRepr.getDateDebutRepresentation())%>
+											</option>
+										<% } %>
+										
+									</select>
+									<label class="generic-label">Billet :</label>
+									<select class="generic-select shopping-cart-item-tickettype-select">
+									
+										<%-- Populate a TypeBilletBean array according to the TypeBilletRepresentationBean --%>
+										<%-- list for the representation --%>
+										<% 
+											TypeBilletBean[] typesBillet = new TypeBilletBean[representation.getTypesBillet().size()];
+										
+											int i = 0;
+											for(TypeBilletRepresentationBean availableTypeBillet : representation.getTypesBillet())
+												typesBillet[i] = availableTypeBillet.getType();
+										%>
+									
+										<%-- Iterate through all available ticket types for the show --%>
+										<% for(TypeBilletBean availableTypeBillet : typesBillet) { %>
+											<% boolean isSelected = availableTypeBillet.equals(typeBilletRepresentation.getType()); %>
+											<option value="<%=availableTypeBillet.getId()%>" <%=(isSelected ? "selected=\"selected\"" : "" )%>>
+												<%=availableTypeBillet.getNom() %>
+											</option>
+										<% } %>
+										
+									</select>
+									<label class="generic-label">Quantité :</label>
+									<select class="generic-select shopping-cart-item-quantity-select">
+										<%-- It is a business rule that we cannot have more than 6 tickets for a representation --%>
+										<%-- This logic could be moved someday because the view shouldn't know about business rules --%>
+										<%-- However, I think it would be an overkill for a 1 to 6 loop. --%>
+										<% int selectedQuantity = item.getQuantite(); %>
+										<% for(int iQuantity = 1; iQuantity <= 6; iQuantity++) { %>
+											<option value="<%=iQuantity%>" <%=(selectedQuantity == iQuantity ? "selected=\"selected\"" : "" )%>>
+												<%=iQuantity%>
+											</option>
+										<% } %>
+									</select>
+									<label class="generic-label">Total :</label>
+									<span class="shopping-cart-item-total"><%=currencyFormatter.format(item.getTotal())%></span>
+									<div class="generic-button shopping-cart-delete-item-button">&nbsp;</div>
+								</div>
+							</div>
+						</li>
+							
+					<% } %>
+				</ul>
+				
+				<div class="shopping-cart-item-list-controller">
+					<label class="generic-label">Total :</label>
+					<span class="shopping-cart-item-list-total"><%=currencyFormatter.format(panierAchat.getTotal())%></span>
+					<div class="generic-button shopping-cart-item-list-checkout-button">
+						Procéder au paiement
+					</div>
+				</div>
 			</div>
 		</div>
 		

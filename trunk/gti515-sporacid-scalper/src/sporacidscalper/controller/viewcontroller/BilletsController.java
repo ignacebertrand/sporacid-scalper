@@ -39,7 +39,7 @@ public class BilletsController implements ApplicationContextAware
 		ModelAndView mav = new ModelAndView("billets_musique");
 		
 		mav.addObject("context", request.getContextPath());
-		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirSpectacles());
+		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirCatalogueSpectacles());
 		mav.addObject("listeTypes", gestionnaireSpectacle.obtenirCatalogueTypeSpectacle());
 		mav.addObject("presentationBillets", presentationBillets);
 		
@@ -52,7 +52,7 @@ public class BilletsController implements ApplicationContextAware
 		ModelAndView mav = new ModelAndView("billets_humour");
 		
 		mav.addObject("context", request.getContextPath());
-		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirSpectacles());
+		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirCatalogueSpectacles());
 		mav.addObject("listeTypes", gestionnaireSpectacle.obtenirCatalogueTypeSpectacle());
 		mav.addObject("presentationBillets", presentationBillets);
 		

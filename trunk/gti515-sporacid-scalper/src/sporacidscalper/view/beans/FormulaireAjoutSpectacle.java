@@ -10,12 +10,12 @@ import sporacidscalper.model.beans.TypeSpectacleBean;
 public class FormulaireAjoutSpectacle {
 
 	private int id;
-	private String nom;
+	private String nomSpectacle;
 	private String description;
 	private String posterUrl;
-	private List<ArtisteBean> artistes;
-	private TypeSpectacleBean type;
-	private List<Representation> representations;
+	private int[] artistes;
+	private int type;
+	private int[] representations;
 	
 	public int getSpectacleId() {
 		return id;
@@ -26,11 +26,11 @@ public class FormulaireAjoutSpectacle {
 	}
 
 	public String getNom() {
-		return nom;
+		return nomSpectacle;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setNom(String nomSpectacle) {
+		this.nomSpectacle = nomSpectacle;
 	}
 
 	public String getDescription() {
@@ -49,27 +49,27 @@ public class FormulaireAjoutSpectacle {
 		this.posterUrl = posterUrl;
 	}
 
-	public List<ArtisteBean> getArtistes() {
+	public int[] getArtistes() {
 		return artistes;
 	}
 
-	public void setArtistes(List<ArtisteBean> artistes) {
+	public void setArtistes(int[] artistes) {
 		this.artistes = artistes;
 	}
 
-	public TypeSpectacleBean getType() {
+	public int getType() {
 		return type;
 	}
 
-	public void setType(TypeSpectacleBean type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 
-	public List<Representation> getRepresentations() {
+	public int[] getRepresentations() {
 		return representations;
 	}
 
-	public void setRepresentations(List<Representation> representations) {
+	public void setRepresentations(int[] representations) {
 		this.representations = representations;
 	}
 }
