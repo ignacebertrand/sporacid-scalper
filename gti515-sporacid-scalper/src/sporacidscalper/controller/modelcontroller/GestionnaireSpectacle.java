@@ -15,36 +15,58 @@ import sporacidscalper.model.beans.SpectacleBean;
 import sporacidscalper.model.beans.TypeSpectacleBean;
 import sporacidscalper.model.persistence.StubFactory;
 
-public class GestionnaireSpectacle implements IGestionnaireSpectacle
-{
+public class GestionnaireSpectacle implements IGestionnaireSpectacle {
 	/**
 	 * List of all Spectacle on which we'll do operations
 	 */
 	private List<Spectacle> listeSpectacles;
 
 	/**
+	 * List of all Types of Artistes we'll use
+	 */
+	private List<Artiste> listeArtistes;
+
+	/**
+	 * List of all Types of Spectacles we'll use
+	 */
+	private List<TypeSpectacle> listeTypesSpectacle;
+
+	/**
+	 * List of all Types of Salles we'll use
+	 */
+	private List<Salle> listeSalles;
+
+	/**
 	 * Private constructor for the singleton
 	 */
-	public GestionnaireSpectacle()
-	{
-		this.listeSpectacles = (List<Spectacle>)StubFactory.getInstance().getStubSpectacles();
+	public GestionnaireSpectacle() {
+		this.listeSpectacles = (List<Spectacle>) StubFactory.getInstance()
+				.getStubSpectacles();
+		this.listeArtistes = (List<Artiste>) StubFactory.getInstance()
+				.getStubArtistes();
+		this.listeTypesSpectacle = (List<TypeSpectacle>) StubFactory
+				.getInstance().getStubTypesSpectacles();
+		this.listeSalles = (List<Salle>) StubFactory.getInstance()
+				.getStubSalles();
 	}
 
 	/**
 	 * Public method to add a Spectacle to the system.
-	 * @param spectacleToAdd A Spectacle bean object that contains informations for the Spectacle to add
+	 * 
+	 * @param spectacleToAdd
+	 *            A Spectacle bean object that contains informations for the
+	 *            Spectacle to add
 	 */
-	public void ajouterSpectacle(SpectacleBean spectacleToAdd)
-	{
+	public void ajouterSpectacle(SpectacleBean spectacleToAdd) {
+		// TODO : Need some sort of validation on the spectacle to add
+
 		// Access listeSpectacles thread-safely.
-		synchronized(listeSpectacles)
-		{
+		synchronized (listeSpectacles) {
 			// Verifying that no other spectacle has the same Id
-			for(Spectacle s : this.listeSpectacles)
-			{
-				if(s.getId() != spectacleToAdd.getId())
-				{
-					this.listeSpectacles.add((Spectacle) spectacleToAdd.getModelObject());
+			for (Spectacle s : this.listeSpectacles) {
+				if (s.getId() != spectacleToAdd.getId()) {
+					this.listeSpectacles.add((Spectacle) spectacleToAdd
+							.getModelObject());
 					break;
 				}
 			}
@@ -53,43 +75,48 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 
 	/**
 	 * Public method to edit a Spectacle in the system.
-	 * @param spectacleToEdit A Spectacle bean object that contains modifications to a Spectacle
+	 * 
+	 * @param spectacleToEdit
+	 *            A Spectacle bean object that contains modifications to a
+	 *            Spectacle
 	 */
-	public void modifierSpectacle(SpectacleBean spectacleToEdit)
-	{
+	public void modifierSpectacle(SpectacleBean spectacleToEdit) {
 		int i = 0;
-		//TODO : Need some sort of validation on the spectacle to edit
-		
+		// TODO : Need some sort of validation on the spectacle to edit
+
 		// Access listeSpectacles thread-safely.
-		synchronized(listeSpectacles)
-		{
+		synchronized (listeSpectacles) {
 			// Iterators are faster than indexed loops for ArrayList
-			for(Spectacle spectacle : listeSpectacles)
-			{
-				if(spectacle.getId() == spectacleToEdit.getId())
-				{
-					listeSpectacles.set(i, (Spectacle) spectacleToEdit.getModelObject());
+			for (Spectacle spectacle : listeSpectacles) {
+				if (spectacle.getId() == spectacleToEdit.getId()) {
+					listeSpectacles.set(i,
+							(Spectacle) spectacleToEdit.getModelObject());
 					break;
 				}
-				
+
 				i++;
 			}
 		}
 	}
 
 	/**
-	 * Public method to delete a Spectacle from the system.
-	 * If some Representation are still linked to Transaction, then the deletion won't happen.
-	 * We cannot delete something that has a relationship to a transaction.
-	 * @param spectacleToDelete A Spectacle bean object that we wish to delete
-	 * @param transactionManager Inversion of control for the transaction manager 
+	 * Public method to delete a Spectacle from the system. If some
+	 * Representation are still linked to Transaction, then the deletion won't
+	 * happen. We cannot delete something that has a relationship to a
+	 * transaction.
+	 * 
+	 * @param spectacleToDelete
+	 *            A Spectacle bean object that we wish to delete
+	 * @param transactionManager
+	 *            Inversion of control for the transaction manager
 	 */
-	public void supprimerSpectacle(SpectacleBean spectacleToDelete, IGestionnaireTransaction transactionManager)
-	{
+	public void supprimerSpectacle(SpectacleBean spectacleToDelete,
+			IGestionnaireTransaction transactionManager) {
 		Spectacle spectacle = (Spectacle) spectacleToDelete.getModelObject();
-		
+
 		// Flag to check if we can delete the spectacle or not.
 		boolean okForDeletion = true;
+
 		for(Representation representation : spectacle.getRepresentations())
 		{
 			int transactionCount = transactionManager.obtenirTransactionsRepresentationCount(representation.getId());
@@ -101,14 +128,12 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 				break;
 			}
 		}
-		
+
 		// Access listeSpectacles thread-safely.
-		synchronized(listeSpectacles)
-		{
-			if(okForDeletion)
-			{
-				//Proceed with the deletion
-				//listeSpectacles.get(spectacle.getId())
+		synchronized (listeSpectacles) {
+			if (okForDeletion) {
+				// Proceed with the deletion
+				// listeSpectacles.get(spectacle.getId())
 				listeSpectacles.remove(spectacle);
 			}
 		}
@@ -116,65 +141,71 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 
 	/**
 	 * Public method to add a Representation to a Spectacle.
-	 * @param spectacleId The Spectacle id to which we want to add a Representation
-	 * @param representationToAdd A Representation bean that contains informations for the Representation to add
+	 * 
+	 * @param spectacleId
+	 *            The Spectacle id to which we want to add a Representation
+	 * @param representationToAdd
+	 *            A Representation bean that contains informations for the
+	 *            Representation to add
 	 */
-	public void ajouterRepresentation(int spectacleId, RepresentationBean representationToAdd)
-	{
+	public void ajouterRepresentation(int spectacleId,
+			RepresentationBean representationToAdd) {
 		Spectacle spectacleToEdit = null;
-		
+
 		// Access listeSpectacles thread-safely.
-		synchronized(listeSpectacles)
-		{
-			for(Spectacle spectacle : listeSpectacles)
-			{
-				if(spectacle.getId() == spectacleId)
+		synchronized (listeSpectacles) {
+			for (Spectacle spectacle : listeSpectacles) {
+				if (spectacle.getId() == spectacleId)
 					spectacleToEdit = spectacle;
 			}
-		
-			if(spectacleToEdit != null)
-			{
-				//TODO : Need some sort of validation on the representation to add
-				
-				spectacleToEdit.getRepresentations().add((Representation) representationToAdd.getModelObject());
+
+			if (spectacleToEdit != null) {
+				// TODO : Need some sort of validation on the representation to
+				// add
+
+				spectacleToEdit.getRepresentations().add(
+						(Representation) representationToAdd.getModelObject());
 			}
 		}
 	}
 
 	/**
 	 * Public method to edit a Representation of a Spectacle.
-	 * @param spectacleId The Spectacle id to which we want to edit a Representation
-	 * @param representationToEdit A Representation bean object that contains modifications to a Representation
+	 * 
+	 * @param spectacleId
+	 *            The Spectacle id to which we want to edit a Representation
+	 * @param representationToEdit
+	 *            A Representation bean object that contains modifications to a
+	 *            Representation
 	 */
-	public void modifierRepresentation(int spectacleId, RepresentationBean representationToEdit)
-	{
+	public void modifierRepresentation(int spectacleId,
+			RepresentationBean representationToEdit) {
 		Spectacle spectacleToEdit = null;
-			
+
 		// Access listeSpectacles thread-safely.
-		synchronized(listeSpectacles)
-		{
-			for(Spectacle spectacle : listeSpectacles)
-			{
-				if(spectacle.getId() == spectacleId)
+		synchronized (listeSpectacles) {
+			for (Spectacle spectacle : listeSpectacles) {
+				if (spectacle.getId() == spectacleId)
 					spectacleToEdit = spectacle;
 			}
-			
-			if(spectacleToEdit != null)
-			{
-				List<Representation> spectacleToEditRepresentations = spectacleToEdit.getRepresentations();
-				
+
+			if (spectacleToEdit != null) {
+				List<Representation> spectacleToEditRepresentations = spectacleToEdit
+						.getRepresentations();
+
 				// Iterators are faster than indexed loops for ArrayList
 				int i = 0;
-				for(Representation representation : spectacleToEditRepresentations)
-				{
-					if(representation.getId() == representationToEdit.getId())
-					{
-						//TODO : Need some sort of validation on the representation to edit
-						
-						spectacleToEditRepresentations.set(i, (Representation) representationToEdit.getModelObject());
+				for (Representation representation : spectacleToEditRepresentations) {
+					if (representation.getId() == representationToEdit.getId()) {
+						// TODO : Need some sort of validation on the
+						// representation to edit
+
+						spectacleToEditRepresentations.set(i,
+								(Representation) representationToEdit
+										.getModelObject());
 						break;
 					}
-					
+
 					i++;
 				}
 			}
@@ -182,31 +213,38 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 	}
 
 	/**
-	 * Public method to delete a Representation from a Spectacle.
-	 * If the Representation is still linked to Transaction, then the deletion won't happen.
-	 * We cannot delete something that has a relationship to a transaction.
-	 * @param spectacleId The Spectacle id to which we want to delete a Representation
-	 * @param representationToDelete A Representation bean object that we wish to delete
-	 * @param transactionManager Inversion of control for the transaction manager
+	 * Public method to delete a Representation from a Spectacle. If the
+	 * Representation is still linked to Transaction, then the deletion won't
+	 * happen. We cannot delete something that has a relationship to a
+	 * transaction.
+	 * 
+	 * @param spectacleId
+	 *            The Spectacle id to which we want to delete a Representation
+	 * @param representationToDelete
+	 *            A Representation bean object that we wish to delete
+	 * @param transactionManager
+	 *            Inversion of control for the transaction manager
 	 */
-	public void supprimerRepresentation(RepresentationBean representationToDelete, IGestionnaireTransaction transactionManager)
-	{
-		Representation representation = (Representation) representationToDelete.getModelObject();
-		// Flag checking if any transaction is binded to the representation object. Cannot delete object if 
+	public void supprimerRepresentation(
+			RepresentationBean representationToDelete,
+			IGestionnaireTransaction transactionManager) {
+		Representation representation = (Representation) representationToDelete
+				.getModelObject();
+		// Flag checking if any transaction is binded to the representation
+		// object. Cannot delete object if
 		// one or more transaction is binded.
 		boolean okForDeletion = transactionManager.obtenirTransactionsRepresentationCount(representation.getId()) == 0;
+
 		// Access listeSpectacles thread-safely.
-		synchronized(listeSpectacles)
-		{
-			if(okForDeletion)
-			{			
+		synchronized (listeSpectacles) {
+			if (okForDeletion) {
 				// Iterators are faster than indexed loops for ArrayList
 				int i = 0;
-				for(Representation r : listeSpectacles.get(representation.getSpectacleId()).getRepresentations())
-				{
-					if(r.getId() == representation.getId())
-					{
-						listeSpectacles.get(r.getSpectacleId()).getRepresentations().remove(i);
+				for (Representation r : listeSpectacles.get(
+						representation.getSpectacleId()).getRepresentations()) {
+					if (r.getId() == representation.getId()) {
+						listeSpectacles.get(r.getSpectacleId())
+								.getRepresentations().remove(i);
 						break;
 					}
 					i++;
@@ -214,53 +252,55 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 			}
 		}
 	}
-	
+
 	/**
 	 * Public method to obtain a Spectacle from the system.
-	 * @param spectacleId The Spectacle unique id
+	 * 
+	 * @param spectacleId
+	 *            The Spectacle unique id
 	 * @return The Spectacle bean associated with the Spectacle
 	 */
-	public SpectacleBean obtenirSpectacle(int spectacleId)
-	{
+	public SpectacleBean obtenirSpectacle(int spectacleId) {
 		SpectacleBean spectacleToGet = null;
-		
+
 		// Access listeSpectacles thread-safely.
-		synchronized(listeSpectacles)
-		{
-			for(Spectacle spectacle : listeSpectacles)
-			{
-				if(spectacle.getId() == spectacleId)
-				{
+		synchronized (listeSpectacles) {
+			for (Spectacle spectacle : listeSpectacles) {
+				if (spectacle.getId() == spectacleId) {
 					spectacleToGet = (SpectacleBean) spectacle.getBean();
 					break;
 				}
 			}
 		}
-		
+
 		return spectacleToGet;
-	}
-	
-	/**
-	 * Public method to obtain the list of all Spectacle in the system.
-	 * @return The list of all Spectacle
-	 */
-	public List<SpectacleBean> obtenirSpectacles()
-	{	
-		List<SpectacleBean> spectacles = new ArrayList<SpectacleBean>();
-	
-		// Access listeSpectacles thread-safely.
-		synchronized(listeSpectacles)
-		{
-			// Iterators are faster than indexed loops for ArrayList
-			for(Spectacle spectacle : listeSpectacles)
-				spectacles.add((SpectacleBean)spectacle.getBean());
-		}
-		
-		return spectacles;
 	}
 
 	/**
-	 * Public method to get the number of ticket remaining for a Spectacle Representation.
+	 * Public method to obtain the list of all Spectacle in the system.
+	 * 
+	 * @return The list of all Spectacle
+	 */
+	public ArrayList<SpectacleBean> obtenirCatalogueSpectacles() {
+		int i = 0;
+
+		ArrayList<SpectacleBean> spectacles = new ArrayList<SpectacleBean>();
+
+		// Access listeSpectacles thread-safely.
+		synchronized (listeSpectacles) {
+			// Iterators are faster than indexed loops for ArrayList
+			for (Spectacle spectacle : listeSpectacles) {
+				spectacles.add((SpectacleBean) spectacle.getBean());
+			}
+
+			return spectacles;
+		}
+	}
+
+	/**
+	 * Public method to get the number of ticket remaining for a Spectacle
+	 * Representation.
+	 * 
 	 * @return The number of ticket remaining
 	 */
 	public int obtenirNbBilletRestant(int spectacleId, int representationId, int typeBilletId, IGestionnaireTransaction transactionManager)
@@ -270,59 +310,77 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 		return salleCapacity - transactionsCnt;	
 	}
 	/**
-	 * Public method that fetches all the artists from all the shows and
-	 * builds a catalog.
+	 * Public method that fetches all the artists from all the shows and builds
+	 * a catalog.
+	 * 
 	 * @return List<ArtisteBean> - The catalog containing all the artist
 	 */
-	public List<ArtisteBean> obtenirCatalogueArtistes()
-	{
+	public List<ArtisteBean> obtenirCatalogueArtistes() {
 		List<ArtisteBean> catalog = new ArrayList<ArtisteBean>();
-		
-		for(Spectacle s : this.listeSpectacles)
-		{
-			for(Artiste a : s.getArtistes())
-			{	
-				if(!catalog.contains(a))
-				{
-					catalog.add((ArtisteBean)a.getBean());
+
+		List<Artiste> artistes = (List<Artiste>) StubFactory.getInstance().getStubArtistes();
+		for (Artiste a : artistes) {
+			catalog.add((ArtisteBean) a.getBean());
+		}
+
+		return catalog;
+	}
+
+	public List<ArtisteBean> obtenirArtistes(int[] artistesIds) {
+		int i = 0;
+		List<ArtisteBean> artistes = new ArrayList<ArtisteBean>();
+
+		// Access listeSpectacles thread-safely.
+		synchronized (listeArtistes) {
+			// Iterators are faster than indexed loops for ArrayList
+			for (Artiste artiste : listeArtistes) {
+				for (int j = 0; j < artistesIds.length; j++) {
+					if (artiste.getId() == artistesIds[j])
+						artistes.add((ArtisteBean) artiste.getBean());
+					j++;
 				}
+				i++;
 			}
 		}
-		
-		return catalog;
+
+		return artistes;
 	}
-	
-	/**
-	 * Public method to obtain the list of all Salle in the system.
-	 * @return The list of all Salle
-	 */
-	public List<SalleBean> obtenirCatalogueSalles()
-	{
+
+	public TypeSpectacleBean obtenirTypeSpectacle(int id) {
+
+		TypeSpectacleBean type = (TypeSpectacleBean) listeTypesSpectacle
+				.get(id).getBean();
+
+		return type;
+	}
+
+	public List<SalleBean> obtenirSalles() {
 		List<SalleBean> catalog = new ArrayList<SalleBean>();
-		
-		List<Salle> salles = (List<Salle>)StubFactory.getInstance().getStubSalles();
-		for(Salle s : salles)
-		{
-			catalog.add((SalleBean)s.getBean());
-		}		
-				
+
+		List<Salle> salles = (List<Salle>) StubFactory.getInstance()
+				.getStubSalles();
+		for (Salle s : salles) {
+			catalog.add((SalleBean) s.getBean());
+		}
+
 		return catalog;
 	}
-	
-	/**
-	 * Public method to obtain the list of all types of Spectacle in the system.
-	 * @return The list of all types of Spectacle
-	 */
-	public List<TypeSpectacleBean> obtenirCatalogueTypeSpectacle()
-	{
+
+	public List<TypeSpectacleBean> obtenirCatalogueTypeSpectacle() {
 		List<TypeSpectacleBean> catalog = new ArrayList<TypeSpectacleBean>();
-		
-		List<TypeSpectacle> types = (List<TypeSpectacle>)StubFactory.getInstance().getStubTypesSpectacles();
-		for(TypeSpectacle t : types)
-		{
-			catalog.add((TypeSpectacleBean)t.getBean());
+
+		List<TypeSpectacle> types = (List<TypeSpectacle>) StubFactory
+				.getInstance().getStubTypesSpectacles();
+		for (TypeSpectacle t : types) {
+			catalog.add((TypeSpectacleBean) t.getBean());
 		}
-		
+
 		return catalog;
+	}
+
+	@Override
+	public List<SalleBean> obtenirCatalogueSalles() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -59,7 +59,7 @@ public interface IGestionnaireSpectacle
 	 * Public method to obtain the list of all Spectacle in the system.
 	 * @return The list of all Spectacle
 	 */
-	public List<SpectacleBean> obtenirSpectacles();
+	public List<SpectacleBean> obtenirCatalogueSpectacles();
 	/**
 	 * Public method to get the number of ticket remaining for a Spectacle Representation.
 	 * @return The number of ticket remaining
@@ -69,7 +69,7 @@ public interface IGestionnaireSpectacle
 	 * Public method to obtain the list of all Artiste in the system.
 	 * @return The list of all Spectacle
 	 */
-	public List<ArtisteBean> obtenirCatalogueArtistes();
+	public List<ArtisteBean> obtenirArtistes(int[] artistesIds);
 	/**
 	 * Public method to obtain the list of all Salle in the system.
 	 * @return The list of all Salle
@@ -79,5 +79,11 @@ public interface IGestionnaireSpectacle
 	 * Public method to obtain the list of all types of Spectacle in the system.
 	 * @return The list of all types of Spectacle
 	 */
+	public TypeSpectacleBean obtenirTypeSpectacle(int id);
+	
+	public List<ArtisteBean> obtenirCatalogueArtistes();
+		
+	public List<SalleBean> obtenirSalles();
+	
 	public List<TypeSpectacleBean> obtenirCatalogueTypeSpectacle();
 }
