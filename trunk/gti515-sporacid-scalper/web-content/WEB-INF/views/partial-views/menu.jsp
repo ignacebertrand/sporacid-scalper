@@ -37,9 +37,9 @@
 				</ul>
 			</div>
 		</li>
-		<li id="admin_menu_item" class="menu-item">
-			<a href="<%=contextAttr%>/administration/admin">Admin</a>
-		</li>
+<!-- 		<li id="admin_menu_item" class="menu-item"> -->
+<%-- 			<a href="<%=contextAttr%>/administration/admin">Admin</a> --%>
+<!-- 		</li> -->
 	</ul>
 	<div class="shopping-cart-controller">
 		<a class="shopping-cart-desc" href="<%=contextAttr%>/panier-achat/panier-achat">
