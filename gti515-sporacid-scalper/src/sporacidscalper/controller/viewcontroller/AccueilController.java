@@ -37,7 +37,7 @@ public class AccueilController implements ApplicationContextAware
 	private IPresentationAccueil presentationAccueil;
 	
 	/**
-	 * Public controller method to obtain  the homepage.
+	 * Public controller method to obtain the homepage.
 	 * @param request
 	 * @return
 	 */
@@ -54,6 +54,17 @@ public class AccueilController implements ApplicationContextAware
 		ApplicationMessages.ajouterMessage("Bienvenue!", request);
 		
 		return mav;
+	}
+	
+	/**
+	 * Default mapping that gives an error page.
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/**")
+	public String notFoundError()
+	{
+		return "erreur";
 	}
 
 	/**

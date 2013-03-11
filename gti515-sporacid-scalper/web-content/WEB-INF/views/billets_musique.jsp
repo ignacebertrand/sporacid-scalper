@@ -119,8 +119,8 @@
 						var qte = item.find(".event-list-item-quantity-select option:selected").val();
 						var spectacleId = item.find(".hiddenSpectacleId").val();
 						var represId = item.find(".event-list-item-representation-select option:selected").val();
-						var typeBilletId = item.find(".event-list-item-type-select option:selected").val();
-						
+						var typeBilletId = item.find(".event-list-item-ticket-type-select option:selected").val();
+				
 						if(qte > 0 && spectacleId > 0 && represId > 0 && typeBilletId > 0)
 						{
 							var form = $("form");
@@ -153,7 +153,6 @@
 					        {				        		
 				                var container = item.find(".event-list-item-ticket-type-select");
 				                container.empty();
-				                
 				                container.append(response);
 					        }
 						);

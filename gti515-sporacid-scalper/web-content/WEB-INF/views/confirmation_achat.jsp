@@ -9,7 +9,7 @@
 	<head>
 		<title>Billets Sporacid</title>
 		<link rel="stylesheet" type="text/css" href="<%=contextAttr%>/styles/site.css" />
-		<link rel="stylesheet" type="text/css" href="<%=contextAttr%>/styles/paiement.css" />
+		<link rel="stylesheet" type="text/css" href="<%=contextAttr%>/styles/confirmation_achat.css" />
 		<script type="text/javascript" src="<%=contextAttr%>/scripts/jquery-1.9.0.min.js"></script>
 		<script type="text/javascript" src="<%=contextAttr%>/scripts/site-scripts.js"></script>
 	</head>
@@ -24,12 +24,7 @@
 			<jsp:include page="partial-views/menu.jsp"></jsp:include>
 
 			<div class="content">
-		
-				<form id="formPaiementSecurise" method="POST" action="<%=contextAttr%>/paiement/traiter-paiement-securise">
-				
-					<%=presentation.presenterFormulairePaiement() %>
-					
-				</form>
+				Confirmé
 			</div>
 		</div>
 		
@@ -39,15 +34,11 @@
 	</body>
 	
 	<script type="text/javascript">
+	
 		$(document).ready(
 			function()
 			{
-				$(".payment-confirmation-button").click(
-					function ()
-					{
-						$("form#formPaiementSecurise").submit();
-					}
-				);
+				
 			}
 		);
 	</script>
