@@ -120,7 +120,7 @@
 						var spectacleId = item.find(".hiddenSpectacleId").val();
 						var represId = item.find(".event-list-item-representation-select option:selected").val();
 						var typeBilletId = item.find(".event-list-item-ticket-type-select option:selected").val();
-				
+						
 						if(qte > 0 && spectacleId > 0 && represId > 0 && typeBilletId > 0)
 						{
 							var form = $("form");
@@ -156,6 +156,55 @@
 				                container.append(response);
 					        }
 						);
+					}
+				);
+				/*
+				$("#textbox_search_criteria").enterKey(
+					function()
+					{
+						var searchString = $(this).val();
+						var item =  $(this).parents(".event-filters-container");
+						var searchCategory = item.find("#select_category");
+						
+						alert("categ String : " + searchCategory + " " + searchString);
+					
+						window.location=window.location + "?searchCategory=" + searchCategory + "&searchString=" + searchString;
+					}
+				);*/
+				
+				$("#select_category").change(
+					function()
+					{
+						var item =  $(this).parents(".event-filters-container");
+						var searchCategory = $(this).val();
+						var searchString = item.find("#textbox_search_criteria").val();
+											
+						var url = window.location.toString();
+						
+						if(url.indexOf('?') > -1)
+							url = url.split('?')[0];
+						
+						window.location = url + "?searchCategory=" + searchCategory + "&searchString=" + searchString;
+					}
+				);
+				
+				$('#textbox_search_criteria').keypress(
+					function(event)
+					{
+						var keycode = (event.keyCode ? event.keyCode : event.which);
+						
+						if(keycode == '13')
+						{
+							var item =  $(this).parents(".event-filters-container");
+							var searchCategory = item.find("#select_category").val();
+							var searchString   = $(this).val();
+							var url = window.location.toString();
+							
+							if(url.indexOf('?') > -1)
+								url = url.split('?')[0];
+							
+							window.location = url + "?searchCategory=" + searchCategory + "&searchString=" + searchString;
+						}
 					}
 				);
 				

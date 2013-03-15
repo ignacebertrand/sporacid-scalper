@@ -216,19 +216,19 @@ public class StubFactory
 
 		List<TypeSpectacle> listeTypesSpectacle = new ArrayList<TypeSpectacle>();
 
-		TypeSpectacle ts1 = new TypeSpectacle();
+		TypeSpectacle ts1 = new TypeSpectacle(1);
 		ts1.setNom("Humour");
 		ts1.setDescription("Un spectacle qui fait rire");
 
-		TypeSpectacle ts2 = new TypeSpectacle();
+		TypeSpectacle ts2 = new TypeSpectacle(2);
 		ts2.setNom("Métal");
 		ts2.setDescription("Un spectacle qui fait peur");
 
-		TypeSpectacle ts3 = new TypeSpectacle();
+		TypeSpectacle ts3 = new TypeSpectacle(3);
 		ts3.setNom("Country");
 		ts3.setDescription("Un spectacle qui fait dur");
 
-		TypeSpectacle ts4 = new TypeSpectacle();
+		TypeSpectacle ts4 = new TypeSpectacle(4);
 		ts4.setNom("Classique");
 		ts4.setDescription("Un spectacle qui endort");
 

@@ -296,6 +296,44 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle {
 			return spectacles;
 		}
 	}
+	
+	/**
+	 * Public method to obtain the list of Spectacle, withn search criterias, in the system.
+	 * @return The list of all Spectacle
+	 */
+	public List<SpectacleBean> obtenirSpectacles(String searchCategory, String searchString)
+	{
+		List<SpectacleBean> spectacles = new ArrayList<SpectacleBean>();
+		
+		int categ;
+		String text = "";
+		
+		// if only numbers value
+		if(searchCategory == null)
+			categ = 0;
+		else if(searchCategory.matches("{" + searchCategory.length() + "}\\d"))
+			categ = Integer.parseInt(searchCategory);
+		else
+			categ = 0;
+		
+		if(searchString != null)
+			text = searchString;
+	
+		// Access listeSpectacles thread-safely.
+		synchronized(listeSpectacles)
+		{
+			// Iterators are faster than indexed loops for ArrayList
+			for(Spectacle spectacle : listeSpectacles) {
+				
+				if((spectacle.getType().getId() == categ || categ <= 0) &&
+				   (spectacle.getDescription().toLowerCase().contains(text.toLowerCase()) || text.equals("")))
+					spectacles.add((SpectacleBean)spectacle.getBean());
+				
+			}
+		}
+		
+		return spectacles;
+	}
 
 	/**
 	 * Public method to get the number of ticket remaining for a Spectacle

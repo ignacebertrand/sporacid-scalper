@@ -61,6 +61,11 @@ public interface IGestionnaireSpectacle
 	 */
 	public List<SpectacleBean> obtenirCatalogueSpectacles();
 	/**
+	 * Public method to obtain the list of Spectacle, with search criterias, in the system.
+	 * @return The list of all Spectacle
+	 */
+	public List<SpectacleBean> obtenirSpectacles(String searchCategory, String searchString);
+	/**
 	 * Public method to get the number of ticket remaining for a Spectacle Representation.
 	 * @return The number of ticket remaining
 	 */

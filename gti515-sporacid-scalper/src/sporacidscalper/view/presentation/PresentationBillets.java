@@ -54,9 +54,9 @@ public class PresentationBillets implements IPresentationBillets
 			if(representation.getDateDebutRepresentation() != null &&
 			   representation.getDateFinRepresentation() != null)
 			{
-				htmlBuffer.append("<option value=");
+				htmlBuffer.append("<option value=\"");
 				htmlBuffer.append(representation.getId());
-				htmlBuffer.append(">Le ");
+				htmlBuffer.append("\">Le ");
 				htmlBuffer.append(dateFormatter.format(representation.getDateDebutRepresentation()));
 				htmlBuffer.append(" ");
 				htmlBuffer.append(timeFormatter.format(representation.getDateDebutRepresentation()));
@@ -77,9 +77,9 @@ public class PresentationBillets implements IPresentationBillets
 		{
 			TypeSpectacleBean type = types.get(i);
 			
-			htmlBuffer.append("<option value=");
+			htmlBuffer.append("<option value=\"");
 			htmlBuffer.append(type.getId());
-			htmlBuffer.append(">");
+			htmlBuffer.append("\">");
 			htmlBuffer.append(type.getNom());
 			htmlBuffer.append("</option>");
 		}
