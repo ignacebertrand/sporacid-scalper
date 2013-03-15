@@ -38,8 +38,13 @@ public class BilletsController implements ApplicationContextAware
 	{
 		ModelAndView mav = new ModelAndView("billets_musique");
 		
+		String searchCategory = request.getParameter("searchCategory");
+		String searchString   = request.getParameter("searchString");
+		
+		System.out.println("controller categ + string: " + searchCategory + searchString);
+		
 		mav.addObject("context", request.getContextPath());
-		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirCatalogueSpectacles());
+		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirSpectacles(searchCategory, searchString));
 		mav.addObject("listeTypes", gestionnaireSpectacle.obtenirCatalogueTypeSpectacle());
 		mav.addObject("presentationBillets", presentationBillets);
 		
