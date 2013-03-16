@@ -1,5 +1,9 @@
 package sporacidscalper.model.beans;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.Adresse;
 
@@ -10,10 +14,22 @@ public class AdresseBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -3246967756814110549L;
 	
+	@Range(min=-1)
 	private int id;
+	
+	@Range(min=0)
 	private int noCivique;
+	
+	@NotEmpty
+	@Length(max=50)
 	private String nomRue;
+	
+	@NotEmpty
+	@Length(min=6, max=6, message="Le code postal doit avoir 6 caractères.")
 	private String codePostal;
+	
+	@NotEmpty
+	@Length(max=25)
 	private String province;
 	
 	public AdresseBean()

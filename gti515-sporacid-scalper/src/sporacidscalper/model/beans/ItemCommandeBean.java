@@ -1,5 +1,8 @@
 package sporacidscalper.model.beans;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.ItemCommande;
 import sporacidscalper.model.TypeBilletRepresentation;
@@ -11,8 +14,13 @@ public class ItemCommandeBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -4556798955596199754L;
 	
+	@Range(min=-1)
 	private int id;
+	
+	@Range(min=1, max=6)
 	private int quantite;
+	
+	@NotEmpty
 	private TypeBilletRepresentationBean billetRepresentation;
 	
 	public ItemCommandeBean()
