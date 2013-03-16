@@ -445,7 +445,7 @@ public class StubFactory
 				// type billet
 				typeBilletRepresentation = new TypeBilletRepresentation(representation.getId());
 				typeBilletRepresentation.setNbBilletEmis(500);
-				typeBilletRepresentation.setPrix(30 + (2*j));
+				typeBilletRepresentation.setPrix((30 * Math.pow(j, 2))/Math.PI);
 				typeBilletRepresentation.setType(typeBillet);
 				representation.ajouterTypeBilletRepresentation(typeBilletRepresentation);
 				spectacle.ajouterRepresentation(representation);
