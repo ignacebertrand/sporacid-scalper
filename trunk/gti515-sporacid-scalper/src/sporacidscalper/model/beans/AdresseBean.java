@@ -14,22 +14,22 @@ public class AdresseBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -3246967756814110549L;
 	
-	@Range(min=-1)
+	@Range(min=-1, message="Le id de l'adresse est invalide.")
 	private int id;
 	
-	@Range(min=0)
+	@Range(min=0, message="Le numéro civique est obligatoire.")
 	private int noCivique;
 	
-	@NotEmpty
-	@Length(max=50)
+	@NotEmpty(message="Le nom de la rue est ogligatoire.")
+	@Length(max=50, message="Le nom de la rue ne peux excéder 50 caractères.")
 	private String nomRue;
 	
-	@NotEmpty
+	@NotEmpty(message="Le code postal est obligatoire")
 	@Length(min=6, max=6, message="Le code postal doit avoir 6 caractères.")
 	private String codePostal;
 	
-	@NotEmpty
-	@Length(max=25)
+	@NotEmpty(message="Le nom de la province est obligatoire")
+	@Length(max=25, message="Le nom de la province ne peux excéder 25 caractères.")
 	private String province;
 	
 	public AdresseBean()
