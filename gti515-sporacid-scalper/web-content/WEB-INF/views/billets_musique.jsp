@@ -26,6 +26,7 @@
 		<link rel="stylesheet" type="text/css" href="<%=contextAttr%>/styles/billets_musique.css" />
 		<script type="text/javascript" src="<%=contextAttr%>/scripts/jquery-1.9.0.min.js"></script>
 		<script type="text/javascript" src="<%=contextAttr%>/scripts/site-scripts.js"></script>
+		<script type="text/javascript" src="<%=contextAttr%>/scripts/pager-script.js"></script>
 	</head>
 	<body>
 	
@@ -55,50 +56,57 @@
 					<input type="hidden" id="hiddenRepresentationId" name="representationId" />
 					<input type="hidden" id="hiddenTypeBilletId" name="typeBilletId" />
 				</form>
-		
-				<ul class="event-list">
-					<%for(SpectacleBean spectacle : listeSpectacles){%>						
-					<li class="event-list-item">
-					
-						<input type="hidden" class="hiddenSpectacleId" value="<%=spectacle.getId()%>"/>
-						<div class="event-list-item-image" style="background-image: url(../<%=spectacle.getPosterUrl()%>);"></div>
-						<div class="event-list-item-content">
-							<h1 class="event-list-item-content-title"><%=spectacle.getNom()%></h1>
-							<%=presentation.getAppendedArtists(spectacle.getArtistes())%>
-							<p class="event-list-item-content-desc"><%=spectacle.getDescription()%></p>
-							<div class="event-list-item-tags-container">
-								<%=presentation.getTagsAnchors(spectacle.getArtistes())%>
-							</div>
-						</div>
-						<div class="event-list-item-controller">
-							<label class="generic-label">Représentation :</label>
-							<select class="generic-select event-list-item-representation-select">
-								<option value="-1">-----</option>
-								<%=presentation.getRepresentationsListItem(spectacle.getRepresentations())%>
-							</select>
-							<label class="generic-label">Type :</label>
-							<select class="generic-select event-list-item-ticket-type-select">
-							</select>
-							<label class="generic-label">Quantité :</label>
-							<select class="generic-select event-list-item-quantity-select">
-								<option value="-1">--</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-							</select>
-<!-- 							<div class="generic-button event-list-item-disponibility-button"> -->
-<!-- 								Disponibilité... -->
-<!-- 							</div> -->
-							<div class="generic-button event-list-item-addtocart-button">
-								Ajouter au panier
-							</div>
-						</div>
-					</li>
+				<ul class="event-list-pager">
+					<%for(int i = 0; i < listeSpectacles.size(); i+=30){%>
+						<li class="event-list-pager-button"><%=i/30+1%></li>
 					<%}%>
 				</ul>
+				<div class="list-page-container">
+				<%for(int i = 0; i < listeSpectacles.size(); i+=30){%>
+					<ul class="event-list">
+						<%for(int j = 0; j < 30 && j+i < listeSpectacles.size(); j++){%>
+						<%	SpectacleBean spectacle = listeSpectacles.get(i+j); %>
+									
+						<li class="event-list-item">
+						
+							<input type="hidden" class="hiddenSpectacleId" value="<%=spectacle.getId()%>"/>
+							<div class="event-list-item-image" style="background-image: url(../<%=spectacle.getPosterUrl()%>);"></div>
+							<div class="event-list-item-content">
+								<h1 class="event-list-item-content-title"><%=spectacle.getNom()%></h1>
+								<%=presentation.getAppendedArtists(spectacle.getArtistes())%>
+								<p class="event-list-item-content-desc"><%=spectacle.getDescription()%></p>
+								<div class="event-list-item-tags-container">
+									<%=presentation.getTagsAnchors(spectacle.getArtistes())%>
+								</div>
+							</div>
+							<div class="event-list-item-controller">
+								<label class="generic-label">Représentation :</label>
+								<select class="generic-select event-list-item-representation-select">
+									<option value="-1">-----</option>
+									<%=presentation.getRepresentationsListItem(spectacle.getRepresentations())%>
+								</select>
+								<label class="generic-label">Type :</label>
+								<select class="generic-select event-list-item-ticket-type-select">
+								</select>
+								<label class="generic-label">Quantité :</label>
+								<select class="generic-select event-list-item-quantity-select">
+									<option value="-1">--</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+								</select>
+								<div class="generic-button event-list-item-addtocart-button">
+									Ajouter au panier
+								</div>
+							</div>
+						</li>
+						<%}%>		
+					</ul>
+				<%}%>
+				</div>
 			</div>
 		</div>
 
@@ -158,6 +166,7 @@
 						);
 					}
 				);
+				
 				/*
 				$("#textbox_search_criteria").enterKey(
 					function()
