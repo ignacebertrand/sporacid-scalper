@@ -1,5 +1,7 @@
 package sporacidscalper.model;
 
+import org.hibernate.validator.constraints.*;
+
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.AdresseBean;
 import sporacidscalper.model.beans.ClientBean;
@@ -10,13 +12,29 @@ public class Transaction extends AbstractModelObject implements Beanable
 {
 	// Upper reference
 	private Client clientReference;
+	
+	@Range(min=-1)
 	private int clientId;
 	
+	@Range(min=-1)
 	private int id;
+	
+	@NotEmpty
+	private String nom;
+
+	@Range(min=-1)
 	private int noConfirmationPaiement;
+	
+	@Range(min=-1)
 	private int noConfirmationVente;
+	
+	@NotEmpty
 	private Adresse adresseFacturation;
+	
+	@NotEmpty
 	private Adresse adresseLivraison;
+	
+	@NotEmpty
 	private Commande commande;
 	
 	public Transaction()
@@ -46,6 +64,16 @@ public class Transaction extends AbstractModelObject implements Beanable
 	public int getClientId()
 	{
 		return this.clientId;
+	}
+	
+	public String getNom() 
+	{
+		return nom;
+	}
+
+	public void setNom(String nom) 
+	{
+		this.nom = nom;
 	}
 	
 	public int getNoConfirmationPaiement()
@@ -117,6 +145,7 @@ public class Transaction extends AbstractModelObject implements Beanable
 		{
 			bean = new TransactionBean(this.id, this.clientId);
 			
+			bean.setNom(this.nom);
 			bean.setAdresseFacturation((AdresseBean) this.adresseFacturation.getBean());
 			bean.setAdresseLivraison((AdresseBean) this.adresseLivraison.getBean());
 			bean.setClientReference((ClientBean) this.clientReference.getBean());
