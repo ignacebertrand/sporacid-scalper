@@ -111,6 +111,18 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 		return total;
 	}
 	
+	public int getNumberOfBillets(){
+		
+		List<ItemPanierAchatBean> items = this.getItems();
+		int size = items.size();
+		int qty = 0;
+		
+		for(int i = 0; i < size; i++){
+			qty += items.get(i).getQuantite();
+		}
+		return qty;
+	}
+	
 	public int getId()
 	{
 		return this.id;
