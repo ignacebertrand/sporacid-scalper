@@ -1,6 +1,7 @@
 <%@page import="java.text.NumberFormat"%>
 <%@page import="org.springframework.web.context.WebApplicationContext"%>
 <%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%@page import="sporacidscalper.controller.viewcontroller.util.SessionUtil"%>
 <%@page import="sporacidscalper.controller.viewcontroller.PanierAchatController"%>
 
 <%
@@ -8,8 +9,8 @@
 	String contextAttr = (String) request.getContextPath();
 
 	// Get shopping cart associated values in the session
-	Integer shoppingCartItemCount = (Integer) request.getSession().getAttribute(PanierAchatController.cCleSessionCompteurItemPanierAchat);
-	Double shoppingCartTotal = (Double) request.getSession().getAttribute(PanierAchatController.cCleSessionTotalPanierAchat);
+	Integer shoppingCartItemCount = (Integer) request.getSession().getAttribute(SessionUtil.cCleSessionCompteurItemPanierAchat);
+	Double shoppingCartTotal = (Double) request.getSession().getAttribute(SessionUtil.cCleSessionTotalPanierAchat);
 	
 	// Get a currency formatter from the application context, because we don't have a front controller; we'd need
 	// to set the formatter in every controllers which is very unpractical
