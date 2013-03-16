@@ -2,6 +2,7 @@
 <%@page import="java.util.List"%>
 <%
 	List<String> messages = ApplicationMessages.obtenirMessages(request);
+	ApplicationMessages.viderMessages(request);
 %>
 
 <div class="application-messages">

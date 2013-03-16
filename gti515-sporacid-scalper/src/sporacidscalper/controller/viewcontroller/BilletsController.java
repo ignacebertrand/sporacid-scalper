@@ -41,8 +41,6 @@ public class BilletsController implements ApplicationContextAware
 		String searchCategory = request.getParameter("searchCategory");
 		String searchString   = request.getParameter("searchString");
 		
-		System.out.println("controller categ + string: " + searchCategory + searchString);
-		
 		mav.addObject("context", request.getContextPath());
 		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirSpectacles(searchCategory, searchString));
 		mav.addObject("listeTypes", gestionnaireSpectacle.obtenirCatalogueTypeSpectacle());
@@ -79,8 +77,6 @@ public class BilletsController implements ApplicationContextAware
 			int spectacleId 	 = Integer.parseInt(request.getParameter("spectacleId"));
 			int representationId = Integer.parseInt(request.getParameter("representationId"));
 			
-			System.out.println("controller:  spectid: " + spectacleId + " represid: " + representationId);
-			
 			SpectacleBean spectacle = gestionnaireSpectacle.obtenirSpectacle(spectacleId);
 			
 			RepresentationBean representation = spectacle.obtenirRepresentation(representationId);
@@ -88,8 +84,6 @@ public class BilletsController implements ApplicationContextAware
 			if(representation != null)
 				options = presentationBillets.getTypesBilletsRpresentationListItem(representation.getTypesBillet());
 		}
-		
-		System.out.println("controller:  response: " + options);
 		
 		out.print(options);
 		
