@@ -1,6 +1,7 @@
 package sporacidscalper.model.beans;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.Range;
 
 import sporacidscalper.model.AbstractModelObject;
@@ -14,13 +15,13 @@ public class ItemCommandeBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -4556798955596199754L;
 	
-	@Range(min=-1)
+	@Range(min=-1, message="Le id de l'item de la commande n'est pas valide.")
 	private int id;
 	
-	@Range(min=1, max=6)
+	@Range(min=1, max=6, message="La quantité de billet doit être comprise entre 1 et 6.")
 	private int quantite;
 	
-	@NotEmpty
+	@NotNull
 	private TypeBilletRepresentationBean billetRepresentation;
 	
 	public ItemCommandeBean()

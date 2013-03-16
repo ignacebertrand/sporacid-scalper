@@ -15,12 +15,13 @@ public class ClientBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -4839483441907619015L;
 	
-	@Range(min = -1)
+	@Range(min = -1, message="Le id du client est invalide.")
 	private int id;
 	
-	@NotEmpty
+	@NotEmpty(message="Un nom de clien est obligatoire.")
 	private String nom;
 
+	
 	private String identifiant;
 	private String courriel;
 	private AdresseBean adresse;

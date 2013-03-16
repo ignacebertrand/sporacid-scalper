@@ -34,15 +34,15 @@ public class TransactionBean extends AbstractBean implements Modelable
 	private int noConfirmationVente;
 	
 	@Valid
-	@NotNull
+	@NotNull(message="L'adresse de facturation est obligatoire.")
 	private AdresseBean adresseFacturation;
 	
 	@Valid
-	@NotNull
+	@NotNull(message="L'adresse de livraison est obligatoire.")
 	private AdresseBean adresseLivraison;
 	
 	@Valid
-	@NotNull
+	@NotNull(message="La commande est obligatoire.")
 	private CommandeBean commande;
 	
 	public TransactionBean()

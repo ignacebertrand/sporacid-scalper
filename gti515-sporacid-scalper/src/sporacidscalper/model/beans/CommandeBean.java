@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
@@ -18,13 +20,13 @@ public class CommandeBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -9198676745711308773L;
 	
-	@Range(min=-1)
+	@Range(min=-1, message="Le id de la commande est invalide")
 	private int id;
 	
-	@NotEmpty
+	@NotEmpty(message="La date de creation de la commande est invalide")
 	private Date dateCreation;
 	
-	@NotEmpty
+	@Valid
 	private List<ItemCommandeBean> items;
 	
 	public CommandeBean()
