@@ -1,11 +1,17 @@
 package sporacidscalper.controller.viewcontroller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -91,11 +97,13 @@ public class PanierAchatController implements ApplicationContextAware
 		itemToAdd.setQuantite(form.getQuantite());
 		itemToAdd.setBilletRepresentation(representationType);
 		
-		// Add the item to the shopping cart
-		if(!panier.ajouterItem(itemToAdd)) {
-			ApplicationMessages.ajouterMessage("Impossible de commander une deuxième fois cette représentation", request);
-		
-			System.out.println("impossible d'ajouter");
+		// Add the item to the shopping cart if it doesnt already have 6 tickets of this show
+		int qtyToAdd = form.getQuantite();
+
+		if((panier.getNumberOfBillets() + qtyToAdd) <= 6){
+			panier.ajouterItem(itemToAdd);
+		} else {
+			ApplicationMessages.ajouterMessage("Il y à déjà le nombre maximum de billets possible par transaction", request);
 		}
 		
 		// Update shopping cart associated values
@@ -134,8 +142,14 @@ public class PanierAchatController implements ApplicationContextAware
 		
 		// Get the item reference to edit and edit it
 		ItemPanierAchatBean itemToEdit = panier.obtenirItem(form.getItemId());
-		itemToEdit.setQuantite(form.getQuantite());
-		itemToEdit.setBilletRepresentation(representationType);
+		int nbBillets = panier.getNumberOfBillets();
+		
+		if(((nbBillets - itemToEdit.getQuantite()) + form.getQuantite()) <= 6 ){
+			itemToEdit.setQuantite(form.getQuantite());
+			itemToEdit.setBilletRepresentation(representationType);
+		} else {
+			ApplicationMessages.ajouterMessage("Il y à déjà le nombre maximum de billets possible par transaction", request);
+		}
 		
 		// Update shopping cart associated values
 		SessionUtil.updateValeursPanierAchat(session);
