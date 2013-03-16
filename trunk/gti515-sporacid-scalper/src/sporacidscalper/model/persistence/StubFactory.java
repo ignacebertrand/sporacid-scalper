@@ -96,59 +96,6 @@ public class StubFactory
 		return this.listeNouvelles;
 	}
 
-	//private void setStubSpectacles()
-	private void dude()
-	{
-		List<Spectacle> listeSpectacles = new ArrayList<Spectacle>();
-
-		Spectacle s1 = new Spectacle(1);
-		s1.setNom("Les trois accords");
-		s1.setDescription("Les trois accords en spectacle");
-		s1.setPosterUrl("styles/images/trois_accords.jpg");
-		List<Artiste> listeArtistes1 = new ArrayList<Artiste>();
-		listeArtistes1.add(getStubArtistes().get(0));
-		listeArtistes1.add(getStubArtistes().get(1));
-		s1.setArtistes(listeArtistes1);
-		s1.setType(getStubTypesSpectacles().get(2));
-		
-		Representation r = new Representation(1, s1.getId());
-		TypeBilletRepresentation typeBilletRepresentation = new TypeBilletRepresentation(r.getId());
-		TypeBillet typeBillet = new TypeBillet(1);
-		typeBillet.setNom("Admission Générale");
-		typeBilletRepresentation.setNbBilletEmis(300);
-		typeBilletRepresentation.setPrix(30);
-		typeBilletRepresentation.setType(typeBillet);
-		r.ajouterTypeBilletRepresentation(typeBilletRepresentation);
-		r.setSalle(this.listeSalles.get(2));
-		r.setDateDebutRepresentation(new Date());
-		r.setDateFinRepresentation(new Date());
-		s1.ajouterRepresentation(r);
-
-		Spectacle s2 = new Spectacle(2);
-		s2.setNom("Les bobos");
-		s2.setDescription("Les bobos en spectacle");
-		s2.setPosterUrl("styles/images/les_bobos.jpg");
-		List<Artiste> listeArtistes2 = new ArrayList<Artiste>();
-		listeArtistes2.add(getStubArtistes().get(3));
-		s2.setArtistes(listeArtistes2);
-		s2.setType(getStubTypesSpectacles().get(0));
-
-		Spectacle s3 = new Spectacle(3);
-		s3.setNom("Decrepit birth event");
-		s3.setDescription("Decrepit birth en spectacle");
-		s3.setPosterUrl("styles/images/decrepit-birth-event.jpg");
-		List<Artiste> listeArtistes3 = new ArrayList<Artiste>();
-		listeArtistes3.add(getStubArtistes().get(2));
-		s3.setArtistes(listeArtistes3);
-		s3.setType(getStubTypesSpectacles().get(1));
-
-		listeSpectacles.add(s1);
-		listeSpectacles.add(s2);
-		listeSpectacles.add(s3);
-
-		this.listeSpectacles = listeSpectacles;
-	}
-
 	public List<Spectacle> getStubSpectacles() 
 	{
 		return this.listeSpectacles;
