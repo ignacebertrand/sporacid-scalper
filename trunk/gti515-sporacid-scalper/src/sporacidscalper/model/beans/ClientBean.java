@@ -1,5 +1,8 @@
 package sporacidscalper.model.beans;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.Adresse;
 import sporacidscalper.model.Client;
@@ -12,9 +15,13 @@ public class ClientBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -4839483441907619015L;
 	
+	@Range(min = -1)
 	private int id;
-	private String identifiant;
+	
+	@NotEmpty
 	private String nom;
+
+	private String identifiant;
 	private String courriel;
 	private AdresseBean adresse;
 	private PanierAchatBean panierAchat;

@@ -84,5 +84,7 @@
 	 	<property name="dateFormatter" ref="dateFormatter" />
 	 	<property name="timeFormatter" ref="timeFormatter" />
 	</bean>
-	
+		 
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+ 
 </beans>

@@ -1,5 +1,10 @@
 package sporacidscalper.model.beans;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Range;
+
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.Adresse;
 import sporacidscalper.model.Client;
@@ -15,13 +20,29 @@ public class TransactionBean extends AbstractBean implements Modelable
 	
 	// Upper reference
 	private ClientBean clientReference;
+	
+	@Range(min=-1, message = "Le id client est invalide.")
 	private int clientId;
 	
+	@Range(min=-1, message="Le id de transaction est invalide.")
 	private int id;
+	
+	@Range(min=-1, message="Le no de confirmation de la transaction est invalide.")
 	private int noConfirmationPaiement;
+	
+	@Range(min=-1, message="Le no de confirmation de la vente est invalide.")
 	private int noConfirmationVente;
+	
+	@Valid
+	@NotNull
 	private AdresseBean adresseFacturation;
+	
+	@Valid
+	@NotNull
 	private AdresseBean adresseLivraison;
+	
+	@Valid
+	@NotNull
 	private CommandeBean commande;
 	
 	public TransactionBean()

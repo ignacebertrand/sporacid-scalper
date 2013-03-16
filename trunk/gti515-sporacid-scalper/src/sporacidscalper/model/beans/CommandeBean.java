@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.Commande;
 import sporacidscalper.model.ItemCommande;
@@ -15,8 +18,13 @@ public class CommandeBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -9198676745711308773L;
 	
+	@Range(min=-1)
 	private int id;
+	
+	@NotEmpty
 	private Date dateCreation;
+	
+	@NotEmpty
 	private List<ItemCommandeBean> items;
 	
 	public CommandeBean()
