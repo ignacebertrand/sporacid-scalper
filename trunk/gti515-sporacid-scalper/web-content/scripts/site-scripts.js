@@ -5,7 +5,7 @@ $(document).ready(
 	function()
 	{
 		//Shows the server message with a timeout (Hide it after a certain number of milliseconds)
-		setServerMessageTimer();
+		setApplicationMessagesTimer();
 		
 		//On window resize, resize the whole document.
 		//Keeps the document "full screen"
@@ -44,7 +44,6 @@ $(document).ready(
 				window.location = $(".shopping-cart-desc").attr("href");
 			}
 		);
-		
 
 		// Business rule 10
 		// Free reservations in the shopping cart if there's 10 min of inactivity
@@ -82,7 +81,7 @@ function libererReservations()
  * Shows the messages container for a short time then fades out,
  * unless the user hover the messages container.
  */
-function setServerMessageTimer()
+function setApplicationMessagesTimer()
 {
    //Cache the message container
    var messagesContainer = $(".application-messages");
@@ -176,6 +175,6 @@ function showMessages(messages)
 		}
 		
 		//Shows the messages with a timeout (Hide it after a certain number of milliseconds)
-		setServerMessageTimer();
+		setApplicationMessagesTimer();
 	}
 }
