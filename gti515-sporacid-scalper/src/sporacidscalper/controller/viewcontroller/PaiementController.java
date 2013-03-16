@@ -2,10 +2,8 @@ package sporacidscalper.controller.viewcontroller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.validation.Validator;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
@@ -16,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import sporacidscalper.controller.modelcontroller.IGestionnaireClient;
 import sporacidscalper.controller.modelcontroller.IGestionnaireTransaction;
 import sporacidscalper.controller.viewcontroller.util.ApplicationMessages;
+import sporacidscalper.controller.viewcontroller.util.SessionUtil;
 import sporacidscalper.model.beans.ClientBean;
+import sporacidscalper.model.beans.CommandeBean;
+import sporacidscalper.model.beans.PanierAchatBean;
 import sporacidscalper.model.beans.TransactionBean;
 import sporacidscalper.view.presentation.IPresentationPaiement;
 //import sporacidscalper.controller.modelcontroller.IGestionnaireClient;
@@ -31,7 +31,7 @@ public class PaiementController implements ApplicationContextAware
 	 * Reference to the IGestionnaireClient implementation
 	 * of the application context bean configuration.
 	 */
-	private IGestionnaireClient gestionnaireClient;
+	//private IGestionnaireClient gestionnaireClient;
 	
 	/**
 	 * Reference to the IGestionnaireTransaction implementation
@@ -44,11 +44,6 @@ public class PaiementController implements ApplicationContextAware
 	 * of the application context bean configuration.
 	 */
 	private IPresentationPaiement presentationPaiement;
-	
-	/**
-	 * 
-	 */
-	private Validator validator;
 
 	/**
 	 * 
@@ -95,10 +90,17 @@ public class PaiementController implements ApplicationContextAware
 		// Valid form, do the transaction
 		else
 		{
-			//TODO Traiter la transaction
+			// Transform the shopping cart into a command
+			PanierAchatBean panierAchat = SessionUtil.obtenirPanierAchat(request.getSession());
+			CommandeBean commande = panierAchat.creerCommande();
+			
+			// Set the transaction's command
+			form.setCommande(commande);
+			
+			gestionnaireTransaction.ajouterTransaction(form);
 		}
 		
-		mav.addObject("transaction", new TransactionBean());
+		mav.addObject("transaction", form);
 		mav.addObject("presentationPaiement", presentationPaiement);
 	
 		return mav;
@@ -113,9 +115,8 @@ public class PaiementController implements ApplicationContextAware
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException 
 	{
-		gestionnaireClient = context.getBean("gestionnaireClient", IGestionnaireClient.class);
+		//gestionnaireClient = context.getBean("gestionnaireClient", IGestionnaireClient.class);
 		gestionnaireTransaction = context.getBean("gestionnaireTransaction", IGestionnaireTransaction.class);
 		presentationPaiement = context.getBean("presentationPaiement", IPresentationPaiement.class);
-		validator = context.getBean("validator", Validator.class);
 	}
 }

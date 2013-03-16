@@ -1,17 +1,11 @@
 package sporacidscalper.controller.viewcontroller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,8 +28,6 @@ import sporacidscalper.view.presentation.IPresentationPanierAchat;
 @Controller 
 public class PanierAchatController implements ApplicationContextAware
 {
-
-	
 	/**
 	 * Reference to the IGestionnaireSpectacle implementation
 	 * of the application context bean configuration.

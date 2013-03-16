@@ -2,7 +2,9 @@ package sporacidscalper.model.beans;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
 import sporacidscalper.model.AbstractModelObject;
@@ -27,6 +29,10 @@ public class TransactionBean extends AbstractBean implements Modelable
 	@Range(min=-1, message="Le id de transaction est invalide.")
 	private int id;
 	
+	@NotEmpty(message="Le nom du client est obligatoire.")
+	@Size(max=70, message="Le nom du client ne peut dépasser 70 caractères.")
+	private String nom;
+	
 	@Range(min=-1, message="Le no de confirmation de la transaction est invalide.")
 	private int noConfirmationPaiement;
 	
@@ -41,8 +47,8 @@ public class TransactionBean extends AbstractBean implements Modelable
 	@NotNull(message="L'adresse de livraison est obligatoire.")
 	private AdresseBean adresseLivraison;
 	
-	@Valid
-	@NotNull(message="La commande est obligatoire.")
+	/*@Valid
+	@NotNull(message="La commande est obligatoire.")*/
 	private CommandeBean commande;
 	
 	public TransactionBean()
@@ -92,6 +98,16 @@ public class TransactionBean extends AbstractBean implements Modelable
 	public int getClientId()
 	{
 		return this.clientId;
+	}
+
+	public String getNom() 
+	{
+		return nom;
+	}
+
+	public void setNom(String nom) 
+	{
+		this.nom = nom;
 	}
 	
 	public ClientBean getClientReference()
@@ -143,6 +159,7 @@ public class TransactionBean extends AbstractBean implements Modelable
 		{
 			t = new Transaction(this.id, this.clientId);
 			
+			t.setNom(this.nom);
 			t.setAdresseFacturation((Adresse)this.adresseFacturation.getModelObject());
 			t.setAdresseLivraison((Adresse)this.adresseLivraison.getModelObject());
 			t.setClientReference((Client)this.clientReference.getModelObject());

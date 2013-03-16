@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <%@page import="sporacidscalper.view.presentation.IPresentationPaiement"%>
+<%@page import="sporacidscalper.model.beans.TransactionBean"%>
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getContextPath();
+	TransactionBean transaction = (TransactionBean) request.getAttribute("");
 	IPresentationPaiement presentation = (IPresentationPaiement) request.getAttribute("presentationPaiement");
 %>
 <html>
@@ -24,7 +26,9 @@
 			<jsp:include page="partial-views/menu.jsp"></jsp:include>
 
 			<div class="content">
-				Confirmé
+				<h2>Confirmation</h2>
+				
+				
 			</div>
 		</div>
 		
