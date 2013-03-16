@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import sporacidscalper.controller.viewcontroller.util.ApplicationMessages;
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.ItemPanierAchat;
 import sporacidscalper.model.PanierAchat;
@@ -111,6 +110,13 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 		return total;
 	}
 	
+	public CommandeBean creerCommande()
+	{
+		CommandeBean commande = new CommandeBean();
+		
+		return commande;
+	}
+	
 	public int getNumberOfBillets(){
 		
 		List<ItemPanierAchatBean> items = this.getItems();
@@ -122,7 +128,7 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 		}
 		return qty;
 	}
-	
+
 	public int getId()
 	{
 		return this.id;
