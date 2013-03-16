@@ -67,16 +67,17 @@ public class StubFactory
 		List<Nouvelle> listeNouvelles = new ArrayList<Nouvelle>();
 
 		Nouvelle n1 = new Nouvelle(1);
-		n1.setAuteur("Simon Turcotte-Langevin");
+		n1.setAuteur("Patrick Lavallée");
 		n1.setDate(new Date());
-		n1.setTitre("Va chier Pat");
-		n1.setDescription("self explanatory");
+		n1.setTitre("Un jeune prodige est découvert");
+		n1.setDescription("La guitare est son instrument, il interprète à merveille la vache a Maillote!\n" +
+		                  "En effet, Simon Malmsteem transcende son genre.");
 
 		Nouvelle n2 = new Nouvelle(2);
-		n2.setAuteur("Pat Lavallée");
+		n2.setAuteur("Simon Turcotte-Langevin");
 		n2.setDate(new Date());
-		n2.setTitre("Je sors du placard");
-		n2.setDescription("self explanatory");
+		n2.setTitre("Xavier Dolan, un génie contemporain");
+		n2.setDescription("J'ai un faible pour l'étendue des oeuvres de ce cinéaste.");
 
 		Nouvelle n3 = new Nouvelle(3);
 		n3.setAuteur("Patrick Groulx");
