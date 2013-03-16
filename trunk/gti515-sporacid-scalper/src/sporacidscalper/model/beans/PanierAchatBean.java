@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import sporacidscalper.controller.viewcontroller.util.ApplicationMessages;
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.ItemPanierAchat;
 import sporacidscalper.model.PanierAchat;
@@ -47,12 +48,47 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 		return itemToGet;
 	}
 	
-	public void ajouterItem(ItemPanierAchatBean itemToAdd)
+	public boolean ajouterItem(ItemPanierAchatBean itemToAdd)
 	{
+		boolean ok = true;
+		
 		if(itemToAdd != null)
-		{	
-			this.items.add(itemToAdd);
+		{
+			ok = verifierDoublon(itemToAdd);
+			
+			if(ok)
+				this.items.add(itemToAdd);
 		}
+		
+		return ok;
+	}
+	
+	private boolean verifierDoublon(ItemPanierAchatBean itemToAdd) {
+		boolean ok = true;
+		
+		RepresentationBean represToAdd  = itemToAdd.getBilletRepresentation().getRepresentationReference();
+		
+		int spectId = represToAdd.getSpectacleId();
+		int represId = represToAdd.getId();
+		int typeBilletId = itemToAdd.getBilletRepresentation().getType().getId();
+		
+		System.out.println("item a ajouter (idspect, repres, typebill): " + spectId + represId + typeBilletId);
+		
+		for(ItemPanierAchatBean item : items)
+		{
+			RepresentationBean represPanier = item.getBilletRepresentation().getRepresentationReference();
+			
+			System.out.println("item dans panier (idspect, repres, typebill): " + represPanier.getSpectacleId() + 
+					represPanier.getId() + item.getBilletRepresentation().getType().getId());
+			
+			if(represPanier.getSpectacleId() == spectId &&
+			   represPanier.getId() == represId &&
+			   item.getBilletRepresentation().getType().getId() == typeBilletId)
+				ok = false;					
+			
+		}
+		
+		return ok;
 	}
 
 	public void supprimerItem(int itemIdToDelete)

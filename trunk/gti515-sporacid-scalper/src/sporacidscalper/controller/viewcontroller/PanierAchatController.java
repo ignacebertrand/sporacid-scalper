@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import sporacidscalper.controller.modelcontroller.IGestionnaireSpectacle;
+import sporacidscalper.controller.viewcontroller.util.ApplicationMessages;
 import sporacidscalper.model.beans.ItemPanierAchatBean;
 import sporacidscalper.model.beans.PanierAchatBean;
 import sporacidscalper.model.beans.RepresentationBean;
@@ -103,7 +104,11 @@ public class PanierAchatController implements ApplicationContextAware
 		itemToAdd.setBilletRepresentation(representationType);
 		
 		// Add the item to the shopping cart
-		panier.ajouterItem(itemToAdd);
+		if(!panier.ajouterItem(itemToAdd)) {
+			ApplicationMessages.ajouterMessage("Impossible de commander une deuxième fois cette représentation", request);
+		
+			System.out.println("impossible d'ajouter");
+		}
 		
 		// Update shopping cart associated values
 		updateValeursPanierAchat(session);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public final class ApplicationMessages 
 {
@@ -30,15 +31,24 @@ public final class ApplicationMessages
 	 */
 	public static List<String> obtenirMessages(HttpServletRequest request)
 	{
+		HttpSession session = request.getSession();
+		
 		@SuppressWarnings("unchecked")
-		List<String> listeMessages = (List<String>) request.getAttribute(ApplicationMessages.cCleRequestListeMessage);
+		List<String> listeMessages = (List<String>) session.getAttribute(ApplicationMessages.cCleRequestListeMessage);
 		
 		if (listeMessages == null)
 		{
 			listeMessages = new ArrayList<String>();
-			request.setAttribute(cCleRequestListeMessage, listeMessages);
+			session.setAttribute(cCleRequestListeMessage, listeMessages);
 		}
 		
 		return listeMessages;
+	}
+	
+	public static void viderMessages(HttpServletRequest request)
+	{
+		HttpSession session = request.getSession();
+		session.setAttribute(cCleRequestListeMessage, new ArrayList<String>());
+		
 	}
 }
