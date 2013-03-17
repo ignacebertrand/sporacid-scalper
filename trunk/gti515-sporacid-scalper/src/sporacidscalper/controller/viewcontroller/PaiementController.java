@@ -1,6 +1,7 @@
 package sporacidscalper.controller.viewcontroller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeansException;
@@ -18,7 +19,6 @@ import sporacidscalper.controller.modelcontroller.IGestionnaireTransaction;
 import sporacidscalper.controller.viewcontroller.util.ApplicationMessages;
 import sporacidscalper.controller.viewcontroller.util.SessionUtil;
 import sporacidscalper.model.beans.AdresseBean;
-import sporacidscalper.model.beans.ClientBean;
 import sporacidscalper.model.beans.CommandeBean;
 import sporacidscalper.model.beans.PanierAchatBean;
 import sporacidscalper.model.beans.TransactionBean;
@@ -77,6 +77,7 @@ public class PaiementController implements ApplicationContextAware
 	public ModelAndView traiterPaiementSecurise(@ModelAttribute @Valid FormulairePaiementSecurise form, 
 			BindingResult result, HttpServletRequest request)
 	{
+		HttpSession session = request.getSession();
 		ModelAndView mav = new ModelAndView("confirmation_achat");
 		
 		// Invalid form, send it back to the user
@@ -97,8 +98,11 @@ public class PaiementController implements ApplicationContextAware
 			TransactionBean transaction = obtenirTransaction(form);
 
 			// Transform the shopping cart into a command
-			PanierAchatBean panierAchat = SessionUtil.obtenirPanierAchat(request.getSession());
+			PanierAchatBean panierAchat = SessionUtil.obtenirPanierAchat(session);
 			CommandeBean commande = panierAchat.creerCommande();
+			
+			// The shopping cart is now processed, destroy it.
+			SessionUtil.supprimerPanierAchat(session);
 			
 			// Set the transaction's command
 			transaction.setCommande(commande);
