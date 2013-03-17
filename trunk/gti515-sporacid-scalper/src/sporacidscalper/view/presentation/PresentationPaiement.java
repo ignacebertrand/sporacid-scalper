@@ -49,25 +49,25 @@ public class PresentationPaiement implements IPresentationPaiement
 		
 		boolean hasStreetNb = formulaire.getNoCivique() != null && formulaire.getNoCivique() > 0;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
-		htmlBuffer.append("<label for=\"streetnb\" class=\"generic-label\">No de rue :</label>");
+		htmlBuffer.append("<label for=\"noCivique\" class=\"generic-label\">No de rue :</label>");
 		htmlBuffer.append("<input type=\"text\" name=\"noCivique\" class=\"generic-textbox\" value=\"" + (hasStreetNb ? formulaire.getNoCivique() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
 		boolean hasAppartmentNb = formulaire.getNoAppartement() != null && formulaire.getNoAppartement() > 0;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
-		htmlBuffer.append("<label for=\"streetnb\" class=\"generic-label\">No appart :</label>");
+		htmlBuffer.append("<label for=\"noAppartement\" class=\"generic-label\">No appart :</label>");
 		htmlBuffer.append("<input type=\"text\" name=\"noAppartement\" class=\"generic-textbox\" value=\"" + (hasAppartmentNb ? formulaire.getNoCivique() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
 		boolean hasStreetName = formulaire.getNomRue() != null;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
-		htmlBuffer.append("<label for=\"street\" class=\"generic-label\">Rue :</label>");
+		htmlBuffer.append("<label for=\"nomRue\" class=\"generic-label\">Rue :</label>");
 		htmlBuffer.append("<input type=\"text\" name=\"nomRue\" class=\"generic-textbox\" value=\"" + (hasStreetName ? formulaire.getNomRue() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
 		boolean hasCity = formulaire.getVille() != null;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
-		htmlBuffer.append("<label for=\"city\" class=\"generic-label\">Ville :</label>");
+		htmlBuffer.append("<label for=\"ville\" class=\"generic-label\">Ville :</label>");
 		htmlBuffer.append("<input type=\"text\" name=\"ville\" class=\"generic-textbox\" value=\"" + (hasCity ? formulaire.getVille() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
@@ -79,7 +79,7 @@ public class PresentationPaiement implements IPresentationPaiement
 		
 		boolean hasZipCode = formulaire.getCodePostal() != null;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
-		htmlBuffer.append("<label for=\"postalcode\" class=\"generic-label\">Code Postal :</label>");
+		htmlBuffer.append("<label for=\"codePostal\" class=\"generic-label\">Code Postal :</label>");
 		htmlBuffer.append("<input type=\"text\" name=\"codePostal\" class=\"generic-textbox\" value=\"" + (hasZipCode ? formulaire.getCodePostal() : "") + "\" />");
 		htmlBuffer.append("</div>");
 
@@ -98,25 +98,25 @@ public class PresentationPaiement implements IPresentationPaiement
 		
 		boolean hasName = formulaire.getNom() != null;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
-		htmlBuffer.append("<label for=\"name\" class=\"generic-label\">Nom :</label>");
+		htmlBuffer.append("<label for=\"nom\" class=\"generic-label\">Nom :</label>");
 		htmlBuffer.append("<input type=\"text\" name=\"nom\" class=\"generic-textbox\" value=\"" + (hasName ? formulaire.getNom() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
 		boolean hasCardNb = formulaire.getNoCarte() != null;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
-		htmlBuffer.append("<label for=\"cardnb\" class=\"generic-label\">No carte :</label>");
+		htmlBuffer.append("<label for=\"noCarte\" class=\"generic-label\">No carte :</label>");
 		htmlBuffer.append("<input type=\"text\" name=\"noCarte\" class=\"generic-textbox\" value=\"" + (hasCardNb ? formulaire.getNoCarte() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
 		boolean hasExpDate = formulaire.getDateExpiration() != null;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
-		htmlBuffer.append("<label for=\"expirationdate\" class=\"generic-label\">Date expiration :</label>");
+		htmlBuffer.append("<label for=\"dateExpiration\" class=\"generic-label\">Date expiration :</label>");
 		htmlBuffer.append("<input type=\"text\" name=\"dateExpiration\" class=\"generic-textbox\" value=\"" + (hasExpDate ? formulaire.getDateExpiration() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
 		boolean hasCvvCode = formulaire.getCodeCvv() != null;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
-		htmlBuffer.append("<label for=\"cvvcode\" class=\"generic-label\">Code CVV :</label>");
+		htmlBuffer.append("<label for=\"codeCvv\" class=\"generic-label\">Code CVV :</label>");
 		htmlBuffer.append("<input type=\"text\" name=\"codeCvv\" class=\"generic-textbox\" value=\"" + (hasCvvCode ? formulaire.getCodeCvv() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
