@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<%@page import="sporacidscalper.model.beans.TransactionBean"%>
+<%@page import="sporacidscalper.view.beans.FormulairePaiementSecurise"%>
 <%@page import="sporacidscalper.view.presentation.IPresentationPaiement"%>
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getContextPath();
-	TransactionBean transaction = (TransactionBean) request.getAttribute("transaction");
+	FormulairePaiementSecurise formulaire = (FormulairePaiementSecurise) request.getAttribute("formulaire");
 	IPresentationPaiement presentation = (IPresentationPaiement) request.getAttribute("presentationPaiement");
 %>
 <html>
@@ -29,7 +29,7 @@
 		
 				<form id="formPaiementSecurise" method="POST" action="<%=contextAttr%>/paiement/traiter-paiement-securise">
 				
-					<%=presentation.presenterFormulairePaiement(transaction) %>
+					<%=presentation.presenterFormulairePaiement(formulaire) %>
 					
 				</form>
 			</div>

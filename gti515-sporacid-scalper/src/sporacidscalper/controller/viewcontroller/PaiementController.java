@@ -17,10 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 import sporacidscalper.controller.modelcontroller.IGestionnaireTransaction;
 import sporacidscalper.controller.viewcontroller.util.ApplicationMessages;
 import sporacidscalper.controller.viewcontroller.util.SessionUtil;
+import sporacidscalper.model.beans.AdresseBean;
 import sporacidscalper.model.beans.ClientBean;
 import sporacidscalper.model.beans.CommandeBean;
 import sporacidscalper.model.beans.PanierAchatBean;
 import sporacidscalper.model.beans.TransactionBean;
+import sporacidscalper.view.beans.FormulairePaiementSecurise;
 import sporacidscalper.view.presentation.IPresentationPaiement;
 //import sporacidscalper.controller.modelcontroller.IGestionnaireClient;
 
@@ -57,7 +59,7 @@ public class PaiementController implements ApplicationContextAware
 	{
 		ModelAndView mav = new ModelAndView("paiement");
 		
-		mav.addObject("client", new ClientBean());
+		mav.addObject("formulaire", new FormulairePaiementSecurise());
 		mav.addObject("presentationPaiement", presentationPaiement);
 		
 		// TODO aller chercher le client courant, mais il n'y a pas encore d'authentification, 
@@ -72,7 +74,7 @@ public class PaiementController implements ApplicationContextAware
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/traiter-paiement-securise")
-	public ModelAndView traiterPaiementSecurise(@ModelAttribute @Valid TransactionBean form, 
+	public ModelAndView traiterPaiementSecurise(@ModelAttribute @Valid FormulairePaiementSecurise form, 
 			BindingResult result, HttpServletRequest request)
 	{
 		ModelAndView mav = new ModelAndView("confirmation_achat");
@@ -86,24 +88,61 @@ public class PaiementController implements ApplicationContextAware
 			
 			// Redirection
 			mav = new ModelAndView("paiement");
+
+			mav.addObject("formulaire", form);
 		}
 		// Valid form, do the transaction
 		else
 		{
+			TransactionBean transaction = obtenirTransaction(form);
+
 			// Transform the shopping cart into a command
 			PanierAchatBean panierAchat = SessionUtil.obtenirPanierAchat(request.getSession());
 			CommandeBean commande = panierAchat.creerCommande();
 			
 			// Set the transaction's command
-			form.setCommande(commande);
+			transaction.setCommande(commande);
 			
-			gestionnaireTransaction.ajouterTransaction(form);
+			gestionnaireTransaction.ajouterTransaction(transaction);
+			
+			mav.addObject("transaction", transaction);
 		}
 		
-		mav.addObject("transaction", form);
 		mav.addObject("presentationPaiement", presentationPaiement);
 	
 		return mav;
+	}
+	
+	/**
+	 * Private method to transform a validated form from the client to a transaction.
+	 * @param form A form submitted by the client
+	 * @return a transaction object
+	 */
+	private TransactionBean obtenirTransaction(FormulairePaiementSecurise form)
+	{
+		TransactionBean transaction = new TransactionBean();
+		AdresseBean addrLivraison = new AdresseBean();
+
+		transaction.setNom(form.getNom());
+		
+		// TODO : Validate the payment with REST service
+		
+		transaction.setNoConfirmationPaiement((int)(Math.random() * 4000000) + 1000000);
+		
+		if(form.getNoCivique() != null)
+			addrLivraison.setNoCivique(form.getNoCivique());
+		
+		if(form.getNoAppartement() != null)
+			addrLivraison.setNoAppartement(form.getNoAppartement());
+		
+		addrLivraison.setNomRue(form.getNomRue());
+		addrLivraison.setVille(form.getVille());
+		addrLivraison.setProvince(form.getProvince());
+		addrLivraison.setCodePostal(form.getCodePostal());
+		
+		transaction.setAdresseLivraison(addrLivraison);
+		
+		return transaction;
 	}
 
 	/**

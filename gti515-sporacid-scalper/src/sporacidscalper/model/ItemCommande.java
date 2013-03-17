@@ -4,17 +4,10 @@ import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.ItemCommandeBean;
 import sporacidscalper.model.beans.TypeBilletRepresentationBean;
 
-import org.hibernate.validator.constraints.*;
-
 public class ItemCommande extends AbstractModelObject implements Beanable
 {	
-	@Range(min=-1)
 	private int id;
-	
-	@Range(min=1, max=6)
 	private int quantite;
-	
-	@NotEmpty
 	private TypeBilletRepresentation billetRepresentation;
 	
 	public ItemCommande()

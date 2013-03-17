@@ -8,8 +8,6 @@ import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.CommandeBean;
 import sporacidscalper.model.beans.ItemCommandeBean;
 
-import org.hibernate.validator.constraints.*;
-
 public class Commande extends AbstractModelObject implements Beanable
 {
 	private int id;

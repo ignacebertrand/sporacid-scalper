@@ -4,7 +4,7 @@
 <%
 	// Get the context url prefix 
 	String contextAttr = (String) request.getContextPath();
-	TransactionBean transaction = (TransactionBean) request.getAttribute("");
+	TransactionBean transaction = (TransactionBean) request.getAttribute("transaction");
 	IPresentationPaiement presentation = (IPresentationPaiement) request.getAttribute("presentationPaiement");
 %>
 <html>
@@ -26,8 +26,8 @@
 			<jsp:include page="partial-views/menu.jsp"></jsp:include>
 
 			<div class="content">
-				<h2>Confirmation</h2>
 				
+				<%= presentation.presenterConfirmationPaiement(transaction) %>
 				
 			</div>
 		</div>
@@ -36,14 +36,4 @@
 		<jsp:include page="partial-views/footer.jsp"></jsp:include>
 		
 	</body>
-	
-	<script type="text/javascript">
-	
-		$(document).ready(
-			function()
-			{
-				
-			}
-		);
-	</script>
 </html>

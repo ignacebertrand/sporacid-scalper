@@ -75,6 +75,7 @@
 	<bean id="presentationPaiement" name="presentationPaiement" 
  			class="sporacidscalper.view.presentation.PresentationPaiement"
 		 	scope="singleton">
+	 	<property name="currencyFormatter" ref="currencyFormatter" />
 	</bean>
 	
 	<!-- Bean definition for the ticket presentation manager -->
