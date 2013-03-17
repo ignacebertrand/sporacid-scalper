@@ -3,8 +3,6 @@ package sporacidscalper.model.beans;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.ItemPanierAchat;
@@ -21,22 +19,6 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 	private Date dateCreation;
 	private List<ItemPanierAchatBean> items;
 	
-	TimerTask task = new TimerTask()
-	{
-		@Override
-		public void run() 
-		{
-			System.out.println("délai 50 secondes !" + (new Date()) );
-			
-			/* supprimerPanierAchat(session);
-			 * 
-			 * ApplicationMessages.ajouterMessage("Délai de 20 minutes expiré pour commander", session);
-			 * 
-			 * this.cancel
-			 */
-		}	
-	};
-	
 	public PanierAchatBean()
 	{
 		this(-1);
@@ -48,9 +30,6 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 		this.dateCreation = null;
 		this.items = new ArrayList<ItemPanierAchatBean>();
 		
-		Timer timer = new Timer("Panier");
-		 
-        timer.schedule(task, 0, 12000000); // 20 minutes delay to purchase
 	}
 	
 	public ItemPanierAchatBean obtenirItem(int itemId)
@@ -93,15 +72,10 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 		int represId = represToAdd.getId();
 		int typeBilletId = itemToAdd.getBilletRepresentation().getType().getId();
 		
-		System.out.println("item a ajouter (idspect, repres, typebill): " + spectId + represId + typeBilletId);
-		
 		for(ItemPanierAchatBean item : items)
 		{
 			RepresentationBean represPanier = item.getBilletRepresentation().getRepresentationReference();
-			
-			System.out.println("item dans panier (idspect, repres, typebill): " + represPanier.getSpectacleId() + 
-					represPanier.getId() + item.getBilletRepresentation().getType().getId());
-			
+						
 			if(represPanier.getSpectacleId() == spectId &&
 			   represPanier.getId() == represId &&
 			   item.getBilletRepresentation().getType().getId() == typeBilletId)

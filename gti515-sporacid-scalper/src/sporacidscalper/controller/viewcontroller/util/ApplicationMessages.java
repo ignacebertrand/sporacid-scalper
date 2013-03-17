@@ -25,14 +25,33 @@ public final class ApplicationMessages
 	}
 	
 	/**
+	 * Public static method to add a message to the messages list of a request object.
+	 * @param message A message to log
+	 * @param request An http session object
+	 */
+	public static void ajouterMessage(String message, HttpSession session)
+	{
+		List<String> listeMessages = obtenirMessages(session);
+		listeMessages.add(message);
+	}
+	
+	/**
 	 * Public static method to obtain the message list from a request object.
 	 * @param request An http request object
 	 * @return The list of messages for the request object
 	 */
 	public static List<String> obtenirMessages(HttpServletRequest request)
 	{
-		HttpSession session = request.getSession();
-		
+		return obtenirMessages(request.getSession());
+	}
+	
+	/**
+	 * Public static method to obtain the message list from a request object.
+	 * @param request An http session object
+	 * @return The list of messages for the request object
+	 */
+	public static List<String> obtenirMessages(HttpSession session)
+	{		
 		@SuppressWarnings("unchecked")
 		List<String> listeMessages = (List<String>) session.getAttribute(ApplicationMessages.cCleRequestListeMessage);
 		

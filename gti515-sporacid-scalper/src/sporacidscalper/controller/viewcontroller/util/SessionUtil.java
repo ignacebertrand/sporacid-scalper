@@ -1,5 +1,7 @@
 package sporacidscalper.controller.viewcontroller.util;
 
+import java.util.Timer;
+
 import javax.servlet.http.HttpSession;
 
 import sporacidscalper.model.beans.PanierAchatBean;
@@ -20,6 +22,11 @@ public final class SessionUtil
 	 * Constant for the session key to access the shopping cart total.
 	 */
 	public static final String cCleSessionTotalPanierAchat = "TotalPanierAchat";
+
+	/**
+	 * Constant for the session key to access the shopping cart total.
+	 */
+	public static final String cCleSessionTimerPanierAchat = "TimerPanierAchat";
 	
 	/**
 	 * Private method to obtain the shopping cart from a session.
@@ -37,12 +44,19 @@ public final class SessionUtil
 			// Save the shopping cart in the session
 			session.setAttribute(cCleSessionPanierAchat, panier);
 			
+			// Set the shopping cart timeout
+			TimeoutPanierAchat timeoutTask = new TimeoutPanierAchat(session);
+			Timer timer = new Timer();
+			timer.schedule(timeoutTask, 1200000); // 20 minutes timer
+			session.setAttribute(cCleSessionTimerPanierAchat, timeoutTask);
+			
 			// Update shopping cart associated values
 			updateValeursPanierAchat(session);
 		}
 		
 		return panier;
 	}
+	
 	/**
 	 * 
 	 * @param session
