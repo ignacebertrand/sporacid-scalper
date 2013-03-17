@@ -1,5 +1,7 @@
 package sporacidscalper.model.beans;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
@@ -17,9 +19,13 @@ public class AdresseBean extends AbstractBean implements Modelable
 	@Range(min=-1, message="Le id de l'adresse est invalide.")
 	private int id;
 	
+	@NotNull
 	@Range(min=0, message="Le numéro civique est obligatoire.")
-	private int noCivique;
+	private Integer noCivique;
 	
+	@Range(min=0, message="Le numéro d'appartement est invalide.")
+	private Integer noAppartement;
+
 	@NotEmpty(message="Le nom de la rue est ogligatoire.")
 	@Length(max=50, message="Le nom de la rue ne peux excéder 50 caractères.")
 	private String nomRue;
@@ -28,6 +34,10 @@ public class AdresseBean extends AbstractBean implements Modelable
 	@Length(min=6, max=6, message="Le code postal doit avoir 6 caractères.")
 	private String codePostal;
 	
+	@NotEmpty(message="Le nom de la ville est obligatoire.")
+	@Length(max=50, message="Le nom de la ville ne peux excéder 50 caractères.")
+	private String ville;
+
 	@NotEmpty(message="Le nom de la province est obligatoire")
 	@Length(max=25, message="Le nom de la province ne peux excéder 25 caractères.")
 	private String province;
@@ -40,7 +50,8 @@ public class AdresseBean extends AbstractBean implements Modelable
 	public AdresseBean(int id)
 	{
 		this.id = id;
-		this.noCivique = -1;
+		this.noCivique = null;
+		this.noAppartement = null;
 		this.nomRue = null;
 		this.codePostal = null;
 		this.province = null;
@@ -51,14 +62,35 @@ public class AdresseBean extends AbstractBean implements Modelable
 		return this.id;
 	}
 	
-	public int getNoCivique()
+	
+	public String getVille() 
+	{
+		return ville;
+	}
+
+	public void setVille(String ville) 
+	{
+		this.ville = ville;
+	}
+	
+	public Integer getNoCivique()
 	{
 		return noCivique;
 	}
 	
-	public void setNoCivique(int noCivique)
+	public void setNoCivique(Integer noCivique)
 	{
 		this.noCivique = noCivique;
+	}
+	
+	public Integer getNoAppartement() 
+	{
+		return noAppartement;
+	}
+
+	public void setNoAppartement(Integer noAppartement) 
+	{
+		this.noAppartement = noAppartement;
 	}
 	
 	public String getNomRue()
@@ -102,7 +134,9 @@ public class AdresseBean extends AbstractBean implements Modelable
 			
 			adresse.setCodePostal(this.codePostal);
 			adresse.setNoCivique(this.noCivique);
+			adresse.setNoAppartement(this.noAppartement);
 			adresse.setNomRue(this.nomRue);
+			adresse.setVille(this.ville);
 			adresse.setProvince(this.province);
 		}
 		
