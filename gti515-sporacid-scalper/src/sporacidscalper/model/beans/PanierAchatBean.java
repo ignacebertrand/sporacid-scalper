@@ -3,6 +3,8 @@ package sporacidscalper.model.beans;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.ItemPanierAchat;
@@ -19,6 +21,22 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 	private Date dateCreation;
 	private List<ItemPanierAchatBean> items;
 	
+	TimerTask task = new TimerTask()
+	{
+		@Override
+		public void run() 
+		{
+			System.out.println("délai 50 secondes !" + (new Date()) );
+			
+			/* supprimerPanierAchat(session);
+			 * 
+			 * ApplicationMessages.ajouterMessage("Délai de 20 minutes expiré pour commander", session);
+			 * 
+			 * this.cancel
+			 */
+		}	
+	};
+	
 	public PanierAchatBean()
 	{
 		this(-1);
@@ -29,6 +47,10 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 		this.id = id;
 		this.dateCreation = null;
 		this.items = new ArrayList<ItemPanierAchatBean>();
+		
+		Timer timer = new Timer("Panier");
+		 
+        timer.schedule(task, 0, 12000000); // 20 minutes delay to purchase
 	}
 	
 	public ItemPanierAchatBean obtenirItem(int itemId)
