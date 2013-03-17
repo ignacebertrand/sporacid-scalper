@@ -1,23 +1,34 @@
 package sporacidscalper.view.presentation;
 
-import sporacidscalper.model.beans.AdresseBean;
+import java.text.NumberFormat;
+
 import sporacidscalper.model.beans.TransactionBean;
+import sporacidscalper.view.beans.FormulairePaiementSecurise;
 import sporacidscalper.view.presentation.util.HtmlUtilities;
 
 public class PresentationPaiement implements IPresentationPaiement
 {
 	/**
+	 * Instance of a number formatter for format currencies in the sopping cart.
+	 */
+	private NumberFormat currencyFormatter;
+
+	/**
 	 * Presentation logic for a payment form.
 	 * @return A html formatted string for the payment form presentation
 	 */
-	public String presenterFormulairePaiement(TransactionBean transaction)
+	@Override
+	public String presenterFormulairePaiement(FormulairePaiementSecurise formulaire)
 	{
+		if(formulaire == null)
+			formulaire = new FormulairePaiementSecurise();
+		
 		StringBuffer htmlBuffer = new StringBuffer();
 		
 		htmlBuffer.append("<h2>Paiement sécurisé</h2>");
 		
-		htmlBuffer.append(presenterFormulaireInfoLivraison(transaction));
-		htmlBuffer.append(presenterFormulaireInfoPaiement(transaction));
+		htmlBuffer.append(presenterFormulaireInfoLivraison(formulaire));
+		htmlBuffer.append(presenterFormulaireInfoPaiement(formulaire));
 		
 		htmlBuffer.append("<div class=\"payment-controller\">");
 		htmlBuffer.append("<div class=\"generic-button payment-confirmation-button\">Confirmer le paiement</div>");
@@ -30,60 +41,46 @@ public class PresentationPaiement implements IPresentationPaiement
 	 * Presentation logic for a delivery address information form.
 	 * @return A html formatted string for the delivery address information form presentation
 	 */
-	private String presenterFormulaireInfoLivraison(TransactionBean transaction)
+	private String presenterFormulaireInfoLivraison(FormulairePaiementSecurise formulaire)
 	{
-		if(transaction == null)
-			transaction = new TransactionBean();
-		
 		StringBuffer htmlBuffer = new StringBuffer();
 		
 		htmlBuffer.append("<h3>Informations livraison</h3>");
-
-//		boolean hasName = transaction.getNom() != null;
-//		htmlBuffer.append("<div class=\"payment-description-item\">");
-//		htmlBuffer.append("<label for=\"name\" class=\"generic-label\">Nom :</label>");
-//		htmlBuffer.append("<input type=\"text\" name=\"nom\" class=\"generic-textbox\" value=\"" + (hasName ? transaction.getNom() : "") + "\" />");
-//		htmlBuffer.append("</div>");
-
-		AdresseBean addrLivraison = transaction.getAdresseLivraison();
 		
-		if(addrLivraison == null)
-			addrLivraison = new AdresseBean();
-		
-		boolean hasStreetNb = addrLivraison.getNoCivique() != null && addrLivraison.getNoCivique() > 0;
+		boolean hasStreetNb = formulaire.getNoCivique() != null && formulaire.getNoCivique() > 0;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
 		htmlBuffer.append("<label for=\"streetnb\" class=\"generic-label\">No de rue :</label>");
-		htmlBuffer.append("<input type=\"text\" name=\"adresseLivraison.noCivique\" class=\"generic-textbox\" value=\"" + (hasStreetNb ? addrLivraison.getNoCivique() : "") + "\" />");
+		htmlBuffer.append("<input type=\"text\" name=\"noCivique\" class=\"generic-textbox\" value=\"" + (hasStreetNb ? formulaire.getNoCivique() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
-		boolean hasAppartmentNb = addrLivraison.getNoAppartement() != null && addrLivraison.getNoAppartement() > 0;
+		boolean hasAppartmentNb = formulaire.getNoAppartement() != null && formulaire.getNoAppartement() > 0;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
 		htmlBuffer.append("<label for=\"streetnb\" class=\"generic-label\">No appart :</label>");
-		htmlBuffer.append("<input type=\"text\" name=\"adresseLivraison.noAppartement\" class=\"generic-textbox\" value=\"" + (hasAppartmentNb ? addrLivraison.getNoCivique() : "") + "\" />");
+		htmlBuffer.append("<input type=\"text\" name=\"noAppartement\" class=\"generic-textbox\" value=\"" + (hasAppartmentNb ? formulaire.getNoCivique() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
-		boolean hasStreetName = addrLivraison.getNomRue() != null;
+		boolean hasStreetName = formulaire.getNomRue() != null;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
 		htmlBuffer.append("<label for=\"street\" class=\"generic-label\">Rue :</label>");
-		htmlBuffer.append("<input type=\"text\" name=\"adresseLivraison.nomRue\" class=\"generic-textbox\" value=\"" + (hasStreetName ? addrLivraison.getNomRue() : "") + "\" />");
+		htmlBuffer.append("<input type=\"text\" name=\"nomRue\" class=\"generic-textbox\" value=\"" + (hasStreetName ? formulaire.getNomRue() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
-		boolean hasCity = addrLivraison.getVille() != null;
+		boolean hasCity = formulaire.getVille() != null;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
 		htmlBuffer.append("<label for=\"city\" class=\"generic-label\">Ville :</label>");
-		htmlBuffer.append("<input type=\"text\" name=\"adresseLivraison.ville\" class=\"generic-textbox\" value=\"" + (hasCity ? addrLivraison.getVille() : "") + "\" />");
+		htmlBuffer.append("<input type=\"text\" name=\"ville\" class=\"generic-textbox\" value=\"" + (hasCity ? formulaire.getVille() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
-		boolean hasProvince = addrLivraison.getProvince() != null;
+		boolean hasProvince = formulaire.getProvince() != null;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
 		htmlBuffer.append("<label for=\"province\" class=\"generic-label\">Province :</label>");
-		htmlBuffer.append("<input type=\"text\" name=\"adresseLivraison.province\" class=\"generic-textbox\" value=\"" + (hasProvince ? addrLivraison.getProvince() : "") + "\" />");
+		htmlBuffer.append("<input type=\"text\" name=\"province\" class=\"generic-textbox\" value=\"" + (hasProvince ? formulaire.getProvince() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
-		boolean hasZipCode = addrLivraison.getCodePostal() != null;
+		boolean hasZipCode = formulaire.getCodePostal() != null;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
 		htmlBuffer.append("<label for=\"postalcode\" class=\"generic-label\">Code Postal :</label>");
-		htmlBuffer.append("<input type=\"text\" name=\"adresseLivraison.codePostal\" class=\"generic-textbox\" value=\"" + (hasZipCode ? addrLivraison.getCodePostal() : "") + "\" />");
+		htmlBuffer.append("<input type=\"text\" name=\"codePostal\" class=\"generic-textbox\" value=\"" + (hasZipCode ? formulaire.getCodePostal() : "") + "\" />");
 		htmlBuffer.append("</div>");
 
 		return htmlBuffer.toString();
@@ -93,35 +90,56 @@ public class PresentationPaiement implements IPresentationPaiement
 	 * Presentation logic for a payment information form.
 	 * @return A html formatted string for the payment information form presentation
 	 */
-	private String presenterFormulaireInfoPaiement(TransactionBean transaction)
+	private String presenterFormulaireInfoPaiement(FormulairePaiementSecurise formulaire)
 	{
-		if(transaction == null)
-			transaction = new TransactionBean();
-		
 		StringBuffer htmlBuffer = new StringBuffer();
 		
 		htmlBuffer.append("<h3>Informations paiement</h3>");
 		
+		boolean hasName = formulaire.getNom() != null;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
 		htmlBuffer.append("<label for=\"name\" class=\"generic-label\">Nom :</label>");
-		htmlBuffer.append("<input type=\"text\" name=\"name\" class=\"generic-textbox\" />");
+		htmlBuffer.append("<input type=\"text\" name=\"nom\" class=\"generic-textbox\" value=\"" + (hasName ? formulaire.getNom() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
+		boolean hasCardNb = formulaire.getNoCarte() != null;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
 		htmlBuffer.append("<label for=\"cardnb\" class=\"generic-label\">No carte :</label>");
-		htmlBuffer.append("<input type=\"text\" name=\"cardnb\" class=\"generic-textbox\" />");
+		htmlBuffer.append("<input type=\"text\" name=\"noCarte\" class=\"generic-textbox\" value=\"" + (hasCardNb ? formulaire.getNoCarte() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
+		boolean hasExpDate = formulaire.getDateExpiration() != null;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
 		htmlBuffer.append("<label for=\"expirationdate\" class=\"generic-label\">Date expiration :</label>");
-		htmlBuffer.append("<input type=\"text\" name=\"expirationdate\" class=\"generic-textbox\" />");
+		htmlBuffer.append("<input type=\"text\" name=\"dateExpiration\" class=\"generic-textbox\" value=\"" + (hasExpDate ? formulaire.getDateExpiration() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
+		boolean hasCvvCode = formulaire.getCodeCvv() != null;
 		htmlBuffer.append("<div class=\"payment-description-item\">");
 		htmlBuffer.append("<label for=\"cvvcode\" class=\"generic-label\">Code CVV :</label>");
-		htmlBuffer.append("<input type=\"text\" name=\"cvvcode\" class=\"generic-textbox\" />");
+		htmlBuffer.append("<input type=\"text\" name=\"codeCvv\" class=\"generic-textbox\" value=\"" + (hasCvvCode ? formulaire.getCodeCvv() : "") + "\" />");
 		htmlBuffer.append("</div>");
 		
 		return htmlBuffer.toString();
+	}
+
+	@Override
+	public String presenterConfirmationPaiement(TransactionBean transaction) 
+	{
+		StringBuffer htmlBuffer = new StringBuffer();
+		
+		htmlBuffer.append("<h2>Confirmation de l'achat</h2>");
+		htmlBuffer.append("<p>Votre achat de " + currencyFormatter.format(transaction.getCommande().getTotal()) + " a été confirmé.</p>");
+		htmlBuffer.append("<p>Le no de confirmation est : " + transaction.getNoConfirmationPaiement() + "</p>");
+		
+		return HtmlUtilities.formatHtml(htmlBuffer.toString());
+	}
+	
+	public NumberFormat getCurrencyFormatter() {
+		return currencyFormatter;
+	}
+
+	public void setCurrencyFormatter(NumberFormat currencyFormatter) {
+		this.currencyFormatter = currencyFormatter;
 	}
 }

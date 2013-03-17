@@ -36,13 +36,6 @@ public class TransactionBean extends AbstractBean implements Modelable
 	@Range(min=-1, message="Le no de confirmation de la transaction est invalide.")
 	private int noConfirmationPaiement;
 	
-	@Range(min=-1, message="Le no de confirmation de la vente est invalide.")
-	private int noConfirmationVente;
-	
-	@Valid
-	@NotNull(message="L'adresse de facturation est obligatoire.")
-	private AdresseBean adresseFacturation;
-	
 	@Valid
 	@NotNull(message="L'adresse de livraison est obligatoire.")
 	private AdresseBean adresseLivraison;
@@ -64,8 +57,6 @@ public class TransactionBean extends AbstractBean implements Modelable
 		
 		this.id = id;
 		this.noConfirmationPaiement = -1;
-		this.noConfirmationVente = -1;
-		this.adresseFacturation = null;
 		this.adresseLivraison = null;
 		this.commande = null;
 	}
@@ -83,16 +74,6 @@ public class TransactionBean extends AbstractBean implements Modelable
 	public void setNoConfirmationPaiement(int noConfirmationPaiement)
 	{
 		this.noConfirmationPaiement = noConfirmationPaiement;
-	}
-	
-	public int getNoConfirmationVente()
-	{
-		return noConfirmationVente;
-	}
-	
-	public void setNoConfirmationVente(int noConfirmationVente)
-	{
-		this.noConfirmationVente = noConfirmationVente;
 	}
 	
 	public int getClientId()
@@ -118,16 +99,6 @@ public class TransactionBean extends AbstractBean implements Modelable
 	public void setClientReference(ClientBean clientReference)
 	{
 		this.clientReference = clientReference;
-	}
-	
-	public AdresseBean getAdresseFacturation()
-	{
-		return adresseFacturation;
-	}
-	
-	public void setAdresseFacturation(AdresseBean adresseFacturation)
-	{
-		this.adresseFacturation = adresseFacturation;
 	}
 	
 	public AdresseBean getAdresseLivraison()
@@ -160,12 +131,10 @@ public class TransactionBean extends AbstractBean implements Modelable
 			t = new Transaction(this.id, this.clientId);
 			
 			t.setNom(this.nom);
-			t.setAdresseFacturation((Adresse)this.adresseFacturation.getModelObject());
 			t.setAdresseLivraison((Adresse)this.adresseLivraison.getModelObject());
-			t.setClientReference((Client)this.clientReference.getModelObject());
+			//t.setClientReference((Client)this.clientReference.getModelObject());
 			t.setCommande((Commande)this.commande.getModelObject());
 			t.setNoConfirmationPaiement(this.noConfirmationPaiement);
-			t.setNoConfirmationVente(this.noConfirmationVente);
 		}
 		
 		return t;

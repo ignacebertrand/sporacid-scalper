@@ -25,12 +25,6 @@ public class Transaction extends AbstractModelObject implements Beanable
 	@Range(min=-1)
 	private int noConfirmationPaiement;
 	
-	@Range(min=-1)
-	private int noConfirmationVente;
-	
-	@NotEmpty
-	private Adresse adresseFacturation;
-	
 	@NotEmpty
 	private Adresse adresseLivraison;
 	
@@ -50,8 +44,6 @@ public class Transaction extends AbstractModelObject implements Beanable
 		
 		this.id = id;
 		this.noConfirmationPaiement = -1;
-		this.noConfirmationVente = -1;
-		this.adresseFacturation = null;
 		this.adresseLivraison = null;
 		this.commande = null;
 	}
@@ -86,16 +78,6 @@ public class Transaction extends AbstractModelObject implements Beanable
 		this.noConfirmationPaiement = noConfirmationPaiement;
 	}
 	
-	public int getNoConfirmationVente()
-	{
-		return noConfirmationVente;
-	}
-	
-	public void setNoConfirmationVente(int noConfirmationVente)
-	{
-		this.noConfirmationVente = noConfirmationVente;
-	}
-	
 	public Client getClientReference()
 	{
 		return clientReference;
@@ -104,16 +86,6 @@ public class Transaction extends AbstractModelObject implements Beanable
 	public void setClientReference(Client clientReference)
 	{
 		this.clientReference = clientReference;
-	}
-	
-	public Adresse getAdresseFacturation()
-	{
-		return adresseFacturation;
-	}
-	
-	public void setAdresseFacturation(Adresse adresseFacturation)
-	{
-		this.adresseFacturation = adresseFacturation;
 	}
 	
 	public Adresse getAdresseLivraison()
@@ -146,12 +118,10 @@ public class Transaction extends AbstractModelObject implements Beanable
 			bean = new TransactionBean(this.id, this.clientId);
 			
 			bean.setNom(this.nom);
-			bean.setAdresseFacturation((AdresseBean) this.adresseFacturation.getBean());
 			bean.setAdresseLivraison((AdresseBean) this.adresseLivraison.getBean());
 			bean.setClientReference((ClientBean) this.clientReference.getBean());
 			bean.setCommande((CommandeBean)this.commande.getBean());
 			bean.setNoConfirmationPaiement(this.noConfirmationPaiement);
-			bean.setNoConfirmationVente(this.noConfirmationVente);
 		}
 		
 		return bean;
