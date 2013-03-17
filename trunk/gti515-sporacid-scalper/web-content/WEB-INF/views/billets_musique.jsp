@@ -56,11 +56,15 @@
 					<input type="hidden" id="hiddenRepresentationId" name="representationId" />
 					<input type="hidden" id="hiddenTypeBilletId" name="typeBilletId" />
 				</form>
-				<ul class="event-list-pager">
-					<%for(int i = 0; i < listeSpectacles.size(); i+=30){%>
-						<li class="event-list-pager-button"><%=i/30+1%></li>
-					<%}%>
-				</ul>
+				
+				<div class="event-list-pager-container">
+					<ul class="event-list-pager">
+						<%for(int i = 0; i < listeSpectacles.size(); i+=30){%>
+							<li class="event-list-pager-button"><%=i/30+1%></li>
+						<%}%>
+					</ul>
+				</div>
+				
 				<div class="list-page-container">
 				<%for(int i = 0; i < listeSpectacles.size(); i+=30){%>
 					<ul class="event-list">

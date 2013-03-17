@@ -3,7 +3,7 @@
 	border-bottom: 1px solid #303030;
 	padding: 10px 0px;
 	padding-bottom: 30px;
-	margin-bottom: 30px;
+	margin-bottom: 10px;
 }
 
 .event-list
@@ -103,6 +103,12 @@
 .disponibility-button-onchar
 {
 	color: black;
+}
+
+.event-list-pager-container
+{
+	border-bottom: 1px solid #303030;
+	margin-bottom: 10px;
 }
 
 .event-list-pager
