@@ -19,7 +19,7 @@ public class Adresse extends AbstractModelObject implements Beanable
 	public Adresse(int id)
 	{
 		this.id = id;
-		this.noCivique = -1;
+		this.noCivique = 0;
 		this.nomRue = null;
 		this.codePostal = null;
 		this.province = null;
