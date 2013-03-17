@@ -7,8 +7,10 @@ public class Adresse extends AbstractModelObject implements Beanable
 {
 	private int id;
 	private int noCivique;
+	private int noAppartement;
 	private String nomRue;
 	private String codePostal;
+	private String ville;
 	private String province;
 	
 	public Adresse()
@@ -38,6 +40,26 @@ public class Adresse extends AbstractModelObject implements Beanable
 	public void setNoCivique(int noCivique)
 	{
 		this.noCivique = noCivique;
+	}
+	
+	public int getNoAppartement() 
+	{
+		return noAppartement;
+	}
+
+	public void setNoAppartement(int noAppartement) 
+	{
+		this.noAppartement = noAppartement;
+	}
+
+	public String getVille() 
+	{
+		return ville;
+	}
+
+	public void setVille(String ville) 
+	{
+		this.ville = ville;
 	}
 	
 	public String getNomRue()
