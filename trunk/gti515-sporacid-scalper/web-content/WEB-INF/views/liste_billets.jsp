@@ -23,7 +23,7 @@
 	<head>
 		<title>Billets Sporacid</title>
 		<link rel="stylesheet" type="text/css" href="<%=contextAttr%>/styles/site.css" />
-		<link rel="stylesheet" type="text/css" href="<%=contextAttr%>/styles/billets_musique.css" />
+		<link rel="stylesheet" type="text/css" href="<%=contextAttr%>/styles/liste_billets.css" />
 		<script type="text/javascript" src="<%=contextAttr%>/scripts/jquery-1.9.0.min.js"></script>
 		<script type="text/javascript" src="<%=contextAttr%>/scripts/site-scripts.js"></script>
 		<script type="text/javascript" src="<%=contextAttr%>/scripts/pager-script.js"></script>
@@ -49,7 +49,6 @@
 					<label for="textbox_search_criteria" class="generic-label">Recherche par mot clé :</label>
 					<input type="text" id="textbox_search_criteria" class="generic-textbox" />
 				</div>
-				
 				<form method="POST" action="<%=contextAttr%>/panier-achat/ajouter-item-panier-achat">
 					<input type="hidden" id="hiddenQuantite" name="quantite" />
 					<input type="hidden" id="hiddenSpectacleId" name="spectacleId" />
@@ -58,58 +57,73 @@
 				</form>
 				
 				<div class="event-list-pager-container">
-					<ul class="event-list-pager">
-						<%for(int i = 0; i < listeSpectacles.size(); i+=30){%>
-							<li class="event-list-pager-button"><%=i/30+1%></li>
-						<%}%>
-					</ul>
+				
+					<% if(listeSpectacles.size() > 0) { %>
+						<ul class="event-list-pager">
+							<%for(int i = 0; i < listeSpectacles.size(); i+=30){%>
+								<li class="event-list-pager-button"><%=i/30+1%></li>
+							<%}%>
+						</ul>
+					<%} else {%>
+						<ul class="event-list-pager">
+							<li class="event-list-pager-button">1</li>
+						</ul>
+					<%}%>
 				</div>
 				
 				<div class="list-page-container">
-				<%for(int i = 0; i < listeSpectacles.size(); i+=30){%>
-					<ul class="event-list">
-						<%for(int j = 0; j < 30 && j+i < listeSpectacles.size(); j++){%>
-						<%	SpectacleBean spectacle = listeSpectacles.get(i+j); %>
-									
-						<li class="event-list-item">
-						
-							<input type="hidden" class="hiddenSpectacleId" value="<%=spectacle.getId()%>"/>
-							<div class="event-list-item-image" style="background-image: url(../<%=spectacle.getPosterUrl()%>);"></div>
-							<div class="event-list-item-content">
-								<h1 class="event-list-item-content-title"><%=spectacle.getNom()%></h1>
-								<%=presentation.getAppendedArtists(spectacle.getArtistes())%>
-								<p class="event-list-item-content-desc"><%=spectacle.getDescription()%></p>
-								<div class="event-list-item-tags-container">
-									<%=presentation.getTagsAnchors(spectacle.getArtistes())%>
-								</div>
-							</div>
-							<div class="event-list-item-controller">
-								<label class="generic-label">Représentation :</label>
-								<select class="generic-select event-list-item-representation-select">
-									<option value="-1">-----</option>
-									<%=presentation.getRepresentationsListItem(spectacle.getRepresentations())%>
-								</select>
-								<label class="generic-label">Type :</label>
-								<select class="generic-select event-list-item-ticket-type-select">
-								</select>
-								<label class="generic-label">Quantité :</label>
-								<select class="generic-select event-list-item-quantity-select">
-									<option value="-1">--</option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6">6</option>
-								</select>
-								<div class="generic-button event-list-item-addtocart-button">
-									Ajouter au panier
-								</div>
-							</div>
-						</li>
-						<%}%>		
-					</ul>
-				<%}%>
+					<% if(listeSpectacles.size() > 0) { %>
+						<%for(int i = 0; i < listeSpectacles.size(); i+=30){%>
+							<ul class="event-list">
+								<%for(int j = 0; j < 30 && j+i < listeSpectacles.size(); j++){%>
+								<%	SpectacleBean spectacle = listeSpectacles.get(i+j); %>
+											
+								<li class="event-list-item">
+								
+									<input type="hidden" class="hiddenSpectacleId" value="<%=spectacle.getId()%>"/>
+									<div class="event-list-item-image" style="background-image: url(../<%=spectacle.getPosterUrl()%>);"></div>
+									<div class="event-list-item-content">
+										<h1 class="event-list-item-content-title"><%=spectacle.getNom()%></h1>
+										<%=presentation.getAppendedArtists(spectacle.getArtistes())%>
+										<p class="event-list-item-content-desc"><%=spectacle.getDescription()%></p>
+										<div class="event-list-item-tags-container">
+											<%=presentation.getTagsAnchors(spectacle.getArtistes())%>
+										</div>
+									</div>
+									<div class="event-list-item-controller">
+										<label class="generic-label">Représentation :</label>
+										<select class="generic-select event-list-item-representation-select">
+											<option value="-1">-----</option>
+											<%=presentation.getRepresentationsListItem(spectacle.getRepresentations())%>
+										</select>
+										<label class="generic-label">Type :</label>
+										<select class="generic-select event-list-item-ticket-type-select">
+										</select>
+										<label class="generic-label">Quantité :</label>
+										<select class="generic-select event-list-item-quantity-select">
+											<option value="-1">--</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+										</select>
+										<div class="generic-button event-list-item-addtocart-button">
+											Ajouter au panier
+										</div>
+									</div>
+								</li>
+								<%}%>		
+							</ul>
+						<%}%>
+					<%} else {%>
+						<div class="empty-event-list-notification">
+							<table><tr><td>
+								Aucun Spectacle à afficher
+							</td></tr></table>
+						</div>
+					<%}%>
 				</div>
 			</div>
 		</div>
@@ -171,19 +185,13 @@
 					}
 				);
 				
-				/*
-				$("#textbox_search_criteria").enterKey(
-					function()
-					{
-						var searchString = $(this).val();
-						var item =  $(this).parents(".event-filters-container");
-						var searchCategory = item.find("#select_category");
-						
-						alert("categ String : " + searchCategory + " " + searchString);
-					
-						window.location=window.location + "?searchCategory=" + searchCategory + "&searchString=" + searchString;
-					}
-				);*/
+				<% if(request.getParameter("searchCategory") != null) { %>
+					$("#select_category").find("option[value=\"<%=request.getParameter("searchCategory")%>\"]").attr("selected", "selected");
+				<% } %>
+				
+				<% if(request.getParameter("searchString") != null) { %>
+					$("#textbox_search_criteria").val("<%=request.getParameter("searchString")%>");
+				<% } %>
 				
 				$("#select_category").change(
 					function()
@@ -220,39 +228,6 @@
 						}
 					}
 				);
-				
-				//Mock of wait time for server response.
-// 				$(".event-list-item-disponibility-button").click(
-// 					function()
-// 					{
-// 						var text = "Disponibilité";
-// 						var onText = "<span class='disponibility-button-onchar'>.</span>";
-// 						var disponibilityButton = $(this);
-						
-// 						$("body").css("cursor", "wait");
-						
-// 						disponibilityButton.html(text + onText + "..");
-// 						window.setTimeout(
-// 							function()
-// 							{
-// 								disponibilityButton.html(text + "." + onText + ".");
-// 								window.setTimeout(
-// 									function()
-// 									{
-// 										disponibilityButton.html(text + ".." + onText);
-// 										window.setTimeout(function()
-// 										{
-// 											$("body").css("cursor", "default");
-// 											disponibilityButton.hide();
-// 											disponibilityButton.parents(".event-list-item").find(".event-list-item-addtocart-button").css("display", "inline-block");
-// 										}, 500);
-// 									}
-// 								,  500);
-// 							}
-// 						,  500);
-						
-// 					}
-// 				);
 			}
 		);
 	</script>
