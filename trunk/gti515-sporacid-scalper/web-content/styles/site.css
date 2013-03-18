@@ -253,6 +253,7 @@ body .generic-button
 	z-index: 10000;
 	overflow: auto;
 	box-shadow: 15px 15px 8px #AAA;
+	display: none;
 	/*border: 2px solid #888888;*/
 }
 
