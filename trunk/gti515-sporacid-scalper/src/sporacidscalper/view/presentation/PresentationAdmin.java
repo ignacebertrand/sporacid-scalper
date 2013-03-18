@@ -1,6 +1,5 @@
 package sporacidscalper.view.presentation;
 
-import sporacidscalper.model.beans.PanierAchatBean;
 
 public class PresentationAdmin implements IPresentationAdmin
 {
@@ -11,9 +10,6 @@ public class PresentationAdmin implements IPresentationAdmin
 	 */
 	public String presenterAdmin()
 	{
-		StringBuffer htmlBuffer = new StringBuffer();
-		
-		
 		return null;
 	}
 }

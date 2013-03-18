@@ -1,12 +1,5 @@
 package sporacidscalper.view.beans;
 
-import java.util.List;
-
-import sporacidscalper.model.Artiste;
-import sporacidscalper.model.Representation;
-import sporacidscalper.model.beans.ArtisteBean;
-import sporacidscalper.model.beans.TypeSpectacleBean;
-
 public class FormulaireAjoutSpectacle {
 
 	private int id;
