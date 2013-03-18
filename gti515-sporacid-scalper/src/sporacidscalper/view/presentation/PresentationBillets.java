@@ -71,7 +71,17 @@ public class PresentationBillets implements IPresentationBillets
 	
 	public String getTypesListItem(List<TypeSpectacleBean> types)
 	{
+		return getTypesListItem(types, -1);		
+	}
+	
+	public String getTypesListItem(List<TypeSpectacleBean> types, int selectedValue)
+	{
 		StringBuffer htmlBuffer = new StringBuffer();
+		String selectedText = "selected=\"selected\"";
+		
+		htmlBuffer.append("<option value=\"-1\"" + (selectedValue == -1 ? selectedText : "") + ">");
+		htmlBuffer.append("Toutes");
+		htmlBuffer.append("</option>");
 		
 		for(int i = 0;i < types.size(); i++)
 		{
@@ -79,7 +89,7 @@ public class PresentationBillets implements IPresentationBillets
 			
 			htmlBuffer.append("<option value=\"");
 			htmlBuffer.append(type.getId());
-			htmlBuffer.append("\">");
+			htmlBuffer.append("\"" + (selectedValue == type.getId() ? selectedText : "") + ">");
 			htmlBuffer.append(type.getNom());
 			htmlBuffer.append("</option>");
 		}

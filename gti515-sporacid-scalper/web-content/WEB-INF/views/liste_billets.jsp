@@ -18,6 +18,9 @@
 	List<TypeSpectacleBean> listeTypes = (List<TypeSpectacleBean>) request.getAttribute("listeTypes");
 	
 	IPresentationBillets presentation = (IPresentationBillets) request.getAttribute("presentationBillets");
+	
+	String searchString = request.getParameter("searchString");
+	String searchCategory = request.getParameter("searchCategory");
 %>
 <html>
 	<head>
@@ -43,11 +46,14 @@
 				<div class="event-filters-container">
 					<label for="select_category" class="generic-label">Catégories :</label>
 					<select id="select_category" class="generic-select">
-						<option value="-1">Toutes</option>
-						<%=presentation.getTypesListItem(listeTypes)%>
+						<%if(searchCategory != null) { %>
+							<%=presentation.getTypesListItem(listeTypes, Integer.parseInt(searchCategory))%>
+						<% } else { %>
+							<%=presentation.getTypesListItem(listeTypes)%>
+						<% } %>
 					</select>
 					<label for="textbox_search_criteria" class="generic-label">Recherche par mot clé :</label>
-					<input type="text" id="textbox_search_criteria" class="generic-textbox" />
+					<input type="text" id="textbox_search_criteria" class="generic-textbox" value="<%=(searchString != null ? searchString : "") %>" />
 				</div>
 				<form method="POST" action="<%=contextAttr%>/panier-achat/ajouter-item-panier-achat">
 					<input type="hidden" id="hiddenQuantite" name="quantite" />
@@ -185,14 +191,6 @@
 					}
 				);
 				
-				<% if(request.getParameter("searchCategory") != null) { %>
-					$("#select_category").find("option[value=\"<%=request.getParameter("searchCategory")%>\"]").attr("selected", "selected");
-				<% } %>
-				
-				<% if(request.getParameter("searchString") != null) { %>
-					$("#textbox_search_criteria").val("<%=request.getParameter("searchString")%>");
-				<% } %>
-				
 				$("#select_category").change(
 					function()
 					{
@@ -209,23 +207,18 @@
 					}
 				);
 				
-				$('#textbox_search_criteria').keypress(
+				$('#textbox_search_criteria').change(
 					function(event)
 					{
-						var keycode = (event.keyCode ? event.keyCode : event.which);
+						var item =  $(this).parents(".event-filters-container");
+						var searchCategory = item.find("#select_category").val();
+						var searchString   = $(this).val();
+						var url = window.location.toString();
 						
-						if(keycode == '13')
-						{
-							var item =  $(this).parents(".event-filters-container");
-							var searchCategory = item.find("#select_category").val();
-							var searchString   = $(this).val();
-							var url = window.location.toString();
-							
-							if(url.indexOf('?') > -1)
-								url = url.split('?')[0];
-							
-							window.location = url + "?searchCategory=" + searchCategory + "&searchString=" + searchString;
-						}
+						if(url.indexOf('?') > -1)
+							url = url.split('?')[0];
+						
+						window.location = url + "?searchCategory=" + searchCategory + "&searchString=" + searchString;
 					}
 				);
 			}
