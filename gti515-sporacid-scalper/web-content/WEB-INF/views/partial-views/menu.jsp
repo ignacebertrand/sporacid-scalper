@@ -29,11 +29,8 @@
 			<a>Spectacles</a>
 			<div class="sub-menu-container">
 				<ul class="sub-menu">
-					<li id="billets_musique_menu_item" class="sub-menu-item">
-						<a href="<%=contextAttr%>/billets/billets-musique">Musique</a>
-					</li>
-					<li id="billets_humour_menu_item" class="sub-menu-item">
-						<a href="<%=contextAttr%>/billets/billets-humour">Humour</a>
+					<li class="sub-menu-item">
+						<a href="<%=contextAttr%>/billets/liste-billets">Tous les billets</a>
 					</li>
 				</ul>
 			</div>

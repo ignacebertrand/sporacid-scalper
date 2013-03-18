@@ -33,29 +33,16 @@ public class BilletsController implements ApplicationContextAware
 	 */
 	private IPresentationBillets presentationBillets;
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/billets-musique")
+	@RequestMapping(method = RequestMethod.GET, value = "/liste-billets")
 	public ModelAndView getBilletsMusique(HttpServletRequest request)
 	{
-		ModelAndView mav = new ModelAndView("billets_musique");
+		ModelAndView mav = new ModelAndView("liste_billets");
 		
 		String searchCategory = request.getParameter("searchCategory");
 		String searchString   = request.getParameter("searchString");
 		
 		mav.addObject("context", request.getContextPath());
 		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirSpectacles(searchCategory, searchString));
-		mav.addObject("listeTypes", gestionnaireSpectacle.obtenirCatalogueTypeSpectacle());
-		mav.addObject("presentationBillets", presentationBillets);
-		
-		return mav;
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/billets-humour")
-	public ModelAndView getBilletsHumour(HttpServletRequest request)
-	{
-		ModelAndView mav = new ModelAndView("billets_humour");
-		
-		mav.addObject("context", request.getContextPath());
-		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirCatalogueSpectacles());
 		mav.addObject("listeTypes", gestionnaireSpectacle.obtenirCatalogueTypeSpectacle());
 		mav.addObject("presentationBillets", presentationBillets);
 		
