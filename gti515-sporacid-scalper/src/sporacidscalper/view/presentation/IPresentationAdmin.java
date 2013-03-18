@@ -1,7 +1,5 @@
 package sporacidscalper.view.presentation;
 
-import sporacidscalper.model.Spectacle;
-
 public interface IPresentationAdmin {
 	/**
 	 * Presentation logic for the admin panel

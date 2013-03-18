@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.Range;
 
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.Adresse;
-import sporacidscalper.model.Client;
 import sporacidscalper.model.Commande;
 import sporacidscalper.model.Transaction;
 
@@ -132,7 +131,6 @@ public class TransactionBean extends AbstractBean implements Modelable
 			
 			t.setNom(this.nom);
 			t.setAdresseLivraison((Adresse)this.adresseLivraison.getModelObject());
-			//t.setClientReference((Client)this.clientReference.getModelObject());
 			t.setCommande((Commande)this.commande.getModelObject());
 			t.setNoConfirmationPaiement(this.noConfirmationPaiement);
 		}

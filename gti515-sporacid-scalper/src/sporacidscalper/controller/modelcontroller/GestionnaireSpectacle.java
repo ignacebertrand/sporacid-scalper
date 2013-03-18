@@ -32,22 +32,13 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle {
 	private List<TypeSpectacle> listeTypesSpectacle;
 
 	/**
-	 * List of all Types of Salles we'll use
-	 */
-	private List<Salle> listeSalles;
-
-	/**
 	 * Private constructor for the singleton
 	 */
-	public GestionnaireSpectacle() {
-		this.listeSpectacles = (List<Spectacle>) StubFactory.getInstance()
-				.getStubSpectacles();
-		this.listeArtistes = (List<Artiste>) StubFactory.getInstance()
-				.getStubArtistes();
-		this.listeTypesSpectacle = (List<TypeSpectacle>) StubFactory
-				.getInstance().getStubTypesSpectacles();
-		this.listeSalles = (List<Salle>) StubFactory.getInstance()
-				.getStubSalles();
+	public GestionnaireSpectacle() 
+	{
+		this.listeSpectacles = (List<Spectacle>) StubFactory.getInstance().getStubSpectacles();
+		this.listeArtistes = (List<Artiste>) StubFactory.getInstance().getStubArtistes();
+		this.listeTypesSpectacle = (List<TypeSpectacle>) StubFactory.getInstance().getStubTypesSpectacles();
 	}
 
 	/**
@@ -57,16 +48,19 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle {
 	 *            A Spectacle bean object that contains informations for the
 	 *            Spectacle to add
 	 */
-	public void ajouterSpectacle(SpectacleBean spectacleToAdd) {
+	public void ajouterSpectacle(SpectacleBean spectacleToAdd) 
+	{
 		// TODO : Need some sort of validation on the spectacle to add
 
 		// Access listeSpectacles thread-safely.
-		synchronized (listeSpectacles) {
+		synchronized (listeSpectacles) 
+		{
 			// Verifying that no other spectacle has the same Id
-			for (Spectacle s : this.listeSpectacles) {
-				if (s.getId() != spectacleToAdd.getId()) {
-					this.listeSpectacles.add((Spectacle) spectacleToAdd
-							.getModelObject());
+			for (Spectacle s : this.listeSpectacles)
+			{
+				if (s.getId() != spectacleToAdd.getId()) 
+				{
+					this.listeSpectacles.add((Spectacle) spectacleToAdd.getModelObject());
 					break;
 				}
 			}
@@ -282,8 +276,6 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle {
 	 * @return The list of all Spectacle
 	 */
 	public ArrayList<SpectacleBean> obtenirCatalogueSpectacles() {
-		int i = 0;
-
 		ArrayList<SpectacleBean> spectacles = new ArrayList<SpectacleBean>();
 
 		// Access listeSpectacles thread-safely.
@@ -365,7 +357,6 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle {
 	}
 
 	public List<ArtisteBean> obtenirArtistes(int[] artistesIds) {
-		int i = 0;
 		List<ArtisteBean> artistes = new ArrayList<ArtisteBean>();
 
 		// Access listeSpectacles thread-safely.
@@ -377,7 +368,6 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle {
 						artistes.add((ArtisteBean) artiste.getBean());
 					j++;
 				}
-				i++;
 			}
 		}
 
