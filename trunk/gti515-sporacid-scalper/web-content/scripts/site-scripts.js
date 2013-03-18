@@ -148,10 +148,10 @@ function setApplicationMessagesTimer()
 	
 	   timeout(1000, 500);
    }
-   else
-   {
-	   messagesContainer.hide();
-   }
+//   else
+//   {
+//	   messagesContainer.hide();
+//   }
 }
 
 /**
