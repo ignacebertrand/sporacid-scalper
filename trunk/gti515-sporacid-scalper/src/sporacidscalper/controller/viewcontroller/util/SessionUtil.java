@@ -22,11 +22,6 @@ public final class SessionUtil
 	 * Constant for the session key to access the shopping cart total.
 	 */
 	public static final String cCleSessionTotalPanierAchat = "TotalPanierAchat";
-
-	/**
-	 * Constant for the session key to access the shopping cart total.
-	 */
-	public static final String cCleSessionTimerPanierAchat = "TimerPanierAchat";
 	
 	/**
 	 * Private method to obtain the shopping cart from a session.
@@ -35,23 +30,33 @@ public final class SessionUtil
 	 */
 	public static PanierAchatBean obtenirPanierAchat(HttpSession session)
 	{
-		PanierAchatBean panier = (PanierAchatBean) session.getAttribute(cCleSessionPanierAchat);
+		PanierAchatBean panier = null;
 		
-		if(panier == null)
+		try 
 		{
-			panier = new PanierAchatBean();
+			panier = (PanierAchatBean) session.getAttribute(cCleSessionPanierAchat);
 			
-			// Save the shopping cart in the session
-			session.setAttribute(cCleSessionPanierAchat, panier);
-			
-			// Set the shopping cart timeout
-			TimeoutPanierAchat timeoutTask = new TimeoutPanierAchat(session);
-			Timer timer = new Timer();
-			timer.schedule(timeoutTask, 1200000); // 20 minutes timer
-			session.setAttribute(cCleSessionTimerPanierAchat, timeoutTask);
-			
-			// Update shopping cart associated values
-			updateValeursPanierAchat(session);
+			if(panier == null)
+			{
+				panier = new PanierAchatBean();
+				
+				// Save the shopping cart in the session
+				session.setAttribute(cCleSessionPanierAchat, panier);
+				
+				// Set the shopping cart timeout
+				TimeoutPanierAchat timeoutTask = new TimeoutPanierAchat(session);
+
+				// 20 minutes timer
+				Timer timer = new Timer();
+				timer.schedule(timeoutTask, 20 * 60 * 1000); 
+				
+				// Update shopping cart associated values
+				updateValeursPanierAchat(session);
+			}
+		}		
+		catch (IllegalStateException ise) 
+		{
+			// Session state is invalid
 		}
 		
 		return panier;
@@ -63,12 +68,19 @@ public final class SessionUtil
 	 */
 	public static void supprimerPanierAchat(HttpSession session)
 	{
-		// Delete the shopping cart from the session
-		session.removeAttribute(cCleSessionPanierAchat);
-		
-		// Delete shopping cart's associated values from the session
-		session.removeAttribute(cCleSessionCompteurItemPanierAchat);
-		session.removeAttribute(cCleSessionTotalPanierAchat);
+		try 
+		{
+			// Delete the shopping cart from the session
+			session.removeAttribute(cCleSessionPanierAchat);
+			
+			// Delete shopping cart's associated values from the session
+			session.removeAttribute(cCleSessionCompteurItemPanierAchat);
+			session.removeAttribute(cCleSessionTotalPanierAchat);
+		}
+		catch (IllegalStateException ise) 
+		{
+			// Session state is invalid
+		}
 	}
 	
 	/**
@@ -77,12 +89,19 @@ public final class SessionUtil
 	 */
 	public static void updateValeursPanierAchat(HttpSession session)
 	{
-		PanierAchatBean panier = obtenirPanierAchat(session); 
-		
-		// Update the shopping cart item count
-		session.setAttribute(cCleSessionCompteurItemPanierAchat, panier.getItems().size());
-		
-		// Update the shopping cart total
-		session.setAttribute(cCleSessionTotalPanierAchat, panier.getTotal());
+		try
+		{
+			PanierAchatBean panier = obtenirPanierAchat(session); 
+			
+			// Update the shopping cart item count
+			session.setAttribute(cCleSessionCompteurItemPanierAchat, panier.getItems().size());
+			
+			// Update the shopping cart total
+			session.setAttribute(cCleSessionTotalPanierAchat, panier.getTotal());
+		}		
+		catch (IllegalStateException ise) 
+		{
+			// Session state is invalid
+		}
 	}
 }

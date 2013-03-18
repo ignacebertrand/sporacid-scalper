@@ -8,17 +8,24 @@ public class TimeoutPanierAchat extends TimerTask{
 
 	private HttpSession session;
 	
-	public TimeoutPanierAchat(HttpSession session) {
+	public TimeoutPanierAchat(HttpSession session) 
+	{
 		this.session = session;
 	}
 	
 	public void run() 
 	{
-		SessionUtil.supprimerPanierAchat(session);
-		 
-		ApplicationMessages.ajouterMessage("Délai de 20 minutes expiré pour commander", session);
-		 
-		this.cancel();
-		 
+		try
+		{
+			SessionUtil.supprimerPanierAchat(session);
+			 
+			ApplicationMessages.ajouterMessage("Délai de 20 minutes expiré pour commander.", session);
+			 
+			//this.cancel();
+		}
+		catch (IllegalStateException ise) 
+		{
+			// Session state is invalid
+		}
 	}
 }
