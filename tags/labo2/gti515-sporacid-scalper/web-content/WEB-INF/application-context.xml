@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+		 xmlns:context="http://www.springframework.org/schema/context" 
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		 xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+		
+	<!-- Bean definition for the date formatter throughout the application -->
+	<bean id="dateFormatter" name="dateFormatter"
+			class="java.text.SimpleDateFormat" 
+			scope="singleton">
+		<constructor-arg value="dd/MM/yyyy"/>
+	</bean>
+	
+	<!-- Bean definition for the time formatter throughout the application -->
+	<bean id="timeFormatter" name="timeFormatter"
+			class="java.text.SimpleDateFormat" 
+			scope="singleton">
+		<constructor-arg value="hh:mm"/>
+	</bean>
+	
+	<!-- Bean definition for the datetime formatter throughout the application -->
+	<bean id="datetimeFormatter" name="datetimeFormatter"
+			class="java.text.SimpleDateFormat" 
+			scope="singleton">
+		<constructor-arg value="dd/MM/yyyy hh:mm"/>
+	</bean>
+	
+	<!-- Bean definition for the currency formatter throughout the application -->
+	<bean id="currencyFormatter" name="currencyFormatter" 
+		class="java.text.NumberFormat" factory-method="getCurrencyInstance"
+		scope="singleton">
+	</bean>
+		
+	<!-- Bean definition for the news data manager -->
+ 	<bean id="gestionnaireNouvelle" name="gestionnaireNouvelle" 
+ 			class="sporacidscalper.controller.modelcontroller.GestionnaireNouvelle"
+		 	scope="singleton">
+	</bean>
+	
+	<!-- Bean definition for the shows data manager -->
+ 	<bean id="gestionnaireSpectacle" name="gestionnaireSpectacle" 
+ 			class="sporacidscalper.controller.modelcontroller.GestionnaireSpectacle"
+		 	scope="singleton">
+	</bean>
+	
+	<!-- Bean definition for the clients data manager -->
+ 	<bean id="gestionnaireClient" name="gestionnaireClient" 
+ 			class="sporacidscalper.controller.modelcontroller.GestionnaireClient"
+		 	scope="singleton">
+	</bean>
+	
+	<!-- Bean definition for the transactions data manager -->
+ 	<bean id="gestionnaireTransaction" name="gestionnaireTransaction" 
+ 			class="sporacidscalper.controller.modelcontroller.GestionnaireTransaction"
+		 	scope="singleton">
+	</bean>
+	
+	<!-- Bean definition for the home presentation manager -->
+	<bean id="presentationAccueil" name="presentationAccueil" 
+ 			class="sporacidscalper.view.presentation.PresentationAccueil"
+		 	scope="singleton">
+	 	<property name="datetimeFormatter" ref="datetimeFormatter" />
+	</bean>
+
+	<!-- Bean definition for the shopping cart presentation manager -->
+	<bean id="presentationPanierAchat" name="presentationPanierAchat" 
+ 			class="sporacidscalper.view.presentation.PresentationPanierAchat"
+		 	scope="singleton">
+	 	<property name="dateFormatter" ref="dateFormatter" />
+	 	<property name="currencyFormatter" ref="currencyFormatter" />
+	</bean>
+	
+	<!-- Bean definition for the payement presentation manager -->
+	<bean id="presentationPaiement" name="presentationPaiement" 
+ 			class="sporacidscalper.view.presentation.PresentationPaiement"
+		 	scope="singleton">
+	 	<property name="currencyFormatter" ref="currencyFormatter" />
+	</bean>
+	
+	<!-- Bean definition for the ticket presentation manager -->
+	<bean id="presentationBillets" name="presentationBillets" 
+ 			class="sporacidscalper.view.presentation.PresentationBillets"
+		 	scope="singleton">
+	 	<property name="dateFormatter" ref="dateFormatter" />
+	 	<property name="timeFormatter" ref="timeFormatter" />
+	</bean>
+		 
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+ 
+</beans>

@@ -1,0 +1,367 @@
+/**
+** General site css
+**/
+body
+{
+	margin: 0px;
+	padding: 0px;
+	
+	/*Cross-browser gradient*/
+	background: #303030; /* Old browsers */
+	background: -moz-linear-gradient(top,  #303030 0%, #303030 74%, #606060 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#303030), color-stop(74%,#303030), color-stop(100%,#606060)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #303030 0%,#303030 74%,#606060 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #303030 0%,#303030 74%,#606060 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #303030 0%,#303030 74%,#606060 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #303030 0%,#303030 74%,#606060 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#303030', endColorstr='#606060',GradientType=0 ); /* IE6-9 */
+
+	color: white;
+	font-family: Trebuchet Ms;
+	font-size: 13px;
+	min-width: 1280px;
+}
+
+/**
+** User selection definitions
+**/
+
+body *
+{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+body .content *
+{
+	-webkit-touch-callout: text;
+	-webkit-user-select: text;
+	-khtml-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+}
+
+body .generic-label,
+body .generic-select,
+body .generic-button
+{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/**
+** Master page
+**/
+
+.header
+{
+	background-image: url("images/header.png");
+	background-size: 100% 100%;
+	height: 125px;
+	margin-bottom: 10px;
+}
+
+.header .header-logo
+{
+	background-image: url("images/logo_big.png");
+	background-position: 3% center;
+	background-repeat: no-repeat;
+	height: 100%;
+}
+
+.main-container
+{
+	width: 96%;
+	margin-left: 2%;
+}
+
+.content
+{
+	overflow: auto;
+	padding: 30px;
+	background-color: #f4f4f4;
+	color: black;
+	border-radius: 3px;
+}
+
+.footer
+{
+	width:100%;
+	height: 30px;
+	text-align: center;
+	font-size: 10px;
+	padding-top: 10px;
+}
+
+.menu-container
+{
+	width: 100%;
+	margin-bottom: 10px;
+	height: 32px;
+	position: relative;
+}
+
+.menu-container .menu
+{
+	margin: 0px;
+	padding: 0px;
+	width: 65%;
+	float: left;
+	display: block;
+}
+
+.menu-container .menu .menu-item
+{
+	width: 125px;
+	display: inline-block;
+	background-color: #888888;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	border-radius: 3px;
+}
+
+.menu-container .menu .menu-item a
+{
+   display: block;
+}
+
+.menu-container .menu .menu-item.is-selected
+{
+	
+}
+
+/*Remove default anchor style*/
+.menu-container .menu .menu-item a,
+.menu-container .menu .menu-item a:hover,
+.menu-container .menu .menu-item a:focus,
+.menu-container .menu .menu-item a:active
+{
+	text-decoration: none;
+	color: inherit;
+}
+
+.menu-container .menu .menu-item:hover
+{
+	background-color: #A0A0A0;
+	cursor: pointer;
+}
+
+.shopping-cart-controller
+{
+	height: 32px;
+	width: 35%;
+	margin-left: 65%;
+	text-align: right;
+}
+
+.shopping-cart-button
+{
+	background-image: url("images/icone_panier_achat.png");
+	height: 32px;
+	width: 32px;
+	background-size: 90% 90%;
+	background-position: center;
+	background-repeat: no-repeat;
+	margin-right: 3px;
+}
+
+.shopping-cart-desc
+{
+	vertical-align: top;
+	color: white;
+	display: inline-block;
+	font-size: 14px;
+	margin-top: 8px;
+	margin-right: 8px;
+}
+
+.shopping-cart-desc:hover
+{
+	color: #B0B0B0;
+}
+
+.shopping-cart-counter
+{
+	font-weight: bold;
+}
+
+.shopping-cart-total
+{
+	font-weight: bold;
+}
+
+.sub-menu-container
+{
+	display: none;
+	position: absolute;
+	top: 32px;
+	background-color: #A0A0A0;
+	border: 1px solid #303030;
+	border-top-width: 3px;
+	border-radius: 0px 0px 3px 3px;
+	z-index: 1000;
+}
+
+.sub-menu
+{
+	list-style-type: none;
+	padding: 5px;
+	min-width: 150px;
+}
+
+.sub-menu .sub-menu-item
+{
+	text-align: left;
+	padding-left: 5px;
+	border-left: 3px solid transparent;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+.sub-menu .sub-menu-item:hover
+{
+	background-color: #888888;
+	border-left: 3px solid #303030;
+}
+
+.application-messages
+{
+	padding-bottom: 2%;
+	width: 40%; 
+	height: 22%;
+	position: absolute;
+	left: 30%;
+	top: 38%;
+	background-color: #606060; 
+	color: White;
+	border-radius: 10px;
+	font-size: 18px;
+	text-align: left;
+	font-weight: bold;
+	z-index: 10000;
+	overflow: auto;
+	box-shadow: 15px 15px 8px #AAA;
+	display: none;
+	/*border: 2px solid #888888;*/
+}
+
+.application-messages table
+{
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	border-spacing: 0px;
+	position: relative;
+}
+
+.application-message
+{
+	margin-left: 25px;
+}
+
+.application-messages-header
+{
+	background-color: #303030;
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	position: relative;
+	border-radius: 10px 10px 0px 0px;
+	text-decoration: underline;
+	margin-bottom: 20px;
+}
+
+.application-messages-header .generic-button
+{
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	background-image: url("images/icone_supprimer.png");
+	width: 22px;
+	background-size: 90% 90%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+/**
+** Controls (Select, buttons and their friends)
+**/
+.generic-label
+{
+	margin: 0px 5px;
+}
+
+.generic-textbox, .generic-select, .generic-listbox,
+.generic-datepicker, .generic-timepicker, .generic-textarea
+{
+	border: 1px solid #888;
+	padding: 4px;
+	
+	-webkit-box-sizing: content-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: content-box;    /* Firefox, other Gecko */
+	box-sizing: content-box;         /* Opera/IE 8+ */
+}
+
+.generic-textbox
+{
+	width: 160px;
+}
+
+.generic-select
+{
+	width: 164px;
+	padding: 2px;
+}
+
+.generic-listbox
+{
+	width: 160px;
+}
+
+.generic-datepicker
+{
+	width: 80px;
+}
+
+.generic-timepicker
+{
+	width: 40px;
+}
+
+.generic-textarea
+{
+	resize: vertical;
+	vertical-align: top;
+	width: 160px;
+}
+
+.generic-button
+{
+	display: inline-block;
+	color: white;
+	background-color: #888888;
+	border-radius: 3px;
+	box-shadow: 3px 3px 3px #555;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.generic-button:hover
+{
+	background-color: #A0A0A0;
+}
