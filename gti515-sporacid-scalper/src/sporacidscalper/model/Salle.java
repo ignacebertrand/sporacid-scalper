@@ -1,14 +1,32 @@
 package sporacidscalper.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.AdresseBean;
 import sporacidscalper.model.beans.SalleBean;
 
+@Entity
+@Table(name = "salles")
+@SequenceGenerator(name = "salle_id_seq", sequenceName = "salle_id_seq", allocationSize=1)
 public class Salle extends AbstractModelObject implements Beanable
 {
+	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "salle_id_seq")
+	@Column(name = "id")
 	private int id;
+	
+	@Column(name = "nom")
 	private String nom;
+	
+	@Column(name = "capacite")
 	private int capacite;
+	
 	private Adresse adresse;
 	
 	public Salle()
