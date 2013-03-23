@@ -11,22 +11,22 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import sporacidscalper.controller.modelcontroller.GestionnaireSpectacle;
-import sporacidscalper.controller.modelcontroller.GestionnaireTransaction;
 import sporacidscalper.controller.modelcontroller.IGestionnaireTransaction;
+import sporacidscalper.controller.modelcontroller.stubcontroller.GestionnaireStubSpectacle;
+import sporacidscalper.controller.modelcontroller.stubcontroller.GestionnaireStubTransaction;
 import sporacidscalper.model.beans.RepresentationBean;
 import sporacidscalper.model.beans.SalleBean;
 import sporacidscalper.model.beans.SpectacleBean;
 
 public class GestionnaireSpectacleTests 
 {	
-	private GestionnaireSpectacle gs;
+	private GestionnaireStubSpectacle gs;
 	private int initialCount;
 	
 	@Before
 	public void testSetup()
 	{
-		this.gs = new GestionnaireSpectacle();
+		this.gs = new GestionnaireStubSpectacle();
 		this.initialCount = this.gs.obtenirCatalogueSpectacles().size();
 	}
 
@@ -83,7 +83,7 @@ public class GestionnaireSpectacleTests
 	@Test
 	public void testSupprimerSpectacle()
 	{
-		IGestionnaireTransaction transactionManager = new GestionnaireTransaction();
+		IGestionnaireTransaction transactionManager = new GestionnaireStubTransaction();
 		SpectacleBean s = new SpectacleBean(12);
 		
 		this.gs.ajouterSpectacle(s);

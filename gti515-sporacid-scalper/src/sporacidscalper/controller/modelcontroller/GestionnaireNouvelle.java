@@ -3,6 +3,7 @@ package sporacidscalper.controller.modelcontroller;
 import java.util.ArrayList;
 import java.util.List;
 
+import sporacidscalper.controller.modelcontroller.IGestionnaireNouvelle;
 import sporacidscalper.model.Nouvelle;
 import sporacidscalper.model.beans.NouvelleBean;
 import sporacidscalper.model.persistence.StubFactory;

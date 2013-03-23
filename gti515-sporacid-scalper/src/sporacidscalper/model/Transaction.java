@@ -1,34 +1,47 @@
 package sporacidscalper.model;
 
-import org.hibernate.validator.constraints.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.AdresseBean;
-import sporacidscalper.model.beans.ClientBean;
 import sporacidscalper.model.beans.CommandeBean;
 import sporacidscalper.model.beans.TransactionBean;
 
+@Entity
+@Table(name = "transactions")
+@SequenceGenerator(name = "transaction_id_seq", sequenceName = "transaction_id_seq", allocationSize=1)
 public class Transaction extends AbstractModelObject implements Beanable
 {
 	// Upper reference
+	@Transient
 	private Client clientReference;
-	
-	@Range(min=-1)
+	@Transient
 	private int clientId;
 	
-	@Range(min=-1)
+	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_id_seq")
+	@Column(name = "id")
 	private int id;
 	
-	@NotEmpty
+	@Column(name = "nom")
 	private String nom;
 
-	@Range(min=-1)
+	@Column(name = "no_confirmation_paiement")
 	private int noConfirmationPaiement;
 	
-	@NotEmpty
+	@Column(name = "total_transaction")
+	private double totalTransaction;
+
+	@Transient
 	private Adresse adresseLivraison;
 	
-	@NotEmpty
+	@Transient
 	private Commande commande;
 	
 	public Transaction()
@@ -107,6 +120,16 @@ public class Transaction extends AbstractModelObject implements Beanable
 	{
 		this.commande = commande;
 	}
+	
+	public double getTotalTransaction() 
+	{
+		return totalTransaction;
+	}
+
+	public void setTotalTransaction(double totalTransaction) 
+	{
+		this.totalTransaction = totalTransaction;
+	}
 
 	@Override
 	public AbstractBean getBean()
@@ -119,7 +142,7 @@ public class Transaction extends AbstractModelObject implements Beanable
 			
 			bean.setNom(this.nom);
 			bean.setAdresseLivraison((AdresseBean) this.adresseLivraison.getBean());
-			bean.setClientReference((ClientBean) this.clientReference.getBean());
+			bean.setTotalTransaction(this.totalTransaction);
 			bean.setCommande((CommandeBean)this.commande.getBean());
 			bean.setNoConfirmationPaiement(this.noConfirmationPaiement);
 		}

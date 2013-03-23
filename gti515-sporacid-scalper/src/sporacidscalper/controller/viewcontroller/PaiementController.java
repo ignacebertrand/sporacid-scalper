@@ -96,20 +96,34 @@ public class PaiementController implements ApplicationContextAware
 		else
 		{
 			TransactionBean transaction = obtenirTransaction(form);
-
-			// Transform the shopping cart into a command
+			
+			// Fetch the shopping cart from the session
 			PanierAchatBean panierAchat = SessionUtil.obtenirPanierAchat(session);
-			CommandeBean commande = panierAchat.creerCommande();
 			
-			// The shopping cart is now processed, destroy it.
-			SessionUtil.supprimerPanierAchat(session);
-			
-			// Set the transaction's command
-			transaction.setCommande(commande);
-			
-			gestionnaireTransaction.ajouterTransaction(transaction);
-			
-			mav.addObject("transaction", transaction);
+			// If the shopping cart exists, proceed.
+			if(panierAchat != null && panierAchat.getItems().size() > 0)
+			{
+				// Transform the shopping cart into a command
+				CommandeBean commande = panierAchat.creerCommande();
+				
+				// The shopping cart is now processed, destroy it.
+				SessionUtil.supprimerPanierAchat(session);
+				
+				// Set the transaction's command
+				transaction.setCommande(commande);
+				transaction.setTotalTransaction(commande.getTotal());
+				
+				gestionnaireTransaction.ajouterTransaction(transaction);
+				
+				mav.addObject("transaction", transaction);
+			}
+			// The shopping cart doesn't exist, cannot proceed.
+			else
+			{
+				ApplicationMessages.ajouterMessage("Le panier d'achat est vide, impossible de procéder au paiement.", request);
+				// Redirection
+				mav = new ModelAndView("redirect: /accueil");
+			}
 		}
 		
 		mav.addObject("presentationPaiement", presentationPaiement);

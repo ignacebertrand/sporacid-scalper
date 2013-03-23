@@ -4,15 +4,26 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.CommandeBean;
 import sporacidscalper.model.beans.ItemCommandeBean;
 
 public class Commande extends AbstractModelObject implements Beanable
 {
+	
+	
+	@Column(name = "")
 	private int id;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "")
 	private Date dateCreation;
+	
+	
 	private List<ItemCommande> items;
 	
 	public Commande()
