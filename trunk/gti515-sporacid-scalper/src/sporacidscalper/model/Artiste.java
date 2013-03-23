@@ -3,15 +3,35 @@ package sporacidscalper.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.ArtisteBean;
 import sporacidscalper.model.beans.TagsBean;
 
+@Entity
+@Table(name = "artistes")
+@SequenceGenerator(name = "artiste_id_seq", sequenceName = "artiste_id_seq", allocationSize=1)
+
 public class Artiste extends AbstractModelObject implements Beanable
 {
+	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "artiste_id_seq")
+	@Column(name = "id")
 	private int id;
+	
+	@Column(name = "nom")
 	private String nom;
+	
+	@Column(name = "description")
 	private String description;
+	
+	
 	private List<Tags> tags;
 	
 	public Artiste()

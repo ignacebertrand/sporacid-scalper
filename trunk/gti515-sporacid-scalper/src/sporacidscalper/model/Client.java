@@ -1,19 +1,46 @@
 package sporacidscalper.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.AdresseBean;
 import sporacidscalper.model.beans.ClientBean;
 import sporacidscalper.model.beans.ItemPanierAchatBean;
 
+@Entity
+@Table(name = "clients")
+@SequenceGenerator(name = "client_id_seq", sequenceName = "client_id_seq", allocationSize=1)
+
 public class Client extends AbstractModelObject implements Beanable
 {
+	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_id_seq")
+	@Column(name = "id")
 	private int id;
+
+	@Column(name = "identifiant")
 	private String identifiant;
+
+	@Column(name = "motDePasse")
 	private String motDePasse;
+
+	@Column(name = "estAuthentifie")
 	private boolean estAuthentifie;
+
+	@Column(name = "nom")
 	private String nom;
+
+	@Column(name = "courriel")
 	private String courriel;
+
+	@Column(name = "adresse")
 	private Adresse adresse;
+	
 	private PanierAchat panierAchat;
 
 	public Client()

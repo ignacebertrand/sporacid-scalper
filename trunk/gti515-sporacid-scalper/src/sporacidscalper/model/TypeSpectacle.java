@@ -1,12 +1,29 @@
 package sporacidscalper.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.TypeSpectacleBean;
 
+@Entity
+@Table(name = "types_spectacle")
+@SequenceGenerator(name = "type_spectacle_id_seq", sequenceName = "type_spectacle_id_seq", allocationSize=1)
 public class TypeSpectacle extends AbstractModelObject implements Beanable
 {
+	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "type_spectacle_id_seq")
+	@Column(name = "id")
 	private int id;
+	
+	@Column(name = "nom")
 	private String nom;
+	
+	@Column(name = "description")
 	private String description;
 	
 	public TypeSpectacle()
