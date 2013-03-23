@@ -1,10 +1,3 @@
-CREATE TABLE transactions
-(id SERIAL PRIMARY KEY
-,nom VARCHAR(255)
-,no_confirmation_paiement INTEGER
-,total_transaction NUMERIC
-);
-
 CREATE TABLE adresses
 (id SERIAL PRIMARY KEY
 ,no_civique INTEGER NOT NULL
@@ -24,4 +17,12 @@ CREATE TABLE item_commandes
 (id SERIAL PRIMARY KEY
 ,commande_id INTEGER NOT NULL REFERENCES commandes(id)
 ,quantite INTEGER CHECK(quantite > 0)
+);
+
+CREATE TABLE transactions
+(id SERIAL PRIMARY KEY
+,commande_id INTEGER NOT NULL REFERENCES commandes(id)
+,nom VARCHAR(255)
+,no_confirmation_paiement INTEGER
+,total_transaction NUMERIC
 );
