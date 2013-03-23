@@ -11,18 +11,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import sporacidscalper.controller.modelcontroller.GestionnaireNouvelle;
+import sporacidscalper.controller.modelcontroller.stubcontroller.GestionnaireStubNouvelle;
 import sporacidscalper.model.beans.NouvelleBean;
  
 public class GestionnaireNouvelleTest 
 {
-	private GestionnaireNouvelle gn;
+	private GestionnaireStubNouvelle gn;
 	private int initialCount;
 	
 	@Before
 	public void testSetup()
 	{
-		gn = new GestionnaireNouvelle();
+		gn = new GestionnaireStubNouvelle();
 		//initialCount = gn.obtenirNouvelles().length;
 	}
 

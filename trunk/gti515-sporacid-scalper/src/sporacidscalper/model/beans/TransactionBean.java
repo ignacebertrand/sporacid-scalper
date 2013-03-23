@@ -1,12 +1,5 @@
 package sporacidscalper.model.beans;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Range;
-
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.Adresse;
 import sporacidscalper.model.Commande;
@@ -21,26 +14,13 @@ public class TransactionBean extends AbstractBean implements Modelable
 	
 	// Upper reference
 	private ClientBean clientReference;
-	
-	@Range(min=-1, message = "Le id client est invalide.")
 	private int clientId;
 	
-	@Range(min=-1, message="Le id de transaction est invalide.")
 	private int id;
-	
-	@NotEmpty(message="Le nom du client est obligatoire.")
-	@Size(max=70, message="Le nom du client ne peut dépasser 70 caractères.")
 	private String nom;
-	
-	@Range(min=-1, message="Le no de confirmation de la transaction est invalide.")
 	private int noConfirmationPaiement;
-	
-	@Valid
-	@NotNull(message="L'adresse de livraison est obligatoire.")
+	private double totalTransaction;
 	private AdresseBean adresseLivraison;
-	
-	/*@Valid
-	@NotNull(message="La commande est obligatoire.")*/
 	private CommandeBean commande;
 	
 	public TransactionBean()
@@ -100,6 +80,17 @@ public class TransactionBean extends AbstractBean implements Modelable
 		this.clientReference = clientReference;
 	}
 	
+	
+	public double getTotalTransaction() 
+	{
+		return totalTransaction;
+	}
+
+	public void setTotalTransaction(double totalTransaction)
+	{
+		this.totalTransaction = totalTransaction;
+	}
+	
 	public AdresseBean getAdresseLivraison()
 	{
 		return adresseLivraison;
@@ -132,6 +123,7 @@ public class TransactionBean extends AbstractBean implements Modelable
 			t.setNom(this.nom);
 			t.setAdresseLivraison((Adresse)this.adresseLivraison.getModelObject());
 			t.setCommande((Commande)this.commande.getModelObject());
+			t.setTotalTransaction(this.totalTransaction);
 			t.setNoConfirmationPaiement(this.noConfirmationPaiement);
 		}
 		

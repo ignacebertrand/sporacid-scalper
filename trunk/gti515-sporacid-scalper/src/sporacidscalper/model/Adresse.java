@@ -1,16 +1,38 @@
 package sporacidscalper.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.AdresseBean;
 
+//@Entity
+//@Table(name = "adresses")
 public class Adresse extends AbstractModelObject implements Beanable
 {
+//	@Id @GeneratedValue
+//	@Column(name = "id")
 	private int id;
+	
+//	@Column(name = "no_civique")
 	private int noCivique;
+	
+//	@Column(name = "no_appartement")
 	private int noAppartement;
+	
+//	@Column(name = "nom_rue", length = 50)
 	private String nomRue;
+	
+//	@Column(name = "code_postal", length = 6)
 	private String codePostal;
+	
+//	@Column(name = "ville", length = 50)
 	private String ville;
+	
+//	@Column(name = "province", length = 25)
 	private String province;
 	
 	public Adresse()

@@ -11,7 +11,7 @@ public interface IGestionnaireTransaction
 	 * The insertion must follow the ACID transaction paradigm.
 	 * @param transactionToAdd A transaction bean object that contains informations for the transaction to add
 	 */
-	public void ajouterTransaction(TransactionBean transactionToAdd);
+	public Integer ajouterTransaction(TransactionBean transactionToAdd);
 	/**
 	 * Public method to obtain all transactions made by a client.
 	 * @param clientIdentifier The client unique identifier

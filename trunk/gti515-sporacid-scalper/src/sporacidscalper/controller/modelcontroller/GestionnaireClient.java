@@ -2,6 +2,9 @@ package sporacidscalper.controller.modelcontroller;
 
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+
+import sporacidscalper.controller.modelcontroller.IGestionnaireClient;
 import sporacidscalper.model.Client;
 import sporacidscalper.model.beans.ClientBean;
 import sporacidscalper.model.persistence.StubFactory;
@@ -12,6 +15,8 @@ public class GestionnaireClient implements IGestionnaireClient
 	 * List of all clients on which we'll do operations
 	 */
 	private List<Client> listeClients;
+	
+	private SessionFactory sessionFactory;
 	
 	/**
 	 * Private constructor for the singleton
@@ -98,5 +103,13 @@ public class GestionnaireClient implements IGestionnaireClient
 	{
 		Client client = (Client) clientToAuthenticate.getModelObject();
 		return client.authentifier(encryptedPassword);
+	}
+	
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 }

@@ -3,6 +3,10 @@ package sporacidscalper.controller.modelcontroller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import sporacidscalper.model.ItemCommande;
 import sporacidscalper.model.Transaction;
 import sporacidscalper.model.beans.TransactionBean;
@@ -15,6 +19,12 @@ public class GestionnaireTransaction implements IGestionnaireTransaction
 	 */
 	private List<Transaction> listeTransactions;
 
+	/**`
+	 * Reference to the SessionFactory implementation
+	 * of the application context bean configuration.
+	 */
+	private SessionFactory sessionFactory;
+	
 	/**
 	 * Private constructor for the singleton
 	 */
@@ -28,15 +38,45 @@ public class GestionnaireTransaction implements IGestionnaireTransaction
 	 * The insertion must follow the ACID transaction paradigm.
 	 * @param transactionToAdd A transaction bean object that contains informations for the transaction to add
 	 */
-	public void ajouterTransaction(TransactionBean transactionToAdd)
+	public Integer ajouterTransaction(TransactionBean transactionToAdd)
 	{
-		//TODO : Need some sort of validation on the transaction to add and we need to make sure it's ACID.
+		Integer entityId = null;
+		// Get a transaction entity from the bean supplied
+		Transaction entity = (Transaction) transactionToAdd.getModelObject();
 		
-		// Access listeTransactions thread-safely.
-		synchronized(listeTransactions)
+		// If the entity is a non-null object
+		if(entity != null)
 		{
-			listeTransactions.add((Transaction) transactionToAdd.getModelObject());
+			// Get a session from the session factory
+			Session session = sessionFactory.openSession();
+			// Transaction object to wrap the database save operation
+			org.hibernate.Transaction tx = null;
+			
+			try
+			{
+				// Try to begin a transaction
+				tx = session.beginTransaction();
+				
+				// Save the entity to the database
+				entityId = (Integer) session.save(entity);
+				
+				// Commit the transaction
+				tx.commit();
+			}
+			catch(HibernateException e)
+			{
+				// An error occured; rollback the transaction
+				tx.rollback();
+			}
+			finally
+			{
+				// Always close the session
+				session.close();
+			}
 		}
+		
+		// Return the id of the saved transaction or null
+		return entityId;
 	}
 
 	/**
@@ -69,5 +109,13 @@ public class GestionnaireTransaction implements IGestionnaireTransaction
 			}
 		}
 		return repTransactions.size();
+	}
+	
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 }

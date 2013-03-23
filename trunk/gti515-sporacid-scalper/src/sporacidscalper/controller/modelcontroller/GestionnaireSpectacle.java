@@ -3,6 +3,8 @@ package sporacidscalper.controller.modelcontroller;
 import java.util.ArrayList;
 import java.util.List;
 
+import sporacidscalper.controller.modelcontroller.IGestionnaireSpectacle;
+import sporacidscalper.controller.modelcontroller.IGestionnaireTransaction;
 import sporacidscalper.model.Artiste;
 import sporacidscalper.model.Representation;
 import sporacidscalper.model.Salle;
