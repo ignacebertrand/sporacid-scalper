@@ -1,3 +1,6 @@
+--
+-- Tables with no dependancies
+--
 CREATE TABLE adresses
 (id SERIAL PRIMARY KEY
 ,no_civique INTEGER NOT NULL
@@ -13,6 +16,9 @@ CREATE TABLE commandes
 ,date_creation TIMESTAMP NOT NULL
 );
 
+--
+-- Tables with dependancies
+--
 CREATE TABLE item_commandes
 (id SERIAL PRIMARY KEY
 ,commande_id INTEGER NOT NULL REFERENCES commandes(id)
