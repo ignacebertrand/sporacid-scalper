@@ -3,8 +3,14 @@ package sporacidscalper.controller.modelcontroller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
 import sporacidscalper.controller.modelcontroller.IGestionnaireNouvelle;
 import sporacidscalper.model.Nouvelle;
+import sporacidscalper.model.Spectacle;
 import sporacidscalper.model.beans.NouvelleBean;
 import sporacidscalper.model.persistence.StubFactory;
 
@@ -15,6 +21,13 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	 */
 	private List<Nouvelle> listeNouvelles;
 
+
+	/**
+	 * Reference to the SessionFactory implementation
+	 * of the application context bean configuration.
+	 */
+	private SessionFactory sessionFactory;
+	
 	/**
 	 * Private constructor for the singleton
 	 */
@@ -27,15 +40,50 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	 * Public method to add a news to the system.
 	 * @param nouvelleToAdd A news bean object that contains informations for the news to add
 	 */
-	public void ajouterNouvelle(NouvelleBean nouvelleToAdd)
+	public Integer ajouterNouvelle(NouvelleBean nouvelleToAdd)
 	{
 		//TODO : Need some sort of validation on nouvelleToAdd
 		
-		// Access listeNouvelles thread-safely.
-		synchronized(listeNouvelles)
+		Integer entityId = null;
+		
+		// Get a nouvelle entity from the bean supplied
+		Nouvelle entity = (Nouvelle) nouvelleToAdd.getModelObject();
+		
+		// If the entity is a non-null object
+		if(entity != null)
 		{
-			listeNouvelles.add((Nouvelle) nouvelleToAdd.getModelObject());
+			// Get a session from the session factory
+			Session session = sessionFactory.openSession();
+			
+			// Transaction object to wrap the database save operation
+			Transaction tx = null;
+			
+			try
+			{
+				// Try to begin a transaction
+				tx = session.beginTransaction();
+				
+				// Save the entity to the database
+				entityId = (Integer) session.save(entity);
+				
+				// Commit the transaction
+				tx.commit();
+			}
+			catch(HibernateException e)
+			{
+				// An error occured; rollback the transaction
+				tx.rollback();
+			}
+			finally
+			{
+				// Always close the session
+				session.close();
+			}
 		}
+		
+		// Return the id of the saved transaction or null
+		return entityId;
+		
 	}
 	
 	/**
@@ -44,24 +92,31 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	 */
 	public void modifierNouvelle(NouvelleBean nouvelleToEdit)
 	{
-		int i = 0;
+		Session session = sessionFactory.openSession(); 
+		Transaction tx = null; 
 		
-		//TODO : Need some sort of validation on nouvelleToEdit
+		// Get a nouvelle entity from the bean supplied
+		Nouvelle entity = (Nouvelle) nouvelleToEdit.getModelObject();
 		
-		// Access listeNouvelles thread-safely.
-		synchronized(listeNouvelles)
+		// If the entity is a non-null object
+		if(entity != null)
 		{
-			// Iterators are faster than indexed loops for ArrayList
-			for(Nouvelle nouvelle : listeNouvelles)
-			{
-				if(nouvelle.getId() == nouvelleToEdit.getId())
-				{
-					listeNouvelles.set(i, (Nouvelle) nouvelleToEdit.getModelObject());
-					
-					break;
-				}
+			try
+			{ 
+				tx = session.beginTransaction(); 
+				session.update(entity); 
+				tx.commit(); 
+			}
+			catch (HibernateException e) 
+			{ 
+				if (tx!=null) 
+					tx.rollback(); 
 				
-				i++;
+				e.printStackTrace(); 
+			}
+			finally 
+			{ 
+				session.close(); 
 			}
 		}
 	}
@@ -72,22 +127,29 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	 */
 	public void supprimerNouvelle(NouvelleBean nouvelleToDelete)
 	{
-		int i = 0;
+		Session session = sessionFactory.openSession(); 
+		Transaction tx = null; 
+		
+		Nouvelle entity = (Nouvelle) nouvelleToDelete.getModelObject();
 
-		// Access listeNouvelles thread-safely.
-		synchronized(listeNouvelles)
+		if(entity != null)
 		{
-			// Iterators are faster than indexed loops for ArrayList
-			for(Nouvelle nouvelle : listeNouvelles)
-			{
-				if(nouvelle.getId() == nouvelleToDelete.getId())
-				{
-					listeNouvelles.remove(i);
-					
-					break;
-				}
+			try
+			{ 
+				tx = session.beginTransaction(); 
+				session.delete(entity); 
+				tx.commit(); 
+			}
+			catch (HibernateException e) 
+			{ 
+				if (tx!=null) 
+					tx.rollback();
 				
-				i++;
+				e.printStackTrace(); 
+			}
+			finally 
+			{ 
+				session.close(); 
 			}
 		}
 	}
