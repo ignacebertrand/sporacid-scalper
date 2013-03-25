@@ -2,13 +2,20 @@
 -- Tables with no dependancies
 --
 CREATE TABLE tags
-(id SERIAL PRIMARY KEY
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('tag_id_seq'::regclass)
 ,nom VARCHAR(50) NOT NULL
 ,url VARCHAR(200) NOT NULL
 );
 
+CREATE TABLE transactions
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('transaction_id_seq'::regclass)
+,nom VARCHAR(50) NOT NULL
+,numero_confirmation_paiement INTEGER NOT NULL
+,total_transaction NUMERIC NOT NULL,
+);
+
 CREATE TABLE adresses
-(id SERIAL PRIMARY KEY
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('adresse_id_seq'::regclass)
 ,no_civique INTEGER NOT NULL
 ,no_appartement INTEGER 
 ,nom_rue VARCHAR(50) NOT NULL
@@ -18,24 +25,24 @@ CREATE TABLE adresses
 );
 
 CREATE TABLE types_spectacle
-(id SERIAL PRIMARY KEY
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('type_spectacle_id_seq'::regclass)
 ,nom VARCHAR(50) NOT NULL
 ,description VARCHAR(300) NOT NULL
 );
 
 CREATE TABLE types_billet
-(id SERIAL PRIMARY KEY
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('type_billet_id_seq'::regclass)
 ,nom VARCHAR(50) NOT NULL
 ,description VARCHAR(300) NOT NULL
 );
 
 CREATE TABLE commandes
-(id SERIAL PRIMARY KEY
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('commande_id_seq'::regclass)
 ,date_creation TIMESTAMP NOT NULL
 );
 
 CREATE TABLE nouvelles
-(id SERIAL PRIMARY KEY
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('nouvelle_id_seq'::regclass)
 ,titre VARCHAR(50) NOT NULL
 ,description VARCHAR(300) NOT NULL
 ,date DATE NOT NULL
@@ -43,71 +50,66 @@ CREATE TABLE nouvelles
 );
 
 
-
-
 --
--- Tables with dependancies
+-- Tables with 1 dependancies
 --
-
-
 
 
 CREATE TABLE item_commandes
-(id SERIAL PRIMARY KEY
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('item_commande_id_seq'::regclass)
 ,commande_id INTEGER NOT NULL REFERENCES commandes(id)
 ,quantite INTEGER CHECK(quantite > 0)
 );
 
+CREATE TABLE artistes
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('artiste_id_seq'::regclass)
+,spectacle_id INTEGER NOT NULL REFERENCES spectacles(id)
+,nom VARCHAR(50) NOT NULL
+,description VARCHAR(300) NOT NULL
+);
+
+CREATE TABLE types_billet_representation
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('type_billet_representation_id_seq'::regclass)
+,type_billet_id INTEGER NOT NULL REFERENCES types_billet(id)
+,prix NUMERIC NOT NULL
+,nb_billet_emis INTEGER NOT NULL
+);
+
+CREATE TABLE representations
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('representation_id_seq'::regclass)
+,salle INTEGER NOT NULL REFERENCES salles(id) 
+,statut VARCHAR(50) NOT NULL
+,date_debut DATE NOT NULL
+,date_fin DATE NOT NULL
+);
+
+CREATE TABLE salles
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('salle_id_seq'::regclass)
+,adresse_id INTEGER NOT NULL REFERENCES adresses(id)
+,nom VARCHAR(50)NOT NULL
+,capacite INTEGER NOT NULL CHECK(capacite > 0) 
+);
+
+--
+-- Tables with 2 dependancies
+--
+
 CREATE TABLE clients
-(id SERIAL PRIMARY KEY
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('client_id_seq'::regclass)
+,adresse_id VARCHAR(100) NOT NULL REFERENCES adresses(id)
 ,commande_id INTEGER NOT NULL REFERENCES commandes(id)
 ,identifiant VARCHAR(50) NOT NULL
 ,mot_de_passe VARCHAR(50) NOT NULL
 ,nom VARCHAR(50) NOT NULL
 ,email VARCHAR(100) NOT NULL
-,adresse_id VARCHAR(100) NOT NULL REFERENCES adresses(id)
 );
 
 CREATE TABLE spectacles
-(id SERIAL PRIMARY KEY
-,nom VARCHAR(50)NOT NULL
-,capacite INTEGER CHECK(quantite > 0) 
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('spectacle_id_seq'::regclass)
 ,adresse_id INTEGER NOT NULL REFERENCES adresse_(id)
 ,type_spectacle INTEGER NOT NULL REFERENCES types_spectacle(id)
-);
-
-CREATE TABLE artistes
-(id SERIAL PRIMARY KEY
-,nom VARCHAR(50) NOT NULL
-,description VARCHAR(300) NOT NULL
-,spectacle_id INTEGER NOT NULL REFERENCES spectacles(id)
-);
-
-CREATE TABLE types_billet_representation
-(id SERIAL PRIMARY KEY
-,prix NUMERIC NOT NULL
-,nb_billet_emis INTEGER NOT NULL
-,type_billet_id INTEGER NOT NULL REFERENCES types_billet(id)
-);
-
-CREATE TABLE salles
-(id SERIAL PRIMARY KEY
 ,nom VARCHAR(50)NOT NULL
-,capacite INTEGER NOT NULL CHECK(capacite > 0) 
-,adresse_id INTEGER NOT NULL REFERENCES adresses(id)
+,capacite INTEGER CHECK(quantite > 0) 
 );
 
-CREATE TABLE representations
-(id SERIAL PRIMARY KEY
-,statut VARCHAR(50) NOT NULL
-,salle INTEGER NOT NULL REFERENCES salles(id) 
-,date_debut DATE NOT NULL
-,date_fin DATE NOT NULL
-);
 
-CREATE TABLE transactions
-(id serial PRIMARY KEY
-,nom VARCHAR(50) NOT NULL
-,numero_confirmation_paiement INTEGER NOT NULL
-,total_transaction NUMERIC NOT NULL,
-);
