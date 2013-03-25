@@ -3,6 +3,11 @@ package sporacidscalper.controller.modelcontroller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
 import sporacidscalper.controller.modelcontroller.IGestionnaireSpectacle;
 import sporacidscalper.controller.modelcontroller.IGestionnaireTransaction;
 import sporacidscalper.model.Artiste;
@@ -18,6 +23,7 @@ import sporacidscalper.model.beans.TypeSpectacleBean;
 import sporacidscalper.model.persistence.StubFactory;
 
 public class GestionnaireSpectacle implements IGestionnaireSpectacle {
+	
 	/**
 	 * List of all Spectacle on which we'll do operations
 	 */
@@ -34,6 +40,12 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle {
 	private List<TypeSpectacle> listeTypesSpectacle;
 
 	/**
+	 * Reference to the SessionFactory implementation
+	 * of the application context bean configuration.
+	 */
+	private SessionFactory sessionFactory;
+
+	/**
 	 * Private constructor for the singleton
 	 */
 	public GestionnaireSpectacle() 
@@ -44,59 +56,99 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle {
 	}
 
 	/**
-	 * Public method to add a Spectacle to the system.
+	 * Public method to add a Spectacle to the DB.
 	 * 
 	 * @param spectacleToAdd
 	 *            A Spectacle bean object that contains informations for the
 	 *            Spectacle to add
 	 */
-	public void ajouterSpectacle(SpectacleBean spectacleToAdd) 
+	public Integer ajouterSpectacle(SpectacleBean spectacleToAdd) 
 	{
 		// TODO : Need some sort of validation on the spectacle to add
-
-		// Access listeSpectacles thread-safely.
-		synchronized (listeSpectacles) 
+		
+		Integer entityId = null;
+		
+		// Get a spectacle entity from the bean supplied
+		Spectacle entity = (Spectacle) spectacleToAdd.getModelObject();
+		
+		// If the entity is a non-null object
+		if(entity != null)
 		{
-			// Verifying that no other spectacle has the same Id
-			for (Spectacle s : this.listeSpectacles)
+			// Get a session from the session factory
+			Session session = sessionFactory.openSession();
+			
+			// Transaction object to wrap the database save operation
+			Transaction tx = null;
+			
+			try
 			{
-				if (s.getId() != spectacleToAdd.getId()) 
-				{
-					this.listeSpectacles.add((Spectacle) spectacleToAdd.getModelObject());
-					break;
-				}
+				// Try to begin a transaction
+				tx = session.beginTransaction();
+				
+				// Save the entity to the database
+				entityId = (Integer) session.save(entity);
+				
+				// Commit the transaction
+				tx.commit();
+			}
+			catch(HibernateException e)
+			{
+				// An error occured; rollback the transaction
+				tx.rollback();
+			}
+			finally
+			{
+				// Always close the session
+				session.close();
 			}
 		}
+		
+		// Return the id of the saved transaction or null
+		return entityId;
 	}
 
 	/**
-	 * Public method to edit a Spectacle in the system.
+	 * Public method to edit a Spectacle in the DB.
 	 * 
 	 * @param spectacleToEdit
 	 *            A Spectacle bean object that contains modifications to a
 	 *            Spectacle
 	 */
 	public void modifierSpectacle(SpectacleBean spectacleToEdit) {
-		int i = 0;
+
 		// TODO : Need some sort of validation on the spectacle to edit
 
-		// Access listeSpectacles thread-safely.
-		synchronized (listeSpectacles) {
-			// Iterators are faster than indexed loops for ArrayList
-			for (Spectacle spectacle : listeSpectacles) {
-				if (spectacle.getId() == spectacleToEdit.getId()) {
-					listeSpectacles.set(i,
-							(Spectacle) spectacleToEdit.getModelObject());
-					break;
-				}
-
-				i++;
+		Session session = sessionFactory.openSession(); 
+		Transaction tx = null; 
+		
+		// Get a spectacle entity from the bean supplied
+		Spectacle entity = (Spectacle) spectacleToEdit.getModelObject();
+		
+		// If the entity is a non-null object
+		if(entity != null)
+		{
+			try
+			{ 
+				tx = session.beginTransaction(); 
+				session.update(entity); 
+				tx.commit(); 
+			}
+			catch (HibernateException e) 
+			{ 
+				if (tx!=null) 
+					tx.rollback(); 
+				
+				e.printStackTrace(); 
+			}
+			finally 
+			{ 
+				session.close(); 
 			}
 		}
 	}
 
 	/**
-	 * Public method to delete a Spectacle from the system. If some
+	 * Public method to delete a Spectacle from the DB. If some
 	 * Representation are still linked to Transaction, then the deletion won't
 	 * happen. We cannot delete something that has a relationship to a
 	 * transaction.
@@ -108,8 +160,36 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle {
 	 */
 	public void supprimerSpectacle(SpectacleBean spectacleToDelete,
 			IGestionnaireTransaction transactionManager) {
-		Spectacle spectacle = (Spectacle) spectacleToDelete.getModelObject();
+		
+		// TODO question à chef Simon (tient compte que trigger BD font menage des enfants ?)
+		
+		Session session = sessionFactory.openSession(); 
+		Transaction tx = null; 
+		
+		Spectacle entity = (Spectacle) spectacleToDelete.getModelObject();
 
+		if(entity != null)
+		{
+			try
+			{ 
+				tx = session.beginTransaction(); 
+				session.delete(entity); 
+				tx.commit(); 
+			}
+			catch (HibernateException e) 
+			{ 
+				if (tx!=null) 
+					tx.rollback();
+				
+				e.printStackTrace(); 
+			}
+			finally 
+			{ 
+				session.close(); 
+			}
+		}
+		
+		/*
 		// Flag to check if we can delete the spectacle or not.
 		boolean okForDeletion = true;
 
@@ -132,7 +212,7 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle {
 				// listeSpectacles.get(spectacle.getId())
 				listeSpectacles.remove(spectacle);
 			}
-		}
+		}*/
 	}
 
 	/**

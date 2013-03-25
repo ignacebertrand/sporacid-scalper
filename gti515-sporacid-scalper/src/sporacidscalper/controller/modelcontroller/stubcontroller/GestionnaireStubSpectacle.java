@@ -50,7 +50,7 @@ public class GestionnaireStubSpectacle implements IGestionnaireSpectacle {
 	 *            A Spectacle bean object that contains informations for the
 	 *            Spectacle to add
 	 */
-	public void ajouterSpectacle(SpectacleBean spectacleToAdd) 
+	public Integer ajouterSpectacle(SpectacleBean spectacleToAdd) 
 	{
 		// TODO : Need some sort of validation on the spectacle to add
 
@@ -67,6 +67,8 @@ public class GestionnaireStubSpectacle implements IGestionnaireSpectacle {
 				}
 			}
 		}
+		
+		return 1;
 	}
 
 	/**

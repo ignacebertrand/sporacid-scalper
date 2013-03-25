@@ -14,7 +14,7 @@ public interface IGestionnaireSpectacle
 	 * Public method to add a Spectacle to the system.
 	 * @param spectacleToAdd A Spectacle bean object that contains informations for the Spectacle to add
 	 */
-	public void ajouterSpectacle(SpectacleBean spectacleToAdd);
+	public Integer ajouterSpectacle(SpectacleBean spectacleToAdd);
 	/**
 	 * Public method to edit a Spectacle in the system.
 	 * @param spectacleToEdit A Spectacle bean object that contains modifications to a Spectacle
