@@ -5,25 +5,42 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.Version;
 
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.CommandeBean;
 import sporacidscalper.model.beans.ItemCommandeBean;
 
+@Entity
+@Table(name = "commandes")
+@SequenceGenerator(name = "commande_id_seq", 
+				sequenceName = "commande_id_seq", 
+				allocationSize = 1)
 public class Commande extends AbstractModelObject implements Beanable
 {
+	@OneToOne(mappedBy = "commande")
+	private Transaction transaction;
 	
-	
-	@Column(name = "")
+	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "commande_id_seq")
+	@Column(name = "id")
 	private int id;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "")
+	@Version
+	@Column(name = "date_creation", insertable = true, updatable = false)
 	private Date dateCreation;
 	
-	
+	/*@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "item_commandes_commande_id_fkey")*/
+	@Transient
 	private List<ItemCommande> items;
 	
 	public Commande()
@@ -34,9 +51,16 @@ public class Commande extends AbstractModelObject implements Beanable
 	public Commande(int id)
 	{
 		this.id = id;
-		this.dateCreation = null;
+		this.dateCreation = new Date();
 		this.items = new ArrayList<ItemCommande>();
 	}
+
+	/*@PrePersist()
+	protected void beforePersist()
+	{
+		// Before persistence, set the current date as the creation date.
+		this.setDateCreation(new Date());
+	}*/
 	
 	public ItemCommande obtenirItem(int itemId)
 	{
