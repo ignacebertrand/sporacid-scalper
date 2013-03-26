@@ -107,10 +107,10 @@ CREATE TABLE clients
 
 CREATE TABLE spectacles
 (id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('spectacle_id_seq'::regclass)
-,adresse_id INTEGER NOT NULL REFERENCES adresse_(id)
+,adresse_id INTEGER NOT NULL REFERENCES adresse(id)
 ,type_spectacle INTEGER NOT NULL REFERENCES types_spectacle(id)
 ,nom VARCHAR(50)NOT NULL
-,capacite INTEGER CHECK(quantite > 0) 
+,capacite INTEGER CHECK(capacite > 0) 
 );
 
 
