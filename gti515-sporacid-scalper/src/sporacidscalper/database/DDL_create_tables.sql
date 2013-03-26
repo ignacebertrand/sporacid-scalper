@@ -92,7 +92,6 @@ CREATE TABLE salles
 --
 -- Tables with 2 dependancies
 --
-
 CREATE TABLE clients
 (id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('client_id_seq'::regclass)
 ,adresse_id VARCHAR(100) NOT NULL REFERENCES adresses(id)
