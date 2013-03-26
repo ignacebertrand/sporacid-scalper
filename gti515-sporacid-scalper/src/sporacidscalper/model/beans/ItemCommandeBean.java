@@ -11,6 +11,7 @@ public class ItemCommandeBean extends AbstractBean implements Modelable
 	 */
 	private static final long serialVersionUID = -4556798955596199754L;
 	
+	private CommandeBean commande;
 	private int id;
 	private int quantite;
 	private TypeBilletRepresentationBean billetRepresentation;
@@ -22,6 +23,7 @@ public class ItemCommandeBean extends AbstractBean implements Modelable
 	
 	public ItemCommandeBean(int id)
 	{
+		this.commande = null;
 		this.id = id;
 		this.quantite = -1;
 		this.billetRepresentation = null;
@@ -71,5 +73,13 @@ public class ItemCommandeBean extends AbstractBean implements Modelable
 		}
 		
 		return ic;
+	}
+
+	public CommandeBean getCommande() {
+		return commande;
+	}
+
+	public void setCommande(CommandeBean commande) {
+		this.commande = commande;
 	}
 }

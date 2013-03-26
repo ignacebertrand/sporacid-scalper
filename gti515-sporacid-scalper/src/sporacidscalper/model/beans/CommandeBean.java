@@ -105,9 +105,13 @@ public class CommandeBean extends AbstractBean implements Modelable
 			c = new Commande(this.id);
 			
 			c.setDateCreation(this.dateCreation);
-			
+
 			for(ItemCommandeBean item : this.items)
-				c.ajouterItem((ItemCommande) item.getModelObject());
+			{
+				ItemCommande ic = (ItemCommande) item.getModelObject();
+				ic.setCommande(c);
+				c.ajouterItem(ic);
+			}
 		}
 		
 		return c;

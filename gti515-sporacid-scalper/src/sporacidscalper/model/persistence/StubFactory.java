@@ -198,22 +198,22 @@ public class StubFactory
 		List<Transaction> listeTransactions = new ArrayList<Transaction>();
 		List<Adresse> listeAdresses = getStubAdresse();
 		
-		Transaction t1 = new Transaction(1, 1);
+		Transaction t1 = new Transaction(1);
 		t1.setNoConfirmationPaiement(1);
 		t1.setAdresseLivraison(listeAdresses.get(0));
 		t1.setCommande(null);
 
-		Transaction t2 = new Transaction(1, 2);
+		Transaction t2 = new Transaction(1);
 		t2.setNoConfirmationPaiement(1);
 		t2.setAdresseLivraison(listeAdresses.get(1));
 		t2.setCommande(null);
 		
-		Transaction t3 = new Transaction(1, 3);
+		Transaction t3 = new Transaction(1);
 		t3.setNoConfirmationPaiement(1);
 		t3.setAdresseLivraison(listeAdresses.get(2));
 		t3.setCommande(null);
 		
-		Transaction t4 = new Transaction(1, 4);
+		Transaction t4 = new Transaction(1);
 		t4.setNoConfirmationPaiement(1);
 		t4.setAdresseLivraison(listeAdresses.get(3));
 		t4.setCommande(null);

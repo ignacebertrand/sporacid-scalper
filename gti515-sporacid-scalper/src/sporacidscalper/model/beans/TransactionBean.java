@@ -14,7 +14,6 @@ public class TransactionBean extends AbstractBean implements Modelable
 	
 	// Upper reference
 	private ClientBean clientReference;
-	private int clientId;
 	
 	private int id;
 	private String nom;
@@ -25,13 +24,12 @@ public class TransactionBean extends AbstractBean implements Modelable
 	
 	public TransactionBean()
 	{
-		this(-1, -1);
+		this(-1);
 	}
 	
-	public TransactionBean(int id, int clientId)
+	public TransactionBean(int id)
 	{
 		// Upper reference
-		this.clientId = clientId;
 		this.clientReference = null;
 		
 		this.id = id;
@@ -55,11 +53,6 @@ public class TransactionBean extends AbstractBean implements Modelable
 		this.noConfirmationPaiement = noConfirmationPaiement;
 	}
 	
-	public int getClientId()
-	{
-		return this.clientId;
-	}
-
 	public String getNom() 
 	{
 		return nom;
@@ -118,7 +111,7 @@ public class TransactionBean extends AbstractBean implements Modelable
 		
 		if(this != null)
 		{
-			t = new Transaction(this.id, this.clientId);
+			t = new Transaction(this.id);
 			
 			t.setNom(this.nom);
 			t.setAdresseLivraison((Adresse)this.adresseLivraison.getModelObject());

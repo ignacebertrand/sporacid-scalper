@@ -27,9 +27,7 @@ public class Transaction extends AbstractModelObject implements Beanable
 {
 	// Upper reference
 	@Transient
-	private Client clientReference;
-	@Transient
-	private int clientId;
+	private Client client;
 	
 	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_id_seq")
 	@Column(name = "id")
@@ -44,6 +42,9 @@ public class Transaction extends AbstractModelObject implements Beanable
 	@Column(name = "total_transaction")
 	private double totalTransaction;
 
+	/*@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "adresse_livraison_id", 
+				referencedColumnName = "id")*/
 	@Transient
 	private Adresse adresseLivraison;
 	
@@ -55,14 +56,13 @@ public class Transaction extends AbstractModelObject implements Beanable
 	
 	public Transaction()
 	{
-		this(-1, -1);
+		this(-1);
 	}
 	
-	public Transaction(int id, int clientId)
+	public Transaction(int id)
 	{
 		// Upper reference
-		this.clientId = clientId;
-		this.clientReference = null;
+		this.client = null;
 		
 		this.id = id;
 		this.noConfirmationPaiement = -1;
@@ -73,11 +73,6 @@ public class Transaction extends AbstractModelObject implements Beanable
 	public int getId()
 	{
 		return id;
-	}
-	
-	public int getClientId()
-	{
-		return this.clientId;
 	}
 	
 	public String getNom() 
@@ -102,12 +97,12 @@ public class Transaction extends AbstractModelObject implements Beanable
 	
 	public Client getClientReference()
 	{
-		return clientReference;
+		return client;
 	}
 	
 	public void setClientReference(Client clientReference)
 	{
-		this.clientReference = clientReference;
+		this.client = clientReference;
 	}
 	
 	public Adresse getAdresseLivraison()
@@ -147,7 +142,7 @@ public class Transaction extends AbstractModelObject implements Beanable
 		
 		if(this != null)
 		{
-			bean = new TransactionBean(this.id, this.clientId);
+			bean = new TransactionBean(this.id);
 			
 			bean.setNom(this.nom);
 			bean.setAdresseLivraison((AdresseBean) this.adresseLivraison.getBean());
