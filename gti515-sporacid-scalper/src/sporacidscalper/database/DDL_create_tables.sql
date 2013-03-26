@@ -7,13 +7,6 @@ CREATE TABLE tags
 ,url VARCHAR(200) NOT NULL
 );
 
-CREATE TABLE transactions
-(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('transaction_id_seq'::regclass)
-,nom VARCHAR(50) NOT NULL
-,numero_confirmation_paiement INTEGER NOT NULL
-,total_transaction NUMERIC NOT NULL,
-);
-
 CREATE TABLE adresses
 (id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('adresse_id_seq'::regclass)
 ,no_civique INTEGER NOT NULL
@@ -54,6 +47,14 @@ CREATE TABLE nouvelles
 -- Tables with 1 dependancies
 --
 
+
+CREATE TABLE transactions
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('transaction_id_seq'::regclass)
+,commande_id INTEGER NOT NULL REFERENCES commandes(id)
+,nom VARCHAR(50) NOT NULL
+,numero_confirmation_paiement INTEGER NOT NULL
+,total_transaction NUMERIC NOT NULL,
+);
 
 CREATE TABLE item_commandes
 (id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('item_commande_id_seq'::regclass)
