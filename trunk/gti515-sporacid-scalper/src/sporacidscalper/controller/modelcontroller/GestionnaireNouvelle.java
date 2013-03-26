@@ -10,7 +10,6 @@ import org.hibernate.Transaction;
 
 import sporacidscalper.controller.modelcontroller.IGestionnaireNouvelle;
 import sporacidscalper.model.Nouvelle;
-import sporacidscalper.model.Spectacle;
 import sporacidscalper.model.beans.NouvelleBean;
 import sporacidscalper.model.persistence.StubFactory;
 

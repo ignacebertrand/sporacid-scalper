@@ -114,6 +114,7 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 		{
 			ItemCommandeBean itemCommande = new ItemCommandeBean();
 			
+			itemCommande.setCommande(commande);
 			itemCommande.setQuantite(item.getQuantite());
 			itemCommande.setBilletRepresentation(item.getBilletRepresentation());
 			

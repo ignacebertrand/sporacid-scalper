@@ -27,6 +27,8 @@
         <property name="annotatedClasses">
             <list>
                 <value>sporacidscalper.model.Transaction</value>
+                <value>sporacidscalper.model.Commande</value>
+                <value>sporacidscalper.model.ItemCommande</value>
             </list>
         </property>
         <property name="hibernateProperties">

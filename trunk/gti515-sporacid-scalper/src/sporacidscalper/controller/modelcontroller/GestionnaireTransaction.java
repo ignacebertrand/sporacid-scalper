@@ -38,7 +38,7 @@ public class GestionnaireTransaction implements IGestionnaireTransaction
 	 * @param transactionToAdd A transaction bean object that contains informations for the transaction to add
 	 */
 	public Integer ajouterTransaction(TransactionBean transactionToAdd)
-	{
+	{	
 		Integer entityId = HibernateQueriesUtil.<TransactionBean>ajouterEntite(transactionToAdd, sessionFactory);
 		
 		// Return the id of the saved transaction or null

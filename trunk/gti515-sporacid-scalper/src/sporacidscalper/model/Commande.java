@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,7 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import sporacidscalper.model.beans.AbstractBean;
@@ -38,9 +39,7 @@ public class Commande extends AbstractModelObject implements Beanable
 	@Column(name = "date_creation", insertable = true, updatable = false)
 	private Date dateCreation;
 	
-	/*@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "item_commandes_commande_id_fkey")*/
-	@Transient
+	@OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<ItemCommande> items;
 	
 	public Commande()
@@ -130,18 +129,6 @@ public class Commande extends AbstractModelObject implements Beanable
 	{
 		return items;
 	}
-	
-	public List<ItemCommandeBean> toItemCommandeBeanList(List<ItemCommande> items)
-	{
-		List<ItemCommandeBean> beans = new ArrayList<ItemCommandeBean>();
-		
-		for(ItemCommande ic : items)
-		{
-			beans.add((ItemCommandeBean)ic.getBean());
-		}
-		
-		return beans;
-	}
 
 	@Override
 	public AbstractBean getBean()
@@ -155,7 +142,11 @@ public class Commande extends AbstractModelObject implements Beanable
 			bean.setDateCreation(this.dateCreation);
 			
 			for(ItemCommande item : this.items)
-				bean.ajouterItem((ItemCommandeBean) item.getBean());
+			{
+				ItemCommandeBean itemBean = (ItemCommandeBean) item.getBean();
+				itemBean.setCommande(bean);
+				bean.ajouterItem(itemBean);
+			}
 		}
 		
 		return bean;

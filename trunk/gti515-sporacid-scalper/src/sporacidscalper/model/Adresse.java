@@ -3,36 +3,41 @@ package sporacidscalper.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.AdresseBean;
 
-//@Entity
-//@Table(name = "adresses")
+@Entity
+@Table(name = "adresses")
+@SequenceGenerator(name = "adresse_id_seq", 
+				sequenceName = "adresse_id_seq", 
+				allocationSize = 1)
 public class Adresse extends AbstractModelObject implements Beanable
 {
-//	@Id @GeneratedValue
-//	@Column(name = "id")
+	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "adresse_id_seq")
+	@Column(name = "id")
 	private int id;
 	
-//	@Column(name = "no_civique")
+	@Column(name = "no_civique")
 	private int noCivique;
 	
-//	@Column(name = "no_appartement")
+	@Column(name = "no_appartement")
 	private int noAppartement;
 	
-//	@Column(name = "nom_rue", length = 50)
+	@Column(name = "nom_rue", length = 50)
 	private String nomRue;
 	
-//	@Column(name = "code_postal", length = 6)
+	@Column(name = "code_postal", length = 6)
 	private String codePostal;
 	
-//	@Column(name = "ville", length = 50)
+	@Column(name = "ville", length = 255)
 	private String ville;
 	
-//	@Column(name = "province", length = 25)
+	@Column(name = "province", length = 2)
 	private String province;
 	
 	public Adresse()
