@@ -46,14 +46,12 @@ CREATE TABLE nouvelles
 --
 -- Tables with 1 dependancies
 --
-
-
 CREATE TABLE transactions
 (id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('transaction_id_seq'::regclass)
 ,commande_id INTEGER NOT NULL REFERENCES commandes(id)
 ,nom VARCHAR(50) NOT NULL
 ,numero_confirmation_paiement INTEGER NOT NULL
-,total_transaction NUMERIC NOT NULL,
+,total_transaction NUMERIC NOT NULL
 );
 
 CREATE TABLE item_commandes
