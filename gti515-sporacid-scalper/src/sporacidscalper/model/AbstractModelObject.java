@@ -5,7 +5,7 @@ package sporacidscalper.model;
  * @author Simon
  *
  */
-public abstract class AbstractModelObject
+public abstract class AbstractModelObject implements Beanable
 {
 	public AbstractModelObject() { }
 }

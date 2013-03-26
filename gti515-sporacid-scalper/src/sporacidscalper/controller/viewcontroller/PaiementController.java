@@ -59,7 +59,20 @@ public class PaiementController implements ApplicationContextAware
 	{
 		ModelAndView mav = new ModelAndView("paiement");
 		
-		mav.addObject("formulaire", new FormulairePaiementSecurise());
+		FormulairePaiementSecurise stub = new FormulairePaiementSecurise();
+		
+		stub.setNom("afag");
+		stub.setNomRue("adgadahhadh");
+		stub.setNoCivique(342);
+		stub.setNoAppartement(12);
+		stub.setProvince("qc");
+		stub.setVille("laval");
+		stub.setNoCarte("1111111111111111");
+		stub.setDateExpiration("12/12");
+		stub.setCodeCvv("123");
+		stub.setCodePostal("h1h1h1");
+		
+		mav.addObject("formulaire", stub);
 		mav.addObject("presentationPaiement", presentationPaiement);
 		
 		// TODO aller chercher le client courant, mais il n'y a pas encore d'authentification, 

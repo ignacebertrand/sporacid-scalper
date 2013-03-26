@@ -1,10 +1,14 @@
 package sporacidscalper.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -16,7 +20,9 @@ import sporacidscalper.model.beans.TransactionBean;
 
 @Entity
 @Table(name = "transactions")
-@SequenceGenerator(name = "transaction_id_seq", sequenceName = "transaction_id_seq", allocationSize=1)
+@SequenceGenerator(name = "transaction_id_seq", 
+				sequenceName = "transaction_id_seq", 
+				allocationSize = 1)
 public class Transaction extends AbstractModelObject implements Beanable
 {
 	// Upper reference
@@ -32,7 +38,7 @@ public class Transaction extends AbstractModelObject implements Beanable
 	@Column(name = "nom")
 	private String nom;
 
-	@Column(name = "no_confirmation_paiement")
+	@Column(name = "numero_confirmation_paiement")
 	private int noConfirmationPaiement;
 	
 	@Column(name = "total_transaction")
@@ -41,7 +47,10 @@ public class Transaction extends AbstractModelObject implements Beanable
 	@Transient
 	private Adresse adresseLivraison;
 	
-	@Transient
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "commande_id", 
+				referencedColumnName = "id", 
+				nullable = true)
 	private Commande commande;
 	
 	public Transaction()

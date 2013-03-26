@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author Simon
  *
  */
-public abstract class AbstractBean implements Serializable
+public abstract class AbstractBean implements Serializable, Modelable
 {
 	/**
 	 * 

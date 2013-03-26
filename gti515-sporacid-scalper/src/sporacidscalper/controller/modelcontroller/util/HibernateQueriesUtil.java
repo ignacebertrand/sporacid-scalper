@@ -6,20 +6,19 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import sporacidscalper.model.AbstractModelObject;
-import sporacidscalper.model.beans.Modelable;
+import sporacidscalper.model.beans.AbstractBean;
 
-public final class HibernateQueriesUtil {
-
+public final class HibernateQueriesUtil 
+{	
 	/**
-	 * Reference to the SessionFactory implementation
+	 * 
+	 * @param objectToAdd
+	 * @param sessionFactory Reference to the SessionFactory implementation
 	 * of the application context bean configuration.
+	 * @return
 	 */
-	private static SessionFactory sessionFactory;
-	
-	public static <E extends Modelable> Integer ajouterEntite(E objectToAdd, String className) 
+	public static <E extends AbstractBean> Integer ajouterEntite(E objectToAdd, SessionFactory sessionFactory) 
 	{
-		// TODO : Need some sort of validation on the spectacle to add
-		
 		Integer entityId = null;
 		
 		// Get a spectacle entity from the bean supplied
