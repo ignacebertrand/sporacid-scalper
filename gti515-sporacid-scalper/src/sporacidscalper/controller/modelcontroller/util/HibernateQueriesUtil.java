@@ -1,6 +1,10 @@
 package sporacidscalper.controller.modelcontroller.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -58,5 +62,42 @@ public final class HibernateQueriesUtil
 		
 		// Return the id of the saved transaction or null
 		return entityId;
+	}
+	
+	/**
+	 * 
+	 * @param objectToAdd
+	 * @param sessionFactory Reference to the SessionFactory implementation
+	 * of the application context bean configuration.
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static <E extends AbstractModelObject> List<E> obtenirEntites(SessionFactory sessionFactory, Class<E> classObj)
+	{
+		List<E> entitiesList = new ArrayList<E>();
+		
+		// Get a session from the session factory
+		Session session = sessionFactory.openSession();
+
+		try
+		{
+			// Create the query to get the list
+			Query queryResult = session.createQuery("select o from " + classObj.getSimpleName() + " o");
+			
+			// Put the query result into the list
+			entitiesList = (List<E>) queryResult.list();
+		}
+		catch(HibernateException e)
+		{
+			// An error occured.
+		}
+		finally
+		{
+			// Always close the session
+			session.close();
+		}
+		
+		// Return the id of the saved transaction or null
+		return entitiesList;
 	}
 }

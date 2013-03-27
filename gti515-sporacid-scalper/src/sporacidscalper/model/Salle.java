@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.AdresseBean;
@@ -27,6 +28,7 @@ public class Salle extends AbstractModelObject implements Beanable
 	@Column(name = "capacite")
 	private int capacite;
 	
+	@Transient
 	private Adresse adresse;
 	
 	public Salle()

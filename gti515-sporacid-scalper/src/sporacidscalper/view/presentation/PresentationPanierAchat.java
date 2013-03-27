@@ -4,12 +4,12 @@ import java.text.DateFormat;
 import java.text.NumberFormat;
 
 import sporacidscalper.model.beans.ArtisteBean;
-import sporacidscalper.model.beans.ItemPanierAchatBean;
-import sporacidscalper.model.beans.PanierAchatBean;
 import sporacidscalper.model.beans.RepresentationBean;
 import sporacidscalper.model.beans.SpectacleBean;
 import sporacidscalper.model.beans.TypeBilletBean;
 import sporacidscalper.model.beans.TypeBilletRepresentationBean;
+import sporacidscalper.view.beans.ItemPanierAchatBean;
+import sporacidscalper.view.beans.PanierAchatBean;
 import sporacidscalper.view.presentation.util.HtmlUtilities;
 
 public class PresentationPanierAchat implements IPresentationPanierAchat

@@ -50,7 +50,7 @@ public class ItemCommande extends AbstractModelObject implements Beanable
 		this.id = id;
 		this.quantite = 0;
 		this.commande = null;
-		this.billetRepresentation = new TypeBilletRepresentation(-1);
+		this.billetRepresentation = null;
 	}
 	
 	public double getTotal()

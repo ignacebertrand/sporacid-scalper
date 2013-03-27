@@ -26,6 +26,9 @@ public class TypeBillet extends AbstractModelObject implements Beanable
 	@Column(name = "description")
 	private String description;
 	
+	@Column(name = "is_default")
+	public boolean isDefault;
+	
 	public TypeBillet()
 	{
 		this(-1);

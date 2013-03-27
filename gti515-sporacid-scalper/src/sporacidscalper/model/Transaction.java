@@ -1,5 +1,7 @@
 package sporacidscalper.model;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.Version;
 
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.AdresseBean;
@@ -25,11 +27,14 @@ import sporacidscalper.model.beans.TransactionBean;
 				allocationSize = 1)
 public class Transaction extends AbstractModelObject implements Beanable
 {
-	// Upper reference
-	@Transient
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "client_id", 
+				referencedColumnName = "id", 
+				nullable = true)
 	private Client client;
 	
-	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_id_seq")
+	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, 
+					generator = "transaction_id_seq")
 	@Column(name = "id")
 	private int id;
 	
@@ -41,17 +46,23 @@ public class Transaction extends AbstractModelObject implements Beanable
 	
 	@Column(name = "total_transaction")
 	private double totalTransaction;
+	
+	@Version
+	@Column(name = "date_creation", 
+			insertable = true, 
+			updatable = false)
+	private Date dateCreation;
 
-	/*@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "adresse_livraison_id", 
-				referencedColumnName = "id")*/
-	@Transient
+				referencedColumnName = "id",
+				nullable = false)
 	private Adresse adresseLivraison;
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "commande_id", 
 				referencedColumnName = "id", 
-				nullable = true)
+				nullable = false)
 	private Commande commande;
 	
 	public Transaction()
@@ -108,6 +119,16 @@ public class Transaction extends AbstractModelObject implements Beanable
 	public Adresse getAdresseLivraison()
 	{
 		return adresseLivraison;
+	}
+
+	public Date getDateCreation() 
+	{
+		return dateCreation;
+	}
+
+	public void setDateCreation(Date dateCreation) 
+	{
+		this.dateCreation = dateCreation;
 	}
 	
 	public void setAdresseLivraison(Adresse adresseLivraison)

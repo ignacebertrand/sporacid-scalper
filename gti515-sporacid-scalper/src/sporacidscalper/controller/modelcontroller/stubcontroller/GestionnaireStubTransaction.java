@@ -64,7 +64,7 @@ public class GestionnaireStubTransaction implements IGestionnaireTransaction
 		{
 			for(ItemCommande ic : trans.getCommande().getItems())
 			{
-				if(representationId == ic.getBilletRepresentation().getRepresentationId())
+				if(representationId == ic.getBilletRepresentation().getRepresentation().getId())
 				{
 					repTransactions.add((TransactionBean)trans.getBean());
 					break;

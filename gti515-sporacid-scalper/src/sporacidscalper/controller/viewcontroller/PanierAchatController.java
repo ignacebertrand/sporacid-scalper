@@ -17,12 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 import sporacidscalper.controller.modelcontroller.IGestionnaireSpectacle;
 import sporacidscalper.controller.viewcontroller.util.SessionUtil;
 import sporacidscalper.controller.viewcontroller.util.ApplicationMessages;
-import sporacidscalper.model.beans.ItemPanierAchatBean;
-import sporacidscalper.model.beans.PanierAchatBean;
 import sporacidscalper.model.beans.RepresentationBean;
 import sporacidscalper.model.beans.SpectacleBean;
 import sporacidscalper.model.beans.TypeBilletRepresentationBean;
 import sporacidscalper.view.beans.FormulaireItemPanierAchat;
+import sporacidscalper.view.beans.ItemPanierAchatBean;
+import sporacidscalper.view.beans.PanierAchatBean;
 import sporacidscalper.view.presentation.IPresentationPanierAchat;
 
 @Controller 

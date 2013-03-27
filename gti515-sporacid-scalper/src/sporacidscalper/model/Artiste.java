@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.ArtisteBean;
@@ -31,7 +32,7 @@ public class Artiste extends AbstractModelObject implements Beanable
 	@Column(name = "description")
 	private String description;
 	
-	
+	@Transient
 	private List<Tags> tags;
 	
 	public Artiste()

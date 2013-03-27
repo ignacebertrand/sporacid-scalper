@@ -7,16 +7,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.AdresseBean;
 import sporacidscalper.model.beans.ClientBean;
-import sporacidscalper.model.beans.ItemPanierAchatBean;
 
 @Entity
 @Table(name = "clients")
-@SequenceGenerator(name = "client_id_seq", sequenceName = "client_id_seq", allocationSize=1)
-
+@SequenceGenerator(name = "client_id_seq", 
+				sequenceName = "client_id_seq", 
+				allocationSize=1)
 public class Client extends AbstractModelObject implements Beanable
 {
 	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_id_seq")
@@ -26,10 +27,10 @@ public class Client extends AbstractModelObject implements Beanable
 	@Column(name = "identifiant")
 	private String identifiant;
 
-	@Column(name = "motDePasse")
+	@Column(name = "mot_de_passe")
 	private String motDePasse;
 
-	@Column(name = "estAuthentifie")
+	@Column(name = "est_authentifie")
 	private boolean estAuthentifie;
 
 	@Column(name = "nom")
@@ -38,10 +39,9 @@ public class Client extends AbstractModelObject implements Beanable
 	@Column(name = "courriel")
 	private String courriel;
 
-	@Column(name = "adresse")
+	/*@Column(name = "adresse")*/
+	@Transient
 	private Adresse adresse;
-	
-	private PanierAchat panierAchat;
 
 	public Client()
 	{
@@ -57,7 +57,6 @@ public class Client extends AbstractModelObject implements Beanable
 		this.nom = null;
 		this.courriel = null;
 		this.adresse = null;
-		this.panierAchat = null;
 	}
 	
 	public boolean authentifier(String encryptedPassword)
@@ -65,11 +64,6 @@ public class Client extends AbstractModelObject implements Beanable
 		//TODO : Decrypt the password, test the password and return false if the password does not match
 		estAuthentifie = true;
 		return true;
-	}
-
-	public PanierAchat getPanierAchat()
-	{
-		return this.panierAchat;
 	}
 	
 	public int getId()
@@ -145,9 +139,6 @@ public class Client extends AbstractModelObject implements Beanable
 			bean.setCourriel(this.courriel);
 			bean.setIdentifiant(this.identifiant);
 			bean.setNom(this.nom);
-			
-			for(ItemPanierAchat item : this.panierAchat.getItems())
-				bean.getPanierAchat().ajouterItem((ItemPanierAchatBean) item.getBean());
 		}
 		
 		return bean;

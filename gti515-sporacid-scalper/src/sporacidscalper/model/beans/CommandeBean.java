@@ -7,6 +7,7 @@ import java.util.List;
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.Commande;
 import sporacidscalper.model.ItemCommande;
+import sporacidscalper.model.StatutCommande;
 
 public class CommandeBean extends AbstractBean implements Modelable
 {
@@ -16,6 +17,7 @@ public class CommandeBean extends AbstractBean implements Modelable
 	private static final long serialVersionUID = -9198676745711308773L;
 	
 	private int id;
+	private StatutCommandeBean statut;
 	private Date dateCreation;
 	private List<ItemCommandeBean> items;
 	
@@ -90,6 +92,16 @@ public class CommandeBean extends AbstractBean implements Modelable
 		this.dateCreation = dateCreation;
 	}
 	
+	public StatutCommandeBean getStatut()
+	{
+		return statut;
+	}
+
+	public void setStatut(StatutCommandeBean statut) 
+	{
+		this.statut = statut;
+	}
+	
 	public List<ItemCommandeBean> getItems()
 	{
 		return items;
@@ -105,6 +117,7 @@ public class CommandeBean extends AbstractBean implements Modelable
 			c = new Commande(this.id);
 			
 			c.setDateCreation(this.dateCreation);
+			c.setStatut((StatutCommande) this.statut.getModelObject());
 
 			for(ItemCommandeBean item : this.items)
 			{

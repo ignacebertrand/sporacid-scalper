@@ -2,6 +2,7 @@ package sporacidscalper.controller.modelcontroller;
 
 import java.util.List;
 
+import sporacidscalper.model.beans.StatutCommandeBean;
 import sporacidscalper.model.beans.TransactionBean;
 
 public interface IGestionnaireTransaction 
@@ -24,4 +25,14 @@ public interface IGestionnaireTransaction
 	 * @return A list of all transactions made for the representation
 	 */
 	public int obtenirTransactionsRepresentationCount(int representationId);
+	/**
+	 * Public method to obtain all command statuses from the system.
+	 * @return A list of all command statuses
+	 */
+	public List<StatutCommandeBean> obtenirStatutsCommande();
+	/**
+	 * Public method to obtain the default command status from the system.
+	 * @return The default command status
+	 */
+	public StatutCommandeBean obtenirStatutCommandeParDefaut();
 }

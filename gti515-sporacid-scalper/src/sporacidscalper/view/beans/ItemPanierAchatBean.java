@@ -1,16 +1,9 @@
-package sporacidscalper.model.beans;
+package sporacidscalper.view.beans;
 
-import sporacidscalper.model.AbstractModelObject;
-import sporacidscalper.model.ItemPanierAchat;
-import sporacidscalper.model.TypeBilletRepresentation;
+import sporacidscalper.model.beans.TypeBilletRepresentationBean;
 
-public class ItemPanierAchatBean extends AbstractBean implements Modelable
+public class ItemPanierAchatBean
 {
-	/**
-	 * Serializable interface requirement
-	 */
-	private static final long serialVersionUID = 9038754069973527755L;
-	
 	private int id;
 	private int quantite;
 	private TypeBilletRepresentationBean billetRepresentation;
@@ -55,21 +48,5 @@ public class ItemPanierAchatBean extends AbstractBean implements Modelable
 	public void setBilletRepresentation(TypeBilletRepresentationBean billetRepresentation)
 	{
 		this.billetRepresentation = billetRepresentation;
-	}
-
-	@Override
-	public AbstractModelObject getModelObject()
-	{
-		ItemPanierAchat ipa = null;
-		
-		if(this != null)
-		{
-			ipa = new ItemPanierAchat(this.id);
-			
-			ipa.setBilletRepresentation((TypeBilletRepresentation)this.billetRepresentation.getModelObject());
-			ipa.setQuantite(this.quantite);
-		}
-		
-		return ipa;
 	}
 }

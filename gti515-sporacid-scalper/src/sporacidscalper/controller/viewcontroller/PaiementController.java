@@ -20,9 +20,9 @@ import sporacidscalper.controller.viewcontroller.util.ApplicationMessages;
 import sporacidscalper.controller.viewcontroller.util.SessionUtil;
 import sporacidscalper.model.beans.AdresseBean;
 import sporacidscalper.model.beans.CommandeBean;
-import sporacidscalper.model.beans.PanierAchatBean;
 import sporacidscalper.model.beans.TransactionBean;
 import sporacidscalper.view.beans.FormulairePaiementSecurise;
+import sporacidscalper.view.beans.PanierAchatBean;
 import sporacidscalper.view.presentation.IPresentationPaiement;
 //import sporacidscalper.controller.modelcontroller.IGestionnaireClient;
 
@@ -122,6 +122,9 @@ public class PaiementController implements ApplicationContextAware
 				// The shopping cart is now processed, destroy it.
 				SessionUtil.supprimerPanierAchat(session);
 				
+				// Set the default status to the command
+				commande.setStatut(gestionnaireTransaction.obtenirStatutCommandeParDefaut());
+				
 				// Set the transaction's command
 				transaction.setCommande(commande);
 				transaction.setTotalTransaction(commande.getTotal());
@@ -134,6 +137,7 @@ public class PaiementController implements ApplicationContextAware
 			else
 			{
 				ApplicationMessages.ajouterMessage("Le panier d'achat est vide, impossible de procéder au paiement.", request);
+				
 				// Redirection
 				mav = new ModelAndView("redirect: /accueil");
 			}

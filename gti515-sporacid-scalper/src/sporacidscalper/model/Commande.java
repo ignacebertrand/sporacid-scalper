@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -20,6 +21,7 @@ import javax.persistence.Version;
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.CommandeBean;
 import sporacidscalper.model.beans.ItemCommandeBean;
+import sporacidscalper.model.beans.StatutCommandeBean;
 
 @Entity
 @Table(name = "commandes")
@@ -35,9 +37,15 @@ public class Commande extends AbstractModelObject implements Beanable
 	@Column(name = "id")
 	private int id;
 	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "statut_commande_id", 
+				referencedColumnName = "id", 
+				nullable = false)
+	private StatutCommande statut;
+
 	@Version
-	@Column(name = "date_creation", insertable = true, updatable = false)
-	private Date dateCreation;
+	@Column(name = "date_modification", insertable = true, updatable = true)
+	private Date dateModification;
 	
 	@OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<ItemCommande> items;
@@ -50,16 +58,9 @@ public class Commande extends AbstractModelObject implements Beanable
 	public Commande(int id)
 	{
 		this.id = id;
-		this.dateCreation = new Date();
+		this.dateModification = new Date();
 		this.items = new ArrayList<ItemCommande>();
 	}
-
-	/*@PrePersist()
-	protected void beforePersist()
-	{
-		// Before persistence, set the current date as the creation date.
-		this.setDateCreation(new Date());
-	}*/
 	
 	public ItemCommande obtenirItem(int itemId)
 	{
@@ -109,15 +110,31 @@ public class Commande extends AbstractModelObject implements Beanable
 	{
 		return id;
 	}
+	
+	public Transaction getTransaction() {
+		return transaction;
+	}
 
+	public void setTransaction(Transaction transaction) {
+		this.transaction = transaction;
+	}
+
+	public StatutCommande getStatut() {
+		return statut;
+	}
+
+	public void setStatut(StatutCommande statut) {
+		this.statut = statut;
+	}
+	
 	public Date getDateCreation()
 	{
-		return dateCreation;
+		return dateModification;
 	}
 
 	public void setDateCreation(Date dateCreation)
 	{
-		this.dateCreation = dateCreation;
+		this.dateModification = dateCreation;
 	}
 
 	public void setItems(List<ItemCommande> items)
@@ -139,7 +156,8 @@ public class Commande extends AbstractModelObject implements Beanable
 		{
 			bean = new CommandeBean(this.id);
 			
-			bean.setDateCreation(this.dateCreation);
+			bean.setDateCreation(this.dateModification);
+			bean.setStatut((StatutCommandeBean) this.statut.getBean());
 			
 			for(ItemCommande item : this.items)
 			{
