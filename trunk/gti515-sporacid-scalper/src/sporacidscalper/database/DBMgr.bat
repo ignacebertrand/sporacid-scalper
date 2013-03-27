@@ -14,6 +14,7 @@ ECHO.
 ECHO    	1- Build Sporacid Database
 ECHO    	2- Teardown Sporacid Database
 ECHO    	3- Cleanup Sporacid Database
+ECHO        4- Dataload Sporacid Database
 ECHO    	0- Quit
 ECHO.
 ECHO.
@@ -24,6 +25,7 @@ REM	 // User input validation
 IF %decision%==1 GOTO :Build
 IF %decision%==2 GOTO :Destroy
 IF %decision%==3 GOTO :Cleanup
+IF %decision%==4 GOTO :Dataload
 IF %decision%==0 (
 	GOTO :Finally
 ) ELSE (
@@ -31,24 +33,29 @@ IF %decision%==0 (
 )
 
 :Build
-ECHO Building the database
+ECHO Building the database...
 %pgShell% -q -h %host% -U %username% -d %dbname% -p %port% -f ./DDL_create_sequences.sql
 %pgShell% -q -h %host% -U %username% -d %dbname% -p %port% -f ./DDL_create_tables.sql
-ECHO Database built
+ECHO Database built!
 GOTO :Finally
 
 :Destroy
-ECHO Destroying the database
+ECHO Destroying the database...
 %pgShell% -q -h %host% -U %username% -d %dbname% -p %port% -f ./DDL_drop_tables.sql
 %pgShell% -q -h %host% -U %username% -d %dbname% -p %port% -f ./DDL_drop_sequences.sql
-ECHO Database destroyed
+ECHO Database destroyed!
 GOTO :Finally
 
 :Cleanup
-ECHO Cleaning the database tables
+ECHO Cleaning the database tables...
 %pgShell% -q -h %host% -U %username% -d %dbname% -p %port% -f ".\DML_cleanup_db.sql"
-ECHO Database tables cleaned
+ECHO Database tables cleaned!
 GOTO :Finally
+
+:Dataload
+ECHO Dataloading the database tables...
+%pgShell% -q -h %host% -U %username% -d %dbname% -p %port% -f ".\DML_inserts.sql"
+ECHO Database tables dataloaded!
 
 :Finally
 ECHO.
