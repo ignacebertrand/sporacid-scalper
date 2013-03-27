@@ -42,7 +42,7 @@ public class BilletsController implements ApplicationContextAware
 		String searchString   = request.getParameter("searchString");
 		
 		mav.addObject("context", request.getContextPath());
-		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirSpectacles(searchCategory, searchString));
+		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirCatalogueSpectacles(searchCategory, searchString));
 		mav.addObject("listeTypes", gestionnaireSpectacle.obtenirCatalogueTypeSpectacle());
 		mav.addObject("presentationBillets", presentationBillets);
 		

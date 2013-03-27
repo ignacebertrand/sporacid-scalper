@@ -33,13 +33,13 @@
 						<a href="<%=contextAttr%>/billets/liste-billets?searchCategory=1">Humour</a>
 					</li>
 					<li class="sub-menu-item">
-						<a href="<%=contextAttr%>/billets/liste-billets?searchCategory=2">Musique Metal</a>
+						<a href="<%=contextAttr%>/billets/liste-billets?searchCategory=2">Metal</a>
 					</li>
 					<li class="sub-menu-item">
-						<a href="<%=contextAttr%>/billets/liste-billets?searchCategory=3">Musique Country</a>
+						<a href="<%=contextAttr%>/billets/liste-billets?searchCategory=3">Country</a>
 					</li>
 					<li class="sub-menu-item">
-						<a href="<%=contextAttr%>/billets/liste-billets?searchCategory=4">Musique Classique</a>
+						<a href="<%=contextAttr%>/billets/liste-billets?searchCategory=4">Classique</a>
 					</li>
 				</ul>
 			</div>
