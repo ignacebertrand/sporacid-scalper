@@ -4,7 +4,7 @@ import java.util.Timer;
 
 import javax.servlet.http.HttpSession;
 
-import sporacidscalper.model.beans.PanierAchatBean;
+import sporacidscalper.view.beans.PanierAchatBean;
 
 public final class SessionUtil 
 {

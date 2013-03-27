@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.RepresentationBean;
@@ -25,7 +26,9 @@ import sporacidscalper.model.beans.TypeBilletRepresentationBean;
 public class Representation extends AbstractModelObject implements Beanable
 {
 	// Upper reference
+	@Transient
 	private int spectacleId;
+	@Transient
 	private SpectacleBean spectacleReference;
 	
 	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "representation_id_seq")
@@ -41,8 +44,10 @@ public class Representation extends AbstractModelObject implements Beanable
 	@Column(name = "statut")
 	private String statut;
 	
+	@Transient
 	private Salle salle;
 	
+	@Transient
 	private List<TypeBilletRepresentation> typesBillet;
 	
 	public Representation()

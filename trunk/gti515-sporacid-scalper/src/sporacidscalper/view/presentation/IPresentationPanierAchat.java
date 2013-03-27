@@ -1,6 +1,6 @@
 package sporacidscalper.view.presentation;
 
-import sporacidscalper.model.beans.PanierAchatBean;
+import sporacidscalper.view.beans.PanierAchatBean;
 
 public interface IPresentationPanierAchat 
 {

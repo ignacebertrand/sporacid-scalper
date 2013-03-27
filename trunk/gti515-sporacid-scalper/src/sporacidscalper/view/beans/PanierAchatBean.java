@@ -1,20 +1,15 @@
-package sporacidscalper.model.beans;
+package sporacidscalper.view.beans;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import sporacidscalper.model.AbstractModelObject;
-import sporacidscalper.model.ItemPanierAchat;
-import sporacidscalper.model.PanierAchat;
+import sporacidscalper.model.beans.CommandeBean;
+import sporacidscalper.model.beans.ItemCommandeBean;
+import sporacidscalper.model.beans.RepresentationBean;
 
-public class PanierAchatBean extends AbstractBean implements Modelable
+public class PanierAchatBean
 {
-	/**
-	 * Serializable interface requirement
-	 */
-	private static final long serialVersionUID = -5741990719386774842L;
-	
 	private int id;
 	private Date dateCreation;
 	private List<ItemPanierAchatBean> items;
@@ -29,7 +24,6 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 		this.id = id;
 		this.dateCreation = null;
 		this.items = new ArrayList<ItemPanierAchatBean>();
-		
 	}
 	
 	public ItemPanierAchatBean obtenirItem(int itemId)
@@ -154,23 +148,5 @@ public class PanierAchatBean extends AbstractBean implements Modelable
 	public List<ItemPanierAchatBean> getItems()
 	{
 		return items;
-	}
-	
-	@Override
-	public AbstractModelObject getModelObject()
-	{
-		PanierAchat pa = null;
-		
-		if(this != null)
-		{
-			pa = new PanierAchat(this.id);
-	
-			for(ItemPanierAchatBean item : this.items)
-				pa.ajouterItem((ItemPanierAchat) item.getModelObject());
-			
-			pa.setDateCreation(this.dateCreation);
-		}
-		
-		return pa;
 	}
 }

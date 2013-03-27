@@ -4,7 +4,7 @@
 <%@page import="java.text.NumberFormat"%>
 
 <%@page import="sporacidscalper.view.presentation.IPresentationPanierAchat" %>
-<%@page import="sporacidscalper.model.beans.PanierAchatBean"%>
+<%@page import="sporacidscalper.view.beans.PanierAchatBean"%>
 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 

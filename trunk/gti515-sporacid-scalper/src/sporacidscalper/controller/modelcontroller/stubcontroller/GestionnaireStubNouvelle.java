@@ -27,7 +27,7 @@ public class GestionnaireStubNouvelle implements IGestionnaireNouvelle
 	 * Public method to add a news to the system.
 	 * @param nouvelleToAdd A news bean object that contains informations for the news to add
 	 */
-	public void ajouterNouvelle(NouvelleBean nouvelleToAdd)
+	public Integer ajouterNouvelle(NouvelleBean nouvelleToAdd)
 	{
 		//TODO : Need some sort of validation on nouvelleToAdd
 		
@@ -36,6 +36,8 @@ public class GestionnaireStubNouvelle implements IGestionnaireNouvelle
 		{
 			listeNouvelles.add((Nouvelle) nouvelleToAdd.getModelObject());
 		}
+		
+		return 1;
 	}
 	
 	/**

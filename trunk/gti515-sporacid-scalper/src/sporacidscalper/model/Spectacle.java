@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.ArtisteBean;
@@ -34,11 +35,11 @@ public class Spectacle extends AbstractModelObject implements Beanable
 
 	@Column(name = "posterUrl")
 	private String posterUrl;
-
+	@Transient
 	private List<Artiste> artistes;
-	
+	@Transient
 	private TypeSpectacle type;
-	
+	@Transient
 	private List<Representation> representations;
 	
 	public Spectacle()

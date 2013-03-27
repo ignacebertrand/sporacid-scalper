@@ -7,7 +7,9 @@ import org.hibernate.SessionFactory;
 
 import sporacidscalper.controller.modelcontroller.util.HibernateQueriesUtil;
 import sporacidscalper.model.ItemCommande;
+import sporacidscalper.model.StatutCommande;
 import sporacidscalper.model.Transaction;
+import sporacidscalper.model.beans.StatutCommandeBean;
 import sporacidscalper.model.beans.TransactionBean;
 import sporacidscalper.model.persistence.StubFactory;
 
@@ -67,7 +69,7 @@ public class GestionnaireTransaction implements IGestionnaireTransaction
 		{
 			for(ItemCommande ic : trans.getCommande().getItems())
 			{
-				if(representationId == ic.getBilletRepresentation().getRepresentationId())
+				if(representationId == ic.getBilletRepresentation().getRepresentation().getId())
 				{
 					repTransactions.add((TransactionBean)trans.getBean());
 					break;
@@ -75,6 +77,43 @@ public class GestionnaireTransaction implements IGestionnaireTransaction
 			}
 		}
 		return repTransactions.size();
+	}
+	
+	/**
+	 * Public method to obtain all command statuses from the system.
+	 * @return A list of all command statuses
+	 */
+	public List<StatutCommandeBean> obtenirStatutsCommande()
+	{
+		List<StatutCommandeBean> listeBeans = new ArrayList<StatutCommandeBean>();
+		List<StatutCommande> listeStatuts = 
+				HibernateQueriesUtil.<StatutCommande>obtenirEntites(sessionFactory, StatutCommande.class);
+		
+		for(StatutCommande statut : listeStatuts)
+			listeBeans.add((StatutCommandeBean) statut.getBean());
+		
+		listeStatuts = null;
+			
+		return listeBeans;
+	}
+	
+	/**
+	 * Public method to obtain the default command status from the system.
+	 * @return The default command status
+	 */
+	public StatutCommandeBean obtenirStatutCommandeParDefaut()
+	{
+		List<StatutCommandeBean> listeBeans = obtenirStatutsCommande();
+		StatutCommandeBean defaultBean = null;
+		
+		for(StatutCommandeBean statut : listeBeans)
+			if(statut.isDefault())
+			{
+				defaultBean = statut;
+				break;
+			}
+		
+		return defaultBean;
 	}
 	
 	public SessionFactory getSessionFactory() {

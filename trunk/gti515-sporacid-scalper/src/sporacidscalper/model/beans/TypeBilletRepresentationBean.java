@@ -88,7 +88,7 @@ public class TypeBilletRepresentationBean extends AbstractBean implements Modela
 		
 		if(this != null)
 		{
-			tbr = new TypeBilletRepresentation(this.representationId);
+			tbr = new TypeBilletRepresentation();
 			
 			tbr.setNbBilletEmis(this.nbBilletEmis);
 			tbr.setPrix(this.prix);

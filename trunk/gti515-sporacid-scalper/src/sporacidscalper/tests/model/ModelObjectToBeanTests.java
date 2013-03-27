@@ -16,9 +16,7 @@ public class ModelObjectToBeanTests
 	private Client cln;
 	private Commande cmd;
 	private ItemCommande itc;
-	private ItemPanierAchat ipa;
 	private Nouvelle nvl;
-	private PanierAchat pa;
 	private Representation rep;
 	private Salle salle;
 	private Spectacle spc;
@@ -36,9 +34,7 @@ public class ModelObjectToBeanTests
 		this.cln = new Client();
 		this.cmd = new Commande();
 		this.itc = new ItemCommande();
-		this.ipa = new ItemPanierAchat();
 		this.nvl = new Nouvelle(5);
-		this.pa = new PanierAchat();
 		this.rep = new Representation();
 		this.salle = new Salle();
 		this.spc = new Spectacle();
@@ -57,9 +53,7 @@ public class ModelObjectToBeanTests
 		this.cln = null;
 		this.cmd = null;
 		this.itc = null;
-		this.ipa = null;
 		this.nvl = null;
-		this.pa =  null;
 		this.rep = null;
 		this.salle = null;
 		this.spc = null;
@@ -78,9 +72,7 @@ public class ModelObjectToBeanTests
 		assertNotNull((ClientBean)this.cln.getBean());
 		assertNotNull((CommandeBean)this.cmd.getBean());
 		assertNotNull((ItemCommandeBean)this.itc.getBean());
-		assertNotNull((ItemPanierAchatBean)this.ipa.getBean());
 		assertNotNull((NouvelleBean)this.nvl.getBean());
-		assertNotNull((PanierAchatBean)this.pa.getBean());
 		assertNotNull((RepresentationBean)this.rep.getBean());
 		assertNotNull((SalleBean)this.salle.getBean());
 		assertNotNull((SpectacleBean)this.spc.getBean());

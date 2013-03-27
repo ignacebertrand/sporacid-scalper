@@ -6,7 +6,6 @@ import org.hibernate.validator.constraints.Range;
 import sporacidscalper.model.AbstractModelObject;
 import sporacidscalper.model.Adresse;
 import sporacidscalper.model.Client;
-import sporacidscalper.model.ItemPanierAchat;
 
 public class ClientBean extends AbstractBean implements Modelable
 {
@@ -21,11 +20,9 @@ public class ClientBean extends AbstractBean implements Modelable
 	@NotEmpty(message="Un nom de clien est obligatoire.")
 	private String nom;
 
-	
 	private String identifiant;
 	private String courriel;
 	private AdresseBean adresse;
-	private PanierAchatBean panierAchat;
 	
 	public ClientBean()
 	{
@@ -39,7 +36,6 @@ public class ClientBean extends AbstractBean implements Modelable
 		this.nom = null;
 		this.courriel = null;
 		this.adresse = null;
-		this.panierAchat = null;
 	}
 	
 	public int getId()
@@ -86,16 +82,6 @@ public class ClientBean extends AbstractBean implements Modelable
 	{
 		this.adresse = adresse;
 	}
-	
-	public PanierAchatBean getPanierAchat()
-	{
-		return panierAchat;
-	}
-	
-	public void setPanierAchat(PanierAchatBean panierAchat)
-	{
-		this.panierAchat = panierAchat;
-	}
 
 	@Override
 	public AbstractModelObject getModelObject()
@@ -110,9 +96,6 @@ public class ClientBean extends AbstractBean implements Modelable
 			client.setCourriel(this.courriel);
 			client.setIdentifiant(this.identifiant);
 			client.setNom(this.nom);
-			
-			for(ItemPanierAchatBean item : this.panierAchat.getItems())
-				client.getPanierAchat().ajouterItem((ItemPanierAchat) item.getModelObject());
 		}
 		
 		return client;

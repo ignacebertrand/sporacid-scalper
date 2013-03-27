@@ -26,9 +26,20 @@
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses">
             <list>
-                <value>sporacidscalper.model.Transaction</value>
+                <value>sporacidscalper.model.Adresse</value>
+                <value>sporacidscalper.model.Artiste</value>
+                <value>sporacidscalper.model.Client</value>
                 <value>sporacidscalper.model.Commande</value>
                 <value>sporacidscalper.model.ItemCommande</value>
+                <value>sporacidscalper.model.Nouvelle</value>
+                <value>sporacidscalper.model.Representation</value>
+                <value>sporacidscalper.model.Salle</value>
+                <value>sporacidscalper.model.Spectacle</value>
+                <value>sporacidscalper.model.StatutCommande</value>
+                <value>sporacidscalper.model.Tags</value>
+                <value>sporacidscalper.model.Transaction</value>
+                <value>sporacidscalper.model.TypeBillet</value>
+<!--                 <value>sporacidscalper.model.TypeBilletRepresentation</value> -->
             </list>
         </property>
         <property name="hibernateProperties">

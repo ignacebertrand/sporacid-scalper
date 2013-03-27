@@ -1,43 +1,53 @@
 package sporacidscalper.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.TypeBilletBean;
 import sporacidscalper.model.beans.TypeBilletRepresentationBean;
 
+@Entity
+@Table(name = "types_billet_representation")
 public class TypeBilletRepresentation extends AbstractModelObject implements Beanable
 {
-	// Upper reference
-	private int representationId;
-	private Representation representationReference; 
+	@Transient
+	private Representation representation; 
 	
-	private double prix;
-	private int nbBilletEmis;
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "type_billet_id", 
+				referencedColumnName = "id",
+				nullable = false)
 	private TypeBillet type;
 	
-	public TypeBilletRepresentation(int representationId)
+	@Column(name = "prix")
+	private double prix;
+	
+	@Column(name = "nb_billet_emis")
+	private int nbBilletEmis;
+	
+	public TypeBilletRepresentation()
 	{
-		// Upper reference
-		this.representationId = representationId;
-		this.representationReference= null;
-		
-		this.prix = -1;
-		this.nbBilletEmis = -1;
+		this.representation= null;
 		this.type = null;
+		
+		this.prix = 0;
+		this.nbBilletEmis = 0;
 	}
 	
-	public int getRepresentationId()
+	public Representation getRepresentation()
 	{
-		return this.representationId;
+		return this.representation;
 	}
 	
-	public Representation getRepresentationReference()
+	public void setRepresentation(Representation representation)
 	{
-		return this.representationReference;
-	}
-	
-	public void setRepresentationReference(Representation representationReference)
-	{
-		this.representationReference = representationReference;
+		this.representation = representation;
 	}
 	
 	public double getPrix()
@@ -73,12 +83,10 @@ public class TypeBilletRepresentation extends AbstractModelObject implements Bea
 	@Override
 	public AbstractBean getBean()
 	{
-		TypeBilletRepresentationBean bean = null;
+		TypeBilletRepresentationBean bean = new TypeBilletRepresentationBean();
 		
 		if(this != null)
-		{
-			bean = new TypeBilletRepresentationBean(this.representationId);
-			
+		{	
 			bean.setNbBilletEmis(this.nbBilletEmis);
 			bean.setPrix(this.prix);
 			bean.setType((TypeBilletBean)this.type.getBean());
