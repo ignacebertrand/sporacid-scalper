@@ -14,13 +14,14 @@ CREATE TABLE adresses
 ,nom_rue VARCHAR(50) NOT NULL
 ,code_postal VARCHAR(6) NOT NULL
 ,ville VARCHAR(256) NOT NULL
-,province VARCHAR(42) NOT NULL
+,province VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE types_spectacle
 (id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('type_spectacle_id_seq'::regclass)
 ,nom VARCHAR(50) NOT NULL
 ,description VARCHAR(256) NOT NULL
+,is_default BOOLEAN NOT NULL
 );
 
 CREATE TABLE types_billet
@@ -96,8 +97,8 @@ CREATE TABLE clients
 
 CREATE TABLE spectacles
 (id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('spectacle_id_seq'::regclass)
-,adresse_id INTEGER NOT NULL REFERENCES adresses(id)
 ,type_spectacle_id INTEGER NOT NULL REFERENCES types_spectacle(id)
+,poster_url VARCHAR(512) NOT NULL
 ,nom VARCHAR(50) NOT NULL
 ,capacite INTEGER CHECK(capacite > 0) 
 );
