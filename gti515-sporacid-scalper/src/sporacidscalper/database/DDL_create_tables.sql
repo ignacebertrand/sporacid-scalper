@@ -98,8 +98,9 @@ CREATE TABLE clients
 CREATE TABLE spectacles
 (id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('spectacle_id_seq'::regclass)
 ,type_spectacle_id INTEGER NOT NULL REFERENCES types_spectacle(id)
-,poster_url VARCHAR(512) NOT NULL
 ,nom VARCHAR(50) NOT NULL
+,description VARCHAR(256) NOT NULL
+,poster_url VARCHAR(512) NOT NULL
 ,capacite INTEGER CHECK(capacite > 0) 
 );
 
