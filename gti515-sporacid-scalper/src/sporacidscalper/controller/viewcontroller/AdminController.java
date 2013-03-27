@@ -35,7 +35,7 @@ public class AdminController implements ApplicationContextAware
 		ModelAndView mav = new ModelAndView("admin");
 		//mav.addObject("context", request.getContextPath());
 		mav.addObject("listeArtistes", gestionnaireSpectacle.obtenirCatalogueArtistes());
-		mav.addObject("listeSalles", gestionnaireSpectacle.obtenirSalles());
+		//mav.addObject("listeSalles", gestionnaireSpectacle.obtenirSalles());
 		mav.addObject("listeSpectacles", gestionnaireSpectacle.obtenirCatalogueSpectacles());
 		mav.addObject("listeTypesSpectacle", gestionnaireSpectacle.obtenirCatalogueTypeSpectacle());
 		
@@ -63,8 +63,8 @@ public class AdminController implements ApplicationContextAware
 		spectacle.setNom(form.getNom());
 		spectacle.setDescription(form.getDescription());
 		spectacle.setPosterUrl(form.getPosterUrl());
-		spectacle.setArtistes(gestionnaireSpectacle.obtenirArtistes(form.getArtistes()));
-		spectacle.setType(gestionnaireSpectacle.obtenirTypeSpectacle(form.getType()));
+		//spectacle.setArtistes(gestionnaireSpectacle.obtenirArtistes(form.getArtistes()));
+		//spectacle.setType(gestionnaireSpectacle.obtenirTypeSpectacle(form.getType()));
 		
 		gestionnaireSpectacle.ajouterSpectacle(spectacle);
 		

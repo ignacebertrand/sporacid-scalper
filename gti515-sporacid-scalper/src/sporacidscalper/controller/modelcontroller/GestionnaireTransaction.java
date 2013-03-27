@@ -41,7 +41,11 @@ public class GestionnaireTransaction implements IGestionnaireTransaction
 	 */
 	public Integer ajouterTransaction(TransactionBean transactionToAdd)
 	{	
-		Integer entityId = HibernateQueriesUtil.<TransactionBean>ajouterEntite(transactionToAdd, sessionFactory);
+		// Get the model object from the bean
+		Transaction entityToAdd = (Transaction) transactionToAdd.getModelObject();
+		
+		// Add the entity
+		Integer entityId = HibernateQueriesUtil.<Transaction>ajouterEntite(entityToAdd, sessionFactory);
 		
 		// Return the id of the saved transaction or null
 		return entityId;
@@ -49,10 +53,10 @@ public class GestionnaireTransaction implements IGestionnaireTransaction
 
 	/**
 	 * Public method to obtain all transactions made by a client.
-	 * @param clientIdentifier The client unique identifier
+	 * @param clientId The client id
 	 * @return A list of all transactions made by the client
 	 */
-	public List<TransactionBean> obtenirTransactionsClient(String clientIdentifier)
+	public List<TransactionBean> obtenirTransactionsClient(int clientId)
 	{
 		throw new UnsupportedOperationException();
 	}
