@@ -157,7 +157,9 @@ public class Commande extends AbstractModelObject implements Beanable
 			bean = new CommandeBean(this.id);
 			
 			bean.setDateCreation(this.dateModification);
-			bean.setStatut((StatutCommandeBean) this.statut.getBean());
+			
+			if(this.statut != null)
+				bean.setStatut((StatutCommandeBean) this.statut.getBean());
 			
 			for(ItemCommande item : this.items)
 			{
