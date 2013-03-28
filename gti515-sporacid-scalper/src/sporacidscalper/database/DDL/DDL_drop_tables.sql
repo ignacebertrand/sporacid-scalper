@@ -1,0 +1,17 @@
+DROP TABLE types_billet_representations;
+DROP TABLE artistes_spectacles;
+DROP TABLE artistes_tags;
+DROP TABLE transactions;
+DROP TABLE spectacles;
+DROP TABLE clients;
+DROP TABLE representations;
+DROP TABLE salles;
+DROP TABLE item_commandes;
+DROP TABLE commandes;
+DROP TABLE tags;
+DROP TABLE artistes;
+DROP TABLE nouvelles;
+DROP TABLE types_spectacle;
+DROP TABLE types_billet;
+DROP TABLE adresses;
+DROP TABLE statut_commandes;

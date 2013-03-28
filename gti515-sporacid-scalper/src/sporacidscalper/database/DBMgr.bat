@@ -1,24 +1,24 @@
 @ECHO OFF
-SET dbname="SPORACID"
-SET host="localhost"
+SET host="142.137.247.24"
 SET username="postgres"
 SET password="Tabarnak!"
 SET port=5432
-SET pgShell="C:\Program Files\PostgreSQL\9.2\bin\psql.exe"
+SET pgShell="\\evolution.etsmtl.ca\C$\Program Files\PostgreSQL\9.2\bin\psql.exe"
 
-:WhileInvalidDecision
+:DisplayMenu
 REM  // Clear screen and read user input
 CLS
 ECHO -- Database Manager (Sporacid studios 2013) --
 ECHO.
-ECHO    	1- Build Sporacid Database
-ECHO    	2- Teardown Sporacid Database
-ECHO    	3- Cleanup Sporacid Database
-ECHO        4- Dataload Sporacid Database
+ECHO    	1- Build Database
+ECHO    	2- Teardown Database
+ECHO    	3- Cleanup Database
+ECHO    	4- Dataload Database
 ECHO    	0- Quit
 ECHO.
 ECHO.
 SET /p decision="Choose an option: "
+IF NOT %decision%==0 SET /p dbname="Enter the database name: "
 ECHO. 
 
 REM	 // User input validation
@@ -29,34 +29,37 @@ IF %decision%==4 GOTO :Dataload
 IF %decision%==0 (
 	GOTO :Finally
 ) ELSE (
-	GOTO :WhileInvalidDecision
+	GOTO :DisplayMenu
 )
 
 :Build
 ECHO Building the database...
-%pgShell% -q -h %host% -U %username% -d %dbname% -p %port% -f ./DDL_create_sequences.sql
-%pgShell% -q -h %host% -U %username% -d %dbname% -p %port% -f ./DDL_create_tables.sql
+%pgShell% -h %host% -U %username% -d %dbname% -p %port% -f ./BuildDatabase.sql
 ECHO Database built!
-GOTO :Finally
+PAUSE
+GOTO :DisplayMenu
 
 :Destroy
 ECHO Destroying the database...
-%pgShell% -q -h %host% -U %username% -d %dbname% -p %port% -f ./DDL_drop_tables.sql
-%pgShell% -q -h %host% -U %username% -d %dbname% -p %port% -f ./DDL_drop_sequences.sql
+%pgShell% -h %host% -U %username% -d %dbname% -p %port% -f ./DestroyDatabase.sql
 ECHO Database destroyed!
-GOTO :Finally
+PAUSE
+GOTO :DisplayMenu
 
 :Cleanup
 ECHO Cleaning the database tables...
-%pgShell% -q -h %host% -U %username% -d %dbname% -p %port% -f ".\DML_cleanup_db.sql"
+%pgShell% -h %host% -U %username% -d %dbname% -p %port% -P %password% -f ./DML/DML_cleanup_db.sql
 ECHO Database tables cleaned!
-GOTO :Finally
+PAUSE
+GOTO :DisplayMenu
 
 :Dataload
 ECHO Dataloading the database tables...
-%pgShell% -q -h %host% -U %username% -d %dbname% -p %port% -f ".\DML_inserts.sql"
+%pgShell% -h %host% -U %username% -d %dbname% -p %port% -f ./DML/DML_inserts.sql
 ECHO Database tables dataloaded!
+PAUSE
+GOTO :DisplayMenu
 
 :Finally
-ECHO.
+ECHO Application will terminate
 PAUSE
