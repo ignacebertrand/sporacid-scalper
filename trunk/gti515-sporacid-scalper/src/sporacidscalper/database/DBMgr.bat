@@ -34,14 +34,14 @@ IF %decision%==0 (
 
 :Build
 ECHO Building the database...
-%pgShell% -h %host% -U %username% -d %dbname% -p %port% -f ./BuildDatabase.sql
+%pgShell% -h %host% -U %username% -d %dbname% -p %port% -f ./build_database.sql
 ECHO Database built!
 PAUSE
 GOTO :DisplayMenu
 
 :Destroy
 ECHO Destroying the database...
-%pgShell% -h %host% -U %username% -d %dbname% -p %port% -f ./DestroyDatabase.sql
+%pgShell% -h %host% -U %username% -d %dbname% -p %port% -f ./destroy_database.sql
 ECHO Database destroyed!
 PAUSE
 GOTO :DisplayMenu
