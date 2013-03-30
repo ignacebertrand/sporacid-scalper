@@ -83,6 +83,7 @@
  	<bean id="gestionnaireNouvelle" name="gestionnaireNouvelle" 
  			class="sporacidscalper.controller.modelcontroller.GestionnaireNouvelle"
 		 	scope="singleton">
+		 <property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
 	<!-- Bean definition for the shows data manager -->

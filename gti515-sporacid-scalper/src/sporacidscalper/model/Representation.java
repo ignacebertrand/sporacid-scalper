@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -26,25 +30,34 @@ import sporacidscalper.model.beans.TypeBilletRepresentationBean;
 public class Representation extends AbstractModelObject implements Beanable
 {
 	// Upper reference
+	
 	@Transient
 	private int spectacleId;
-	@Transient
-	private SpectacleBean spectacleReference;
+	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "spectacle_id", 
+				referencedColumnName = "id",
+				nullable = false)
+	private Spectacle spectacleReference;
 	
 	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "representation_id_seq")
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "dateDebutRepresentation")
+	@Column(name = "date_debut")
 	private Date dateDebutRepresentation;
 	
-	@Column(name = "dateFinRepresentation")
+	@Column(name = "date_fin")
 	private Date dateFinRepresentation;
 	
 	@Column(name = "statut")
 	private String statut;
 	
-	@Transient
+	// ManyToOne ???? une diff/rence a ce niveau????
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "salle_id", 
+				referencedColumnName = "id",
+				nullable = false)
 	private Salle salle;
 	
 	@Transient
@@ -105,12 +118,12 @@ public class Representation extends AbstractModelObject implements Beanable
 	
 	public SpectacleBean getSpectacleReference()
 	{
-		return this.spectacleReference;
+		return (SpectacleBean)this.spectacleReference.getBean();
 	}
 	
 	public void setSpectacleReference(SpectacleBean spectacleReference)
 	{
-		this.spectacleReference = spectacleReference;
+		this.spectacleReference = (Spectacle)spectacleReference.getModelObject();
 	}
 	
 	public int getId()

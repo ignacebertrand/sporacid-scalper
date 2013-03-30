@@ -13,7 +13,9 @@ import sporacidscalper.model.beans.TypeSpectacleBean;
 
 @Entity
 @Table(name = "types_spectacle")
-@SequenceGenerator(name = "type_spectacle_id_seq", sequenceName = "type_spectacle_id_seq", allocationSize=1)
+@SequenceGenerator(name = "type_spectacle_id_seq", 
+		sequenceName = "type_spectacle_id_seq", 
+		allocationSize=1)
 public class TypeSpectacle extends AbstractModelObject implements Beanable
 {
 	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "type_spectacle_id_seq")

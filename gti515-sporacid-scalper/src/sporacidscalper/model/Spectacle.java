@@ -56,7 +56,10 @@ public class Spectacle extends AbstractModelObject implements Beanable
 				nullable = false)
 	private TypeSpectacle typeSpectacle;
 	
+	
+	// TODO a verifier
 	@Transient
+	@OneToMany(mappedBy = "spectacleReference", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Representation> representations;
 	
 	public Spectacle()

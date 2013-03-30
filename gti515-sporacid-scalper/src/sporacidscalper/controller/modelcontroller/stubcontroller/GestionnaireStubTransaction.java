@@ -6,6 +6,7 @@ import java.util.List;
 import sporacidscalper.controller.modelcontroller.IGestionnaireTransaction;
 import sporacidscalper.model.ItemCommande;
 import sporacidscalper.model.Transaction;
+import sporacidscalper.model.beans.StatutCommandeBean;
 import sporacidscalper.model.beans.TransactionBean;
 import sporacidscalper.model.persistence.StubFactory;
 
@@ -72,5 +73,23 @@ public class GestionnaireStubTransaction implements IGestionnaireTransaction
 			}
 		}
 		return repTransactions.size();
+	}
+
+	@Override
+	public List<TransactionBean> obtenirTransactionsClient(int clientId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<StatutCommandeBean> obtenirStatutsCommande() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StatutCommandeBean obtenirStatutCommandeParDefaut() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
