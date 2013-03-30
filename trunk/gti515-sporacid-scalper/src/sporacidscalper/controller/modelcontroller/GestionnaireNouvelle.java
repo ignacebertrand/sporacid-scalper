@@ -3,37 +3,25 @@ package sporacidscalper.controller.modelcontroller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import sporacidscalper.controller.modelcontroller.IGestionnaireNouvelle;
+import sporacidscalper.controller.modelcontroller.util.HibernateQueriesUtil;
 import sporacidscalper.model.Nouvelle;
 import sporacidscalper.model.beans.NouvelleBean;
-import sporacidscalper.model.persistence.StubFactory;
 
 public class GestionnaireNouvelle implements IGestionnaireNouvelle
 {
-	/**
-	 * List of all news on which we'll do operations
-	 */
-	private List<Nouvelle> listeNouvelles;
-
-
 	/**
 	 * Reference to the SessionFactory implementation
 	 * of the application context bean configuration.
 	 */
 	private SessionFactory sessionFactory;
-	
-	/**
-	 * Private constructor for the singleton
-	 */
-	public GestionnaireNouvelle()
-	{
-		this.listeNouvelles = StubFactory.getInstance().getStubNouvelles();
-	}
 	
 	/**
 	 * Public method to add a news to the system.
@@ -43,42 +31,11 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	{
 		//TODO : Need some sort of validation on nouvelleToAdd
 		
-		Integer entityId = null;
-		
 		// Get a nouvelle entity from the bean supplied
 		Nouvelle entity = (Nouvelle) nouvelleToAdd.getModelObject();
 		
-		// If the entity is a non-null object
-		if(entity != null)
-		{
-			// Get a session from the session factory
-			Session session = sessionFactory.openSession();
-			
-			// Transaction object to wrap the database save operation
-			Transaction tx = null;
-			
-			try
-			{
-				// Try to begin a transaction
-				tx = session.beginTransaction();
-				
-				// Save the entity to the database
-				entityId = (Integer) session.save(entity);
-				
-				// Commit the transaction
-				tx.commit();
-			}
-			catch(HibernateException e)
-			{
-				// An error occured; rollback the transaction
-				tx.rollback();
-			}
-			finally
-			{
-				// Always close the session
-				session.close();
-			}
-		}
+		// Add the entity
+		Integer entityId = HibernateQueriesUtil.<Nouvelle>ajouterEntite(entity, sessionFactory);
 		
 		// Return the id of the saved transaction or null
 		return entityId;
@@ -158,23 +115,41 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	 * @param nouvelleId The Nouvelle unique id
 	 * @return The Nouvelle bean associated with the Nouvelle
 	 */
+	@SuppressWarnings("unchecked")
 	public NouvelleBean obtenirNouvelle(int nouvelleId)
 	{
 		NouvelleBean nouvelleToGet = null;
-		
-		// Access listeSpectacles thread-safely.
-		synchronized(listeNouvelles)
+		List<Nouvelle> nouvelles = null;
+
+		Session session = sessionFactory.openSession(); 
+		Transaction tx = null;
+
+		try
 		{
-			for(Nouvelle nouvelle : listeNouvelles)
-			{
-				if(nouvelle.getId() == nouvelleId)
-				{
-					nouvelleToGet = (NouvelleBean) nouvelle.getBean();
-					break;
-				}
-			}
+			tx = session.beginTransaction();
+			
+			Criteria equalCriteria = session.createCriteria(Nouvelle.class); 
+			equalCriteria.add(Restrictions.eq("id", nouvelleId));
+
+			nouvelles = equalCriteria.list();
+		
+			nouvelles = session.createQuery("FROM Nouvelles").list();
+
+			tx.commit();
+		}
+		catch (HibernateException e) 
+		{ 
+			if (tx!=null) tx.rollback();
+			e.printStackTrace(); 
+		}
+		finally 
+		{ 
+			session.close(); 
 		}
 		
+		if(nouvelles.size() == 1)
+			nouvelleToGet = (NouvelleBean)nouvelles.get(0).getBean();
+				
 		return nouvelleToGet;
 	}
 	
@@ -184,18 +159,21 @@ public class GestionnaireNouvelle implements IGestionnaireNouvelle
 	 */
 	public List<NouvelleBean> obtenirNouvelles()
 	{
-		List<NouvelleBean> nouvelles = new ArrayList<NouvelleBean>();
+		List<NouvelleBean> nouvellesBean = new ArrayList<NouvelleBean>();
+		List<Nouvelle> nouvelles = 
+				HibernateQueriesUtil.<Nouvelle>obtenirEntites(sessionFactory, Nouvelle.class);
 
-		// Access listeNouvelles thread-safely.
-		synchronized(listeNouvelles)
-		{
-			// Iterators are faster than indexed loops for ArrayList
-			for(Nouvelle nouvelle : listeNouvelles)
-				nouvelles.add((NouvelleBean) nouvelle.getBean());
-		}
+		for(Nouvelle nouvelle:nouvelles)
+			nouvellesBean.add((NouvelleBean)nouvelle.getBean());
 		
-		//TODO Sort by date
-		
-		return nouvelles;
+		return nouvellesBean;
+	}
+	
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 }

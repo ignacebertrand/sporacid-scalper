@@ -55,6 +55,16 @@ CREATE TABLE statut_commandes
 --
 -- Tables with 1 dependancies
 --
+
+CREATE TABLE spectacles
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('spectacle_id_seq'::regclass)
+,type_spectacle_id INTEGER NOT NULL REFERENCES types_spectacle(id)
+,nom VARCHAR(50) NOT NULL
+,description VARCHAR(256) NOT NULL
+,poster_url VARCHAR(512) NOT NULL
+,capacite INTEGER CHECK(capacite > 0) 
+);
+
 CREATE TABLE clients
 (id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('client_id_seq'::regclass)
 ,adresse_id INTEGER NOT NULL REFERENCES adresses(id)
@@ -71,14 +81,6 @@ CREATE TABLE salles
 ,capacite INTEGER NOT NULL CHECK(capacite > 0) 
 );
 
-CREATE TABLE representations
-(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('representation_id_seq'::regclass)
-,salle_id INTEGER NOT NULL REFERENCES salles(id) 
-,statut VARCHAR(50) NOT NULL
-,date_debut TIMESTAMP NOT NULL
-,date_fin TIMESTAMP NOT NULL
-);
-
 CREATE TABLE commandes
 (id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('commande_id_seq'::regclass)
 ,statut_commande_id INTEGER NOT NULL REFERENCES statut_commandes(id)
@@ -92,18 +94,19 @@ CREATE TABLE item_commandes
 ,quantite INTEGER CHECK(quantite > 0)
 );
 
-CREATE TABLE spectacles
-(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('spectacle_id_seq'::regclass)
-,type_spectacle_id INTEGER NOT NULL REFERENCES types_spectacle(id)
-,nom VARCHAR(50) NOT NULL
-,description VARCHAR(256) NOT NULL
-,poster_url VARCHAR(512) NOT NULL
-,capacite INTEGER CHECK(capacite > 0) 
-);
-
 --
 -- Tables with WTF dependancies
 --
+
+CREATE TABLE representations
+(id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('representation_id_seq'::regclass)
+,salle_id INTEGER NOT NULL REFERENCES salles(id)
+,spectacle_id INTEGER NOT NULL REFERENCES spectacles(id)
+,statut VARCHAR(50) NOT NULL
+,date_debut TIMESTAMP NOT NULL
+,date_fin TIMESTAMP NOT NULL
+);
+
 CREATE TABLE transactions
 (id INTEGER PRIMARY KEY NOT NULL DEFAULT NEXTVAL('transaction_id_seq'::regclass)
 ,commande_id INTEGER NOT NULL REFERENCES commandes(id)

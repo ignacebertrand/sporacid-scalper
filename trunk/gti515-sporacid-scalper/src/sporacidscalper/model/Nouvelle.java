@@ -15,7 +15,9 @@ import sporacidscalper.model.beans.NouvelleBean;
 
 @Entity
 @Table(name = "nouvelles")
-@SequenceGenerator(name = "nouvelle_id_seq", sequenceName = "nouvelle_id_seq", allocationSize=1)
+@SequenceGenerator(name = "nouvelle_id_seq", 
+		sequenceName = "nouvelle_id_seq", 
+		allocationSize=1)
 public class Nouvelle extends AbstractModelObject implements Beanable
 {
 	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "nouvelle_id_seq")
