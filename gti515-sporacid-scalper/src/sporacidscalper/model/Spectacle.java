@@ -3,11 +3,17 @@ package sporacidscalper.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -20,7 +26,9 @@ import sporacidscalper.model.beans.TypeSpectacleBean;
 
 @Entity
 @Table(name = "spectacles")
-@SequenceGenerator(name = "spectacle_id_seq", sequenceName = "spectacle_id_seq", allocationSize=1)
+@SequenceGenerator(name = "spectacle_id_seq", 
+				sequenceName = "spectacle_id_seq", 
+				allocationSize = 1)
 public class Spectacle extends AbstractModelObject implements Beanable
 {
 	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "spectacle_id_seq")
@@ -33,12 +41,21 @@ public class Spectacle extends AbstractModelObject implements Beanable
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "posterUrl")
+	@Column(name = "poster_url")
 	private String posterUrl;
-	@Transient
+	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "artistes_spectacles",
+			joinColumns = @JoinColumn(name = "spectacle_id", referencedColumnName = "id"), 
+        	inverseJoinColumns = @JoinColumn(name = "artiste_id", referencedColumnName = "id"))
 	private List<Artiste> artistes;
-	@Transient
-	private TypeSpectacle type;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "type_spectacle_id", 
+				referencedColumnName = "id", 
+				nullable = false)
+	private TypeSpectacle typeSpectacle;
+	
 	@Transient
 	private List<Representation> representations;
 	
@@ -54,7 +71,7 @@ public class Spectacle extends AbstractModelObject implements Beanable
 		this.description = null;
 		this.posterUrl = null;
 		this.artistes = new ArrayList<Artiste>();
-		this.type = null;
+		this.typeSpectacle = null;
 		this.representations = new ArrayList<Representation>();
 	}
 	
@@ -137,14 +154,14 @@ public class Spectacle extends AbstractModelObject implements Beanable
 		this.artistes = artistes;
 	}
 	
-	public TypeSpectacle getType()
+	public TypeSpectacle getTypeSpectacle()
 	{
-		return type;
+		return typeSpectacle;
 	}
 	
-	public void setType(TypeSpectacle type)
+	public void setTypeSpectacle(TypeSpectacle type)
 	{
-		this.type = type;
+		this.typeSpectacle = type;
 	}
 	
 	public List<Representation> getRepresentations()
@@ -177,7 +194,10 @@ public class Spectacle extends AbstractModelObject implements Beanable
 			bean.setDescription(this.description);
 			bean.setNom(this.nom);
 			bean.setPosterUrl(this.posterUrl);
-			bean.setType((TypeSpectacleBean)this.type.getBean());
+			
+			if(this.typeSpectacle != null)
+				bean.setType((TypeSpectacleBean)this.typeSpectacle.getBean());
+			
 			bean.setId(this.id);
 			
 			for(Representation representation : this.representations)

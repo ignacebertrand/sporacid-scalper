@@ -151,25 +151,22 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 		// Get the entities
 		List<Spectacle> spectacleEntities = HibernateQueriesUtil.<Spectacle>obtenirEntites(sessionFactory, Spectacle.class);
 		
-		int categ;
-		String text = "";
+		int iSearchCategory = 0;
 		
 		// if only numbers value
-		if(searchCategory == null)
-			categ = 0;
-		else if(searchCategory.matches("{" + searchCategory.length() + "}\\d"))
-			categ = Integer.parseInt(searchCategory);
-		else
-			categ = 0;
+		if(searchCategory != null && searchCategory.matches("{" + searchCategory.length() + "}\\d"))
+			iSearchCategory = Integer.parseInt(searchCategory);
 		
-		if(searchString != null)
-			text = searchString;
+		if(searchString == null)
+			searchString = "";
 	
 		// Apply the search filter
 		for(Spectacle spectacle : spectacleEntities) 
 		{
-			if((spectacle.getType().getId() == categ || categ <= 0) &&
-			   (spectacle.getDescription().toLowerCase().contains(text.toLowerCase()) || text.equals("")))
+			if((spectacle.getTypeSpectacle() != null && (
+					spectacle.getTypeSpectacle().getId() == iSearchCategory || iSearchCategory == 0)) &&
+			   (spectacle.getNom() != null && (
+				   	spectacle.getNom().toLowerCase().contains(searchString.toLowerCase()) || searchString.equals(""))))
 				beans.add((SpectacleBean)spectacle.getBean());
 		}
 		
@@ -257,5 +254,13 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 		
 		// Return the beans
 		return beans;
+	}
+	
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 }
