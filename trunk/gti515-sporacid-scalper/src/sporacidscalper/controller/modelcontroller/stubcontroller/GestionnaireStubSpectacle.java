@@ -297,7 +297,7 @@ public class GestionnaireStubSpectacle implements IGestionnaireSpectacle {
 	 * Public method to obtain the list of Spectacle, withn search criterias, in the system.
 	 * @return The list of all Spectacle
 	 */
-	public List<SpectacleBean> obtenirSpectacles(String searchCategory, String searchString)
+	public List<SpectacleBean> obtenirCatalogueSpectacles(String searchCategory, String searchString)
 	{
 		List<SpectacleBean> spectacles = new ArrayList<SpectacleBean>();
 		
@@ -415,4 +415,5 @@ public class GestionnaireStubSpectacle implements IGestionnaireSpectacle {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

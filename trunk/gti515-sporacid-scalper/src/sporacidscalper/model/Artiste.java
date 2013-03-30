@@ -3,14 +3,20 @@ package sporacidscalper.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.ArtisteBean;
@@ -31,8 +37,13 @@ public class Artiste extends AbstractModelObject implements Beanable
 	
 	@Column(name = "description")
 	private String description;
-	
-	@Transient
+
+	@OneToMany(/*fetch = FetchType.EAGER, */cascade = CascadeType.ALL)
+	@JoinTable(name = "artistes_tags",
+			joinColumns = @JoinColumn(name = "artiste_id", referencedColumnName = "id"), 
+        	inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
+	// fetch = FetchType.EAGER causes a bug and this is the solution given on stackoverflow
+	@LazyCollection(LazyCollectionOption.FALSE) 
 	private List<Tags> tags;
 	
 	public Artiste()

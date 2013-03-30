@@ -173,7 +173,10 @@ public class SpectacleBean extends AbstractBean implements Modelable
 			s.setDescription(this.description);
 			s.setNom(this.nomSpectacle);
 			s.setPosterUrl(this.posterUrl);
-			s.setType((TypeSpectacle) this.typeSpectacle.getModelObject());
+			
+			if(this.typeSpectacle != null)
+				s.setTypeSpectacle((TypeSpectacle) this.typeSpectacle.getModelObject());
+			
 			s.setArtistes(this.toArtistesList(this.artistes));
 			s.setId(this.id);
 			

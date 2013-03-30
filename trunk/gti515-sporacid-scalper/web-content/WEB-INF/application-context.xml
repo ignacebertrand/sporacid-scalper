@@ -39,6 +39,7 @@
                 <value>sporacidscalper.model.Tags</value>
                 <value>sporacidscalper.model.Transaction</value>
                 <value>sporacidscalper.model.TypeBillet</value>
+                <value>sporacidscalper.model.TypeSpectacle</value>
 <!--                 <value>sporacidscalper.model.TypeBilletRepresentation</value> -->
             </list>
         </property>
@@ -88,6 +89,7 @@
  	<bean id="gestionnaireSpectacle" name="gestionnaireSpectacle" 
  			class="sporacidscalper.controller.modelcontroller.GestionnaireSpectacle"
 		 	scope="singleton">
+	 	<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
 	<!-- Bean definition for the clients data manager -->
