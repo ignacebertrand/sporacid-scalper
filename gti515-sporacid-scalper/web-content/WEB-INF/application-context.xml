@@ -39,8 +39,8 @@
                 <value>sporacidscalper.model.Tags</value>
                 <value>sporacidscalper.model.Transaction</value>
                 <value>sporacidscalper.model.TypeBillet</value>
+                <value>sporacidscalper.model.TypeBilletRepresentation</value>
                 <value>sporacidscalper.model.TypeSpectacle</value>
-<!--                 <value>sporacidscalper.model.TypeBilletRepresentation</value> -->
             </list>
         </property>
         <property name="hibernateProperties">

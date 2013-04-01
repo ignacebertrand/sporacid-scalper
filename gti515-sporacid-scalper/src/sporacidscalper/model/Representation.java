@@ -13,10 +13,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.RepresentationBean;
@@ -56,7 +60,8 @@ public class Representation extends AbstractModelObject implements Beanable
 				nullable = false)
 	private Salle salle;
 	
-	@Transient
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "representation")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<TypeBilletRepresentation> typesBillet;
 	
 	public Representation()
