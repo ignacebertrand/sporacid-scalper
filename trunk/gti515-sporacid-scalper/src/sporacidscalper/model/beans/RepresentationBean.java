@@ -16,7 +16,6 @@ public class RepresentationBean extends AbstractBean implements Modelable
 	private static final long serialVersionUID = 1875304992245566973L;
 	
 	// Upper reference
-	private int spectacleId;
 	private SpectacleBean spectacleReference;
 	
 	private int id;
@@ -28,13 +27,12 @@ public class RepresentationBean extends AbstractBean implements Modelable
 	
 	public RepresentationBean()
 	{
-		this(-1, -1);
+		this(-1);
 	}
 	
-	public RepresentationBean(int id, int spectacleId)
+	public RepresentationBean(int id)
 	{
 		// Upper reference
-		this.spectacleId = spectacleId;
 		this.spectacleReference= null; 
 		
 		this.id = id;
@@ -72,11 +70,6 @@ public class RepresentationBean extends AbstractBean implements Modelable
 		}
 		
 		return typeBilletToGet;
-	}
-
-	public int getSpectacleId()
-	{
-		return spectacleId;
 	}
 	
 	public SpectacleBean getSpectacleReference()
@@ -151,7 +144,7 @@ public class RepresentationBean extends AbstractBean implements Modelable
 		
 		if(this != null)
 		{
-			r = new Representation(this.id, this.spectacleId);
+			r = new Representation(this.id);
 			
 			r.setDateDebutRepresentation(this.dateDebutRepresentation);
 			r.setDateFinRepresentation(this.dateFinRepresentation);

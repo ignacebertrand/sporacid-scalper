@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -30,11 +31,7 @@ import sporacidscalper.model.beans.TypeBilletRepresentationBean;
 public class Representation extends AbstractModelObject implements Beanable
 {
 	// Upper reference
-	
-	@Transient
-	private int spectacleId;
-	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "spectacle_id", 
 				referencedColumnName = "id",
 				nullable = false)
@@ -53,7 +50,6 @@ public class Representation extends AbstractModelObject implements Beanable
 	@Column(name = "statut")
 	private String statut;
 	
-	// ManyToOne ???? une diff/rence a ce niveau????
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "salle_id", 
 				referencedColumnName = "id",
@@ -65,13 +61,12 @@ public class Representation extends AbstractModelObject implements Beanable
 	
 	public Representation()
 	{
-		this(-1, -1);
+		this(-1);
 	}
 	
-	public Representation(int id, int spectacleId)
+	public Representation(int id)
 	{
 		// Upper reference
-		this.spectacleId = spectacleId;
 		this.spectacleReference= null; 
 		
 		this.id = id;
@@ -111,11 +106,6 @@ public class Representation extends AbstractModelObject implements Beanable
 		return typeBilletToGet;
 	}
 
-	public int getSpectacleId()
-	{
-		return spectacleId;
-	}
-	
 	public SpectacleBean getSpectacleReference()
 	{
 		return (SpectacleBean)this.spectacleReference.getBean();
@@ -196,11 +186,14 @@ public class Representation extends AbstractModelObject implements Beanable
 		
 		if(this != null)
 		{
-			bean = new RepresentationBean(this.id, this.spectacleId);
+			bean = new RepresentationBean(this.id);
 			
 			bean.setDateDebutRepresentation(this.dateDebutRepresentation);
 			bean.setDateFinRepresentation(this.dateFinRepresentation);
-			bean.setSalle((SalleBean)this.salle.getBean());
+			
+			if(salle != null)
+				bean.setSalle((SalleBean)this.salle.getBean());
+			
 			bean.setStatut(this.statut);
 			bean.setTypesBillet(this.toTagsBeanList(this.typesBillet));
 		}

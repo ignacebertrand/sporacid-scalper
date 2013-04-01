@@ -23,10 +23,10 @@ public class Adresse extends AbstractModelObject implements Beanable
 	private int id;
 	
 	@Column(name = "no_civique")
-	private int noCivique;
+	private Integer noCivique;
 	
 	@Column(name = "no_appartement")
-	private int noAppartement;
+	private Integer noAppartement;
 	
 	@Column(name = "nom_rue", length = 50)
 	private String nomRue;
@@ -59,17 +59,17 @@ public class Adresse extends AbstractModelObject implements Beanable
 		return this.id;
 	}
 	
-	public int getNoCivique()
+	public Integer getNoCivique()
 	{
 		return noCivique;
 	}
 	
-	public void setNoCivique(int noCivique)
+	public void setNoCivique(Integer noCivique)
 	{
 		this.noCivique = noCivique;
 	}
 	
-	public int getNoAppartement() 
+	public Integer getNoAppartement() 
 	{
 		return noAppartement;
 	}

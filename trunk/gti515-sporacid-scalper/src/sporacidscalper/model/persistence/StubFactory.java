@@ -376,7 +376,7 @@ public class StubFactory
 			for(int j = 1; j <= 30; j++)
 			{
 				// Representation created with upper reference set at construction
-				Representation representation = new Representation(j,i);
+				Representation representation = new Representation(j);
 				representation.setDateDebutRepresentation(Calendar.getInstance().getTime());
 				representation.setDateFinRepresentation(Calendar.getInstance().getTime());
 				representation.setSalle(this.listeSalles.get(0));

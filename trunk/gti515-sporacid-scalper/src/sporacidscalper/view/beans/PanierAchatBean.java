@@ -62,7 +62,7 @@ public class PanierAchatBean
 		
 		RepresentationBean represToAdd  = itemToAdd.getBilletRepresentation().getRepresentationReference();
 		
-		int spectId = represToAdd.getSpectacleId();
+		int spectId = represToAdd.getSpectacleReference().getId();
 		int represId = represToAdd.getId();
 		int typeBilletId = itemToAdd.getBilletRepresentation().getType().getId();
 		
@@ -70,7 +70,7 @@ public class PanierAchatBean
 		{
 			RepresentationBean represPanier = item.getBilletRepresentation().getRepresentationReference();
 						
-			if(represPanier.getSpectacleId() == spectId &&
+			if(represPanier.getSpectacleReference().getId() == spectId &&
 			   represPanier.getId() == represId &&
 			   item.getBilletRepresentation().getType().getId() == typeBilletId)
 				ok = false;					
