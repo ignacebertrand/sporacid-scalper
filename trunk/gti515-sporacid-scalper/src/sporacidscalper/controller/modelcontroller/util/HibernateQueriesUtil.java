@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import sporacidscalper.model.AbstractModelObject;
 
@@ -160,6 +161,7 @@ public final class HibernateQueriesUtil
 			
 			// Put the query result into the list
 			entitiesList = (List<E>) queryResult.list();
+			
 		}
 		catch(HibernateException e)
 		{
@@ -182,6 +184,7 @@ public final class HibernateQueriesUtil
 	 * @param classObj
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public static <E extends AbstractModelObject> E obtenirEntite(int entityId, SessionFactory sessionFactory, Class<E> classObj)
 	{
 		E entity = null;
@@ -191,12 +194,11 @@ public final class HibernateQueriesUtil
 
 		try
 		{
-			// If the method getId() doesn't exist, the class has no id field and cannot be loaded.
-			// If this fails, an error will be thrown, and the loading will abort.
 			classObj.getMethod("getId");
 			
-			// Load the entity from the entity Id
-			session.load(entity, entityId);
+			// Put the query result into the list
+			entity = (E)session.createCriteria(classObj)
+		            .add(Restrictions.eq("id", entityId)).uniqueResult();
 		}
 		catch(HibernateException e)
 		{
