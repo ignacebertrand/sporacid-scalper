@@ -14,9 +14,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.ArtisteBean;
@@ -44,7 +47,7 @@ public class Spectacle extends AbstractModelObject implements Beanable
 	@Column(name = "poster_url")
 	private String posterUrl;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "artistes_spectacles",
 			joinColumns = @JoinColumn(name = "spectacle_id", referencedColumnName = "id"), 
         	inverseJoinColumns = @JoinColumn(name = "artiste_id", referencedColumnName = "id"))
@@ -56,10 +59,8 @@ public class Spectacle extends AbstractModelObject implements Beanable
 				nullable = false)
 	private TypeSpectacle typeSpectacle;
 	
-	
-	// TODO a verifier
-	@Transient
-	@OneToMany(mappedBy = "spectacleReference", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "spectacleReference")
+	@LazyCollection(LazyCollectionOption.FALSE) 
 	private List<Representation> representations;
 	
 	public Spectacle()

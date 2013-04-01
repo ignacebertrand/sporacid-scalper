@@ -1,13 +1,16 @@
 package sporacidscalper.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.AdresseBean;
@@ -27,8 +30,11 @@ public class Salle extends AbstractModelObject implements Beanable
 	
 	@Column(name = "capacite")
 	private int capacite;
-	
-	@Transient
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "adresse_id", 
+				referencedColumnName = "id",
+				nullable = false)
 	private Adresse adresse;
 	
 	public Salle()
@@ -88,7 +94,9 @@ public class Salle extends AbstractModelObject implements Beanable
 		{
 			bean = new SalleBean(this.id);
 			
-			bean.setAdresse((AdresseBean)this.adresse.getBean());
+			if(adresse != null)
+				bean.setAdresse((AdresseBean)this.adresse.getBean());
+			
 			bean.setCapacite(this.capacite);
 			bean.setNom(this.nom);
 		}
