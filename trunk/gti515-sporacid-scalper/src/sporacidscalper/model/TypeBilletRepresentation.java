@@ -10,25 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import sporacidscalper.model.beans.AbstractBean;
 import sporacidscalper.model.beans.TypeBilletBean;
 import sporacidscalper.model.beans.TypeBilletRepresentationBean;
-
-// TODO composite foreign key donc doit etre gerer differemment
-/*
-@AttributeOverrides({
-    @AttributeOverride(name="representation_id", @Column(name="representation_id"))
-    @AttributeOverride(name="type_billet_id", @Column(name="type_billet_id"))
-})
-*/
-/*
- * 
-	@JoinColumn(name = "representation_id", 
-				referencedColumnName = "id",
-				nullable = false)
- */
 
 @Entity
 @Table(name = "types_billet_representation")
@@ -39,28 +24,20 @@ public class TypeBilletRepresentation extends AbstractModelObject implements Bea
 	    @AttributeOverride(name="type_billet_id", column=@Column(name="type_billet_id"))
 	})
 	@EmbeddedId
-	TypeBilletRepresentationCompositeKey id;
+	private TypeBilletRepresentationCompositeKey id;
 	
-	/*@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "representation_id", 
-				referencedColumnName = "id",
-				nullable = false)*/
 	@MapsId("representation_id")
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "representation_id", 
-	referencedColumnName = "id",
-	nullable = false)
-	private Representation representation; 
-	
-	/*@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "type_billet_id", 
 				referencedColumnName = "id",
-				nullable = false)*/
+				nullable = false)
+	private Representation representation; 
+
 	@MapsId("type_billet_id")
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "type_billet_id", 
-	referencedColumnName = "id",
-	nullable = false)
+				referencedColumnName = "id",
+				nullable = false)
 	private TypeBillet typeBillet;
 	
 	@Column(name = "prix")
