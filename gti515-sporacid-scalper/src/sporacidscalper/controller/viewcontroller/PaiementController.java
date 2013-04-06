@@ -1,9 +1,20 @@
 package sporacidscalper.controller.viewcontroller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -46,6 +57,11 @@ public class PaiementController implements ApplicationContextAware
 	 * of the application context bean configuration.
 	 */
 	private IPresentationPaiement presentationPaiement;
+	
+	/**
+	 * 
+	 */
+	private static final String cBaseUrl = "http://gti525.herokuapp.com/transactions";
 
 	/**
 	 * 
@@ -67,8 +83,8 @@ public class PaiementController implements ApplicationContextAware
 		stub.setNoAppartement(12);
 		stub.setProvince("qc");
 		stub.setVille("laval");
-		stub.setNoCarte("1111111111111111");
-		stub.setDateExpiration("12/12");
+		stub.setNoCarte("8675309000000000");
+		stub.setDateExpiration("12/15");
 		stub.setCodeCvv("123");
 		stub.setCodePostal("h1h1h1");
 		
@@ -129,7 +145,11 @@ public class PaiementController implements ApplicationContextAware
 				transaction.setCommande(commande);
 				transaction.setTotalTransaction(commande.getTotal());
 				
-				gestionnaireTransaction.ajouterTransaction(transaction);
+				if(preautoriserPaiement(transaction, form, request))
+				{
+					Integer transactionId = gestionnaireTransaction.ajouterTransaction(transaction);
+					autoriserPaiement(transactionId, request);
+				}
 				
 				mav.addObject("transaction", transaction);
 			}
@@ -146,6 +166,101 @@ public class PaiementController implements ApplicationContextAware
 		mav.addObject("presentationPaiement", presentationPaiement);
 	
 		return mav;
+	}
+	
+	private boolean autoriserPaiement(int transactionId, HttpServletRequest request)
+	{
+		JSONParser parser = new JSONParser();
+        URL url = null;
+        String link = cBaseUrl + "/" + transactionId + ".json?" +
+				"api_key=faab9b7fb41cfc9c8995" + 	
+				"&store_id=666";
+				
+		try {
+				url = new URL(link);
+		        URLConnection conn = url.openConnection();
+		        ((HttpURLConnection) conn).setRequestMethod("GET");
+		        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		       
+		        String jsonString="";
+		        String line; 
+		        
+		        while ((line = in.readLine()) != null)
+		            jsonString += line;
+
+		        JSONObject  jsonObject = (JSONObject) parser.parse( jsonString );	
+		        jsonObject =  (JSONObject) jsonObject.get("order");
+		        
+		        String status = (String) jsonObject.get("status");
+		        
+		        if (status.equals("Completed")) {
+		        	ApplicationMessages.ajouterMessage(jsonObject.get("messages").toString(), request);
+	            }
+		        
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
+	
+	private boolean preautoriserPaiement(TransactionBean transaction, FormulairePaiementSecurise form, HttpServletRequest request)
+	{
+		JSONParser parser = new JSONParser();
+
+        URL url = null;
+        // Hard code ftw
+        String[] splitExpDate = form.getDateExpiration().split("/");
+        String month = splitExpDate[0];
+        String year = splitExpDate[1];
+        
+        String link = cBaseUrl + ".json?" +
+				"api_key=faab9b7fb41cfc9c8995" + 	
+				"&order_id=121313" +
+				"&store_id=666"	+
+				"&amount="		+ transaction.getTotalTransaction() +
+				"&first_name="	+ form.getNom() + 
+				"&last_name="	+ form.getNom() +
+				"&card_number="	+ form.getNoCarte()	+
+				"&security_code=" + form.getCodeCvv() +
+				"&year=" + "20" + year +
+				"&month=" + month;
+		try {
+			url = new URL(link);
+	        URLConnection conn = url.openConnection();
+	        ((HttpURLConnection) conn).setRequestMethod("POST");
+	        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	       
+	        String jsonString="";
+	        String line; 
+	        
+	        while ((line = in.readLine()) != null)
+	            jsonString += line;
+	        
+	        JSONObject  jsonObject = (JSONObject) parser.parse( jsonString );	
+	        jsonObject =  (JSONObject) jsonObject.get("order");
+	        
+	        String status = (String) jsonObject.get("status");
+	        if (status.equals("Accepted")) {
+            	ApplicationMessages.ajouterMessage(jsonObject.get("messages").toString(), request);
+            	transaction.setNoConfirmationPaiement(Integer.valueOf(jsonObject.get("transaction_id").toString()));
+//		        reponse.setCode((Integer.valueOf(jsonObject.get("code").toString())));
+//		        reponse.setTransactionId(Integer.valueOf(jsonObject.get("transaction_id").toString()));
+//		        reponse.setStatus( jsonObject.get("status").toString());
+            }
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return true;
 	}
 	
 	/**
