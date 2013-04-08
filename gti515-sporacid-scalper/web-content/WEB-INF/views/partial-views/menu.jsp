@@ -30,16 +30,16 @@
 			<div class="sub-menu-container">
 				<ul class="sub-menu">
 					<li class="sub-menu-item">
-						<a href="<%=contextAttr%>/billets/liste-billets?searchCategory=1">Humour</a>
+						<a href="<%=contextAttr%>/billets/liste-billets?searchCategory=17&searchString=">Humour</a>
 					</li>
 					<li class="sub-menu-item">
-						<a href="<%=contextAttr%>/billets/liste-billets?searchCategory=2">Metal</a>
+						<a href="<%=contextAttr%>/billets/liste-billets?searchCategory=18&searchString=">Metal</a>
 					</li>
 					<li class="sub-menu-item">
-						<a href="<%=contextAttr%>/billets/liste-billets?searchCategory=3">Country</a>
+						<a href="<%=contextAttr%>/billets/liste-billets?searchCategory=19&searchString=">Country</a>
 					</li>
 					<li class="sub-menu-item">
-						<a href="<%=contextAttr%>/billets/liste-billets?searchCategory=4">Classique</a>
+						<a href="<%=contextAttr%>/billets/liste-billets?searchCategory=20&searchString=">Classique</a>
 					</li>
 				</ul>
 			</div>

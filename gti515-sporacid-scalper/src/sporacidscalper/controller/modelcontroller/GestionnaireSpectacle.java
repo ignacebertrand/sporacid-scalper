@@ -154,7 +154,7 @@ public class GestionnaireSpectacle implements IGestionnaireSpectacle
 		int iSearchCategory = 0;
 		
 		// if only numbers value
-		if(searchCategory != null && searchCategory.matches("{" + searchCategory.length() + "}\\d"))
+		if(searchCategory != null && searchCategory.matches("\\d{" + searchCategory.length() + "}"))
 			iSearchCategory = Integer.parseInt(searchCategory);
 		
 		if(searchString == null)
